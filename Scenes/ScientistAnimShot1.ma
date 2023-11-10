@@ -1,6 +1,6 @@
 //Maya ASCII 2023 scene
 //Name: ScientistAnimShot1.ma
-//Last modified: Thu, Nov 09, 2023 07:39:28 PM
+//Last modified: Thu, Nov 09, 2023 11:41:35 PM
 //Codeset: 1252
 file -rdi 1 -ns "ScientistWithClothingTest" -rfn "ScientistWithClothingTestRN"
 		 -op "v=0;" -typ "mayaAscii" "C:/Users/GuyBF/Personal Projects/GitKraken/ScientistAnim/Scenes/ScientistRig.ma";
@@ -15,6 +15,7 @@ requires "stereoCamera" "10.0";
 requires -nodeType "substanceNode" -nodeType "substanceOutputNode" "substancemaya" "2.4.0";
 requires -nodeType "aiOptions" -nodeType "aiAOVDriver" -nodeType "aiAOVFilter" -nodeType "aiAreaLight"
 		 "mtoa" "5.1.0";
+requires -nodeType "AlembicNode" "AbcImport" "1.0";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -22,22 +23,22 @@ fileInfo "product" "Maya 2023";
 fileInfo "version" "2023";
 fileInfo "cutIdentifier" "202202161415-df43006fd3";
 fileInfo "osv" "Windows 11 Home v2009 (Build: 22621)";
-fileInfo "UUID" "5A274593-4E84-A58F-8F3E-71836D1B3D36";
+fileInfo "UUID" "DD36BFBD-4AFA-07AE-BBCB-5EB8CDE04B3F";
 createNode transform -s -n "persp";
 	rename -uid "02318938-485E-A77A-5C0D-5C83C2BE3899";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 30.73048341857362 15.574100029920825 -87.999419315031432 ;
-	setAttr ".r" -type "double3" -0.93835223613581953 -2044.2000000002538 0 ;
+	setAttr ".t" -type "double3" 31.150332091366334 15.831834357435589 -86.161242700582619 ;
+	setAttr ".r" -type "double3" -12.93835220212512 -2085.3999999998828 0 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "D5DACAAC-485E-7439-D12C-55BBDD72B3F7";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
 	setAttr ".ncp" 0.02;
-	setAttr ".coi" 2.6799571537519649;
+	setAttr ".coi" 2.4820333186456733;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
-	setAttr ".tp" -type "double3" 25.751294726570148 15.534914508472466 -86.6647795824029 ;
+	setAttr ".tp" -type "double3" 28.818167654916049 15.27610078311038 -86.803627811392786 ;
 	setAttr ".hc" -type "string" "viewSet -p %camera";
 createNode transform -s -n "top";
 	rename -uid "A1DDE97E-4B97-33E0-C057-84B3C7FDAA53";
@@ -10907,23 +10908,52 @@ createNode aiAreaLight -n "aiAreaLightShape3" -p "aiAreaLight3";
 	setAttr ".ai_translator" -type "string" "quad";
 	setAttr ".aal" -type "attributeAlias" {"exposure","aiExposure","normalize","aiNormalize"
 		} ;
+createNode transform -n "FirstTry:cloth_parent";
+	rename -uid "E7FF4D33-407D-B685-6366-A39D2D342B50";
+	setAttr ".v" no;
+	setAttr ".t" -type "double3" 28.79689 14.796757376707678 -86.746909 ;
+	setAttr ".r" -type "double3" 0 -90 0 ;
+	setAttr ".s" -type "double3" 0.0625 0.0625 0.0625 ;
+createNode mesh -n "FirstTry:cloth_shape_0" -p "FirstTry:cloth_parent";
+	rename -uid "627F1284-44B2-D2FD-2DAA-0B9EDAD74A2D";
+	addAttr -ci true -k true -sn "noNormals" -ln "noNormals" -dv 1 -min 0 -max 1 -at "bool";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+createNode transform -n "SecondTry:cloth_parent";
+	rename -uid "C472E6E1-4B2E-5902-C292-CE914C233A95";
+	setAttr ".t" -type "double3" 28.79689 14.796757 -86.746909 ;
+	setAttr ".r" -type "double3" 0 -90 0 ;
+	setAttr ".s" -type "double3" 0.0625 0.0625 0.0625 ;
+createNode mesh -n "SecondTry:cloth_shape_0" -p "SecondTry:cloth_parent";
+	rename -uid "3E377A27-410D-B2C1-D03C-B4BA95D0993B";
+	addAttr -ci true -k true -sn "noNormals" -ln "noNormals" -dv 1 -min 0 -max 1 -at "bool";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 createNode lightLinker -s -n "lightLinker1";
-	rename -uid "A8B75FF9-4E5F-BB0B-3681-EE9FA9F47B6B";
-	setAttr -s 83 ".lnk";
-	setAttr -s 83 ".slnk";
+	rename -uid "E3CF01DF-4451-8050-8527-D19C7F87D5DF";
+	setAttr -s 117 ".lnk";
+	setAttr -s 117 ".slnk";
 createNode shapeEditorManager -n "shapeEditorManager";
-	rename -uid "3CEC5836-4288-7B1D-A884-B58F337C958F";
+	rename -uid "8BBC46FF-4727-F56E-0CF8-9FA4D0E02038";
 createNode poseInterpolatorManager -n "poseInterpolatorManager";
-	rename -uid "D441CA73-42CC-3211-E067-C3952DCF2948";
+	rename -uid "E88F9243-4AC1-8BCA-6713-E7AACDE0569E";
 createNode displayLayerManager -n "layerManager";
-	rename -uid "0A6E2543-40FC-960B-D8F5-4891A0BAE08A";
+	rename -uid "4BE3DE6B-433A-6DEF-2C63-0BB1EAF051CF";
 	setAttr ".cdl" 2;
 	setAttr -s 3 ".dli[1:2]"  1 2;
 	setAttr -s 3 ".dli";
 createNode displayLayer -n "defaultLayer";
 	rename -uid "53635E12-41F1-4B6B-8507-FEA207A11C67";
 createNode renderLayerManager -n "renderLayerManager";
-	rename -uid "9BB016CF-4237-AA64-0C39-7D90C4B3F861";
+	rename -uid "A833595C-4599-1ED7-2FDD-4FBAA6D15651";
 createNode renderLayer -n "defaultRenderLayer";
 	rename -uid "BB69E074-422D-487E-7C18-5784511A6542";
 	setAttr ".g" yes;
@@ -10933,7 +10963,7 @@ createNode script -n "uiConfigurationScriptNode";
 		"// Maya Mel UI Configuration File.\n//\n//  This script is machine generated.  Edit at your own risk.\n//\n//\n\nglobal string $gMainPane;\nif (`paneLayout -exists $gMainPane`) {\n\n\tglobal int $gUseScenePanelConfig;\n\tint    $useSceneConfig = $gUseScenePanelConfig;\n\tint    $nodeEditorPanelVisible = stringArrayContains(\"nodeEditorPanel1\", `getPanel -vis`);\n\tint    $nodeEditorWorkspaceControlOpen = (`workspaceControl -exists nodeEditorPanel1Window` && `workspaceControl -q -visible nodeEditorPanel1Window`);\n\tint    $menusOkayInPanels = `optionVar -q allowMenusInPanels`;\n\tint    $nVisPanes = `paneLayout -q -nvp $gMainPane`;\n\tint    $nPanes = 0;\n\tstring $editorName;\n\tstring $panelName;\n\tstring $itemFilterName;\n\tstring $panelConfig;\n\n\t//\n\t//  get current state of the UI\n\t//\n\tsceneUIReplacement -update $gMainPane;\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Top View\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tmodelPanel -edit -l (localizedPanelLabel(\"Top View\")) -mbv $menusOkayInPanels  $panelName;\n"
 		+ "\t\t$editorName = $panelName;\n        modelEditor -e \n            -camera \"|Scene|Camera_2\" \n            -useInteractiveMode 0\n            -displayLights \"default\" \n            -displayAppearance \"smoothShaded\" \n            -activeOnly 0\n            -ignorePanZoom 0\n            -wireframeOnShaded 0\n            -headsUpDisplay 1\n            -holdOuts 1\n            -selectionHiliteDisplay 1\n            -useDefaultMaterial 0\n            -bufferMode \"double\" \n            -twoSidedLighting 0\n            -backfaceCulling 0\n            -xray 0\n            -jointXray 0\n            -activeComponentsXray 0\n            -displayTextures 1\n            -smoothWireframe 0\n            -lineWidth 1\n            -textureAnisotropic 0\n            -textureHilight 1\n            -textureSampling 2\n            -textureDisplay \"modulate\" \n            -textureMaxSize 32768\n            -fogging 0\n            -fogSource \"fragment\" \n            -fogMode \"linear\" \n            -fogStart 0\n            -fogEnd 100\n            -fogDensity 0.1\n            -fogColor 0.5 0.5 0.5 1 \n"
 		+ "            -depthOfFieldPreview 1\n            -maxConstantTransparency 1\n            -rendererName \"vp2Renderer\" \n            -objectFilterShowInHUD 1\n            -isFiltered 0\n            -colorResolution 256 256 \n            -bumpResolution 512 512 \n            -textureCompression 0\n            -transparencyAlgorithm \"frontAndBackCull\" \n            -transpInShadows 0\n            -cullingOverride \"none\" \n            -lowQualityLighting 0\n            -maximumNumHardwareLights 1\n            -occlusionCulling 0\n            -shadingModel 0\n            -useBaseRenderer 0\n            -useReducedRenderer 0\n            -smallObjectCulling 0\n            -smallObjectThreshold -1 \n            -interactiveDisableShadows 0\n            -interactiveBackFaceCull 0\n            -sortTransparent 1\n            -controllers 1\n            -nurbsCurves 1\n            -nurbsSurfaces 1\n            -polymeshes 1\n            -subdivSurfaces 1\n            -planes 1\n            -lights 1\n            -cameras 1\n            -controlVertices 1\n"
-		+ "            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 0\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 631\n            -height 255\n            -sceneRenderFilter 0\n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n"
+		+ "            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 0\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 1268\n            -height 554\n            -sceneRenderFilter 0\n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n"
 		+ "\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Side View\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tmodelPanel -edit -l (localizedPanelLabel(\"Side View\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        modelEditor -e \n            -camera \"|side\" \n            -useInteractiveMode 0\n            -displayLights \"default\" \n            -displayAppearance \"smoothShaded\" \n            -activeOnly 0\n            -ignorePanZoom 0\n            -wireframeOnShaded 0\n            -headsUpDisplay 1\n            -holdOuts 1\n            -selectionHiliteDisplay 1\n            -useDefaultMaterial 0\n            -bufferMode \"double\" \n            -twoSidedLighting 0\n            -backfaceCulling 0\n            -xray 0\n            -jointXray 0\n            -activeComponentsXray 0\n            -displayTextures 0\n            -smoothWireframe 0\n            -lineWidth 1\n            -textureAnisotropic 0\n            -textureHilight 1\n            -textureSampling 2\n"
 		+ "            -textureDisplay \"modulate\" \n            -textureMaxSize 32768\n            -fogging 0\n            -fogSource \"fragment\" \n            -fogMode \"linear\" \n            -fogStart 0\n            -fogEnd 100\n            -fogDensity 0.1\n            -fogColor 0.5 0.5 0.5 1 \n            -depthOfFieldPreview 1\n            -maxConstantTransparency 1\n            -rendererName \"vp2Renderer\" \n            -objectFilterShowInHUD 1\n            -isFiltered 0\n            -colorResolution 256 256 \n            -bumpResolution 512 512 \n            -textureCompression 0\n            -transparencyAlgorithm \"frontAndBackCull\" \n            -transpInShadows 0\n            -cullingOverride \"none\" \n            -lowQualityLighting 0\n            -maximumNumHardwareLights 1\n            -occlusionCulling 0\n            -shadingModel 0\n            -useBaseRenderer 0\n            -useReducedRenderer 0\n            -smallObjectCulling 0\n            -smallObjectThreshold -1 \n            -interactiveDisableShadows 0\n            -interactiveBackFaceCull 0\n"
 		+ "            -sortTransparent 1\n            -controllers 1\n            -nurbsCurves 1\n            -nurbsSurfaces 1\n            -polymeshes 1\n            -subdivSurfaces 1\n            -planes 1\n            -lights 1\n            -cameras 1\n            -controlVertices 1\n            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n            -fluids 1\n            -hairSystems 1\n            -follicles 1\n            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 0\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 630\n            -height 255\n"
@@ -10943,7 +10973,7 @@ createNode script -n "uiConfigurationScriptNode";
 		+ "            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 0\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 631\n            -height 255\n            -sceneRenderFilter 0\n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"modelPanel\" (localizedPanelLabel(\"Persp View\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\tmodelPanel -edit -l (localizedPanelLabel(\"Persp View\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        modelEditor -e \n            -camera \"|persp\" \n            -useInteractiveMode 0\n            -displayLights \"default\" \n            -displayAppearance \"smoothShaded\" \n            -activeOnly 0\n            -ignorePanZoom 0\n"
 		+ "            -wireframeOnShaded 0\n            -headsUpDisplay 1\n            -holdOuts 1\n            -selectionHiliteDisplay 1\n            -useDefaultMaterial 0\n            -bufferMode \"double\" \n            -twoSidedLighting 0\n            -backfaceCulling 0\n            -xray 0\n            -jointXray 0\n            -activeComponentsXray 0\n            -displayTextures 1\n            -smoothWireframe 0\n            -lineWidth 1\n            -textureAnisotropic 0\n            -textureHilight 1\n            -textureSampling 2\n            -textureDisplay \"modulate\" \n            -textureMaxSize 32768\n            -fogging 0\n            -fogSource \"fragment\" \n            -fogMode \"linear\" \n            -fogStart 0\n            -fogEnd 100\n            -fogDensity 0.1\n            -fogColor 0.5 0.5 0.5 1 \n            -depthOfFieldPreview 1\n            -maxConstantTransparency 1\n            -rendererName \"vp2Renderer\" \n            -objectFilterShowInHUD 1\n            -isFiltered 0\n            -colorResolution 256 256 \n            -bumpResolution 512 512 \n"
 		+ "            -textureCompression 0\n            -transparencyAlgorithm \"frontAndBackCull\" \n            -transpInShadows 0\n            -cullingOverride \"none\" \n            -lowQualityLighting 0\n            -maximumNumHardwareLights 1\n            -occlusionCulling 0\n            -shadingModel 0\n            -useBaseRenderer 0\n            -useReducedRenderer 0\n            -smallObjectCulling 0\n            -smallObjectThreshold -1 \n            -interactiveDisableShadows 0\n            -interactiveBackFaceCull 0\n            -sortTransparent 1\n            -controllers 1\n            -nurbsCurves 1\n            -nurbsSurfaces 1\n            -polymeshes 1\n            -subdivSurfaces 1\n            -planes 1\n            -lights 1\n            -cameras 1\n            -controlVertices 1\n            -hulls 1\n            -grid 1\n            -imagePlane 1\n            -joints 1\n            -ikHandles 1\n            -deformers 1\n            -dynamics 1\n            -particleInstancers 1\n            -fluids 1\n            -hairSystems 1\n            -follicles 1\n"
-		+ "            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 0\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 1268\n            -height 554\n            -sceneRenderFilter 0\n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"outlinerPanel\" (localizedPanelLabel(\"ToggledOutliner\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\toutlinerPanel -edit -l (localizedPanelLabel(\"ToggledOutliner\")) -mbv $menusOkayInPanels  $panelName;\n"
+		+ "            -nCloths 1\n            -nParticles 1\n            -nRigids 1\n            -dynamicConstraints 1\n            -locators 1\n            -manipulators 1\n            -pluginShapes 1\n            -dimensions 1\n            -handles 1\n            -pivots 1\n            -textures 1\n            -strokes 1\n            -motionTrails 1\n            -clipGhosts 1\n            -greasePencils 0\n            -shadows 0\n            -captureSequenceNumber -1\n            -width 630\n            -height 255\n            -sceneRenderFilter 0\n            $editorName;\n        modelEditor -e -viewSelected 0 $editorName;\n        modelEditor -e \n            -pluginObjects \"gpuCacheDisplayFilter\" 1 \n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"outlinerPanel\" (localizedPanelLabel(\"ToggledOutliner\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\toutlinerPanel -edit -l (localizedPanelLabel(\"ToggledOutliner\")) -mbv $menusOkayInPanels  $panelName;\n"
 		+ "\t\t$editorName = $panelName;\n        outlinerEditor -e \n            -docTag \"isolOutln_fromSeln\" \n            -showShapes 0\n            -showAssignedMaterials 0\n            -showTimeEditor 1\n            -showReferenceNodes 1\n            -showReferenceMembers 1\n            -showAttributes 0\n            -showConnected 0\n            -showAnimCurvesOnly 0\n            -showMuteInfo 0\n            -organizeByLayer 1\n            -organizeByClip 1\n            -showAnimLayerWeight 1\n            -autoExpandLayers 1\n            -autoExpand 0\n            -showDagOnly 1\n            -showAssets 1\n            -showContainedOnly 1\n            -showPublishedAsConnected 0\n            -showParentContainers 0\n            -showContainerContents 1\n            -ignoreDagHierarchy 0\n            -expandConnections 0\n            -showUpstreamCurves 1\n            -showUnitlessCurves 1\n            -showCompounds 1\n            -showLeafs 1\n            -showNumericAttrsOnly 0\n            -highlightActive 1\n            -autoSelectNewObjects 0\n"
 		+ "            -doNotSelectNewObjects 0\n            -dropIsParent 1\n            -transmitFilters 0\n            -setFilter \"defaultSetFilter\" \n            -showSetMembers 1\n            -allowMultiSelection 1\n            -alwaysToggleSelect 0\n            -directSelect 0\n            -isSet 0\n            -isSetMember 0\n            -displayMode \"DAG\" \n            -expandObjects 0\n            -setsIgnoreFilters 1\n            -containersIgnoreFilters 0\n            -editAttrName 0\n            -showAttrValues 0\n            -highlightSecondary 0\n            -showUVAttrsOnly 0\n            -showTextureNodesOnly 0\n            -attrAlphaOrder \"default\" \n            -animLayerFilterOptions \"allAffecting\" \n            -sortOrder \"none\" \n            -longNames 0\n            -niceNames 1\n            -selectCommand \"print(\\\"\\\")\" \n            -showNamespace 1\n            -showPinIcons 0\n            -mapMotionTrails 0\n            -ignoreHiddenAttribute 1\n            -ignoreOutlinerColor 0\n            -renderFilterVisible 0\n            -renderFilterIndex 0\n"
 		+ "            -selectionOrder \"chronological\" \n            -expandAttribute 0\n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextPanel \"outlinerPanel\" (localizedPanelLabel(\"Outliner\")) `;\n\tif (\"\" != $panelName) {\n\t\t$label = `panel -q -label $panelName`;\n\t\toutlinerPanel -edit -l (localizedPanelLabel(\"Outliner\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        outlinerEditor -e \n            -showShapes 0\n            -showAssignedMaterials 0\n            -showTimeEditor 1\n            -showReferenceNodes 0\n            -showReferenceMembers 0\n            -showAttributes 0\n            -showConnected 0\n            -showAnimCurvesOnly 0\n            -showMuteInfo 0\n            -organizeByLayer 1\n            -organizeByClip 1\n            -showAnimLayerWeight 1\n            -autoExpandLayers 1\n            -autoExpand 0\n            -showDagOnly 1\n            -showAssets 1\n            -showContainedOnly 1\n            -showPublishedAsConnected 0\n"
@@ -10969,9 +10999,9 @@ createNode script -n "uiConfigurationScriptNode";
 		+ "                -backfaceCulling 0\n                -xray 0\n                -jointXray 0\n                -activeComponentsXray 0\n                -displayTextures 0\n                -smoothWireframe 0\n                -lineWidth 1\n                -textureAnisotropic 0\n                -textureHilight 1\n                -textureSampling 2\n                -textureDisplay \"modulate\" \n                -textureMaxSize 32768\n                -fogging 0\n                -fogSource \"fragment\" \n                -fogMode \"linear\" \n                -fogStart 0\n                -fogEnd 100\n                -fogDensity 0.1\n                -fogColor 0.5 0.5 0.5 1 \n                -depthOfFieldPreview 1\n                -maxConstantTransparency 1\n                -objectFilterShowInHUD 1\n                -isFiltered 0\n                -colorResolution 4 4 \n                -bumpResolution 4 4 \n                -textureCompression 0\n                -transparencyAlgorithm \"frontAndBackCull\" \n                -transpInShadows 0\n                -cullingOverride \"none\" \n"
 		+ "                -lowQualityLighting 0\n                -maximumNumHardwareLights 0\n                -occlusionCulling 0\n                -shadingModel 0\n                -useBaseRenderer 0\n                -useReducedRenderer 0\n                -smallObjectCulling 0\n                -smallObjectThreshold -1 \n                -interactiveDisableShadows 0\n                -interactiveBackFaceCull 0\n                -sortTransparent 1\n                -controllers 1\n                -nurbsCurves 1\n                -nurbsSurfaces 1\n                -polymeshes 1\n                -subdivSurfaces 1\n                -planes 1\n                -lights 1\n                -cameras 1\n                -controlVertices 1\n                -hulls 1\n                -grid 1\n                -imagePlane 1\n                -joints 1\n                -ikHandles 1\n                -deformers 1\n                -dynamics 1\n                -particleInstancers 1\n                -fluids 1\n                -hairSystems 1\n                -follicles 1\n                -nCloths 1\n"
 		+ "                -nParticles 1\n                -nRigids 1\n                -dynamicConstraints 1\n                -locators 1\n                -manipulators 1\n                -pluginShapes 1\n                -dimensions 1\n                -handles 1\n                -pivots 1\n                -textures 1\n                -strokes 1\n                -motionTrails 1\n                -clipGhosts 1\n                -greasePencils 0\n                -shadows 0\n                -captureSequenceNumber -1\n                -width 0\n                -height 0\n                -sceneRenderFilter 0\n                -displayMode \"centerEye\" \n                -viewColor 0 0 0 1 \n                -useCustomBackground 1\n                $editorName;\n            stereoCameraView -e -viewSelected 0 $editorName;\n            stereoCameraView -e \n                -pluginObjects \"gpuCacheDisplayFilter\" 1 \n                $editorName; };\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\tif ($useSceneConfig) {\n        string $configName = `getPanel -cwl (localizedPanelLabel(\"Current Layout\"))`;\n"
-		+ "        if (\"\" != $configName) {\n\t\t\tpanelConfiguration -edit -label (localizedPanelLabel(\"Current Layout\")) \n\t\t\t\t-userCreated false\n\t\t\t\t-defaultImage \"vacantCell.xP:/\"\n\t\t\t\t-image \"\"\n\t\t\t\t-sc false\n\t\t\t\t-configString \"global string $gMainPane; paneLayout -e -cn \\\"single\\\" -ps 1 100 100 $gMainPane;\"\n\t\t\t\t-removeAllPanels\n\t\t\t\t-ap false\n\t\t\t\t\t(localizedPanelLabel(\"Persp View\")) \n\t\t\t\t\t\"modelPanel\"\n"
-		+ "\t\t\t\t\t\"$panelName = `modelPanel -unParent -l (localizedPanelLabel(\\\"Persp View\\\")) -mbv $menusOkayInPanels `;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -cam `findStartUpCamera persp` \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 0\\n    -headsUpDisplay 1\\n    -holdOuts 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 0\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 0\\n    -activeComponentsXray 0\\n    -displayTextures 1\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 32768\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -depthOfFieldPreview 1\\n    -maxConstantTransparency 1\\n    -rendererName \\\"vp2Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -controllers 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 1\\n    -imagePlane 1\\n    -joints 1\\n    -ikHandles 1\\n    -deformers 1\\n    -dynamics 1\\n    -particleInstancers 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 0\\n    -shadows 0\\n    -captureSequenceNumber -1\\n    -width 1268\\n    -height 554\\n    -sceneRenderFilter 0\\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
-		+ "\t\t\t\t\t\"modelPanel -edit -l (localizedPanelLabel(\\\"Persp View\\\")) -mbv $menusOkayInPanels  $panelName;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -cam `findStartUpCamera persp` \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 0\\n    -headsUpDisplay 1\\n    -holdOuts 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 0\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 0\\n    -activeComponentsXray 0\\n    -displayTextures 1\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 32768\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -depthOfFieldPreview 1\\n    -maxConstantTransparency 1\\n    -rendererName \\\"vp2Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -controllers 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 1\\n    -imagePlane 1\\n    -joints 1\\n    -ikHandles 1\\n    -deformers 1\\n    -dynamics 1\\n    -particleInstancers 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 0\\n    -shadows 0\\n    -captureSequenceNumber -1\\n    -width 1268\\n    -height 554\\n    -sceneRenderFilter 0\\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
+		+ "        if (\"\" != $configName) {\n\t\t\tpanelConfiguration -edit -label (localizedPanelLabel(\"Current Layout\")) \n\t\t\t\t-userCreated false\n\t\t\t\t-defaultImage \"vacantCell.xP:/\"\n\t\t\t\t-image \"\"\n\t\t\t\t-sc false\n\t\t\t\t-configString \"global string $gMainPane; paneLayout -e -cn \\\"single\\\" -ps 1 100 100 $gMainPane;\"\n\t\t\t\t-removeAllPanels\n\t\t\t\t-ap false\n\t\t\t\t\t(localizedPanelLabel(\"Top View\")) \n\t\t\t\t\t\"modelPanel\"\n"
+		+ "\t\t\t\t\t\"$panelName = `modelPanel -unParent -l (localizedPanelLabel(\\\"Top View\\\")) -mbv $menusOkayInPanels `;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -camera \\\"|Scene|Camera_2\\\" \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 0\\n    -headsUpDisplay 1\\n    -holdOuts 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 0\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 0\\n    -activeComponentsXray 0\\n    -displayTextures 1\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 32768\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -depthOfFieldPreview 1\\n    -maxConstantTransparency 1\\n    -rendererName \\\"vp2Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -controllers 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 1\\n    -imagePlane 1\\n    -joints 1\\n    -ikHandles 1\\n    -deformers 1\\n    -dynamics 1\\n    -particleInstancers 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 0\\n    -shadows 0\\n    -captureSequenceNumber -1\\n    -width 1268\\n    -height 554\\n    -sceneRenderFilter 0\\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
+		+ "\t\t\t\t\t\"modelPanel -edit -l (localizedPanelLabel(\\\"Top View\\\")) -mbv $menusOkayInPanels  $panelName;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -camera \\\"|Scene|Camera_2\\\" \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 0\\n    -headsUpDisplay 1\\n    -holdOuts 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 0\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 0\\n    -activeComponentsXray 0\\n    -displayTextures 1\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 32768\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -depthOfFieldPreview 1\\n    -maxConstantTransparency 1\\n    -rendererName \\\"vp2Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -controllers 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 1\\n    -imagePlane 1\\n    -joints 1\\n    -ikHandles 1\\n    -deformers 1\\n    -dynamics 1\\n    -particleInstancers 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 0\\n    -shadows 0\\n    -captureSequenceNumber -1\\n    -width 1268\\n    -height 554\\n    -sceneRenderFilter 0\\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
 		+ "\t\t\t\t$configName;\n\n            setNamedPanelLayout (localizedPanelLabel(\"Current Layout\"));\n        }\n\n        panelHistory -e -clear mainPanelHistory;\n        sceneUIReplacement -clear;\n\t}\n\n\ngrid -spacing 5 -size 12 -divisions 5 -displayAxes yes -displayGridLines yes -displayDivisionLines yes -displayPerspectiveLabels no -displayOrthographicLabels no -displayAxesBold yes -perspectiveLabelPosition axis -orthographicLabelPosition edge;\nviewManip -drawCompass 0 -compassAngle 0 -frontParameters \"\" -homeParameters \"\" -selectionLockParameters \"\";\n}\n");
 	setAttr ".st" 3;
 createNode script -n "sceneConfigurationScriptNode";
@@ -11028,7 +11058,7 @@ createNode reference -n "ScientistWithClothingTestRN";
 	setAttr -s 2 ".fn";
 	setAttr ".fn[0]" -type "string" "C:/Users/GuyBF/Personal Projects/GitKraken/ScientistAnim/Scenes/ScientistRig.ma";
 	setAttr ".fn[1]" -type "string" "C:/Users/GuyBF/Personal Projects/SchoolProjects/ScientistWoman/ScientistWithClothingTest.ma";
-	setAttr -s 330 ".phl";
+	setAttr -s 372 ".phl";
 	setAttr ".phl[1]" 0;
 	setAttr ".phl[2]" 0;
 	setAttr ".phl[3]" 0;
@@ -11359,10 +11389,52 @@ createNode reference -n "ScientistWithClothingTestRN";
 	setAttr ".phl[328]" 0;
 	setAttr ".phl[329]" 0;
 	setAttr ".phl[330]" 0;
+	setAttr ".phl[331]" 0;
+	setAttr ".phl[332]" 0;
+	setAttr ".phl[333]" 0;
+	setAttr ".phl[334]" 0;
+	setAttr ".phl[335]" 0;
+	setAttr ".phl[336]" 0;
+	setAttr ".phl[337]" 0;
+	setAttr ".phl[338]" 0;
+	setAttr ".phl[339]" 0;
+	setAttr ".phl[340]" 0;
+	setAttr ".phl[341]" 0;
+	setAttr ".phl[342]" 0;
+	setAttr ".phl[343]" 0;
+	setAttr ".phl[344]" 0;
+	setAttr ".phl[345]" 0;
+	setAttr ".phl[346]" 0;
+	setAttr ".phl[347]" 0;
+	setAttr ".phl[348]" 0;
+	setAttr ".phl[349]" 0;
+	setAttr ".phl[350]" 0;
+	setAttr ".phl[351]" 0;
+	setAttr ".phl[352]" 0;
+	setAttr ".phl[353]" 0;
+	setAttr ".phl[354]" 0;
+	setAttr ".phl[355]" 0;
+	setAttr ".phl[356]" 0;
+	setAttr ".phl[357]" 0;
+	setAttr ".phl[358]" 0;
+	setAttr ".phl[359]" 0;
+	setAttr ".phl[360]" 0;
+	setAttr ".phl[361]" 0;
+	setAttr ".phl[362]" 0;
+	setAttr ".phl[363]" 0;
+	setAttr ".phl[364]" 0;
+	setAttr ".phl[365]" 0;
+	setAttr ".phl[366]" 0;
+	setAttr ".phl[367]" 0;
+	setAttr ".phl[368]" 0;
+	setAttr ".phl[369]" 0;
+	setAttr ".phl[370]" 0;
+	setAttr ".phl[371]" 0;
+	setAttr ".phl[372]" 0;
 	setAttr ".ed" -type "dataReferenceEdits" 
 		"ScientistWithClothingTestRN"
 		"ScientistWithClothingTestRN" 0
-		"ScientistWithClothingTestRN" 346
+		"ScientistWithClothingTestRN" 385
 		2 "|ScientistWithClothingTest:Scientist" "rotate" " -type \"double3\" 0 0 0"
 		
 		2 "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Transform_Ctrl_Grp" 
@@ -11378,12 +11450,6 @@ createNode reference -n "ScientistWithClothingTestRN";
 		"R_Arm_IKFK" " -k 1 0"
 		2 "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Transform_Ctrl_Grp|ScientistWithClothingTest:Transform_Ctrl" 
 		"MasterScale" " -k 1 0.005"
-		2 "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl" 
-		"translate" " -type \"double3\" 0 0 0"
-		2 "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl" 
-		"translate" " -type \"double3\" 0 0 0"
-		2 "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl" 
-		"translate" " -type \"double3\" 0 0 0"
 		2 "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:R_Arm_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Arm_01_FK_Ctrl" 
 		"rotate" " -type \"double3\" 0 -25.69027924175917477 0"
 		2 "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Foot_FK_Ctrl_Grp|ScientistWithClothingTest:R_Foot_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Foot_03_FK_Ctrl" 
@@ -11416,642 +11482,726 @@ createNode reference -n "ScientistWithClothingTestRN";
 		"ScientistWithClothingTestRN.placeHolderList[11]" ""
 		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Pelvis_FK_Ctrl_Grp|ScientistWithClothingTest:Pelvis_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[12]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[13]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[14]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[15]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[16]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[17]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_03_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[18]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[19]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[20]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[21]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[22]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[23]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_02_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[24]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[25]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[26]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[27]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[28]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[29]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Spine_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl_Grp|ScientistWithClothingTest:Spine_01_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[30]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[31]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[32]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[33]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[34]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[35]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_01_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[36]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[37]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[38]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[39]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[40]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[41]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl_Grp|ScientistWithClothingTest:Neck_02_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[42]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[43]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[44]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[45]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[46]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[47]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Neck_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl_Grp|ScientistWithClothingTest:Head_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[48]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[49]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[50]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[51]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[52]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[53]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:L_Clav_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[54]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[55]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[56]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[57]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[58]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[59]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_01_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[60]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[61]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[62]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[63]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[64]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[65]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_02_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[66]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[67]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[68]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[69]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[70]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[71]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Arm_Ctrl_Grp|ScientistWithClothingTest:L_Arm_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Arm_03_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[72]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[73]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[74]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[75]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_PV_Ctrl_Grp|ScientistWithClothingTest:R_Arm_PV_Ctrl_Offset_Grp|ScientistWithClothingTest:R_Arm_PV_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[76]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_PV_Ctrl_Grp|ScientistWithClothingTest:R_Arm_PV_Ctrl_Offset_Grp|ScientistWithClothingTest:R_Arm_PV_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[77]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_PV_Ctrl_Grp|ScientistWithClothingTest:R_Arm_PV_Ctrl_Offset_Grp|ScientistWithClothingTest:R_Arm_PV_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:R_Clav_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[78]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_IK_Base_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Base_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[79]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_IK_Base_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Base_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[80]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_IK_Base_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Base_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[81]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[82]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[83]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[84]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[85]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[86]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[87]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_PV_Ctrl_Grp|ScientistWithClothingTest:R_Arm_PV_Ctrl_Offset_Grp|ScientistWithClothingTest:R_Arm_PV_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[88]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_PV_Ctrl_Grp|ScientistWithClothingTest:R_Arm_PV_Ctrl_Offset_Grp|ScientistWithClothingTest:R_Arm_PV_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[89]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Arm_Ctrl_Grp|ScientistWithClothingTest:R_Arm_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Arm_PV_Ctrl_Grp|ScientistWithClothingTest:R_Arm_PV_Ctrl_Offset_Grp|ScientistWithClothingTest:R_Arm_PV_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[90]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Hand_FK_Ctrl_Grp|ScientistWithClothingTest:L_Hand_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[91]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Hand_FK_Ctrl_Grp|ScientistWithClothingTest:L_Hand_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[92]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Hand_FK_Ctrl_Grp|ScientistWithClothingTest:L_Hand_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[93]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Hand_FK_Ctrl_Grp|ScientistWithClothingTest:L_Hand_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[94]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Hand_FK_Ctrl_Grp|ScientistWithClothingTest:L_Hand_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[95]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Hand_FK_Ctrl_Grp|ScientistWithClothingTest:L_Hand_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[96]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[97]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[98]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[99]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[100]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[101]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_01_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[102]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[103]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[104]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[105]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[106]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[107]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_02_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[108]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[109]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[110]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[111]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[112]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[113]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_03_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[114]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[115]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[116]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[117]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[118]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[119]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_01_Knuckle_04_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[120]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[121]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[122]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[123]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[124]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[125]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_01_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[126]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[127]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[128]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[129]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[130]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[131]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_02_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[132]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[133]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[134]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[135]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[136]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[137]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_03_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[138]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[139]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[140]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[141]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[142]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[143]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_02_Knuckle_04_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[144]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[145]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[146]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[147]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[148]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[149]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_01_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[150]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[151]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[152]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[153]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[154]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[155]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_02_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[156]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[157]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[158]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[159]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[160]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[161]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_03_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[162]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[163]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[164]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[165]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[166]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[167]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_03_Knuckle_04_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[168]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[169]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[170]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[171]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[172]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[173]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_01_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[174]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[175]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[176]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[177]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[178]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[179]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_02_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[180]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[181]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[182]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[183]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[184]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[185]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_03_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[186]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[187]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[188]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[189]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[190]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[191]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_04_Knuckle_04_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[192]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[193]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[194]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[195]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[196]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[197]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_01_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[198]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[199]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[200]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[201]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[202]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[203]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_02_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[204]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[205]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[206]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[207]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[208]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[209]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_03_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[210]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[211]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[212]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[213]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[214]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[215]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:L_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:L_Finger_05_Knuckle_04_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[216]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Hand_FK_Ctrl_Grp|ScientistWithClothingTest:R_Hand_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[217]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Hand_FK_Ctrl_Grp|ScientistWithClothingTest:R_Hand_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[218]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Hand_FK_Ctrl_Grp|ScientistWithClothingTest:R_Hand_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[219]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Hand_FK_Ctrl_Grp|ScientistWithClothingTest:R_Hand_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[220]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Hand_FK_Ctrl_Grp|ScientistWithClothingTest:R_Hand_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[221]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Hand_FK_Ctrl_Grp|ScientistWithClothingTest:R_Hand_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[222]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[223]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[224]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[225]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[226]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[227]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_01_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[228]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[229]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[230]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[231]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[232]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[233]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_02_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[234]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[235]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[236]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[237]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[238]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[239]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_03_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[240]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[241]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[242]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[243]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[244]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[245]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_01_Knuckle_04_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[246]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[247]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[248]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[249]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[250]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[251]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_01_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[252]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[253]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[254]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[255]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[256]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[257]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_02_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[258]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[259]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[260]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[261]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[262]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[263]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_03_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[264]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[265]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[266]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[267]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[268]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[269]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_02_Knuckle_04_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[270]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[271]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[272]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[273]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[274]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[275]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_01_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[276]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[277]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[278]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[279]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[280]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[281]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_02_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[282]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[283]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[284]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[285]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[286]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[287]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_03_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[288]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[289]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[290]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[291]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[292]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[293]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_03_Knuckle_04_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[294]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[295]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[296]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[297]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[298]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[299]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_01_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[300]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[301]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[302]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[303]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[304]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[305]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_02_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[306]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[307]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[308]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[309]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[310]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[311]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_03_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[312]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[313]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[314]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[315]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[316]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[317]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_04_Knuckle_04_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[318]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[319]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[320]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[321]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[322]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl.translateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[323]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_01_FK_Ctrl.rotateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[324]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl.rotateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[325]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl.rotateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl.translateY" 
 		"ScientistWithClothingTestRN.placeHolderList[326]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl.rotateZ" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl.translateZ" 
 		"ScientistWithClothingTestRN.placeHolderList[327]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl.translateX" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl.rotateX" 
 		"ScientistWithClothingTestRN.placeHolderList[328]" ""
-		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl.translateY" 
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl.rotateY" 
 		"ScientistWithClothingTestRN.placeHolderList[329]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_02_FK_Ctrl.rotateZ" 
+		"ScientistWithClothingTestRN.placeHolderList[330]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl.translateX" 
+		"ScientistWithClothingTestRN.placeHolderList[331]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl.translateY" 
+		"ScientistWithClothingTestRN.placeHolderList[332]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl.translateZ" 
+		"ScientistWithClothingTestRN.placeHolderList[333]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl.rotateX" 
+		"ScientistWithClothingTestRN.placeHolderList[334]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl.rotateY" 
+		"ScientistWithClothingTestRN.placeHolderList[335]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_03_FK_Ctrl.rotateZ" 
+		"ScientistWithClothingTestRN.placeHolderList[336]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl.translateX" 
+		"ScientistWithClothingTestRN.placeHolderList[337]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl.translateY" 
+		"ScientistWithClothingTestRN.placeHolderList[338]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl.translateZ" 
+		"ScientistWithClothingTestRN.placeHolderList[339]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl.rotateX" 
+		"ScientistWithClothingTestRN.placeHolderList[340]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl.rotateY" 
+		"ScientistWithClothingTestRN.placeHolderList[341]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Arms_Ctrl_Grp|ScientistWithClothingTest:R_Hand_Main_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl_Grp|ScientistWithClothingTest:R_Finger_05_Knuckle_04_FK_Ctrl.rotateZ" 
+		"ScientistWithClothingTestRN.placeHolderList[342]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Clav_FK_Ctrl.translateX" 
+		"ScientistWithClothingTestRN.placeHolderList[343]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Clav_FK_Ctrl.translateY" 
+		"ScientistWithClothingTestRN.placeHolderList[344]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Clav_FK_Ctrl.translateZ" 
+		"ScientistWithClothingTestRN.placeHolderList[345]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Clav_FK_Ctrl.rotateX" 
+		"ScientistWithClothingTestRN.placeHolderList[346]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Clav_FK_Ctrl.rotateY" 
+		"ScientistWithClothingTestRN.placeHolderList[347]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Clav_FK_Ctrl.rotateZ" 
+		"ScientistWithClothingTestRN.placeHolderList[348]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:L_Leg_Base_IK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Base_IK_Ctrl.translateX" 
+		"ScientistWithClothingTestRN.placeHolderList[349]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:L_Leg_Base_IK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Base_IK_Ctrl.translateY" 
+		"ScientistWithClothingTestRN.placeHolderList[350]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:L_Leg_Base_IK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Base_IK_Ctrl.translateZ" 
+		"ScientistWithClothingTestRN.placeHolderList[351]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl.rotateX" 
+		"ScientistWithClothingTestRN.placeHolderList[352]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl.rotateY" 
+		"ScientistWithClothingTestRN.placeHolderList[353]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl.rotateZ" 
+		"ScientistWithClothingTestRN.placeHolderList[354]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl.translateX" 
+		"ScientistWithClothingTestRN.placeHolderList[355]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl.translateZ" 
+		"ScientistWithClothingTestRN.placeHolderList[356]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:L_Leg_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:L_Leg_IK_Ctrl.translateY" 
+		"ScientistWithClothingTestRN.placeHolderList[357]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Clav_FK_Ctrl.translateX" 
+		"ScientistWithClothingTestRN.placeHolderList[358]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Clav_FK_Ctrl.translateY" 
+		"ScientistWithClothingTestRN.placeHolderList[359]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Clav_FK_Ctrl.translateZ" 
+		"ScientistWithClothingTestRN.placeHolderList[360]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Clav_FK_Ctrl.rotateX" 
+		"ScientistWithClothingTestRN.placeHolderList[361]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Clav_FK_Ctrl.rotateY" 
+		"ScientistWithClothingTestRN.placeHolderList[362]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Clav_FK_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Clav_FK_Ctrl.rotateZ" 
+		"ScientistWithClothingTestRN.placeHolderList[363]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Leg_IK_Base_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Base_IK_Ctrl.translateX" 
+		"ScientistWithClothingTestRN.placeHolderList[364]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Leg_IK_Base_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Base_IK_Ctrl.translateY" 
+		"ScientistWithClothingTestRN.placeHolderList[365]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Leg_IK_Base_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Base_IK_Ctrl.translateZ" 
+		"ScientistWithClothingTestRN.placeHolderList[366]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl.rotateX" 
+		"ScientistWithClothingTestRN.placeHolderList[367]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl.rotateY" 
+		"ScientistWithClothingTestRN.placeHolderList[368]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl.rotateZ" 
+		"ScientistWithClothingTestRN.placeHolderList[369]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl.translateX" 
+		"ScientistWithClothingTestRN.placeHolderList[370]" ""
+		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl.translateY" 
+		"ScientistWithClothingTestRN.placeHolderList[371]" ""
 		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Leg_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Main_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl_Grp|ScientistWithClothingTest:R_Leg_IK_Ctrl.translateZ" 
-		"ScientistWithClothingTestRN.placeHolderList[330]" "";
+		"ScientistWithClothingTestRN.placeHolderList[372]" "";
 	setAttr ".ptag" -type "string" "";
 lockNode -l 1 ;
 createNode displayLayer -n "SceneLayer";
@@ -12062,160 +12212,180 @@ createNode animCurveTL -n "L_Leg_IK_Ctrl_translateX";
 	rename -uid "1BC40C05-457F-7BFC-696E-8CBBE673BD54";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 48 0 60 0 64 0 72 0;
-	setAttr -s 5 ".kit[3:4]"  1 9;
-	setAttr -s 5 ".kot[3:4]"  1 9;
-	setAttr -s 5 ".kix[3:4]"  1 1;
-	setAttr -s 5 ".kiy[3:4]"  0 0;
-	setAttr -s 5 ".kox[3:4]"  1 1;
-	setAttr -s 5 ".koy[3:4]"  0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 60 0 72 0 76 0 84 0;
+	setAttr -s 7 ".kit[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kot[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Leg_IK_Ctrl_translateY";
 	rename -uid "5C221247-44FD-F515-759A-47A2D138C0DD";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 48 0 60 3.5634169102134896 64 3.5634169102134896
-		 72 0;
-	setAttr -s 5 ".kit[3:4]"  1 9;
-	setAttr -s 5 ".kot[3:4]"  1 9;
-	setAttr -s 5 ".kix[3:4]"  0.18389573463439143 0.093136575328247054;
-	setAttr -s 5 ".kiy[3:4]"  0.98294575576848464 -0.99565334245214376;
-	setAttr -s 5 ".kox[3:4]"  0.18389573463439143 0.093136575328247054;
-	setAttr -s 5 ".koy[3:4]"  0.98294575576848464 -0.99565334245214376;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 60 0 72 3.5634169102134896
+		 76 3.5634169102134896 84 0;
+	setAttr -s 7 ".kit[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kot[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kix[1:6]"  1 1 0.57432670082292803 0.18389573463439143 
+		0.18389573463439143 0.093136575328247054;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0.81862619107981816 0.98294575576848464 
+		0.98294575576848464 -0.99565334245214376;
+	setAttr -s 7 ".kox[1:6]"  1 1 0.57432670082292803 0.18389573463439143 
+		0.18389573463439143 0.093136575328247054;
+	setAttr -s 7 ".koy[1:6]"  0 0 0.81862619107981816 0.98294575576848464 
+		0.98294575576848464 -0.99565334245214376;
 createNode animCurveTL -n "L_Leg_IK_Ctrl_translateZ";
 	rename -uid "AA20B2A9-49E2-7C1C-11F2-EC86F3410AC9";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 48 0 60 0 64 0 72 0;
-	setAttr -s 5 ".kit[3:4]"  1 9;
-	setAttr -s 5 ".kot[3:4]"  1 9;
-	setAttr -s 5 ".kix[3:4]"  1 1;
-	setAttr -s 5 ".kiy[3:4]"  0 0;
-	setAttr -s 5 ".kox[3:4]"  1 1;
-	setAttr -s 5 ".koy[3:4]"  0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 60 0 72 0 76 0 84 0;
+	setAttr -s 7 ".kit[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kot[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "R_Leg_IK_Ctrl_translateX";
 	rename -uid "E706F8C6-4B28-9426-B871-00B999496C55";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 48 0 60 0 64 0 72 0;
-	setAttr -s 5 ".kit[3:4]"  1 9;
-	setAttr -s 5 ".kot[3:4]"  1 9;
-	setAttr -s 5 ".kix[3:4]"  1 1;
-	setAttr -s 5 ".kiy[3:4]"  0 0;
-	setAttr -s 5 ".kox[3:4]"  1 1;
-	setAttr -s 5 ".koy[3:4]"  0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 60 0 72 0 76 0 84 0;
+	setAttr -s 7 ".kit[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kot[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "R_Leg_IK_Ctrl_translateY";
 	rename -uid "A3885F9A-4130-03C7-C8D3-6FBBD8B9215B";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 48 0 60 3.5634169102134896 64 3.5634169102134896
-		 72 0;
-	setAttr -s 5 ".kit[3:4]"  1 9;
-	setAttr -s 5 ".kot[3:4]"  1 9;
-	setAttr -s 5 ".kix[3:4]"  0.18389573463439143 0.093136575328247054;
-	setAttr -s 5 ".kiy[3:4]"  0.98294575576848464 -0.99565334245214376;
-	setAttr -s 5 ".kox[3:4]"  0.18389573463439143 0.093136575328247054;
-	setAttr -s 5 ".koy[3:4]"  0.98294575576848464 -0.99565334245214376;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 60 0 72 3.5634169102134896
+		 76 3.5634169102134896 84 0;
+	setAttr -s 7 ".kit[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kot[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kix[1:6]"  1 1 0.57432670082292803 0.18389573463439143 
+		0.18389573463439143 0.093136575328247054;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0.81862619107981816 0.98294575576848464 
+		0.98294575576848464 -0.99565334245214376;
+	setAttr -s 7 ".kox[1:6]"  1 1 0.57432670082292803 0.18389573463439143 
+		0.18389573463439143 0.093136575328247054;
+	setAttr -s 7 ".koy[1:6]"  0 0 0.81862619107981816 0.98294575576848464 
+		0.98294575576848464 -0.99565334245214376;
 createNode animCurveTL -n "R_Leg_IK_Ctrl_translateZ";
 	rename -uid "9D13FF0D-41B3-9A23-CEBF-A2A4AC5ABB98";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 48 0 60 0 64 0 72 0;
-	setAttr -s 5 ".kit[3:4]"  1 9;
-	setAttr -s 5 ".kot[3:4]"  1 9;
-	setAttr -s 5 ".kix[3:4]"  1 1;
-	setAttr -s 5 ".kiy[3:4]"  0 0;
-	setAttr -s 5 ".kox[3:4]"  1 1;
-	setAttr -s 5 ".koy[3:4]"  0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 60 0 72 0 76 0 84 0;
+	setAttr -s 7 ".kit[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kot[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_01_Knuckle_02_FK_Ctrl_rotateX";
 	rename -uid "2578D33A-4885-E76E-D38C-06944F66BF04";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_01_Knuckle_02_FK_Ctrl_rotateY";
 	rename -uid "DCFC0EDD-4ADE-8C0C-244B-B49B356083D7";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_01_Knuckle_02_FK_Ctrl_rotateZ";
 	rename -uid "8AFE483B-436F-6123-CA14-9D9E0A411956";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "Spine_01_FK_Ctrl_rotateX";
 	rename -uid "BFE9130D-49E0-9471-CE05-96B49A93CFB0";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  0 0 18 -17.681069943927913 24 -17.681069943927913
-		 48 0 60 12.889081778092191 64 12.889081778092191 72 0 84 -12.72725818178821 90 -12.72725818178821
-		 96 18.490671718704558 108 18.490671718704558 120 0;
-	setAttr -s 12 ".kit[2:11]"  1 9 9 1 9 10 9 10 
-		10 18;
-	setAttr -s 12 ".kot[2:11]"  1 9 9 1 9 10 9 10 
-		10 18;
-	setAttr -s 12 ".kix[2:11]"  1 0.94217176470934416 0.94751083110579359 
-		1 0.88118890109085724 1 0.67612792087544493 1 1 1;
-	setAttr -s 12 ".kiy[2:11]"  0 0.33513037132507179 0.31972366965429427 
-		0 -0.47276433938516066 0 0.73678425241901591 0 0 0;
-	setAttr -s 12 ".kox[2:11]"  1 0.94217176470934416 0.94751083110579359 
-		1 0.88118890109085724 1 0.67612792087544493 1 1 1;
-	setAttr -s 12 ".koy[2:11]"  0 0.33513037132507179 0.31972366965429427 
-		0 -0.47276433938516066 0 0.73678425241901591 0 0 0;
+	setAttr -s 14 ".ktv[0:13]"  0 0 10 0 12 0 30 -17.681069943927913 36 -17.681069943927913
+		 60 0 72 12.889081778092191 76 12.889081778092191 84 0 96 -12.72725818178821 102 -12.72725818178821
+		 108 18.490671718704558 120 18.490671718704558 132 0;
+	setAttr -s 14 ".kit[0:13]"  18 1 9 9 1 9 9 1 
+		9 10 9 10 10 18;
+	setAttr -s 14 ".kot[0:13]"  18 1 9 9 1 9 9 1 
+		9 10 9 10 10 18;
+	setAttr -s 14 ".kix[1:13]"  0.97085231594501009 0.93776675124093478 
+		0.95553680518531714 1 0.94217176470934416 0.94751083110579359 1 0.88118890109085724 
+		1 0.67612792087544493 1 1 1;
+	setAttr -s 14 ".kiy[1:13]"  -0.23967849428809931 -0.34726577756384619 
+		-0.29487186019733624 0 0.33513037132507179 0.31972366965429427 0 -0.47276433938516066 
+		0 0.73678425241901591 0 0 0;
+	setAttr -s 14 ".kox[1:13]"  0.97085231594501009 0.93776675124093478 
+		0.95553680518531714 1 0.94217176470934416 0.94751083110579359 1 0.88118890109085724 
+		1 0.67612792087544493 1 1 1;
+	setAttr -s 14 ".koy[1:13]"  -0.23967849428809931 -0.34726577756384619 
+		-0.29487186019733624 0 0.33513037132507179 0.31972366965429427 0 -0.47276433938516066 
+		0 0.73678425241901591 0 0 0;
 createNode animCurveTA -n "Spine_01_FK_Ctrl_rotateY";
 	rename -uid "92D8503D-403D-AAE2-8155-B5A0EB7DCB6D";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  0 0 18 1.5435555807929247 24 1.5435555807929247
-		 48 0 60 0 64 0 72 0 84 -0.52490003480320158 90 -0.52490003480320158 96 0.75560333783484368
-		 108 0.75560333783484368 120 0;
-	setAttr -s 12 ".kit[2:11]"  1 9 9 1 9 10 9 10 
-		10 18;
-	setAttr -s 12 ".kot[2:11]"  1 9 9 1 9 10 9 10 
-		10 18;
-	setAttr -s 12 ".kix[2:11]"  1 0.99983875668601219 1 1 0.99993957716873272 
-		1 0.9990025387843714 1 1 1;
-	setAttr -s 12 ".kiy[2:11]"  0 -0.017957188771334322 0 0 -0.010992816364153803 
-		0 0.044653415349564171 0 0 0;
-	setAttr -s 12 ".kox[2:11]"  1 0.99983875668601219 1 1 0.99993957716873272 
-		1 0.9990025387843714 1 1 1;
-	setAttr -s 12 ".koy[2:11]"  0 -0.017957188771334322 0 0 -0.010992816364153803 
-		0 0.044653415349564171 0 0 0;
+	setAttr -s 14 ".ktv[0:13]"  0 0 10 0 12 0 30 1.5435555807929247 36 1.5435555807929247
+		 60 0 72 0 76 0 84 0 96 -0.52490003480320158 102 -0.52490003480320158 108 0.75560333783484368
+		 120 0.75560333783484368 132 0;
+	setAttr -s 14 ".kit[0:13]"  18 1 9 9 1 9 9 1 
+		9 10 9 10 10 18;
+	setAttr -s 14 ".kot[0:13]"  18 1 9 9 1 9 9 1 
+		9 10 9 10 10 18;
+	setAttr -s 14 ".kix[1:13]"  0.99976783433344407 0.99947785451714877 
+		0.9996373121857991 1 0.99983875668601219 1 1 0.99993957716873272 1 0.9990025387843714 
+		1 1 1;
+	setAttr -s 14 ".kiy[1:13]"  0.021547097999848816 0.032311272488053933 
+		0.026930356216567707 0 -0.017957188771334322 0 0 -0.010992816364153803 0 0.044653415349564171 
+		0 0 0;
+	setAttr -s 14 ".kox[1:13]"  0.99976783433344407 0.99947785451714877 
+		0.9996373121857991 1 0.99983875668601219 1 1 0.99993957716873272 1 0.9990025387843714 
+		1 1 1;
+	setAttr -s 14 ".koy[1:13]"  0.021547097999848816 0.032311272488053933 
+		0.026930356216567707 0 -0.017957188771334322 0 0 -0.010992816364153803 0 0.044653415349564171 
+		0 0 0;
 createNode animCurveTA -n "Spine_01_FK_Ctrl_rotateZ";
 	rename -uid "BCF63E38-4CF5-8F19-3747-58B212F94959";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  0 0 18 7.0588920648768729 24 7.0588920648768729
-		 48 0 60 8.7960832172856662 64 8.7960832172856662 72 0 84 -2.3227036117088082 90 -2.3227036117088082
-		 96 1.5011911338750352 108 1.5011911338750352 120 0;
-	setAttr -s 12 ".kit[2:11]"  1 9 9 1 9 10 9 10 
-		10 18;
-	setAttr -s 12 ".kot[2:11]"  1 9 9 1 9 10 9 10 
-		10 18;
-	setAttr -s 12 ".kix[2:11]"  1 0.99979577712589707 0.97449535163445544 
-		1 0.97394068743949724 1 0.99120896139576631 1 1 1;
-	setAttr -s 12 ".kiy[2:11]"  0 0.020209008912453551 0.22440768623832616 
-		0 -0.22680286010074818 0 0.13230568713674476 0 0 0;
-	setAttr -s 12 ".kox[2:11]"  1 0.99979577712589707 0.97449535163445544 
-		1 0.97394068743949724 1 0.99120896139576631 1 1 1;
-	setAttr -s 12 ".koy[2:11]"  0 0.020209008912453551 0.22440768623832616 
-		0 -0.22680286010074818 0 0.13230568713674476 0 0 0;
+	setAttr -s 14 ".ktv[0:13]"  0 0 10 0 12 0 30 7.0588920648768729 36 7.0588920648768729
+		 60 0 72 8.7960832172856662 76 8.7960832172856662 84 0 96 -2.3227036117088082 102 -2.3227036117088082
+		 108 1.5011911338750352 120 1.5011911338750352 132 0;
+	setAttr -s 14 ".kit[0:13]"  18 1 9 9 1 9 9 1 
+		9 10 9 10 10 18;
+	setAttr -s 14 ".kot[0:13]"  18 1 9 9 1 9 9 1 
+		9 10 9 10 10 18;
+	setAttr -s 14 ".kix[1:13]"  0.9951779948004934 0.98924745224040767 
+		0.99249608432144154 1 0.99979577712589707 0.97449535163445544 1 0.97394068743949724 
+		1 0.99120896139576631 1 1 1;
+	setAttr -s 14 ".kiy[1:13]"  0.098085466124544815 0.14625142131228122 
+		0.12227641884928597 0 0.020209008912453551 0.22440768623832616 0 -0.22680286010074818 
+		0 0.13230568713674476 0 0 0;
+	setAttr -s 14 ".kox[1:13]"  0.9951779948004934 0.98924745224040767 
+		0.99249608432144154 1 0.99979577712589707 0.97449535163445544 1 0.97394068743949724 
+		1 0.99120896139576631 1 1 1;
+	setAttr -s 14 ".koy[1:13]"  0.098085466124544815 0.14625142131228122 
+		0.12227641884928597 0 0.020209008912453551 0.22440768623832616 0 -0.22680286010074818 
+		0 0.13230568713674476 0 0 0;
 createNode substanceNode -n "substanceNode1";
 	rename -uid "A5B4D209-4DAE-4E7F-2EBC-6BBA51E656DF";
 	addAttr -r false -ci true -h true -k true -sn "input_randomseed" -ln "input_randomseed" 
@@ -14478,3017 +14648,3206 @@ createNode animCurveTL -n "R_Arm_IK_Ctrl_translateX";
 	rename -uid "39C83A88-4FC8-724F-6EEF-1D91856ADB12";
 	setAttr ".tan" 10;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  0 20.221995101629325 18 6.9841115864075585
-		 24 6.9841115864075585 48 17.882878798917154 60 12.875224829339745 64 12.875224829339745
-		 72 12.875224829339745 84 1.8014899434878875 90 1.8014899434878875 96 -6.340822118243624
-		 108 -6.340822118243624 120 17.882878798917154 132 17.882878798917154;
-	setAttr -s 13 ".kit[0:12]"  9 10 10 9 9 1 9 10 
-		10 10 10 1 18;
-	setAttr -s 13 ".kot[0:12]"  9 10 10 9 9 1 9 10 
-		10 10 10 1 18;
-	setAttr -s 13 ".kix[5:12]"  0.19582788422906439 0.075040961219162677 
+	setAttr -s 15 ".ktv[0:14]"  0 0 10 20.221995101629325 12 20.221995101629325
+		 30 6.9841115864075585 36 6.9841115864075585 60 17.882878798917154 72 12.875224829339745
+		 76 12.875224829339745 84 12.875224829339745 96 1.8014899434878875 102 1.8014899434878875
+		 108 -6.340822118243624 120 -6.340822118243624 132 17.882878798917154 144 17.882878798917154;
+	setAttr -s 15 ".kit[0:14]"  18 1 9 10 10 9 9 1 
+		9 10 10 10 10 1 18;
+	setAttr -s 15 ".kot[0:14]"  18 1 9 10 10 9 9 1 
+		9 10 10 10 10 1 18;
+	setAttr -s 15 ".kix[1:14]"  0.1761781519711221 0.062826286666827352 
+		1 1 0.24674785783980813 0.13196523444997199 0.19582788422906439 0.075040961219162677 
 		1 1 1 1 0.28475915281698783 1;
-	setAttr -s 13 ".kiy[5:12]"  -0.98063828181361967 -0.99718045214459761 
+	setAttr -s 15 ".kiy[1:14]"  0.98435829796270846 -0.99802447750726919 
+		0 0 0.96907971532349479 -0.99125434520942401 -0.98063828181361967 -0.99718045214459761 
 		0 0 0 0 0.9585990949750326 0;
-	setAttr -s 13 ".kox[5:12]"  0.19582788422906439 0.075040961219162677 
+	setAttr -s 15 ".kox[1:14]"  0.1761781519711221 0.062826286666827352 
+		1 1 0.24674785783980813 0.13196523444997199 0.19582788422906439 0.075040961219162677 
 		1 1 1 1 0.28475915281698783 1;
-	setAttr -s 13 ".koy[5:12]"  -0.98063828181361967 -0.99718045214459761 
+	setAttr -s 15 ".koy[1:14]"  0.98435829796270846 -0.99802447750726919 
+		0 0 0.96907971532349479 -0.99125434520942401 -0.98063828181361967 -0.99718045214459761 
 		0 0 0 0 0.9585990949750326 0;
 createNode animCurveTL -n "R_Arm_IK_Ctrl_translateY";
 	rename -uid "EFF9856E-45CA-A690-3982-2DB38BBE26BC";
 	setAttr ".tan" 10;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  0 -10.549879008126993 18 34.539498072132311
-		 24 34.539498072132311 48 4.0209147407235424 60 -0.21358479526698651 64 -0.21358479526698651
-		 72 9.3319030566116865 84 19.570381872786008 90 19.570381872786008 96 23.526672150241406
-		 108 23.526672150241406 120 4.0209147407235424 132 76.968186375856305;
-	setAttr -s 13 ".kit[0:12]"  9 10 10 9 9 1 9 10 
-		10 10 10 1 18;
-	setAttr -s 13 ".kot[0:12]"  9 10 10 9 9 1 9 10 
-		10 10 10 1 18;
-	setAttr -s 13 ".kix[5:12]"  0.18503740181776998 0.042084333522721555 
+	setAttr -s 15 ".ktv[0:14]"  0 0 10 -10.549879008126993 12 -10.549879008126993
+		 30 34.539498072132311 36 34.539498072132311 60 4.0209147407235424 72 -0.21358479526698651
+		 76 -0.21358479526698651 84 9.3319030566116865 96 19.570381872786008 102 19.570381872786008
+		 108 23.526672150241406 120 23.526672150241406 132 4.0209147407235424 144 76.968186375856305;
+	setAttr -s 15 ".kit[0:14]"  18 1 9 10 10 9 9 1 
+		9 10 10 10 10 1 18;
+	setAttr -s 15 ".kot[0:14]"  18 1 9 10 10 9 9 1 
+		9 10 10 10 10 1 18;
+	setAttr -s 15 ".kix[1:14]"  0.036166773694265748 0.018478655059131915 
+		1 1 0.043121491108211979 0.15552133534089277 0.18503740181776998 0.042084333522721555 
 		1 1 1 1 0.050291524432301435 1;
-	setAttr -s 13 ".kiy[5:12]"  0.98273147905647606 0.99911406199289798 
+	setAttr -s 15 ".kiy[1:14]"  0.9993457682306699 0.99982925507668829 
+		0 0 -0.99906983589967535 -0.98783253350645706 0.98273147905647606 0.99911406199289798 
 		0 0 0 0 -0.99873458064206178 0;
-	setAttr -s 13 ".kox[5:12]"  0.18503740181776998 0.042084333522721555 
+	setAttr -s 15 ".kox[1:14]"  0.036166773694265748 0.018478655059131915 
+		1 1 0.043121491108211979 0.15552133534089277 0.18503740181776998 0.042084333522721555 
 		1 1 1 1 0.050291524432301435 1;
-	setAttr -s 13 ".koy[5:12]"  0.98273147905647606 0.99911406199289798 
+	setAttr -s 15 ".koy[1:14]"  0.9993457682306699 0.99982925507668829 
+		0 0 -0.99906983589967535 -0.98783253350645706 0.98273147905647606 0.99911406199289798 
 		0 0 0 0 -0.99873458064206178 0;
 createNode animCurveTL -n "R_Arm_IK_Ctrl_translateZ";
 	rename -uid "6BE9B1A1-49AA-114D-41C4-D98D099BA7A8";
 	setAttr ".tan" 10;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  0 5.4111550876876198 18 50.597408159363582
-		 24 50.597408159363582 48 -5.2127720372040898 60 25.843670170347544 64 25.843670170347544
-		 72 33.127404277842665 84 -3.1551058789417543 90 -3.1551058789417543 96 27.103722540923194
-		 108 27.103722540923194 120 -5.2127720372040898 132 26.817003524884409;
-	setAttr -s 13 ".kit[0:12]"  9 10 10 9 9 1 9 10 
-		10 10 10 1 18;
-	setAttr -s 13 ".kot[0:12]"  9 10 10 9 9 1 9 10 
-		10 10 10 1 18;
-	setAttr -s 13 ".kix[5:12]"  0.026073433310103873 0.028724986838741796 
+	setAttr -s 15 ".ktv[0:14]"  0 0 10 5.4111550876876198 12 5.4111550876876198
+		 30 50.597408159363582 36 50.597408159363582 60 -5.2127720372040898 72 25.843670170347544
+		 76 25.843670170347544 84 33.127404277842665 96 -3.1551058789417543 102 -3.1551058789417543
+		 108 27.103722540923194 120 27.103722540923194 132 -5.2127720372040898 144 26.817003524884409;
+	setAttr -s 15 ".kit[0:14]"  18 1 9 10 10 9 9 1 
+		9 10 10 10 10 1 18;
+	setAttr -s 15 ".kot[0:14]"  18 1 9 10 10 9 9 1 
+		9 10 10 10 10 1 18;
+	setAttr -s 15 ".kix[1:14]"  0.024697287169694847 0.018439051670730431 
+		1 1 0.060485958645159682 0.021461348170789568 0.026073433310103873 0.028724986838741796 
 		1 1 1 1 0.07052038335592703 1;
-	setAttr -s 13 ".kiy[5:12]"  0.99966003024799566 -0.99958735242654706 
+	setAttr -s 15 ".kiy[1:14]"  0.99969497548325092 0.99982998623440189 
+		0 0 -0.99816904821116148 0.9997696787434055 0.99966003024799566 -0.99958735242654706 
 		0 0 0 0 -0.99751033855862015 0;
-	setAttr -s 13 ".kox[5:12]"  0.026073433310103873 0.028724986838741796 
+	setAttr -s 15 ".kox[1:14]"  0.024697287169694847 0.018439051670730431 
+		1 1 0.060485958645159682 0.021461348170789568 0.026073433310103873 0.028724986838741796 
 		1 1 1 1 0.07052038335592703 1;
-	setAttr -s 13 ".koy[5:12]"  0.99966003024799566 -0.99958735242654706 
+	setAttr -s 15 ".koy[1:14]"  0.99969497548325092 0.99982998623440189 
+		0 0 -0.99816904821116148 0.9997696787434055 0.99966003024799566 -0.99958735242654706 
 		0 0 0 0 -0.99751033855862015 0;
 createNode animCurveTA -n "R_Arm_IK_Ctrl_rotateX";
 	rename -uid "0BD21BAD-4113-9161-EA54-E89D227D91C9";
 	setAttr ".tan" 10;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  0 -7.2307398360204349 18 -79.669410901031455
-		 24 -79.496135963853234 48 -7.7446757991272195 60 -7.7446757991272195 64 -7.7446757991272195
-		 72 -7.7446757991272195 84 9.529296031006373 90 9.529296031006373 96 -21.550608164018371
-		 108 -21.550608164018371 120 -7.7446757991272195 132 -115.2508752353914;
-	setAttr -s 13 ".kit[0:12]"  9 10 10 9 9 1 9 10 
-		10 10 10 1 18;
-	setAttr -s 13 ".kot[0:12]"  9 10 10 9 9 1 9 10 
-		10 10 10 1 18;
-	setAttr -s 13 ".kix[5:12]"  1 0.9403512309577946 1 1 1 1 0.81322781443635495 
-		1;
-	setAttr -s 13 ".kiy[5:12]"  0 0.3402051769684884 0 0 0 0 0.58194546293193972 
-		0;
-	setAttr -s 13 ".kox[5:12]"  1 0.9403512309577946 1 1 1 1 0.81322781443635495 
-		1;
-	setAttr -s 13 ".koy[5:12]"  0 0.3402051769684884 0 0 0 0 0.58194546293193972 
-		0;
+	setAttr -s 15 ".ktv[0:14]"  0 0 10 -7.2307398360204349 12 -7.2307398360204349
+		 30 -79.669410901031455 36 -79.496135963853234 60 -7.7446757991272195 72 -7.7446757991272195
+		 76 -7.7446757991272195 84 -7.7446757991272195 96 9.529296031006373 102 9.529296031006373
+		 108 -21.550608164018371 120 -21.550608164018371 132 -7.7446757991272195 144 -115.2508752353914;
+	setAttr -s 15 ".kit[0:14]"  18 1 9 10 10 9 9 1 
+		9 10 10 10 10 1 18;
+	setAttr -s 15 ".kot[0:14]"  18 1 9 10 10 9 9 1 
+		9 10 10 10 10 1 18;
+	setAttr -s 15 ".kix[1:14]"  0.66853788588201335 0.55033596886272196 
+		1 1 0.76764228351965358 1 1 0.9403512309577946 1 1 1 1 0.81322781443635495 1;
+	setAttr -s 15 ".kiy[1:14]"  -0.74367808569327098 -0.83494330428833852 
+		0 0 0.6408785567896087 0 0 0.3402051769684884 0 0 0 0 0.58194546293193972 0;
+	setAttr -s 15 ".kox[1:14]"  0.66853788588201335 0.55033596886272196 
+		1 1 0.76764228351965358 1 1 0.9403512309577946 1 1 1 1 0.81322781443635495 1;
+	setAttr -s 15 ".koy[1:14]"  -0.74367808569327098 -0.83494330428833852 
+		0 0 0.6408785567896087 0 0 0.3402051769684884 0 0 0 0 0.58194546293193972 0;
 createNode animCurveTA -n "R_Arm_IK_Ctrl_rotateY";
 	rename -uid "BFA8D341-4CB1-3B7D-55D9-648BFCFE3B3B";
 	setAttr ".tan" 10;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  0 0.34139392180049022 18 20.713727375627556
-		 24 23.059537313757929 48 1.5337843200334877 60 1.5337843200334877 64 1.5337843200334877
-		 72 1.5337843200334877 84 35.487360582922854 90 35.487360582922854 96 -2.4875992121029444
-		 108 -2.4875992121029444 120 1.5337843200334877 132 19.535947706006873;
-	setAttr -s 13 ".kit[0:12]"  9 10 10 9 9 1 9 10 
-		10 10 10 1 18;
-	setAttr -s 13 ".kot[0:12]"  9 10 10 9 9 1 9 10 
-		10 10 10 1 18;
-	setAttr -s 13 ".kix[5:12]"  1 0.81495111876720483 1 1 1 1 0.97772276011398696 
-		1;
-	setAttr -s 13 ".kiy[5:12]"  0 0.57952970072299237 0 0 0 0 -0.20990046297015849 
-		0;
-	setAttr -s 13 ".kox[5:12]"  1 0.81495111876720483 1 1 1 1 0.97772276011398696 
-		1;
-	setAttr -s 13 ".koy[5:12]"  0 0.57952970072299237 0 0 0 0 -0.20990046297015849 
-		0;
+	setAttr -s 15 ".ktv[0:14]"  0 0 10 0.34139392180049022 12 0.34139392180049022
+		 30 20.713727375627556 36 23.059537313757929 60 1.5337843200334877 72 1.5337843200334877
+		 76 1.5337843200334877 84 1.5337843200334877 96 35.487360582922854 102 35.487360582922854
+		 108 -2.4875992121029444 120 -2.4875992121029444 132 1.5337843200334877 144 19.535947706006873;
+	setAttr -s 15 ".kit[0:14]"  18 1 9 10 10 9 9 1 
+		9 10 10 10 10 1 18;
+	setAttr -s 15 ".kot[0:14]"  18 1 9 10 10 9 9 1 
+		9 10 10 10 10 1 18;
+	setAttr -s 15 ".kix[1:14]"  0.96062979055701847 0.91977468623042635 
+		1 1 0.97003661471381841 1 1 0.81495111876720483 1 1 1 1 0.97772276011398696 1;
+	setAttr -s 15 ".kiy[1:14]"  0.27783161356184605 0.3924468455341702 
+		0 0 -0.24295877451649064 0 0 0.57952970072299237 0 0 0 0 -0.20990046297015849 0;
+	setAttr -s 15 ".kox[1:14]"  0.96062979055701847 0.91977468623042635 
+		1 1 0.97003661471381841 1 1 0.81495111876720483 1 1 1 1 0.97772276011398696 1;
+	setAttr -s 15 ".koy[1:14]"  0.27783161356184605 0.3924468455341702 
+		0 0 -0.24295877451649064 0 0 0.57952970072299237 0 0 0 0 -0.20990046297015849 0;
 createNode animCurveTA -n "R_Arm_IK_Ctrl_rotateZ";
 	rename -uid "E9D0D9DB-4820-8E34-5ACF-A3B993DF9C3B";
 	setAttr ".tan" 10;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  0 36.581065936583705 18 4.1240527973620598
-		 24 4.5887822826444662 48 20.825119883526149 60 20.825119883526149 64 20.825119883526149
-		 72 20.825119883526149 84 29.801254773706333 90 29.801254773706333 96 17.773578155802081
-		 108 17.773578155802081 120 20.825119883526149 132 -7.5159202244174264;
-	setAttr -s 13 ".kit[0:12]"  9 10 10 9 9 1 9 10 
-		10 10 10 1 18;
-	setAttr -s 13 ".kot[0:12]"  9 10 10 9 9 1 9 10 
-		10 10 10 1 18;
-	setAttr -s 13 ".kix[5:12]"  1 0.98278382761503991 1 1 1 1 0.98714165966268841 
-		1;
-	setAttr -s 13 ".kiy[5:12]"  0 0.18475916263701658 0 0 0 0 0.15984787692801292 
-		0;
-	setAttr -s 13 ".kox[5:12]"  1 0.98278382761503991 1 1 1 1 0.98714165966268841 
-		1;
-	setAttr -s 13 ".koy[5:12]"  0 0.18475916263701658 0 0 0 0 0.15984787692801292 
-		0;
+	setAttr -s 15 ".ktv[0:14]"  0 0 10 36.581065936583705 12 36.581065936583705
+		 30 4.1240527973620598 36 4.5887822826444662 60 20.825119883526149 72 20.825119883526149
+		 76 20.825119883526149 84 20.825119883526149 96 29.801254773706333 102 29.801254773706333
+		 108 17.773578155802081 120 17.773578155802081 132 20.825119883526149 144 -7.5159202244174264;
+	setAttr -s 15 ".kit[0:14]"  18 1 9 10 10 9 9 1 
+		9 10 10 10 10 1 18;
+	setAttr -s 15 ".kot[0:14]"  18 1 9 10 10 9 9 1 
+		9 10 10 10 10 1 18;
+	setAttr -s 15 ".kix[1:14]"  0.99834623128382316 0.82701182698673159 
+		1 1 0.98261881854798938 1 1 0.98278382761503991 1 1 1 1 0.98714165966268841 1;
+	setAttr -s 15 ".kiy[1:14]"  0.057487411503625109 -0.56218452310968869 
+		0 0 0.18563474199447047 0 0 0.18475916263701658 0 0 0 0 0.15984787692801292 0;
+	setAttr -s 15 ".kox[1:14]"  0.99834623128382316 0.82701182698673159 
+		1 1 0.98261881854798938 1 1 0.98278382761503991 1 1 1 1 0.98714165966268841 1;
+	setAttr -s 15 ".koy[1:14]"  0.057487411503625109 -0.56218452310968869 
+		0 0 0.18563474199447047 0 0 0.18475916263701658 0 0 0 0 0.15984787692801292 0;
 createNode animCurveTL -n "R_Arm_PV_Ctrl_translateX";
 	rename -uid "3A68DABA-44B8-FE9F-4870-128D3610E044";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  0 0 120 0 132 -22.328782950087476;
+	setAttr -s 5 ".ktv[0:4]"  0 0 10 0 12 0 132 0 144 -22.328782950087476;
+	setAttr -s 5 ".kit[1:4]"  1 18 18 18;
+	setAttr -s 5 ".kot[1:4]"  1 18 18 18;
+	setAttr -s 5 ".kix[1:4]"  1 1 1 1;
+	setAttr -s 5 ".kiy[1:4]"  0 0 0 0;
+	setAttr -s 5 ".kox[1:4]"  1 1 1 1;
+	setAttr -s 5 ".koy[1:4]"  0 0 0 0;
 createNode animCurveTL -n "R_Arm_PV_Ctrl_translateY";
 	rename -uid "F807F9EE-4DE1-1255-2823-51BAB992C7C9";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  0 0 120 0 132 -20.240351447265823;
+	setAttr -s 5 ".ktv[0:4]"  0 0 10 0 12 0 132 0 144 -20.240351447265823;
+	setAttr -s 5 ".kit[1:4]"  1 18 18 18;
+	setAttr -s 5 ".kot[1:4]"  1 18 18 18;
+	setAttr -s 5 ".kix[1:4]"  1 1 1 1;
+	setAttr -s 5 ".kiy[1:4]"  0 0 0 0;
+	setAttr -s 5 ".kox[1:4]"  1 1 1 1;
+	setAttr -s 5 ".koy[1:4]"  0 0 0 0;
 createNode animCurveTL -n "R_Arm_PV_Ctrl_translateZ";
 	rename -uid "C874DDE9-4967-3D3F-FA5A-88B8ACF1BBE1";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  0 0 120 0 132 14.648679698237926;
+	setAttr -s 5 ".ktv[0:4]"  0 0 10 0 12 0 132 0 144 14.648679698237926;
+	setAttr -s 5 ".kit[1:4]"  1 18 18 18;
+	setAttr -s 5 ".kot[1:4]"  1 18 18 18;
+	setAttr -s 5 ".kix[1:4]"  1 1 1 1;
+	setAttr -s 5 ".kiy[1:4]"  0 0 0 0;
+	setAttr -s 5 ".kox[1:4]"  1 1 1 1;
+	setAttr -s 5 ".koy[1:4]"  0 0 0 0;
 createNode animCurveTL -n "R_Clav_FK_Ctrl_translateX";
 	rename -uid "F9D0BC85-4E0D-1C1D-3B70-498ACBB17D04";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  0 0 18 -0.96814819684936415 24 -0.96814819684936415
-		 48 0 60 -0.62789932156724348 64 -0.62789932156724348 72 0 84 -1.2260129373071738
-		 90 -1.2260129373071738 96 -0.73705249738695078 108 -0.73705249738695078 120 0 132 -2.9029205248078789;
-	setAttr -s 13 ".kit[2:12]"  1 9 9 1 9 10 10 10 
-		10 18 18;
-	setAttr -s 13 ".kot[2:12]"  1 9 9 1 9 10 10 10 
-		10 18 18;
-	setAttr -s 13 ".kix[2:12]"  1 0.97522553331174155 0.72795561619853499 
-		1 0.81240546591561791 1 1 1 1 1 1;
-	setAttr -s 13 ".kiy[2:12]"  0 0.22121292723715091 -0.68562425631318735 
-		0 -0.58309292479880748 0 0 0 0 0 0;
-	setAttr -s 13 ".kox[2:12]"  1 0.97522553331174155 0.72795561619853499 
-		1 0.81240546591561791 1 1 1 1 1 1;
-	setAttr -s 13 ".koy[2:12]"  0 0.22121292723715091 -0.68562425631318735 
-		0 -0.58309292479880748 0 0 0 0 0 0;
+	setAttr -s 15 ".ktv[0:14]"  0 0 10 0 12 0 30 -0.96814819684936415 36 -0.96814819684936415
+		 60 0 72 -0.62789932156724348 76 -0.62789932156724348 84 0 96 -1.2260129373071738
+		 102 -1.2260129373071738 108 -0.73705249738695078 120 -0.73705249738695078 132 0 144 -2.9029205248078789;
+	setAttr -s 15 ".kit[0:14]"  18 1 9 9 1 9 9 1 
+		9 10 10 10 10 18 18;
+	setAttr -s 15 ".kot[0:14]"  18 1 9 9 1 9 9 1 
+		9 10 10 10 10 18 18;
+	setAttr -s 15 ".kix[1:14]"  0.79059931116167048 0.6523658640743758 
+		0.71845626386874684 1 0.97522553331174155 0.72795561619853499 1 0.81240546591561791 
+		1 1 1 1 1 1;
+	setAttr -s 15 ".kiy[1:14]"  -0.61233383802521657 -0.75790420198762121 
+		-0.6955721363796582 0 0.22121292723715091 -0.68562425631318735 0 -0.58309292479880748 
+		0 0 0 0 0 0;
+	setAttr -s 15 ".kox[1:14]"  0.79059931116167048 0.6523658640743758 
+		0.71845626386874684 1 0.97522553331174155 0.72795561619853499 1 0.81240546591561791 
+		1 1 1 1 1 1;
+	setAttr -s 15 ".koy[1:14]"  -0.61233383802521657 -0.75790420198762121 
+		-0.6955721363796582 0 0.22121292723715091 -0.68562425631318735 0 -0.58309292479880748 
+		0 0 0 0 0 0;
 createNode animCurveTL -n "R_Clav_FK_Ctrl_translateY";
 	rename -uid "FB46EB22-45D1-9511-9790-B183295F6F40";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  0 0 18 -2.5031159841832 24 -2.5031159841832
-		 48 0 60 -1.329531532441675 64 -1.329531532441675 72 0 84 3.515736511813385 90 3.515736511813385
-		 96 -2.7222330254761871 108 -2.7222330254761871 120 0 132 0;
-	setAttr -s 13 ".kit[2:12]"  1 9 9 1 9 10 10 10 
-		10 18 18;
-	setAttr -s 13 ".kot[2:12]"  1 9 9 1 9 10 10 10 
-		10 18 18;
-	setAttr -s 13 ".kix[2:12]"  1 0.787588730504447 0.44823576517279523 
-		1 0.16950044552619467 1 1 1 1 1 1;
-	setAttr -s 13 ".kiy[2:12]"  0 0.61620125899124345 -0.89391537564802992 
-		0 0.98553011063407969 0 0 0 0 0 0;
-	setAttr -s 13 ".kox[2:12]"  1 0.787588730504447 0.44823576517279523 
-		1 0.16950044552619467 1 1 1 1 1 1;
-	setAttr -s 13 ".koy[2:12]"  0 0.61620125899124345 -0.89391537564802992 
-		0 0.98553011063407969 0 0 0 0 0 0;
+	setAttr -s 15 ".ktv[0:14]"  0 0 10 0 12 0 30 -2.5031159841832 36 -2.5031159841832
+		 60 0 72 -1.329531532441675 76 -1.329531532441675 84 0 96 3.515736511813385 102 3.515736511813385
+		 108 -2.7222330254761871 120 -2.7222330254761871 132 0 144 0;
+	setAttr -s 15 ".kit[0:14]"  18 1 9 9 1 9 9 1 
+		9 10 10 10 10 18 18;
+	setAttr -s 15 ".kot[0:14]"  18 1 9 9 1 9 9 1 
+		9 10 10 10 10 18 18;
+	setAttr -s 15 ".kix[1:14]"  0.44676806092338928 0.31587341160010257 
+		0.3709920196207635 1 0.787588730504447 0.44823576517279523 1 0.16950044552619467 
+		1 1 1 1 1 1;
+	setAttr -s 15 ".kiy[1:14]"  -0.89464981961589563 -0.94880134266563509 
+		-0.92863605431714047 0 0.61620125899124345 -0.89391537564802992 0 0.98553011063407969 
+		0 0 0 0 0 0;
+	setAttr -s 15 ".kox[1:14]"  0.44676806092338928 0.31587341160010257 
+		0.3709920196207635 1 0.787588730504447 0.44823576517279523 1 0.16950044552619467 
+		1 1 1 1 1 1;
+	setAttr -s 15 ".koy[1:14]"  -0.89464981961589563 -0.94880134266563509 
+		-0.92863605431714047 0 0.61620125899124345 -0.89391537564802992 0 0.98553011063407969 
+		0 0 0 0 0 0;
 createNode animCurveTL -n "R_Clav_FK_Ctrl_translateZ";
 	rename -uid "00C9DDC8-4815-D297-8B1C-00B0C4014070";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  0 0 18 0.43878692966437027 24 0.43878692966437027
-		 48 0 60 0.22221861076787786 64 0.22221861076787786 72 0 84 0.30927051325518851 90 0.30927051325518851
-		 96 -0.11320272903109076 108 -0.11320272903109076 120 0 132 2.920287112096307;
-	setAttr -s 13 ".kit[2:12]"  1 9 9 1 9 10 10 10 
-		10 18 18;
-	setAttr -s 13 ".kot[2:12]"  1 9 9 1 9 10 10 10 
-		10 18 18;
-	setAttr -s 13 ".kix[2:12]"  1 0.98973753656759678 0.94868483979863227 
-		1 0.9945880684010513 1 1 1 1 0.82722780640534777 1;
-	setAttr -s 13 ".kiy[2:12]"  0 -0.14289719629546674 0.31622314073489827 
-		0 0.10389694025458916 0 0 0 0 0.56186667129292922 0;
-	setAttr -s 13 ".kox[2:12]"  1 0.98973753656759678 0.94868483979863227 
-		1 0.9945880684010513 1 1 1 1 0.82722780640534777 1;
-	setAttr -s 13 ".koy[2:12]"  0 -0.14289719629546674 0.31622314073489827 
-		0 0.10389694025458916 0 0 0 0 0.56186667129292922 0;
+	setAttr -s 15 ".ktv[0:14]"  0 0 10 0 12 0 30 0.43878692966437027 36 0.43878692966437027
+		 60 0 72 0.22221861076787786 76 0.22221861076787786 84 0 96 0.30927051325518851 102 0.30927051325518851
+		 108 -0.11320272903109076 120 -0.11320272903109076 132 0 144 2.920287112096307;
+	setAttr -s 15 ".kit[0:14]"  18 1 9 9 1 9 9 1 
+		9 10 10 10 10 18 18;
+	setAttr -s 15 ".kot[0:14]"  18 1 9 9 1 9 9 1 
+		9 10 10 10 10 18 18;
+	setAttr -s 15 ".kix[1:14]"  0.94355506347526263 0.88483486874069017 
+		0.91572405039221183 1 0.98973753656759678 0.94868483979863227 1 0.9945880684010513 
+		1 1 1 1 0.82722780640534777 1;
+	setAttr -s 15 ".kiy[1:14]"  0.33121570341726436 0.46590477037764427 
+		0.40180774449141976 0 -0.14289719629546674 0.31622314073489827 0 0.10389694025458916 
+		0 0 0 0 0.56186667129292922 0;
+	setAttr -s 15 ".kox[1:14]"  0.94355506347526263 0.88483486874069017 
+		0.91572405039221183 1 0.98973753656759678 0.94868483979863227 1 0.9945880684010513 
+		1 1 1 1 0.82722780640534777 1;
+	setAttr -s 15 ".koy[1:14]"  0.33121570341726436 0.46590477037764427 
+		0.40180774449141976 0 -0.14289719629546674 0.31622314073489827 0 0.10389694025458916 
+		0 0 0 0 0.56186667129292922 0;
 createNode animCurveTA -n "R_Clav_FK_Ctrl_rotateX";
 	rename -uid "2BFA00D7-4E9F-76AA-D045-569669AB05E8";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  0 0 18 0 24 0 48 0 60 0 64 0 72 0 84 0 90 0
-		 96 0 108 0 120 0 132 0;
-	setAttr -s 13 ".kit[2:12]"  1 9 9 1 9 10 10 10 
-		10 18 18;
-	setAttr -s 13 ".kot[2:12]"  1 9 9 1 9 10 10 10 
-		10 18 18;
-	setAttr -s 13 ".kix[2:12]"  1 1 1 1 1 1 1 1 1 1 1;
-	setAttr -s 13 ".kiy[2:12]"  0 0 0 0 0 0 0 0 0 0 0;
-	setAttr -s 13 ".kox[2:12]"  1 1 1 1 1 1 1 1 1 1 1;
-	setAttr -s 13 ".koy[2:12]"  0 0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 15 ".ktv[0:14]"  0 0 10 0 12 0 30 0 36 0 60 0 72 0 76 0 84 0
+		 96 0 102 0 108 0 120 0 132 0 144 0;
+	setAttr -s 15 ".kit[0:14]"  18 1 9 9 1 9 9 1 
+		9 10 10 10 10 18 18;
+	setAttr -s 15 ".kot[0:14]"  18 1 9 9 1 9 9 1 
+		9 10 10 10 10 18 18;
+	setAttr -s 15 ".kix[1:14]"  1 1 1 1 1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 15 ".kiy[1:14]"  0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 15 ".kox[1:14]"  1 1 1 1 1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 15 ".koy[1:14]"  0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTA -n "R_Clav_FK_Ctrl_rotateY";
 	rename -uid "69415A5B-407E-C07F-D6A3-3C9D6B0480A8";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  0 0 18 0 24 0 48 0 60 0 64 0 72 0 84 0 90 0
-		 96 0 108 0 120 0 132 9.6217494692894636;
-	setAttr -s 13 ".kit[2:12]"  1 9 9 1 9 10 10 10 
-		10 18 18;
-	setAttr -s 13 ".kot[2:12]"  1 9 9 1 9 10 10 10 
-		10 18 18;
-	setAttr -s 13 ".kix[2:12]"  1 1 1 1 1 1 1 1 1 1 1;
-	setAttr -s 13 ".kiy[2:12]"  0 0 0 0 0 0 0 0 0 0 0;
-	setAttr -s 13 ".kox[2:12]"  1 1 1 1 1 1 1 1 1 1 1;
-	setAttr -s 13 ".koy[2:12]"  0 0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 15 ".ktv[0:14]"  0 0 10 0 12 0 30 0 36 0 60 0 72 0 76 0 84 0
+		 96 0 102 0 108 0 120 0 132 0 144 9.6217494692894636;
+	setAttr -s 15 ".kit[0:14]"  18 1 9 9 1 9 9 1 
+		9 10 10 10 10 18 18;
+	setAttr -s 15 ".kot[0:14]"  18 1 9 9 1 9 9 1 
+		9 10 10 10 10 18 18;
+	setAttr -s 15 ".kix[1:14]"  1 1 1 1 1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 15 ".kiy[1:14]"  0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 15 ".kox[1:14]"  1 1 1 1 1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 15 ".koy[1:14]"  0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTA -n "R_Clav_FK_Ctrl_rotateZ";
 	rename -uid "90746EBC-4F21-839C-E3CD-1882E7356ACE";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  0 0 18 0 24 0 48 0 60 0 64 0 72 0 84 0 90 0
-		 96 0 108 0 120 0 132 0;
-	setAttr -s 13 ".kit[2:12]"  1 9 9 1 9 10 10 10 
-		10 18 18;
-	setAttr -s 13 ".kot[2:12]"  1 9 9 1 9 10 10 10 
-		10 18 18;
-	setAttr -s 13 ".kix[2:12]"  1 1 1 1 1 1 1 1 1 1 1;
-	setAttr -s 13 ".kiy[2:12]"  0 0 0 0 0 0 0 0 0 0 0;
-	setAttr -s 13 ".kox[2:12]"  1 1 1 1 1 1 1 1 1 1 1;
-	setAttr -s 13 ".koy[2:12]"  0 0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 15 ".ktv[0:14]"  0 0 10 0 12 0 30 0 36 0 60 0 72 0 76 0 84 0
+		 96 0 102 0 108 0 120 0 132 0 144 0;
+	setAttr -s 15 ".kit[0:14]"  18 1 9 9 1 9 9 1 
+		9 10 10 10 10 18 18;
+	setAttr -s 15 ".kot[0:14]"  18 1 9 9 1 9 9 1 
+		9 10 10 10 10 18 18;
+	setAttr -s 15 ".kix[1:14]"  1 1 1 1 1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 15 ".kiy[1:14]"  0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 15 ".kox[1:14]"  1 1 1 1 1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 15 ".koy[1:14]"  0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTL -n "Head_FK_Ctrl_translateX";
 	rename -uid "03EBCA78-4BA1-6353-288F-7D9CD0F93656";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 18 0 30 0 42 0 84 0 96 0 108 0 120 0
-		 132 0;
-	setAttr -s 9 ".kit[6:8]"  1 18 18;
-	setAttr -s 9 ".kot[6:8]"  1 18 18;
-	setAttr -s 9 ".kix[6:8]"  1 1 1;
-	setAttr -s 9 ".kiy[6:8]"  0 0 0;
-	setAttr -s 9 ".kox[6:8]"  1 1 1;
-	setAttr -s 9 ".koy[6:8]"  0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 30 0 42 0 54 0 96 0 108 0
+		 120 0 132 0 144 0;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTL -n "Neck_01_FK_Ctrl_translateX";
 	rename -uid "6250EED2-4DA1-B868-4CAE-8BAB21E2264D";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 18 0 30 0 42 0 84 0 96 0 108 0 120 0
-		 132 0;
-	setAttr -s 9 ".kit[6:8]"  1 18 18;
-	setAttr -s 9 ".kot[6:8]"  1 18 18;
-	setAttr -s 9 ".kix[6:8]"  1 1 1;
-	setAttr -s 9 ".kiy[6:8]"  0 0 0;
-	setAttr -s 9 ".kox[6:8]"  1 1 1;
-	setAttr -s 9 ".koy[6:8]"  0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 30 0 42 0 54 0 96 0 108 0
+		 120 0 132 0 144 0;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTL -n "Neck_02_FK_Ctrl_translateX";
 	rename -uid "E65F3FD6-4978-42DD-9064-6B90FECEB6B9";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 18 0 30 0 42 0 84 0 96 0 108 0 120 0
-		 132 0;
-	setAttr -s 9 ".kit[6:8]"  1 18 18;
-	setAttr -s 9 ".kot[6:8]"  1 18 18;
-	setAttr -s 9 ".kix[6:8]"  1 1 1;
-	setAttr -s 9 ".kiy[6:8]"  0 0 0;
-	setAttr -s 9 ".kox[6:8]"  1 1 1;
-	setAttr -s 9 ".koy[6:8]"  0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 30 0 42 0 54 0 96 0 108 0
+		 120 0 132 0 144 0;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTL -n "Head_FK_Ctrl_translateY";
 	rename -uid "9255B6F1-4D77-6CED-2AE1-478E3760011C";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 2.4042915236057365e-15 18 2.4042915236057365e-15
-		 30 0 42 2.4042915236057365e-15 84 2.4042915236057365e-15 96 2.4042915236057365e-15
-		 108 2.4042915236057365e-15 120 2.4042915236057365e-15 132 2.4042915236057365e-15;
-	setAttr -s 9 ".kit[6:8]"  1 18 18;
-	setAttr -s 9 ".kot[6:8]"  1 18 18;
-	setAttr -s 9 ".kix[6:8]"  1 1 1;
-	setAttr -s 9 ".kiy[6:8]"  0 0 0;
-	setAttr -s 9 ".kox[6:8]"  1 1 1;
-	setAttr -s 9 ".koy[6:8]"  0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 30 0 42 0 54 0 96 0 108 0
+		 120 0 132 0 144 0;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTL -n "Neck_01_FK_Ctrl_translateY";
 	rename -uid "DD272B36-4304-02FF-6749-D7B252C077A8";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 1.1982005970658927e-15 18 1.1982005970658927e-15
-		 30 0 42 1.1982005970658927e-15 84 1.1982005970658927e-15 96 1.1982005970658927e-15
-		 108 1.1982005970658927e-15 120 1.1982005970658927e-15 132 1.1982005970658927e-15;
-	setAttr -s 9 ".kit[6:8]"  1 18 18;
-	setAttr -s 9 ".kot[6:8]"  1 18 18;
-	setAttr -s 9 ".kix[6:8]"  1 1 1;
-	setAttr -s 9 ".kiy[6:8]"  0 0 0;
-	setAttr -s 9 ".kox[6:8]"  1 1 1;
-	setAttr -s 9 ".koy[6:8]"  0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 30 0 42 0 54 0 96 0 108 0
+		 120 0 132 0 144 0;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTL -n "Neck_02_FK_Ctrl_translateY";
 	rename -uid "15B3E5EA-4285-4DE9-B647-2D9DD0DEEB8D";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 9.1847519778864042e-16 18 9.1847519778864042e-16
-		 30 0 42 9.1847519778864042e-16 84 9.1847519778864042e-16 96 9.1847519778864042e-16
-		 108 9.1847519778864042e-16 120 9.1847519778864042e-16 132 9.1847519778864042e-16;
-	setAttr -s 9 ".kit[6:8]"  1 18 18;
-	setAttr -s 9 ".kot[6:8]"  1 18 18;
-	setAttr -s 9 ".kix[6:8]"  1 1 1;
-	setAttr -s 9 ".kiy[6:8]"  0 0 0;
-	setAttr -s 9 ".kox[6:8]"  1 1 1;
-	setAttr -s 9 ".koy[6:8]"  0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 30 0 42 0 54 0 96 0 108 0
+		 120 0 132 0 144 0;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTL -n "Head_FK_Ctrl_translateZ";
 	rename -uid "4242E24B-4176-47C5-2429-F5AC9576FF19";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 3.9204046275113295e-15 18 3.9204046275113295e-15
-		 30 0 42 3.9204046275113295e-15 84 3.9204046275113295e-15 96 3.9204046275113295e-15
-		 108 3.9204046275113295e-15 120 3.9204046275113295e-15 132 3.9204046275113295e-15;
-	setAttr -s 9 ".kit[6:8]"  1 18 18;
-	setAttr -s 9 ".kot[6:8]"  1 18 18;
-	setAttr -s 9 ".kix[6:8]"  1 1 1;
-	setAttr -s 9 ".kiy[6:8]"  0 0 0;
-	setAttr -s 9 ".kox[6:8]"  1 1 1;
-	setAttr -s 9 ".koy[6:8]"  0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 30 0 42 0 54 0 96 0 108 0
+		 120 0 132 0 144 0;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTL -n "Neck_01_FK_Ctrl_translateZ";
 	rename -uid "D986E191-473A-DEA3-4109-DCA516ED1278";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 2.3964011941317862e-15 18 2.3964011941317862e-15
-		 30 0 42 2.3964011941317862e-15 84 2.3964011941317862e-15 96 2.3964011941317862e-15
-		 108 2.3964011941317862e-15 120 2.3964011941317862e-15 132 2.3964011941317862e-15;
-	setAttr -s 9 ".kit[6:8]"  1 18 18;
-	setAttr -s 9 ".kot[6:8]"  1 18 18;
-	setAttr -s 9 ".kix[6:8]"  1 1 1;
-	setAttr -s 9 ".kiy[6:8]"  0 0 0;
-	setAttr -s 9 ".kox[6:8]"  1 1 1;
-	setAttr -s 9 ".koy[6:8]"  0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 30 0 42 0 54 0 96 0 108 0
+		 120 0 132 0 144 0;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTL -n "Neck_02_FK_Ctrl_translateZ";
 	rename -uid "8FA65CBC-4287-5D2D-6CDD-6894F8A81622";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 1.8369503955772816e-15 18 1.8369503955772816e-15
-		 30 0 42 1.8369503955772816e-15 84 1.8369503955772816e-15 96 1.8369503955772816e-15
-		 108 1.8369503955772816e-15 120 1.8369503955772816e-15 132 1.8369503955772816e-15;
-	setAttr -s 9 ".kit[6:8]"  1 18 18;
-	setAttr -s 9 ".kot[6:8]"  1 18 18;
-	setAttr -s 9 ".kix[6:8]"  1 1 1;
-	setAttr -s 9 ".kiy[6:8]"  0 0 0;
-	setAttr -s 9 ".kox[6:8]"  1 1 1;
-	setAttr -s 9 ".koy[6:8]"  0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 30 0 42 0 54 0 96 0 108 0
+		 120 0 132 0 144 0;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTA -n "Head_FK_Ctrl_rotateX";
 	rename -uid "E4600196-4C7B-1D0E-9400-72B10A631E7C";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 18 -9.6845480743357122 30 0 42 -0.1591589981286034
-		 84 0 96 -7.5676854224346775 108 -7.5676854224346775 120 0 132 -5.6226797218942206;
-	setAttr -s 9 ".kit[6:8]"  1 18 18;
-	setAttr -s 9 ".kot[6:8]"  1 18 18;
-	setAttr -s 9 ".kix[6:8]"  1 1 1;
-	setAttr -s 9 ".kiy[6:8]"  0 0 0;
-	setAttr -s 9 ".kox[6:8]"  1 1 1;
-	setAttr -s 9 ".koy[6:8]"  0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 30 -9.6845480743357122 42 0
+		 54 -0.1591589981286034 96 0 108 -7.5676854224346775 120 -7.5676854224346775 132 0
+		 144 -5.6226797218942206;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTA -n "Neck_01_FK_Ctrl_rotateX";
 	rename -uid "D3323B4D-4A6A-5766-62C1-F28037161C13";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 18 -9.6845480743356624 30 0 42 -0.15915899812865233
-		 84 0 96 -7.5533985634629506 108 -7.5533985634629506 120 0 132 -6.2630943217289925;
-	setAttr -s 9 ".kit[6:8]"  1 18 18;
-	setAttr -s 9 ".kot[6:8]"  1 18 18;
-	setAttr -s 9 ".kix[6:8]"  1 1 1;
-	setAttr -s 9 ".kiy[6:8]"  0 0 0;
-	setAttr -s 9 ".kox[6:8]"  1 1 1;
-	setAttr -s 9 ".koy[6:8]"  0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 30 -9.6845480743356624 42 0
+		 54 -0.15915899812865233 96 0 108 -7.5533985634629506 120 -7.5533985634629506 132 0
+		 144 -6.2630943217289925;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTA -n "Neck_02_FK_Ctrl_rotateX";
 	rename -uid "AB9C09AF-4609-F90E-559C-69B5F79073C0";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 18 -9.6845480743356891 30 0 42 -0.15915899812849876
-		 84 0 96 -7.5606265838430167 108 -7.5606265838430167 120 0 132 -6.0212786565811429;
-	setAttr -s 9 ".kit[6:8]"  1 18 18;
-	setAttr -s 9 ".kot[6:8]"  1 18 18;
-	setAttr -s 9 ".kix[6:8]"  1 1 1;
-	setAttr -s 9 ".kiy[6:8]"  0 0 0;
-	setAttr -s 9 ".kox[6:8]"  1 1 1;
-	setAttr -s 9 ".koy[6:8]"  0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 30 -9.6845480743356891 42 0
+		 54 -0.15915899812849876 96 0 108 -7.5606265838430167 120 -7.5606265838430167 132 0
+		 144 -6.0212786565811429;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTA -n "Head_FK_Ctrl_rotateY";
 	rename -uid "C7A17850-4F74-CE76-D7CF-10B6978A26DF";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 18 1.9525073190388309 30 0 42 -1.2761391890595348
-		 84 0 96 0.402859159168654 108 0.402859159168654 120 0 132 -2.7225155251737649;
-	setAttr -s 9 ".kit[6:8]"  1 18 18;
-	setAttr -s 9 ".kot[6:8]"  1 18 18;
-	setAttr -s 9 ".kix[6:8]"  1 0.99911130141527327 1;
-	setAttr -s 9 ".kiy[6:8]"  0 -0.042149820690945 0;
-	setAttr -s 9 ".kox[6:8]"  1 0.99911130141527327 1;
-	setAttr -s 9 ".koy[6:8]"  0 -0.042149820690945 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 30 1.9525073190388309 42 0
+		 54 -1.2761391890595348 96 0 108 0.402859159168654 120 0.402859159168654 132 0 144 -2.7225155251737654;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 0.99841608106355406 1 0.99991519821479313 
+		1 1 0.99911130141527327 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 -0.056261257306379271 0 0.013022917456192327 
+		0 0 -0.042149820690945 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 0.99841608106355406 1 0.99991519821479324 
+		1 1 0.99911130141527327 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 -0.056261257306379271 0 0.013022917456192329 
+		0 0 -0.042149820690945 0;
 createNode animCurveTA -n "Neck_01_FK_Ctrl_rotateY";
 	rename -uid "B3BF165D-4ABF-3E0D-35A0-C8836E97AEF1";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 18 1.9525073190390945 30 0 42 -1.2761391890595448
-		 84 0 96 0.81118395281244671 108 0.81118395281244671 120 0 132 -0.99529188310799532;
-	setAttr -s 9 ".kit[6:8]"  1 18 18;
-	setAttr -s 9 ".kot[6:8]"  1 18 18;
-	setAttr -s 9 ".kix[6:8]"  1 0.99950333288081361 1;
-	setAttr -s 9 ".kiy[6:8]"  0 -0.031513291801167805 0;
-	setAttr -s 9 ".kox[6:8]"  1 0.99950333288081361 1;
-	setAttr -s 9 ".koy[6:8]"  0 -0.031513291801167805 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 30 1.9525073190390945 42 0
+		 54 -1.2761391890595448 96 0 108 0.81118395281244671 120 0.81118395281244671 132 0
+		 144 -0.99529188310799532;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 0.99841608106355384 1 0.99986894496877088 
+		1 1 0.99950333288081361 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 -0.056261257306384031 0 0.016189283092121903 
+		0 0 -0.031513291801167805 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 0.99841608106355384 1 0.99986894496877099 
+		1 1 0.99950333288081361 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 -0.056261257306384031 0 0.016189283092121906 
+		0 0 -0.031513291801167805 0;
 createNode animCurveTA -n "Neck_02_FK_Ctrl_rotateY";
 	rename -uid "3F5E191F-473F-72E3-83ED-BBB73A5DB959";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 18 1.9525073190388107 30 0 42 -1.2761391890595706
-		 84 0 96 0.61125516141619685 108 0.61125516141619685 120 0 132 -1.8876673718434471;
-	setAttr -s 9 ".kit[6:8]"  1 18 18;
-	setAttr -s 9 ".kot[6:8]"  1 18 18;
-	setAttr -s 9 ".kix[6:8]"  1 0.99905024568952394 1;
-	setAttr -s 9 ".kiy[6:8]"  0 -0.043573002968606063 0;
-	setAttr -s 9 ".kox[6:8]"  1 0.99905024568952394 1;
-	setAttr -s 9 ".koy[6:8]"  0 -0.043573002968606063 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 30 1.9525073190388107 42 0
+		 54 -1.2761391890595706 96 0 108 0.61125516141619685 120 0.61125516141619685 132 0
+		 144 -1.8876673718434471;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 0.99841608106355406 1 0.99989284432046688 
+		1 1 0.99905024568952394 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 -0.056261257306379549 0 0.014638984825677494 
+		0 0 -0.04357300296860607 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 0.99841608106355406 1 0.99989284432046699 
+		1 1 0.99905024568952394 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 -0.056261257306379549 0 0.014638984825677496 
+		0 0 -0.04357300296860607 0;
 createNode animCurveTA -n "Head_FK_Ctrl_rotateZ";
 	rename -uid "ED6674B6-4C95-F8E0-DFC9-669932302D9F";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 18 0.39410484514125088 30 0 42 7.7441336349282093
-		 84 0 96 1.3908169682750982 108 1.3908169682750982 120 0 132 -9.6549005720521404;
-	setAttr -s 9 ".kit[6:8]"  1 18 18;
-	setAttr -s 9 ".kot[6:8]"  1 18 18;
-	setAttr -s 9 ".kix[6:8]"  1 0.98955943391466838 1;
-	setAttr -s 9 ".kiy[6:8]"  0 -0.14412538551719739 0;
-	setAttr -s 9 ".kox[6:8]"  1 0.98955943391466838 1;
-	setAttr -s 9 ".koy[6:8]"  0 -0.14412538551719739 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 30 0.39410484514125088 42 0
+		 54 7.7441336349282093 96 0 108 1.3908169682750982 120 1.3908169682750982 132 0 144 -9.6549005720521404;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 0.98955943391466838 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 -0.14412538551719739 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 0.98955943391466838 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 -0.14412538551719739 0;
 createNode animCurveTA -n "Neck_01_FK_Ctrl_rotateZ";
 	rename -uid "D1A72D7E-47D2-87F6-B5DF-969FCC9AAF36";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 18 0.39410484514142669 30 0 42 7.7441336349282155
-		 84 0 96 1.2625001818125046 108 1.2625001818125046 120 0 132 -9.6723192292290658;
-	setAttr -s 9 ".kit[6:8]"  1 18 18;
-	setAttr -s 9 ".kot[6:8]"  1 18 18;
-	setAttr -s 9 ".kix[6:8]"  1 0.99137335498543588 1;
-	setAttr -s 9 ".kiy[6:8]"  0 -0.13106819226998104 0;
-	setAttr -s 9 ".kox[6:8]"  1 0.99137335498543588 1;
-	setAttr -s 9 ".koy[6:8]"  0 -0.13106819226998104 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 30 0.39410484514142674 42 0
+		 54 7.7441336349282155 96 0 108 1.2625001818125046 120 1.2625001818125046 132 0 144 -9.6723192292290658;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 0.99137335498543588 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 -0.13106819226998104 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 0.99137335498543588 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 -0.13106819226998104 0;
 createNode animCurveTA -n "Neck_02_FK_Ctrl_rotateZ";
 	rename -uid "3AE760A6-4310-33B0-8CBD-F59BA4A29AE0";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 18 0.39410484514128125 30 0 42 7.7441336349282093
-		 84 0 96 1.3400916296236287 108 1.3400916296236287 120 0 132 -9.6483305584579533;
-	setAttr -s 9 ".kit[6:8]"  1 18 18;
-	setAttr -s 9 ".kot[6:8]"  1 18 18;
-	setAttr -s 9 ".kix[6:8]"  1 0.99029626827374084 1;
-	setAttr -s 9 ".kiy[6:8]"  0 -0.13897230315103493 0;
-	setAttr -s 9 ".kox[6:8]"  1 0.99029626827374084 1;
-	setAttr -s 9 ".koy[6:8]"  0 -0.13897230315103493 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 30 0.39410484514128125 42 0
+		 54 7.7441336349282093 96 0 108 1.3400916296236287 120 1.3400916296236287 132 0 144 -9.6483305584579533;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 18 18 18 1 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 0.99029626827374084 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 -0.13897230315103493 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 0.99029626827374084 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 -0.13897230315103493 0;
 createNode animCurveTL -n "L_Arm_01_FK_Ctrl_translateX";
 	rename -uid "CF15F0BB-4F6A-8B6E-97B5-9B87EDD8D499";
-	setAttr ".tan" 10;
+	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 24 0 60 0 64 0 84 0 90 0 96 0 108 0
-		 120 0;
-	setAttr -s 9 ".kit[0:8]"  18 18 18 1 10 10 10 10 
-		18;
-	setAttr -s 9 ".kot[0:8]"  18 18 18 1 10 10 10 10 
-		18;
-	setAttr -s 9 ".kix[3:8]"  1 1 1 1 1 1;
-	setAttr -s 9 ".kiy[3:8]"  0 0 0 0 0 0;
-	setAttr -s 9 ".kox[3:8]"  1 1 1 1 1 1;
-	setAttr -s 9 ".koy[3:8]"  0 0 0 0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 36 0 72 0 76 0 96 0 102 0
+		 108 0 120 0 132 0;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTL -n "L_Clav_FK_Ctrl_translateX";
 	rename -uid "927E776C-4591-BA35-A623-BBA60E636792";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr ".ktv[0]"  0 -2.2204460492503131e-16;
+	setAttr -s 3 ".ktv[0:2]"  0 0 10 0 12 0;
+	setAttr -s 3 ".kit[1:2]"  1 18;
+	setAttr -s 3 ".kot[1:2]"  1 18;
+	setAttr -s 3 ".kix[1:2]"  1 1;
+	setAttr -s 3 ".kiy[1:2]"  0 0;
+	setAttr -s 3 ".kox[1:2]"  1 1;
+	setAttr -s 3 ".koy[1:2]"  0 0;
 createNode animCurveTL -n "L_Arm_01_FK_Ctrl_translateY";
 	rename -uid "4354ED20-4785-3762-8235-379C032B0A83";
-	setAttr ".tan" 10;
+	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 24 0 60 0 64 0 84 0 90 0 96 0 108 0
-		 120 0;
-	setAttr -s 9 ".kit[0:8]"  18 18 18 1 10 10 10 10 
-		18;
-	setAttr -s 9 ".kot[0:8]"  18 18 18 1 10 10 10 10 
-		18;
-	setAttr -s 9 ".kix[3:8]"  1 1 1 1 1 1;
-	setAttr -s 9 ".kiy[3:8]"  0 0 0 0 0 0;
-	setAttr -s 9 ".kox[3:8]"  1 1 1 1 1 1;
-	setAttr -s 9 ".koy[3:8]"  0 0 0 0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 36 0 72 0 76 0 96 0 102 0
+		 108 0 120 0 132 0;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTL -n "L_Clav_FK_Ctrl_translateY";
 	rename -uid "8CD727BD-47A8-2CE4-E328-BE9F00ABD0EF";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr ".ktv[0]"  0 1.2023839406617682e-14;
+	setAttr -s 3 ".ktv[0:2]"  0 0 10 0 12 0;
+	setAttr -s 3 ".kit[1:2]"  1 18;
+	setAttr -s 3 ".kot[1:2]"  1 18;
+	setAttr -s 3 ".kix[1:2]"  1 1;
+	setAttr -s 3 ".kiy[1:2]"  0 0;
+	setAttr -s 3 ".kox[1:2]"  1 1;
+	setAttr -s 3 ".koy[1:2]"  0 0;
 createNode animCurveTL -n "L_Arm_01_FK_Ctrl_translateZ";
 	rename -uid "58197CB4-46E7-6968-C5BB-CFB7602B051C";
-	setAttr ".tan" 10;
+	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 24 0 60 0 64 0 84 0 90 0 96 0 108 0
-		 120 0;
-	setAttr -s 9 ".kit[0:8]"  18 18 18 1 10 10 10 10 
-		18;
-	setAttr -s 9 ".kot[0:8]"  18 18 18 1 10 10 10 10 
-		18;
-	setAttr -s 9 ".kix[3:8]"  1 1 1 1 1 1;
-	setAttr -s 9 ".kiy[3:8]"  0 0 0 0 0 0;
-	setAttr -s 9 ".kox[3:8]"  1 1 1 1 1 1;
-	setAttr -s 9 ".koy[3:8]"  0 0 0 0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 36 0 72 0 76 0 96 0 102 0
+		 108 0 120 0 132 0;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTL -n "L_Clav_FK_Ctrl_translateZ";
 	rename -uid "CAEAFA75-45D3-156B-9158-59A5A36E42A9";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr ".ktv[0]"  0 0;
+	setAttr -s 3 ".ktv[0:2]"  0 0 10 0 12 0;
+	setAttr -s 3 ".kit[1:2]"  1 18;
+	setAttr -s 3 ".kot[1:2]"  1 18;
+	setAttr -s 3 ".kix[1:2]"  1 1;
+	setAttr -s 3 ".kiy[1:2]"  0 0;
+	setAttr -s 3 ".kox[1:2]"  1 1;
+	setAttr -s 3 ".koy[1:2]"  0 0;
 createNode animCurveTA -n "L_Arm_01_FK_Ctrl_rotateX";
 	rename -uid "5672FC0A-4613-C2B6-5588-2B9CE04F55AE";
-	setAttr ".tan" 10;
+	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 24 17.587553171713981 60 17.587553171713981
-		 64 17.587553171713981 84 0 90 0 96 -24.37370453175518 108 -24.37370453175518 120 0.72512402294040623;
-	setAttr -s 9 ".kit[0:8]"  18 18 18 1 10 10 10 10 
-		18;
-	setAttr -s 9 ".kot[0:8]"  18 18 18 1 10 10 10 10 
-		18;
-	setAttr -s 9 ".kix[3:8]"  1 1 1 1 1 1;
-	setAttr -s 9 ".kiy[3:8]"  0 0 0 0 0 0;
-	setAttr -s 9 ".kox[3:8]"  1 1 1 1 1 1;
-	setAttr -s 9 ".koy[3:8]"  0 0 0 0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 36 17.587553171713981 72 17.587553171713981
+		 76 17.587553171713981 96 0 102 0 108 -24.37370453175518 120 -24.37370453175518 132 0.72512402294040623;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTA -n "L_Clav_FK_Ctrl_rotateX";
 	rename -uid "B4C59D7F-4B78-B328-7FCE-F0ADBFC83800";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr ".ktv[0]"  0 0;
+	setAttr -s 3 ".ktv[0:2]"  0 0 10 0 12 0;
+	setAttr -s 3 ".kit[1:2]"  1 18;
+	setAttr -s 3 ".kot[1:2]"  1 18;
+	setAttr -s 3 ".kix[1:2]"  1 1;
+	setAttr -s 3 ".kiy[1:2]"  0 0;
+	setAttr -s 3 ".kox[1:2]"  1 1;
+	setAttr -s 3 ".koy[1:2]"  0 0;
 createNode animCurveTA -n "L_Arm_01_FK_Ctrl_rotateY";
 	rename -uid "1928D37C-487C-E9F9-4264-C4B7DE9B9F5F";
-	setAttr ".tan" 10;
+	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 -25.188243410906836 24 -23.691180309310475
-		 60 -23.691180309310475 64 -23.691180309310475 84 0 90 0 96 -1.6570970884639389 108 -1.6570970884639389
-		 120 -23.639957038093982;
-	setAttr -s 9 ".kit[0:8]"  18 18 18 1 10 10 10 10 
-		18;
-	setAttr -s 9 ".kot[0:8]"  18 18 18 1 10 10 10 10 
-		18;
-	setAttr -s 9 ".kix[3:8]"  1 1 1 1 1 1;
-	setAttr -s 9 ".kiy[3:8]"  0 0 0 0 0 0;
-	setAttr -s 9 ".kox[3:8]"  1 1 1 1 1 1;
-	setAttr -s 9 ".koy[3:8]"  0 0 0 0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 -25.188243410906836 12 -25.188243410906836
+		 36 -23.691180309310475 72 -23.691180309310475 76 -23.691180309310475 96 0 102 0 108 -1.6570970884639389
+		 120 -1.6570970884639389 132 -23.639957038093982;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTA -n "L_Clav_FK_Ctrl_rotateY";
 	rename -uid "5C2C6254-4104-4EDA-E413-38968A92E7EB";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr ".ktv[0]"  0 0;
+	setAttr -s 3 ".ktv[0:2]"  0 0 10 0 12 0;
+	setAttr -s 3 ".kit[1:2]"  1 18;
+	setAttr -s 3 ".kot[1:2]"  1 18;
+	setAttr -s 3 ".kix[1:2]"  1 1;
+	setAttr -s 3 ".kiy[1:2]"  0 0;
+	setAttr -s 3 ".kox[1:2]"  1 1;
+	setAttr -s 3 ".koy[1:2]"  0 0;
 createNode animCurveTA -n "L_Arm_01_FK_Ctrl_rotateZ";
 	rename -uid "69FD0F28-4599-DA85-4693-458C7416B5AF";
-	setAttr ".tan" 10;
+	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 24 -14.815409701997586 60 -14.815409701997586
-		 64 -14.815409701997586 84 16.111939058239443 90 16.111939058239443 96 -27.114695387360928
-		 108 -27.114695387360928 120 -6.4903784907569495;
-	setAttr -s 9 ".kit[0:8]"  18 18 18 1 10 10 10 10 
-		18;
-	setAttr -s 9 ".kot[0:8]"  18 18 18 1 10 10 10 10 
-		18;
-	setAttr -s 9 ".kix[3:8]"  1 1 1 1 1 1;
-	setAttr -s 9 ".kiy[3:8]"  0 0 0 0 0 0;
-	setAttr -s 9 ".kox[3:8]"  1 1 1 1 1 1;
-	setAttr -s 9 ".koy[3:8]"  0 0 0 0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 36 -14.815409701997586 72 -14.815409701997586
+		 76 -14.815409701997586 96 16.111939058239443 102 16.111939058239443 108 -27.114695387360928
+		 120 -27.114695387360928 132 -6.4903784907569495;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTA -n "L_Clav_FK_Ctrl_rotateZ";
 	rename -uid "E681CCEA-4A5D-6A86-6180-9F8BF9D001FA";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr ".ktv[0]"  0 0;
+	setAttr -s 3 ".ktv[0:2]"  0 0 10 0 12 0;
+	setAttr -s 3 ".kit[1:2]"  1 18;
+	setAttr -s 3 ".kot[1:2]"  1 18;
+	setAttr -s 3 ".kix[1:2]"  1 1;
+	setAttr -s 3 ".kiy[1:2]"  0 0;
+	setAttr -s 3 ".kox[1:2]"  1 1;
+	setAttr -s 3 ".koy[1:2]"  0 0;
 createNode animCurveTL -n "L_Arm_02_FK_Ctrl_translateX";
 	rename -uid "BC962BD3-4E4F-A5FB-BF26-4AA3997B67D1";
-	setAttr ".tan" 10;
+	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 60 0 64 0 84 0 90 0 96 0 108 0 120 0
-		 132 0;
-	setAttr -s 9 ".kit[0:8]"  18 18 1 10 10 10 10 18 
-		18;
-	setAttr -s 9 ".kot[0:8]"  18 18 1 10 10 10 10 18 
-		18;
-	setAttr -s 9 ".kix[2:8]"  1 1 1 1 1 1 1;
-	setAttr -s 9 ".kiy[2:8]"  0 0 0 0 0 0 0;
-	setAttr -s 9 ".kox[2:8]"  1 1 1 1 1 1 1;
-	setAttr -s 9 ".koy[2:8]"  0 0 0 0 0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0 108 0
+		 120 0 132 0 144 0;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 1 10 10 10 10 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 1 10 10 10 10 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTL -n "L_Arm_02_FK_Ctrl_translateY";
 	rename -uid "62F9D8E2-4653-B97D-9DA7-648008860A54";
-	setAttr ".tan" 10;
+	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 60 0 64 0 84 0 90 0 96 0 108 0 120 0
-		 132 0;
-	setAttr -s 9 ".kit[0:8]"  18 18 1 10 10 10 10 18 
-		18;
-	setAttr -s 9 ".kot[0:8]"  18 18 1 10 10 10 10 18 
-		18;
-	setAttr -s 9 ".kix[2:8]"  1 1 1 1 1 1 1;
-	setAttr -s 9 ".kiy[2:8]"  0 0 0 0 0 0 0;
-	setAttr -s 9 ".kox[2:8]"  1 1 1 1 1 1 1;
-	setAttr -s 9 ".koy[2:8]"  0 0 0 0 0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0 108 0
+		 120 0 132 0 144 0;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 1 10 10 10 10 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 1 10 10 10 10 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTL -n "L_Arm_02_FK_Ctrl_translateZ";
 	rename -uid "70C5F4C2-4DA9-1C72-E4A3-B89105C49E62";
-	setAttr ".tan" 10;
+	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 60 0 64 0 84 0 90 0 96 0 108 0 120 0
-		 132 0;
-	setAttr -s 9 ".kit[0:8]"  18 18 1 10 10 10 10 18 
-		18;
-	setAttr -s 9 ".kot[0:8]"  18 18 1 10 10 10 10 18 
-		18;
-	setAttr -s 9 ".kix[2:8]"  1 1 1 1 1 1 1;
-	setAttr -s 9 ".kiy[2:8]"  0 0 0 0 0 0 0;
-	setAttr -s 9 ".kox[2:8]"  1 1 1 1 1 1 1;
-	setAttr -s 9 ".koy[2:8]"  0 0 0 0 0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0 108 0
+		 120 0 132 0 144 0;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 1 10 10 10 10 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 1 10 10 10 10 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTA -n "L_Arm_02_FK_Ctrl_rotateX";
 	rename -uid "0FB11969-4711-5D4E-E533-A9843D3A3331";
-	setAttr ".tan" 10;
+	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 60 0 64 0 84 0 90 0 96 -12.778887713216633
-		 108 -12.778887713216633 120 0 132 -13.196682025909457;
-	setAttr -s 9 ".kit[0:8]"  18 18 1 10 10 10 10 18 
-		18;
-	setAttr -s 9 ".kot[0:8]"  18 18 1 10 10 10 10 18 
-		18;
-	setAttr -s 9 ".kix[2:8]"  1 1 1 1 1 1 1;
-	setAttr -s 9 ".kiy[2:8]"  0 0 0 0 0 0 0;
-	setAttr -s 9 ".kox[2:8]"  1 1 1 1 1 1 1;
-	setAttr -s 9 ".koy[2:8]"  0 0 0 0 0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0 108 -12.778887713216633
+		 120 -12.778887713216633 132 0 144 -13.196682025909457;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 1 10 10 10 10 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 1 10 10 10 10 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTA -n "L_Arm_02_FK_Ctrl_rotateY";
 	rename -uid "CF4A8D30-4C1A-EB7F-6C02-A0822534E61B";
-	setAttr ".tan" 10;
+	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 60 0 64 0 84 0 90 0 96 0 108 0 120 0
-		 132 -8.7955097561161875;
-	setAttr -s 9 ".kit[0:8]"  18 18 1 10 10 10 10 18 
-		18;
-	setAttr -s 9 ".kot[0:8]"  18 18 1 10 10 10 10 18 
-		18;
-	setAttr -s 9 ".kix[2:8]"  1 1 1 1 1 1 1;
-	setAttr -s 9 ".kiy[2:8]"  0 0 0 0 0 0 0;
-	setAttr -s 9 ".kox[2:8]"  1 1 1 1 1 1 1;
-	setAttr -s 9 ".koy[2:8]"  0 0 0 0 0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0 108 0
+		 120 0 132 0 144 -8.7955097561161875;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 1 10 10 10 10 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 1 10 10 10 10 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTA -n "L_Arm_02_FK_Ctrl_rotateZ";
 	rename -uid "65199289-4019-BCF6-482F-F2A12148648A";
-	setAttr ".tan" 10;
+	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 9 ".ktv[0:8]"  0 0 60 12.956311363917003 64 12.956311363917003
-		 84 23.507428430557997 90 23.507428430557997 96 11.999397242684477 108 11.999397242684477
-		 120 0 132 83.124123782998353;
-	setAttr -s 9 ".kit[0:8]"  18 18 1 10 10 10 10 18 
-		18;
-	setAttr -s 9 ".kot[0:8]"  18 18 1 10 10 10 10 18 
-		18;
-	setAttr -s 9 ".kix[2:8]"  1 1 1 1 1 1 1;
-	setAttr -s 9 ".kiy[2:8]"  0 0 0 0 0 0 0;
-	setAttr -s 9 ".kox[2:8]"  1 1 1 1 1 1 1;
-	setAttr -s 9 ".koy[2:8]"  0 0 0 0 0 0 0;
+	setAttr -s 11 ".ktv[0:10]"  0 0 10 0 12 0 72 12.956311363917003 76 12.956311363917003
+		 96 23.507428430557997 102 23.507428430557997 108 11.999397242684477 120 11.999397242684477
+		 132 0 144 83.124123782998353;
+	setAttr -s 11 ".kit[1:10]"  1 18 18 1 10 10 10 10 
+		18 18;
+	setAttr -s 11 ".kot[1:10]"  1 18 18 1 10 10 10 10 
+		18 18;
+	setAttr -s 11 ".kix[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".kiy[1:10]"  0 0 0 0 0 0 0 0 0 0;
+	setAttr -s 11 ".kox[1:10]"  1 1 1 1 1 1 1 1 1 1;
+	setAttr -s 11 ".koy[1:10]"  0 0 0 0 0 0 0 0 0 0;
 createNode animCurveTL -n "L_Arm_03_FK_Ctrl_translateX";
 	rename -uid "ABF78D5F-4B06-7F8D-3308-F99BF0588596";
 	setAttr ".tan" 10;
 	setAttr ".wgt" no;
-	setAttr -s 8 ".ktv[0:7]"  0 0 60 0 64 0 84 0 90 0 96 0 108 0 120 0;
-	setAttr -s 8 ".kit[0:7]"  18 18 1 10 10 10 10 18;
-	setAttr -s 8 ".kot[0:7]"  18 18 1 10 10 10 10 18;
-	setAttr -s 8 ".kix[2:7]"  1 1 1 1 1 1;
-	setAttr -s 8 ".kiy[2:7]"  0 0 0 0 0 0;
-	setAttr -s 8 ".kox[2:7]"  1 1 1 1 1 1;
-	setAttr -s 8 ".koy[2:7]"  0 0 0 0 0 0;
+	setAttr -s 10 ".ktv[0:9]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0 108 0
+		 120 0 132 0;
+	setAttr -s 10 ".kit[0:9]"  18 1 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 10 ".kot[0:9]"  18 1 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 10 ".kix[1:9]"  1 1 1 1 1 1 1 1 1;
+	setAttr -s 10 ".kiy[1:9]"  0 0 0 0 0 0 0 0 0;
+	setAttr -s 10 ".kox[1:9]"  1 1 1 1 1 1 1 1 1;
+	setAttr -s 10 ".koy[1:9]"  0 0 0 0 0 0 0 0 0;
 createNode animCurveTL -n "L_Arm_03_FK_Ctrl_translateY";
 	rename -uid "95F358FF-448E-F3DB-D117-F68C64669A96";
 	setAttr ".tan" 10;
 	setAttr ".wgt" no;
-	setAttr -s 8 ".ktv[0:7]"  0 0 60 0 64 0 84 0 90 0 96 0 108 0 120 0;
-	setAttr -s 8 ".kit[0:7]"  18 18 1 10 10 10 10 18;
-	setAttr -s 8 ".kot[0:7]"  18 18 1 10 10 10 10 18;
-	setAttr -s 8 ".kix[2:7]"  1 1 1 1 1 1;
-	setAttr -s 8 ".kiy[2:7]"  0 0 0 0 0 0;
-	setAttr -s 8 ".kox[2:7]"  1 1 1 1 1 1;
-	setAttr -s 8 ".koy[2:7]"  0 0 0 0 0 0;
+	setAttr -s 10 ".ktv[0:9]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0 108 0
+		 120 0 132 0;
+	setAttr -s 10 ".kit[0:9]"  18 1 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 10 ".kot[0:9]"  18 1 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 10 ".kix[1:9]"  1 1 1 1 1 1 1 1 1;
+	setAttr -s 10 ".kiy[1:9]"  0 0 0 0 0 0 0 0 0;
+	setAttr -s 10 ".kox[1:9]"  1 1 1 1 1 1 1 1 1;
+	setAttr -s 10 ".koy[1:9]"  0 0 0 0 0 0 0 0 0;
 createNode animCurveTL -n "L_Arm_03_FK_Ctrl_translateZ";
 	rename -uid "7BB81E8F-4872-D53E-615B-AD935B009D14";
 	setAttr ".tan" 10;
 	setAttr ".wgt" no;
-	setAttr -s 8 ".ktv[0:7]"  0 0 60 0 64 0 84 0 90 0 96 0 108 0 120 0;
-	setAttr -s 8 ".kit[0:7]"  18 18 1 10 10 10 10 18;
-	setAttr -s 8 ".kot[0:7]"  18 18 1 10 10 10 10 18;
-	setAttr -s 8 ".kix[2:7]"  1 1 1 1 1 1;
-	setAttr -s 8 ".kiy[2:7]"  0 0 0 0 0 0;
-	setAttr -s 8 ".kox[2:7]"  1 1 1 1 1 1;
-	setAttr -s 8 ".koy[2:7]"  0 0 0 0 0 0;
+	setAttr -s 10 ".ktv[0:9]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0 108 0
+		 120 0 132 0;
+	setAttr -s 10 ".kit[0:9]"  18 1 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 10 ".kot[0:9]"  18 1 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 10 ".kix[1:9]"  1 1 1 1 1 1 1 1 1;
+	setAttr -s 10 ".kiy[1:9]"  0 0 0 0 0 0 0 0 0;
+	setAttr -s 10 ".kox[1:9]"  1 1 1 1 1 1 1 1 1;
+	setAttr -s 10 ".koy[1:9]"  0 0 0 0 0 0 0 0 0;
 createNode animCurveTA -n "L_Arm_03_FK_Ctrl_rotateX";
 	rename -uid "A13261B7-44DE-37C5-F5FE-7FA8281CA42D";
 	setAttr ".tan" 10;
 	setAttr ".wgt" no;
-	setAttr -s 8 ".ktv[0:7]"  0 -21.853435535088174 60 -21.853435535088174
-		 64 -21.853435535088174 84 -37.357566397216985 90 -37.357566397216985 96 -40.807075513159269
-		 108 -40.807075513159269 120 0;
-	setAttr -s 8 ".kit[0:7]"  18 18 1 10 10 10 10 18;
-	setAttr -s 8 ".kot[0:7]"  18 18 1 10 10 10 10 18;
-	setAttr -s 8 ".kix[2:7]"  1 1 1 1 1 1;
-	setAttr -s 8 ".kiy[2:7]"  0 0 0 0 0 0;
-	setAttr -s 8 ".kox[2:7]"  1 1 1 1 1 1;
-	setAttr -s 8 ".koy[2:7]"  0 0 0 0 0 0;
+	setAttr -s 10 ".ktv[0:9]"  0 0 10 -21.853435535088174 12 -21.853435535088174
+		 72 -21.853435535088174 76 -21.853435535088174 96 -37.357566397216985 102 -37.357566397216985
+		 108 -40.807075513159269 120 -40.807075513159269 132 0;
+	setAttr -s 10 ".kit[0:9]"  18 1 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 10 ".kot[0:9]"  18 1 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 10 ".kix[1:9]"  1 1 1 1 1 1 1 1 1;
+	setAttr -s 10 ".kiy[1:9]"  0 0 0 0 0 0 0 0 0;
+	setAttr -s 10 ".kox[1:9]"  1 1 1 1 1 1 1 1 1;
+	setAttr -s 10 ".koy[1:9]"  0 0 0 0 0 0 0 0 0;
 createNode animCurveTA -n "L_Arm_03_FK_Ctrl_rotateY";
 	rename -uid "820DE7D2-4D98-AE4A-8D52-5D9302DD1871";
 	setAttr ".tan" 10;
 	setAttr ".wgt" no;
-	setAttr -s 8 ".ktv[0:7]"  0 -2.786583195453106 60 -2.786583195453106
-		 64 -2.786583195453106 84 -2.7865831954531077 90 -2.7865831954531077 96 2.8577500212823623
-		 108 2.8577500212823623 120 0;
-	setAttr -s 8 ".kit[0:7]"  18 18 1 10 10 10 10 18;
-	setAttr -s 8 ".kot[0:7]"  18 18 1 10 10 10 10 18;
-	setAttr -s 8 ".kix[2:7]"  1 1 1 1 1 1;
-	setAttr -s 8 ".kiy[2:7]"  0 0 0 0 0 0;
-	setAttr -s 8 ".kox[2:7]"  1 1 1 1 1 1;
-	setAttr -s 8 ".koy[2:7]"  0 0 0 0 0 0;
+	setAttr -s 10 ".ktv[0:9]"  0 0 10 -2.786583195453106 12 -2.786583195453106
+		 72 -2.786583195453106 76 -2.786583195453106 96 -2.7865831954531077 102 -2.7865831954531077
+		 108 2.8577500212823623 120 2.8577500212823623 132 0;
+	setAttr -s 10 ".kit[0:9]"  18 1 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 10 ".kot[0:9]"  18 1 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 10 ".kix[1:9]"  1 1 1 1 1 1 1 1 1;
+	setAttr -s 10 ".kiy[1:9]"  0 0 0 0 0 0 0 0 0;
+	setAttr -s 10 ".kox[1:9]"  1 1 1 1 1 1 1 1 1;
+	setAttr -s 10 ".koy[1:9]"  0 0 0 0 0 0 0 0 0;
 createNode animCurveTA -n "L_Arm_03_FK_Ctrl_rotateZ";
 	rename -uid "5CA3BB12-4D1B-F654-A74F-D9832B1D4427";
 	setAttr ".tan" 10;
 	setAttr ".wgt" no;
-	setAttr -s 8 ".ktv[0:7]"  0 1.1169874275712561 60 1.1169874275712561
-		 64 1.1169874275712561 84 1.1169874275712577 90 1.1169874275712577 96 -12.575826227129243
-		 108 -12.575826227129243 120 0;
-	setAttr -s 8 ".kit[0:7]"  18 18 1 10 10 10 10 18;
-	setAttr -s 8 ".kot[0:7]"  18 18 1 10 10 10 10 18;
-	setAttr -s 8 ".kix[2:7]"  1 1 1 1 1 1;
-	setAttr -s 8 ".kiy[2:7]"  0 0 0 0 0 0;
-	setAttr -s 8 ".kox[2:7]"  1 1 1 1 1 1;
-	setAttr -s 8 ".koy[2:7]"  0 0 0 0 0 0;
+	setAttr -s 10 ".ktv[0:9]"  0 0 10 1.1169874275712561 12 1.1169874275712561
+		 72 1.1169874275712561 76 1.1169874275712561 96 1.1169874275712577 102 1.1169874275712577
+		 108 -12.575826227129243 120 -12.575826227129243 132 0;
+	setAttr -s 10 ".kit[0:9]"  18 1 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 10 ".kot[0:9]"  18 1 18 18 1 10 10 10 
+		10 18;
+	setAttr -s 10 ".kix[1:9]"  1 1 1 1 1 1 1 1 1;
+	setAttr -s 10 ".kiy[1:9]"  0 0 0 0 0 0 0 0 0;
+	setAttr -s 10 ".kox[1:9]"  1 1 1 1 1 1 1 1 1;
+	setAttr -s 10 ".koy[1:9]"  0 0 0 0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_02_Knuckle_03_FK_Ctrl_translateX";
 	rename -uid "FE649324-4D03-A274-257D-C58D6F231ADA";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_01_Knuckle_04_FK_Ctrl_translateX";
 	rename -uid "44ACF5E8-4419-E6EA-103F-04BC93218445";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_04_Knuckle_02_FK_Ctrl_translateX";
 	rename -uid "9264AB6C-4F6A-681B-E60E-E685E1003B61";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_02_Knuckle_02_FK_Ctrl_translateX";
 	rename -uid "D471097C-42A0-BAA8-5C9F-3892B6485C51";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_02_Knuckle_04_FK_Ctrl_translateX";
 	rename -uid "C94FA846-4AAD-7EEA-3942-63B69D42D637";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_03_Knuckle_04_FK_Ctrl_translateX";
 	rename -uid "AE05F81E-441D-B1AE-06E8-4184CFD85223";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_02_Knuckle_01_FK_Ctrl_translateX";
 	rename -uid "45734B2E-4FFA-8FFD-68C3-CB951BBC50C2";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_03_Knuckle_03_FK_Ctrl_translateX";
 	rename -uid "642BD62D-408B-0C97-D925-4CBCDA7689C9";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_05_Knuckle_03_FK_Ctrl_translateX";
 	rename -uid "4007B0E2-442A-5C74-981F-36A200491DA2";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_04_Knuckle_03_FK_Ctrl_translateX";
 	rename -uid "3B756F34-405A-22D0-2B28-D2840ED94DC5";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_05_Knuckle_04_FK_Ctrl_translateX";
 	rename -uid "90E90F96-4402-6449-9B27-438EE061B70F";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_05_Knuckle_01_FK_Ctrl_translateX";
 	rename -uid "1551CFA7-4354-E28D-41C7-578021883501";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_03_Knuckle_01_FK_Ctrl_translateX";
 	rename -uid "3A36E8CA-4BF5-4D76-4D47-28847D70EE15";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_04_Knuckle_01_FK_Ctrl_translateX";
 	rename -uid "6A3211EF-47DB-5B71-4501-FAA03B707EFA";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_01_Knuckle_03_FK_Ctrl_translateX";
 	rename -uid "CF5C540B-47D2-E36A-3511-67BC878FE6FB";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_05_Knuckle_02_FK_Ctrl_translateX";
 	rename -uid "D7E1E91D-4FBC-228F-6A3F-03AC29832D1A";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_03_Knuckle_02_FK_Ctrl_translateX";
 	rename -uid "C135F03C-46DC-0B3C-0CFA-0AB8266358B3";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_01_Knuckle_01_FK_Ctrl_translateX";
 	rename -uid "9F76A31F-4476-A7E3-35B4-2C81DF9AC167";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_01_Knuckle_02_FK_Ctrl_translateX";
 	rename -uid "C5A0F87D-4ED3-62B3-9694-3E9E3167C9D4";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_04_Knuckle_04_FK_Ctrl_translateX";
 	rename -uid "5E600143-4993-EEBF-0A53-02859391C8F3";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_02_Knuckle_03_FK_Ctrl_translateY";
 	rename -uid "ECB5EDC0-484B-1C2F-D813-1993BCBE992D";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_01_Knuckle_04_FK_Ctrl_translateY";
 	rename -uid "227958FD-4C42-DEDC-4FC5-BA8BF78F4C88";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_04_Knuckle_02_FK_Ctrl_translateY";
 	rename -uid "14FBAEB1-4FE7-3B8E-D4D1-2A8FF5E3D665";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_02_Knuckle_02_FK_Ctrl_translateY";
 	rename -uid "A0E72E48-4D1D-BDD1-EB19-ED9E910C69D8";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_02_Knuckle_04_FK_Ctrl_translateY";
 	rename -uid "B042E2C1-44EA-D7AC-5FE2-E9B7553D9118";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_03_Knuckle_04_FK_Ctrl_translateY";
 	rename -uid "5B7E72F8-4142-E30A-134C-78A53CE22209";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_02_Knuckle_01_FK_Ctrl_translateY";
 	rename -uid "5F90F951-45F6-FD9D-D8AD-A1A0E60A7260";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_03_Knuckle_03_FK_Ctrl_translateY";
 	rename -uid "17C6D0EE-4476-8955-4BB2-D7BCE6464AE0";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_05_Knuckle_03_FK_Ctrl_translateY";
 	rename -uid "E1250C30-431F-E54A-534F-5781F1E8D080";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_04_Knuckle_03_FK_Ctrl_translateY";
 	rename -uid "16D1DDCF-4EAA-7A04-1431-11A7234B3567";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_05_Knuckle_04_FK_Ctrl_translateY";
 	rename -uid "D8240F14-4988-0430-E02A-79BD8AB6F541";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_05_Knuckle_01_FK_Ctrl_translateY";
 	rename -uid "247156E0-4659-475B-EC81-5B89A8129CF8";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_03_Knuckle_01_FK_Ctrl_translateY";
 	rename -uid "42052E5A-4BCD-5270-42E9-AB97B0D8FA2B";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_04_Knuckle_01_FK_Ctrl_translateY";
 	rename -uid "745D2910-482D-CBD0-8C37-6FB0A4C3A8FA";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_01_Knuckle_03_FK_Ctrl_translateY";
 	rename -uid "B42BD3F0-4ED3-5163-41AA-938478183F75";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_05_Knuckle_02_FK_Ctrl_translateY";
 	rename -uid "8551AF77-4EAF-3FD9-002B-66874D95077D";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_03_Knuckle_02_FK_Ctrl_translateY";
 	rename -uid "E22444E4-481D-766A-BF73-5FA21B16A67E";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_01_Knuckle_01_FK_Ctrl_translateY";
 	rename -uid "05AE87CC-49FD-59FD-C84A-298F100217A3";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_01_Knuckle_02_FK_Ctrl_translateY";
 	rename -uid "8E664C1A-4960-B365-B241-6FA3CAA8442E";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_04_Knuckle_04_FK_Ctrl_translateY";
 	rename -uid "D6435D59-4FC5-8E1D-52EE-C385042DB9C9";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_02_Knuckle_03_FK_Ctrl_translateZ";
 	rename -uid "4D06A30B-4659-2680-703F-83ABD297823B";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_01_Knuckle_04_FK_Ctrl_translateZ";
 	rename -uid "7379EE88-419B-07DC-1AEB-FF9CBDE16D5A";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_04_Knuckle_02_FK_Ctrl_translateZ";
 	rename -uid "75631170-4F78-88CD-B709-A599DD0A7669";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_02_Knuckle_02_FK_Ctrl_translateZ";
 	rename -uid "7BF35D10-4F58-8C04-4322-C184161663FA";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_02_Knuckle_04_FK_Ctrl_translateZ";
 	rename -uid "729BBE9B-4EB4-D437-7837-47BC2D3B9594";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_03_Knuckle_04_FK_Ctrl_translateZ";
 	rename -uid "C5452997-4416-D2C2-DB36-239FFB51125B";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_02_Knuckle_01_FK_Ctrl_translateZ";
 	rename -uid "027008A2-4CD2-77B8-57C3-6BAE4E9DE59D";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_03_Knuckle_03_FK_Ctrl_translateZ";
 	rename -uid "4F27983E-4EAF-0914-C381-20A4A85E04B1";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_05_Knuckle_03_FK_Ctrl_translateZ";
 	rename -uid "91BC1D98-4314-FD8B-47B8-C3A4EE004067";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_04_Knuckle_03_FK_Ctrl_translateZ";
 	rename -uid "FA66C149-473F-BC8D-751E-B0A3F1949780";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_05_Knuckle_04_FK_Ctrl_translateZ";
 	rename -uid "EEDEDC21-4538-35F2-529C-44AA4265DEEA";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_05_Knuckle_01_FK_Ctrl_translateZ";
 	rename -uid "69950F83-4A57-AB11-FE5F-15B1BB8D0E26";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_03_Knuckle_01_FK_Ctrl_translateZ";
 	rename -uid "161A0B82-491C-48E4-0E62-0AB57B5DDF18";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_04_Knuckle_01_FK_Ctrl_translateZ";
 	rename -uid "4FA9F57E-439D-CC6D-4C69-419AFA7B2455";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_01_Knuckle_03_FK_Ctrl_translateZ";
 	rename -uid "72C53D6A-44CD-82F1-404D-CA8FED073723";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_05_Knuckle_02_FK_Ctrl_translateZ";
 	rename -uid "88B6DC0C-4D92-EECD-BAD3-1D99CEEEB090";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_03_Knuckle_02_FK_Ctrl_translateZ";
 	rename -uid "0033A480-4524-B3E2-54D3-5AB10AEA72C7";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_01_Knuckle_01_FK_Ctrl_translateZ";
 	rename -uid "CB42B5F5-4717-2961-5543-87929E2EB9F6";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_01_Knuckle_02_FK_Ctrl_translateZ";
 	rename -uid "241130D2-46A3-4D41-3784-9787B209C014";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "L_Finger_04_Knuckle_04_FK_Ctrl_translateZ";
 	rename -uid "C09C56A6-45E4-FCE7-1FB2-4F99FA89C992";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_02_Knuckle_03_FK_Ctrl_rotateX";
 	rename -uid "7085DF7B-4F85-3D68-9315-0E95B07C6D69";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_01_Knuckle_04_FK_Ctrl_rotateX";
 	rename -uid "6173CAE6-44BE-BCCE-8F5C-579B98AC9930";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_04_Knuckle_02_FK_Ctrl_rotateX";
 	rename -uid "FD60DDBD-416C-53B4-D64A-D980BD490E30";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_02_Knuckle_02_FK_Ctrl_rotateX";
 	rename -uid "F038ADD4-499F-70E7-8229-488B8730B5D3";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_02_Knuckle_04_FK_Ctrl_rotateX";
 	rename -uid "E68ADE36-4D88-136B-F08E-D681DAEBECB3";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_03_Knuckle_04_FK_Ctrl_rotateX";
 	rename -uid "36999BBE-41F2-9A09-57B6-6FB6CE878DB0";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_02_Knuckle_01_FK_Ctrl_rotateX";
 	rename -uid "08D2E0CF-427A-241E-6851-C08A43F076FC";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_03_Knuckle_03_FK_Ctrl_rotateX";
 	rename -uid "7828B841-43E1-C9C3-CA54-C196A3B559C2";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_05_Knuckle_03_FK_Ctrl_rotateX";
 	rename -uid "36E068FB-4637-E544-36F1-E4839AB1B309";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_04_Knuckle_03_FK_Ctrl_rotateX";
 	rename -uid "4FEEF3E7-42BF-D2CD-7CB7-05878541DD77";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_05_Knuckle_04_FK_Ctrl_rotateX";
 	rename -uid "87377AA6-47E8-A9BB-0D59-D4983A3A549B";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_05_Knuckle_01_FK_Ctrl_rotateX";
 	rename -uid "E1A0335E-48C2-2587-E07F-048989137B3E";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_03_Knuckle_01_FK_Ctrl_rotateX";
 	rename -uid "4AAC77EE-4D6E-996C-215A-B49772DD069E";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_04_Knuckle_01_FK_Ctrl_rotateX";
 	rename -uid "003ED8F9-442D-E69A-9592-29AB88434C44";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_01_Knuckle_03_FK_Ctrl_rotateX";
 	rename -uid "E3DE7C56-4145-A7E0-BDAF-AF80B8C41142";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_05_Knuckle_02_FK_Ctrl_rotateX";
 	rename -uid "0DC74FBA-4844-A075-B56D-509C83FE35AE";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_03_Knuckle_02_FK_Ctrl_rotateX";
 	rename -uid "A9FDF4F5-423C-545B-BFE3-44B8337F9062";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_01_Knuckle_01_FK_Ctrl_rotateX";
 	rename -uid "68966427-40D2-32BF-5CA9-06B12B8BA1E4";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_04_Knuckle_04_FK_Ctrl_rotateX";
 	rename -uid "2222F746-460E-6E69-6196-F29EF6A51F03";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_02_Knuckle_03_FK_Ctrl_rotateY";
 	rename -uid "50E36ABB-4299-0A96-2DD9-AE84AD5D7BB4";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_01_Knuckle_04_FK_Ctrl_rotateY";
 	rename -uid "EBA0F85F-4F78-2CB7-1845-42BFA947FE89";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_04_Knuckle_02_FK_Ctrl_rotateY";
 	rename -uid "6A67D9A9-4E2B-6736-E1AA-47A2C4E5CECA";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_02_Knuckle_02_FK_Ctrl_rotateY";
 	rename -uid "799BE5F5-4CCD-08CE-9026-7BBF098FB9BC";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_02_Knuckle_04_FK_Ctrl_rotateY";
 	rename -uid "0DD68980-4510-1EB9-8F5F-B396FE4ABE0B";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_03_Knuckle_04_FK_Ctrl_rotateY";
 	rename -uid "4E8D4D50-4741-D96E-B506-65A0A6CA8088";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_02_Knuckle_01_FK_Ctrl_rotateY";
 	rename -uid "D1767BB7-4A01-EDF1-8142-C0B70311332E";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_03_Knuckle_03_FK_Ctrl_rotateY";
 	rename -uid "87EE7F03-4842-1564-59A9-E2B50545B35F";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_05_Knuckle_03_FK_Ctrl_rotateY";
 	rename -uid "8FC3B24B-4318-04DC-7D44-0CB356B15B46";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_04_Knuckle_03_FK_Ctrl_rotateY";
 	rename -uid "D015A7EA-4CFA-116B-AFA0-C1B917075C94";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_05_Knuckle_04_FK_Ctrl_rotateY";
 	rename -uid "C88FF6E2-4B24-608B-716F-DEAB4321BA89";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_05_Knuckle_01_FK_Ctrl_rotateY";
 	rename -uid "061B907F-4A1A-AFEE-B737-F48BCE877397";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_03_Knuckle_01_FK_Ctrl_rotateY";
 	rename -uid "B3106002-4824-BF67-6C6D-35A915E8F058";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_04_Knuckle_01_FK_Ctrl_rotateY";
 	rename -uid "B9662E47-4F36-2F62-BD82-7C8EB89DDA72";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_01_Knuckle_03_FK_Ctrl_rotateY";
 	rename -uid "EAA2451E-42B1-5C69-221C-6BA112A1CAAB";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_05_Knuckle_02_FK_Ctrl_rotateY";
 	rename -uid "85B0812C-4C37-78E6-74E2-38A7E21089C8";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_03_Knuckle_02_FK_Ctrl_rotateY";
 	rename -uid "490AAA5D-415E-B1BC-6B40-DC923BF041B9";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_01_Knuckle_01_FK_Ctrl_rotateY";
 	rename -uid "7EBA46D2-443D-A023-26C1-D381436C0F8D";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 -10.210212042748941 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 -10.210212042748941 12 -10.210212042748941
+		 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_04_Knuckle_04_FK_Ctrl_rotateY";
 	rename -uid "5E12C452-4F6A-C4CA-2274-0B89536D8D23";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_02_Knuckle_03_FK_Ctrl_rotateZ";
 	rename -uid "EFA4248B-4911-798B-1449-E9B57008B501";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 16.704083420167606 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 16.704083420167606 12 16.704083420167606
+		 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_01_Knuckle_04_FK_Ctrl_rotateZ";
 	rename -uid "CCBB2AC5-4EE7-E2BD-1795-30B640E72248";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_04_Knuckle_02_FK_Ctrl_rotateZ";
 	rename -uid "CEA317E3-41FE-FDC5-DCE3-54B7519E8758";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 90.167408877217753 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 90.167408877217753 12 90.167408877217753
+		 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_02_Knuckle_02_FK_Ctrl_rotateZ";
 	rename -uid "B47F1571-48FC-D01E-28D4-6D835A4C2802";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 90.167408877217753 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 90.167408877217753 12 90.167408877217753
+		 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_02_Knuckle_04_FK_Ctrl_rotateZ";
 	rename -uid "BADB8D4F-43E1-D41A-BDA2-05A2092B1C23";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_03_Knuckle_04_FK_Ctrl_rotateZ";
 	rename -uid "E69DF0A7-4D9E-EAFA-EDA5-1894111DC316";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_02_Knuckle_01_FK_Ctrl_rotateZ";
 	rename -uid "614E7764-47F5-C923-2496-37AD101D8D59";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 83.923328501963766 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 83.923328501963766 12 83.923328501963766
+		 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_03_Knuckle_03_FK_Ctrl_rotateZ";
 	rename -uid "613FEBDC-4BD0-5D42-BD22-A2A0758B1F1B";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 16.704083420167606 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 16.704083420167606 12 16.704083420167606
+		 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_05_Knuckle_03_FK_Ctrl_rotateZ";
 	rename -uid "5462A4CC-4943-AB3B-362B-6C80BD4C0B9D";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 16.704083420167606 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 16.704083420167606 12 16.704083420167606
+		 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_04_Knuckle_03_FK_Ctrl_rotateZ";
 	rename -uid "E06FF886-4926-FBF7-2377-8295CF8AC226";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 16.704083420167606 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 16.704083420167606 12 16.704083420167606
+		 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_05_Knuckle_04_FK_Ctrl_rotateZ";
 	rename -uid "9AE4A83D-4DEA-67EC-5CA7-479B16DE9529";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_05_Knuckle_01_FK_Ctrl_rotateZ";
 	rename -uid "A7E68C7E-4E64-B3D9-82B2-63952E07FDB7";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 83.923328501963766 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 83.923328501963766 12 83.923328501963766
+		 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_03_Knuckle_01_FK_Ctrl_rotateZ";
 	rename -uid "1A8F187B-4635-D16E-1361-58ABE12E8ECD";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 83.923328501963766 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 83.923328501963766 12 83.923328501963766
+		 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_04_Knuckle_01_FK_Ctrl_rotateZ";
 	rename -uid "C8439D7F-48CE-AE55-EC60-62BFB8D1815A";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 83.923328501963766 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 83.923328501963766 12 83.923328501963766
+		 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_01_Knuckle_03_FK_Ctrl_rotateZ";
 	rename -uid "6DC544D6-44F6-689A-10BC-AA994CFEC109";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_05_Knuckle_02_FK_Ctrl_rotateZ";
 	rename -uid "8A5BF649-43EA-6F1A-F80C-E9A59A5A09A6";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 90.167408877217753 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 90.167408877217753 12 90.167408877217753
+		 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_03_Knuckle_02_FK_Ctrl_rotateZ";
 	rename -uid "DDDA4AD4-408B-E32C-54C9-CE8304557376";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 90.167408877217753 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 90.167408877217753 12 90.167408877217753
+		 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_01_Knuckle_01_FK_Ctrl_rotateZ";
 	rename -uid "E7F474A0-45A9-E14C-C1FA-968CA7F37944";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Finger_04_Knuckle_04_FK_Ctrl_rotateZ";
 	rename -uid "3602BB08-49CF-22F2-55F2-C1A35C10F37B";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 64 0 84 0 90 0;
-	setAttr -s 5 ".kit[2:4]"  1 10 10;
-	setAttr -s 5 ".kot[2:4]"  1 10 10;
-	setAttr -s 5 ".kix[2:4]"  1 1 1;
-	setAttr -s 5 ".kiy[2:4]"  0 0 0;
-	setAttr -s 5 ".kox[2:4]"  1 1 1;
-	setAttr -s 5 ".koy[2:4]"  0 0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 72 0 76 0 96 0 102 0;
+	setAttr -s 7 ".kit[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kot[1:6]"  1 18 18 1 10 10;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "Spine_03_FK_Ctrl_rotateX";
 	rename -uid "CEC77A38-466A-8C67-9A34-9BBE576DE749";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  0 0 18 -11.25031658109986 24 -11.25031658109986
-		 48 0 60 0 64 0 72 0 84 -11.612303341953671 90 -11.612303341953671 96 2.6341807756988747
-		 108 2.6341807756988747 120 0 132 0;
-	setAttr -s 13 ".kit[2:12]"  1 9 9 1 9 10 9 10 
-		10 18 18;
-	setAttr -s 13 ".kot[2:12]"  1 9 9 1 9 10 9 10 
-		10 18 18;
-	setAttr -s 13 ".kix[2:12]"  1 0.99154071573385971 1 1 0.97167557594283493 
-		1 0.89539351238674414 1 1 1 1;
-	setAttr -s 13 ".kiy[2:12]"  0 0.12979602860636782 0 0 -0.23631879975186107 
-		0 0.44527571006706551 0 0 0 0;
-	setAttr -s 13 ".kox[2:12]"  1 0.99154071573385971 1 1 0.97167557594283493 
-		1 0.89539351238674414 1 1 1 1;
-	setAttr -s 13 ".koy[2:12]"  0 0.12979602860636782 0 0 -0.23631879975186107 
-		0 0.44527571006706551 0 0 0 0;
+	setAttr -s 15 ".ktv[0:14]"  0 0 10 0 12 0 30 -11.25031658109986 36 -11.25031658109986
+		 60 0 72 0 76 0 84 0 96 -11.612303341953671 102 -11.612303341953671 108 2.6341807756988747
+		 120 2.6341807756988747 132 0 144 0;
+	setAttr -s 15 ".kit[0:14]"  18 1 9 9 1 9 9 1 
+		9 10 9 10 10 18 18;
+	setAttr -s 15 ".kot[0:14]"  18 1 9 9 1 9 9 1 
+		9 10 9 10 10 18 18;
+	setAttr -s 15 ".kix[1:14]"  0.98788603249922713 0.97334508178482293 
+		0.98126245969082559 1 0.99154071573385971 1 1 0.97167557594283493 1 0.89539351238674414 
+		1 1 1 1;
+	setAttr -s 15 ".kiy[1:14]"  -0.15518114187276705 -0.22934548560042856 
+		-0.19267585526347331 0 0.12979602860636782 0 0 -0.23631879975186107 0 0.44527571006706551 
+		0 0 0 0;
+	setAttr -s 15 ".kox[1:14]"  0.98788603249922713 0.97334508178482293 
+		0.98126245969082559 1 0.99154071573385971 1 1 0.97167557594283493 1 0.89539351238674414 
+		1 1 1 1;
+	setAttr -s 15 ".koy[1:14]"  -0.15518114187276705 -0.22934548560042856 
+		-0.19267585526347331 0 0.12979602860636782 0 0 -0.23631879975186107 0 0.44527571006706551 
+		0 0 0 0;
 createNode animCurveTA -n "Spine_02_FK_Ctrl_rotateX";
 	rename -uid "F5823CD8-4004-8C9B-2F9B-5C805411D1EE";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  0 0 18 -3.944979512065375 24 -3.944979512065375
-		 48 0 60 0 64 0 72 0 84 -18.462747404685214 90 -18.462747404685214 96 3.8766029773540014
-		 108 3.8766029773540014 120 0;
-	setAttr -s 12 ".kit[2:11]"  1 9 9 1 9 9 9 10 
-		10 18;
-	setAttr -s 12 ".kot[2:11]"  1 9 9 1 9 9 9 10 
-		10 18;
-	setAttr -s 12 ".kix[2:11]"  1 0.99894816868116576 1 1 0.93269799905392026 
-		0.91878663294348173 0.78858244291177715 1 1 1;
-	setAttr -s 12 ".kiy[2:11]"  0 0.04585363986146794 0 0 -0.36065834602960894 
-		-0.39475450994811939 0.61492904528188763 0 0 0;
-	setAttr -s 12 ".kox[2:11]"  1 0.99894816868116576 1 1 0.93269799905392026 
-		0.91878663294348173 0.78858244291177715 1 1 1;
-	setAttr -s 12 ".koy[2:11]"  0 0.04585363986146794 0 0 -0.36065834602960894 
-		-0.39475450994811939 0.61492904528188763 0 0 0;
+	setAttr -s 14 ".ktv[0:13]"  0 0 10 0 12 0 30 -3.944979512065375 36 -3.944979512065375
+		 60 0 72 0 76 0 84 0 96 -18.462747404685214 102 -18.462747404685214 108 3.8766029773540014
+		 120 3.8766029773540014 132 0;
+	setAttr -s 14 ".kit[0:13]"  18 1 9 9 1 9 9 1 
+		9 9 9 10 10 18;
+	setAttr -s 14 ".kot[0:13]"  18 1 9 9 1 9 9 1 
+		9 9 9 10 10 18;
+	setAttr -s 14 ".kix[1:13]"  0.99848641319667553 0.99660405939905794 
+		0.99763803511029092 1 0.99894816868116576 1 1 0.93269799905392026 0.91878663294348173 
+		0.78858244291177715 1 1 1;
+	setAttr -s 14 ".kiy[1:13]"  -0.054998933277270588 -0.08234287333654873 
+		-0.068690253320816186 0 0.04585363986146794 0 0 -0.36065834602960894 -0.39475450994811939 
+		0.61492904528188763 0 0 0;
+	setAttr -s 14 ".kox[1:13]"  0.99848641319667553 0.99660405939905794 
+		0.99763803511029092 1 0.99894816868116576 1 1 0.93269799905392026 0.91878663294348173 
+		0.78858244291177715 1 1 1;
+	setAttr -s 14 ".koy[1:13]"  -0.054998933277270588 -0.08234287333654873 
+		-0.068690253320816186 0 0.04585363986146794 0 0 -0.36065834602960894 -0.39475450994811939 
+		0.61492904528188763 0 0 0;
 createNode animCurveTA -n "Spine_03_FK_Ctrl_rotateY";
 	rename -uid "77BC69A8-4F96-99BE-A1DF-ED9FC4F3C9DE";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  0 0 18 0.16803787607119539 24 0.16803787607119539
-		 48 0 60 0 64 0 72 0 84 -0.44047078264336492 90 -0.44047078264336492 96 0.10950240141914684
-		 108 0.10950240141914684 120 0 132 -7.1664240542003146;
-	setAttr -s 13 ".kit[2:12]"  1 9 9 1 9 10 9 10 
-		10 18 18;
-	setAttr -s 13 ".kot[2:12]"  1 9 9 1 9 10 9 10 
-		10 18 18;
-	setAttr -s 13 ".kix[2:12]"  1 0.99999808858344386 1 1 0.99995745057216046 
-		1 0.99981577535210353 1 1 0.99993425969727245 1;
-	setAttr -s 13 ".kiy[2:12]"  0 -0.0019552057331139495 0 0 -0.0092248059722377668 
-		0 0.019194149032243233 0 0 -0.011466310813325491 0;
-	setAttr -s 13 ".kox[2:12]"  1 0.99999808858344386 1 1 0.99995745057216046 
-		1 0.99981577535210353 1 1 0.99993425969727245 1;
-	setAttr -s 13 ".koy[2:12]"  0 -0.0019552057331139495 0 0 -0.0092248059722377668 
-		0 0.019194149032243233 0 0 -0.011466310813325491 0;
+	setAttr -s 15 ".ktv[0:14]"  0 0 10 0 12 0 30 0.16803787607119539 36 0.16803787607119539
+		 60 0 72 0 76 0 84 0 96 -0.44047078264336492 102 -0.44047078264336492 108 0.10950240141914684
+		 120 0.10950240141914684 132 0 144 -7.1664240542003146;
+	setAttr -s 15 ".kit[0:14]"  18 1 9 9 1 9 9 1 
+		9 10 9 10 10 18 18;
+	setAttr -s 15 ".kot[0:14]"  18 1 9 9 1 9 9 1 
+		9 10 9 10 10 18 18;
+	setAttr -s 15 ".kix[1:14]"  0.9999972475636314 0.99999380705013152 
+		0.99999569932816179 1 0.99999808858344386 1 1 0.99995745057216046 1 0.99981577535210353 
+		1 1 0.99993425969727245 1;
+	setAttr -s 15 ".kiy[1:14]"  0.0023462449064928568 0.003519355251275046 
+		0.0029328015924290924 0 -0.0019552057331139495 0 0 -0.0092248059722377668 0 0.019194149032243233 
+		0 0 -0.011466310813325491 0;
+	setAttr -s 15 ".kox[1:14]"  0.9999972475636314 0.99999380705013152 
+		0.99999569932816179 1 0.99999808858344386 1 1 0.99995745057216046 1 0.99981577535210353 
+		1 1 0.99993425969727245 1;
+	setAttr -s 15 ".koy[1:14]"  0.0023462449064928568 0.003519355251275046 
+		0.0029328015924290924 0 -0.0019552057331139495 0 0 -0.0092248059722377668 0 0.019194149032243233 
+		0 0 -0.011466310813325491 0;
 createNode animCurveTA -n "Spine_02_FK_Ctrl_rotateY";
 	rename -uid "45CBDAA0-476D-9186-6532-6587113BECE9";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  0 0 18 0.19100609094566548 24 0.19100609094566548
-		 48 0 60 0 64 0 72 0 84 -1.1199047602418266 90 -1.1199047602418266 96 0.1610832376780649
-		 108 0.1610832376780649 120 0;
-	setAttr -s 12 ".kit[2:11]"  1 9 9 1 9 10 9 10 
-		10 18;
-	setAttr -s 12 ".kot[2:11]"  1 9 9 1 9 10 9 10 
-		10 18;
-	setAttr -s 12 ".kix[2:11]"  1 0.99999753035206695 1 1 0.99972503952875069 
-		1 0.99900178476417489 1 1 1;
-	setAttr -s 12 ".kiy[2:11]"  0 -0.0022224512968912549 0 0 -0.023448781188755284 
-		0 0.04467028137356132 0 0 0;
-	setAttr -s 12 ".kox[2:11]"  1 0.99999753035206695 1 1 0.99972503952875069 
-		1 0.99900178476417489 1 1 1;
-	setAttr -s 12 ".koy[2:11]"  0 -0.0022224512968912549 0 0 -0.023448781188755284 
-		0 0.04467028137356132 0 0 0;
+	setAttr -s 14 ".ktv[0:13]"  0 0 10 0 12 0 30 0.19100609094566548 36 0.19100609094566548
+		 60 0 72 0 76 0 84 0 96 -1.1199047602418266 102 -1.1199047602418266 108 0.1610832376780649
+		 120 0.1610832376780649 132 0;
+	setAttr -s 14 ".kit[0:13]"  18 1 9 9 1 9 9 1 
+		9 10 9 10 10 18;
+	setAttr -s 14 ".kot[0:13]"  18 1 9 9 1 9 9 1 
+		9 10 9 10 10 18;
+	setAttr -s 14 ".kix[1:13]"  0.99999644371277308 0.99999199840709385 
+		0.99999444331788112 1 0.99999753035206695 1 1 0.99972503952875069 1 0.99900178476417489 
+		1 1 1;
+	setAttr -s 14 ".kiy[1:13]"  0.0026669386582588591 0.0040003902042887018 
+		0.0033336666541367715 0 -0.0022224512968912549 0 0 -0.023448781188755284 0 0.04467028137356132 
+		0 0 0;
+	setAttr -s 14 ".kox[1:13]"  0.99999644371277308 0.99999199840709385 
+		0.99999444331788112 1 0.99999753035206695 1 1 0.99972503952875069 1 0.99900178476417489 
+		1 1 1;
+	setAttr -s 14 ".koy[1:13]"  0.0026669386582588591 0.0040003902042887018 
+		0.0033336666541367715 0 -0.0022224512968912549 0 0 -0.023448781188755284 0 0.04467028137356132 
+		0 0 0;
 createNode animCurveTA -n "Spine_03_FK_Ctrl_rotateZ";
 	rename -uid "899AE9FD-43CE-4EBE-A665-6EA7505A9471";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  0 0 18 1.6827189731838539 24 1.6827189731838539
-		 48 0 60 3.5156148960358631 64 3.5156148960358631 72 0 84 -0.01809454784725539 90 -0.01809454784725539
-		 96 0.0025176371713402017 108 0.0025176371713402017 120 0 132 0;
-	setAttr -s 13 ".kit[2:12]"  1 9 9 1 9 10 9 10 
-		10 18 18;
-	setAttr -s 13 ".kot[2:12]"  1 9 9 1 9 10 9 10 
-		10 18 18;
-	setAttr -s 13 ".kix[2:12]"  1 0.99977266321420644 0.99579117090691083 
-		1 0.99727247181097545 1 0.99999974115926371 1 1 1 1;
-	setAttr -s 13 ".kiy[2:12]"  0 0.021321864120501285 0.091651208087202729 
-		0 -0.073807973607377939 0 0.00071950080297331748 0 0 0 0;
-	setAttr -s 13 ".kox[2:12]"  1 0.99977266321420644 0.99579117090691083 
-		1 0.99727247181097545 1 0.99999974115926371 1 1 1 1;
-	setAttr -s 13 ".koy[2:12]"  0 0.021321864120501285 0.091651208087202729 
-		0 -0.073807973607377939 0 0.00071950080297331748 0 0 0 0;
+	setAttr -s 15 ".ktv[0:14]"  0 0 10 0 12 0 30 1.6827189731838539 36 1.6827189731838539
+		 60 0 72 3.5156148960358631 76 3.5156148960358631 84 0 96 -0.01809454784725539 102 -0.01809454784725539
+		 108 0.0025176371713402017 120 0.0025176371713402017 132 0 144 0;
+	setAttr -s 15 ".kit[0:14]"  18 1 9 9 1 9 9 1 
+		9 10 9 10 10 18 18;
+	setAttr -s 15 ".kot[0:14]"  18 1 9 9 1 9 9 1 
+		9 10 9 10 10 18 18;
+	setAttr -s 15 ".kix[1:14]"  0.99972410226419051 0.99937955100986064 
+		0.99956901010556076 1 0.99977266321420644 0.99579117090691083 1 0.99727247181097545 
+		1 0.99999974115926371 1 1 1 1;
+	setAttr -s 15 ".kiy[1:14]"  0.023488706904773535 0.035220917411809244 
+		0.029356328731458856 0 0.021321864120501285 0.091651208087202729 0 -0.073807973607377939 
+		0 0.00071950080297331748 0 0 0 0;
+	setAttr -s 15 ".kox[1:14]"  0.99972410226419051 0.99937955100986064 
+		0.99956901010556076 1 0.99977266321420644 0.99579117090691083 1 0.99727247181097545 
+		1 0.99999974115926371 1 1 1 1;
+	setAttr -s 15 ".koy[1:14]"  0.023488706904773535 0.035220917411809244 
+		0.029356328731458856 0 0.021321864120501285 0.091651208087202729 0 -0.073807973607377939 
+		0 0.00071950080297331748 0 0 0 0;
 createNode animCurveTA -n "Spine_02_FK_Ctrl_rotateZ";
 	rename -uid "C9AA8BA0-406F-649C-6659-F0AE81CB1222";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  0 0 18 2.7675743224351894 24 2.7675743224351894
-		 48 0 60 2.4970155193225101 64 2.4970155193225101 72 0 84 -2.2797523503151886 90 -2.2797523503151886
-		 96 0.0054500854339861867 108 0.0054500854339861867 120 0;
-	setAttr -s 12 ".kit[2:11]"  1 9 9 1 9 10 9 10 
-		10 18;
-	setAttr -s 12 ".kot[2:11]"  1 9 9 1 9 10 9 10 
-		10 18;
-	setAttr -s 12 ".kix[2:11]"  1 0.99999504478695356 0.99787009366941148 
-		1 0.99503281580237435 1 0.99683358717900317 1 1 1;
-	setAttr -s 12 ".kiy[2:11]"  0 -0.0031480790235680098 0.065232477802088365 
-		0 -0.099547453389818658 0 0.079516032797421587 0 0 0;
-	setAttr -s 12 ".kox[2:11]"  1 0.99999504478695356 0.99787009366941148 
-		1 0.99503281580237435 1 0.99683358717900317 1 1 1;
-	setAttr -s 12 ".koy[2:11]"  0 -0.0031480790235680098 0.065232477802088365 
-		0 -0.099547453389818658 0 0.079516032797421587 0 0 0;
+	setAttr -s 14 ".ktv[0:13]"  0 0 10 0 12 0 30 2.7675743224351894 36 2.7675743224351894
+		 60 0 72 2.4970155193225101 76 2.4970155193225101 84 0 96 -2.2797523503151886 102 -2.2797523503151886
+		 108 0.0054500854339861867 120 0.0054500854339861867 132 0;
+	setAttr -s 14 ".kit[0:13]"  18 1 9 9 1 9 9 1 
+		9 10 9 10 10 18;
+	setAttr -s 14 ".kot[0:13]"  18 1 9 9 1 9 9 1 
+		9 10 9 10 10 18;
+	setAttr -s 14 ".kix[1:13]"  0.99925420881187865 0.9983243120932751 
+		0.99883543385165208 1 0.99999504478695356 0.99787009366941148 1 0.99503281580237435 
+		1 0.99683358717900317 1 1 1;
+	setAttr -s 14 ".kiy[1:13]"  0.038613808045133216 0.05786681158910692 
+		0.048247031850488412 0 -0.0031480790235680098 0.065232477802088365 0 -0.099547453389818658 
+		0 0.079516032797421587 0 0 0;
+	setAttr -s 14 ".kox[1:13]"  0.99925420881187865 0.9983243120932751 
+		0.99883543385165208 1 0.99999504478695356 0.99787009366941148 1 0.99503281580237435 
+		1 0.99683358717900317 1 1 1;
+	setAttr -s 14 ".koy[1:13]"  0.038613808045133216 0.05786681158910692 
+		0.048247031850488412 0 -0.0031480790235680098 0.065232477802088365 0 -0.099547453389818658 
+		0 0.079516032797421587 0 0 0;
 createNode animCurveTL -n "R_Finger_04_Knuckle_01_FK_Ctrl_translateX";
 	rename -uid "A423F030-4966-4D51-FB3F-2194270E98CD";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_01_Knuckle_01_FK_Ctrl_translateX";
 	rename -uid "B89483BB-4F29-042C-2963-80B1825D03E6";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_03_Knuckle_04_FK_Ctrl_translateX";
 	rename -uid "4005107A-4EE8-451E-7AEA-8B9EFE902072";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_05_Knuckle_02_FK_Ctrl_translateX";
 	rename -uid "D831D4F5-4D1E-0371-AD6C-1B92447D153F";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_02_Knuckle_04_FK_Ctrl_translateX";
 	rename -uid "0784A449-4D57-D9F8-ABBA-7A9AAB8B5A89";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_01_Knuckle_02_FK_Ctrl_translateX";
 	rename -uid "268D00FB-4A3F-BDBC-DA8B-ACA7409FC5DD";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_04_Knuckle_03_FK_Ctrl_translateX";
 	rename -uid "DD92869D-492F-1FBB-B919-98B1B6517E32";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_05_Knuckle_03_FK_Ctrl_translateX";
 	rename -uid "1C793D25-49A3-3B2D-AA3F-EE963F274EE0";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_02_Knuckle_01_FK_Ctrl_translateX";
 	rename -uid "F06C1AB3-4D55-E2FF-4DFF-CFA3E6BFE183";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_05_Knuckle_01_FK_Ctrl_translateX";
 	rename -uid "DDDDC01C-44BC-9E37-9473-09B3C0B2E770";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_02_Knuckle_03_FK_Ctrl_translateX";
 	rename -uid "46C5417A-4A31-C283-0FF5-008C69F02C5C";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_01_Knuckle_04_FK_Ctrl_translateX";
 	rename -uid "57A1DB7D-4D7E-7ECF-9D84-45A9F4A10B73";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_04_Knuckle_04_FK_Ctrl_translateX";
 	rename -uid "8C0A6E82-40D2-2BCD-6957-8D9049AE5A70";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_03_Knuckle_03_FK_Ctrl_translateX";
 	rename -uid "337F6F21-4B63-6A5D-4CA5-92B236A126F9";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_04_Knuckle_02_FK_Ctrl_translateX";
 	rename -uid "E8FF3272-4689-2150-38A7-C994A2208FD3";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_05_Knuckle_04_FK_Ctrl_translateX";
 	rename -uid "A9113357-4848-02FB-1E97-CD9D1EAD6D6C";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_02_Knuckle_02_FK_Ctrl_translateX";
 	rename -uid "F5D97292-44C6-6538-4193-15A77C8C6CDF";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_01_Knuckle_03_FK_Ctrl_translateX";
 	rename -uid "BA53C24C-415E-2254-A64B-36BE1A74808D";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_03_Knuckle_01_FK_Ctrl_translateX";
 	rename -uid "94670858-41F6-5B88-F1C7-85A5F5E3A26F";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_03_Knuckle_02_FK_Ctrl_translateX";
 	rename -uid "F238899A-41DD-04D5-9207-0B84043FF686";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_04_Knuckle_01_FK_Ctrl_translateY";
 	rename -uid "51BCC0B8-4205-A185-44B0-50B0B7C9CCA7";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_01_Knuckle_01_FK_Ctrl_translateY";
 	rename -uid "3FB6F8A7-4414-72D3-FD3C-DD9CBA559783";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_03_Knuckle_04_FK_Ctrl_translateY";
 	rename -uid "525B2ECD-4DC5-ABCF-98E5-3B9BFAD81B8E";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_05_Knuckle_02_FK_Ctrl_translateY";
 	rename -uid "6DF852C1-4474-E2B3-D8F8-E0B36EB3DC9A";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_02_Knuckle_04_FK_Ctrl_translateY";
 	rename -uid "DBFCDB0B-464E-7273-9339-4289AD996897";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_01_Knuckle_02_FK_Ctrl_translateY";
 	rename -uid "AF2B09C1-41BC-0C21-668E-F3AC9FBFDE34";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_04_Knuckle_03_FK_Ctrl_translateY";
 	rename -uid "5AC17577-42E2-3915-D6BD-9A80D6D2A5A3";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_05_Knuckle_03_FK_Ctrl_translateY";
 	rename -uid "4AD813C8-4904-F9CB-8194-2DA25BD55C69";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_02_Knuckle_01_FK_Ctrl_translateY";
 	rename -uid "3C68517F-447A-B8F0-0FE2-A2A7EF3B9DBC";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_05_Knuckle_01_FK_Ctrl_translateY";
 	rename -uid "C1998A73-4AB2-CC1A-D8D5-948A7CEC7F9D";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_02_Knuckle_03_FK_Ctrl_translateY";
 	rename -uid "22672027-45FA-B4A6-4A8D-F0A6D8FA1562";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_01_Knuckle_04_FK_Ctrl_translateY";
 	rename -uid "672B0AA0-472B-AE17-ADF6-82AEF10A0D56";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_04_Knuckle_04_FK_Ctrl_translateY";
 	rename -uid "E48FF426-4C62-5215-9124-93AFED826969";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_03_Knuckle_03_FK_Ctrl_translateY";
 	rename -uid "DA27FC4E-4E6D-45A3-2EA7-B6916D135B2A";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_04_Knuckle_02_FK_Ctrl_translateY";
 	rename -uid "51052608-4D44-6E9A-911B-D4AF2FB1F07F";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_05_Knuckle_04_FK_Ctrl_translateY";
 	rename -uid "F752FE90-433A-F2A7-807A-F98B99D72197";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_02_Knuckle_02_FK_Ctrl_translateY";
 	rename -uid "4D1679E5-4F0A-F2E1-99EC-91AC342BD853";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_01_Knuckle_03_FK_Ctrl_translateY";
 	rename -uid "99B944CB-4CBF-6ADB-4207-23A06DE690F4";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_03_Knuckle_01_FK_Ctrl_translateY";
 	rename -uid "93013B7A-4272-EB58-2FED-F19DC7147D6D";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_03_Knuckle_02_FK_Ctrl_translateY";
 	rename -uid "F7E5144E-4692-3920-77AF-61A0B8C015B6";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_04_Knuckle_01_FK_Ctrl_translateZ";
 	rename -uid "F695681E-41B8-33D8-C267-F3A4C18229BC";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_01_Knuckle_01_FK_Ctrl_translateZ";
 	rename -uid "581F21E7-47D7-294C-0886-0A9AD0F38063";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_03_Knuckle_04_FK_Ctrl_translateZ";
 	rename -uid "DC2E5C49-4E16-4C33-CF82-CD8895F1582B";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_05_Knuckle_02_FK_Ctrl_translateZ";
 	rename -uid "282E18F1-4996-EC52-8DD7-D593CA699E66";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_02_Knuckle_04_FK_Ctrl_translateZ";
 	rename -uid "9D595C10-4186-4BCA-9F85-D9842348531D";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_01_Knuckle_02_FK_Ctrl_translateZ";
 	rename -uid "60131595-43E9-02E6-8665-C28561628407";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_04_Knuckle_03_FK_Ctrl_translateZ";
 	rename -uid "9DFBEDF6-4FD8-FF69-7B7C-50B407C690D4";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_05_Knuckle_03_FK_Ctrl_translateZ";
 	rename -uid "776434A2-4C4E-7388-74DC-D9B45F17B90B";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_02_Knuckle_01_FK_Ctrl_translateZ";
 	rename -uid "5890E63E-4CED-260F-B3B1-84886AF3A423";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_05_Knuckle_01_FK_Ctrl_translateZ";
 	rename -uid "79343FB2-48E1-FA93-D625-1297F0D77704";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_02_Knuckle_03_FK_Ctrl_translateZ";
 	rename -uid "39E07EA5-455F-5CC1-53CC-0E81B967E2E0";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_01_Knuckle_04_FK_Ctrl_translateZ";
 	rename -uid "D3263AAD-48C2-4AC0-9C57-F880CC4B9734";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_04_Knuckle_04_FK_Ctrl_translateZ";
 	rename -uid "02078A28-4191-494D-212A-E4ACE63AC715";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_03_Knuckle_03_FK_Ctrl_translateZ";
 	rename -uid "844A26D9-4A91-802D-7BB5-A6A7D774EC49";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_04_Knuckle_02_FK_Ctrl_translateZ";
 	rename -uid "5B2AAADE-4058-6338-8D5A-EBBCA5847AC0";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_05_Knuckle_04_FK_Ctrl_translateZ";
 	rename -uid "02E96957-4666-A990-2A77-3FA73E1BE442";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_02_Knuckle_02_FK_Ctrl_translateZ";
 	rename -uid "73C0CCF8-4D09-0587-054C-EBB01BC1E0A6";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_01_Knuckle_03_FK_Ctrl_translateZ";
 	rename -uid "3EC76DFD-4F61-C0CB-D60D-50BC88CE3D74";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_03_Knuckle_01_FK_Ctrl_translateZ";
 	rename -uid "DDF60094-4BE9-B5E5-8504-89B1F2C9101F";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTL -n "R_Finger_03_Knuckle_02_FK_Ctrl_translateZ";
 	rename -uid "EBF037D2-4E8D-55D2-3DE0-79B0D6C7EC7F";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_04_Knuckle_01_FK_Ctrl_rotateX";
 	rename -uid "C6761AAF-49C3-972E-7865-BFA5C348F602";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0.51660263580012589;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0.51660263580012589;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_01_Knuckle_01_FK_Ctrl_rotateX";
 	rename -uid "34FB2BB1-4329-A1C4-3E83-A88D8E626B33";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 -3.0076188550705898 48 -3.0076188550705898;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 -3.0076188550705898 60 -3.0076188550705898;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_03_Knuckle_04_FK_Ctrl_rotateX";
 	rename -uid "1883318E-430F-8A35-D07C-7A8E545A5A18";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_05_Knuckle_02_FK_Ctrl_rotateX";
 	rename -uid "B3079826-4546-DF2A-F8DF-F6B875BEE26D";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_02_Knuckle_04_FK_Ctrl_rotateX";
 	rename -uid "F802CDD3-4E55-39C8-5BC0-939B4BD8FE39";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_01_Knuckle_02_FK_Ctrl_rotateX";
 	rename -uid "FB767A78-4DE5-526E-32BB-9E916F871181";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 31.631121931391746 48 31.031220818826188;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 31.631121931391746 60 31.031220818826188;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_04_Knuckle_03_FK_Ctrl_rotateX";
 	rename -uid "9BB1A0DE-4D6D-C751-1254-DD9EAC42E8C0";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_05_Knuckle_03_FK_Ctrl_rotateX";
 	rename -uid "5ACFD604-4C0B-27E9-3ABB-9E8332B6C2AD";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_02_Knuckle_01_FK_Ctrl_rotateX";
 	rename -uid "C80C2412-4C7F-8BD9-BB69-6BB45E1A08E0";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_05_Knuckle_01_FK_Ctrl_rotateX";
 	rename -uid "E1A40017-40CC-ADF0-0925-498BA440066D";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0.82738793445643077;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0.82738793445643077;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_02_Knuckle_03_FK_Ctrl_rotateX";
 	rename -uid "EC6B024B-462C-EB17-75BD-D0B303880B09";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_01_Knuckle_04_FK_Ctrl_rotateX";
 	rename -uid "52D08621-47EC-EF28-125C-C692294425E7";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_04_Knuckle_04_FK_Ctrl_rotateX";
 	rename -uid "9088C857-4265-19CF-7F33-50BF44417F0F";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_03_Knuckle_03_FK_Ctrl_rotateX";
 	rename -uid "15D3B930-44A5-7332-98EE-2B8EF76EC6E6";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_04_Knuckle_02_FK_Ctrl_rotateX";
 	rename -uid "D8DF617A-450F-D204-47A2-83ADB543E489";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_05_Knuckle_04_FK_Ctrl_rotateX";
 	rename -uid "E7713A96-4857-592B-9854-1185E6FC7282";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_02_Knuckle_02_FK_Ctrl_rotateX";
 	rename -uid "0335283C-4AE6-74A6-304C-259932C8AEE3";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_01_Knuckle_03_FK_Ctrl_rotateX";
 	rename -uid "3C40F57C-4626-5049-09BA-B0997D054155";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_03_Knuckle_01_FK_Ctrl_rotateX";
 	rename -uid "FA1EEFDB-40D6-B8A7-0A75-4596445EFA99";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_03_Knuckle_02_FK_Ctrl_rotateX";
 	rename -uid "15BF347A-46A8-1F61-99FD-B9A867EAD5CF";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_04_Knuckle_01_FK_Ctrl_rotateY";
 	rename -uid "E5AF36D3-48DB-49D4-CE18-EA955ECF4428";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 2.4059188031346532 48 2.3498333243650458;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 2.4059188031346532 60 2.3498333243650458;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_01_Knuckle_01_FK_Ctrl_rotateY";
 	rename -uid "74963BFD-462D-0AD5-27BD-AFB3440B3AA3";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 2.9055141678457241 48 2.9055141678457241;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 2.9055141678457241 60 2.9055141678457241;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_03_Knuckle_04_FK_Ctrl_rotateY";
 	rename -uid "971C5D11-4E6A-B560-0EC4-94B6B2038FAA";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_05_Knuckle_02_FK_Ctrl_rotateY";
 	rename -uid "7C4A47CE-407F-1FE4-2802-63AD5AB521E3";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_02_Knuckle_04_FK_Ctrl_rotateY";
 	rename -uid "5DA71F68-46B7-00F5-4366-FDBB8EFF4086";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_01_Knuckle_02_FK_Ctrl_rotateY";
 	rename -uid "831EFF43-4128-9CE4-E12D-B6883696970D";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 -6.4621741844678091;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 -6.4621741844678091;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_04_Knuckle_03_FK_Ctrl_rotateY";
 	rename -uid "E72A5FB6-4193-EF4E-49B4-188ED2425B23";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_05_Knuckle_03_FK_Ctrl_rotateY";
 	rename -uid "E6698CDF-41F3-BEE8-37B5-DC9ADFF6FCBB";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_02_Knuckle_01_FK_Ctrl_rotateY";
 	rename -uid "47E7D511-4C2F-9932-6427-E697972C0453";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_05_Knuckle_01_FK_Ctrl_rotateY";
 	rename -uid "52874536-4FD2-DE9E-D359-4CBE667106A0";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 3.8499315567215948 48 3.7601044217910378;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 3.8499315567215948 60 3.7601044217910378;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_02_Knuckle_03_FK_Ctrl_rotateY";
 	rename -uid "A3003648-44B3-6D90-09CA-D796E7546AC9";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_01_Knuckle_04_FK_Ctrl_rotateY";
 	rename -uid "B5DE47BA-49FD-BB73-699E-F084AC832F78";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_04_Knuckle_04_FK_Ctrl_rotateY";
 	rename -uid "71709BB2-4C9B-8694-A1DD-01990BC11FBF";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_03_Knuckle_03_FK_Ctrl_rotateY";
 	rename -uid "F5E91CD4-4EF1-F241-B33D-C8A351FEDE22";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_04_Knuckle_02_FK_Ctrl_rotateY";
 	rename -uid "36299A47-43C8-396E-3A13-598FE59FF58A";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_05_Knuckle_04_FK_Ctrl_rotateY";
 	rename -uid "3F017A42-44D3-7A78-5263-3DA9023DFAF2";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_02_Knuckle_02_FK_Ctrl_rotateY";
 	rename -uid "48BC3B44-4BAE-867F-F640-AF85D9EFE347";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_01_Knuckle_03_FK_Ctrl_rotateY";
 	rename -uid "F3E03CFE-4848-C73F-5CA7-C1B625D2E50B";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_03_Knuckle_01_FK_Ctrl_rotateY";
 	rename -uid "D6E1095E-46CA-12DA-8FA4-18BADBC8FB8D";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_03_Knuckle_02_FK_Ctrl_rotateY";
 	rename -uid "4612149D-4E83-EB81-FF6C-3591D0182F26";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 0;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 0;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_04_Knuckle_01_FK_Ctrl_rotateZ";
 	rename -uid "3476F093-4F36-CF35-E2D9-A8AC022A05CF";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 27.136641795387046 48 39.539365954096361;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 27.136641795387046 60 39.539365954096361;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_01_Knuckle_01_FK_Ctrl_rotateZ";
 	rename -uid "5A5EF6BA-4D6D-3C30-AEA9-B9959A972B89";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 43.972161158685473 48 43.972161158685473;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 43.972161158685473 60 43.972161158685473;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_03_Knuckle_04_FK_Ctrl_rotateZ";
 	rename -uid "4EBC527D-4515-EC0E-93AD-F59FF6F69EBF";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 27.13664179538705 48 39.528770858756268;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 27.13664179538705 60 39.528770858756268;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_05_Knuckle_02_FK_Ctrl_rotateZ";
 	rename -uid "634FD753-449F-8A71-B878-009123003284";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 27.13664179538705 48 39.528770858756268;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 27.13664179538705 60 39.528770858756268;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_02_Knuckle_04_FK_Ctrl_rotateZ";
 	rename -uid "601738BE-41D0-D02D-9D58-74A5C95E6D78";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 27.13664179538705 48 39.528770858756268;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 27.13664179538705 60 39.528770858756268;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_01_Knuckle_02_FK_Ctrl_rotateZ";
 	rename -uid "EBF4CC4B-463E-4E91-B171-FE903487F24B";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 17.600054191457446 48 28.196410384118487;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 17.600054191457446 60 28.196410384118487;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_04_Knuckle_03_FK_Ctrl_rotateZ";
 	rename -uid "5818D603-4AA8-4BFD-6228-D1A7A4B3A732";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 27.13664179538705 48 39.528770858756268;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 27.13664179538705 60 39.528770858756268;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_05_Knuckle_03_FK_Ctrl_rotateZ";
 	rename -uid "DB9FD625-49B6-3934-5169-93AC23CC5F33";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 27.13664179538705 48 39.528770858756268;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 27.13664179538705 60 39.528770858756268;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_02_Knuckle_01_FK_Ctrl_rotateZ";
 	rename -uid "EF7B300E-4850-77F0-0667-57826AC10EEA";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 27.13664179538705 48 39.528770858756268;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 27.13664179538705 60 39.528770858756268;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_05_Knuckle_01_FK_Ctrl_rotateZ";
 	rename -uid "762359BC-4D58-C204-946E-A08BD7A8B43F";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 13.514797938253617 48 25.934086385129163;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 13.514797938253617 60 25.934086385129163;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_02_Knuckle_03_FK_Ctrl_rotateZ";
 	rename -uid "BC1AA645-436D-A2BA-F17E-979B80A4F063";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 27.13664179538705 48 39.528770858756268;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 27.13664179538705 60 39.528770858756268;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_01_Knuckle_04_FK_Ctrl_rotateZ";
 	rename -uid "9C28000E-4D7A-41F9-7F23-13953018ACFA";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 0 48 12.392129063369246;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 0 60 12.392129063369246;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_04_Knuckle_04_FK_Ctrl_rotateZ";
 	rename -uid "3B78FCAF-4EE6-1FC1-F8C9-AB93A2603909";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 27.13664179538705 48 39.528770858756268;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 27.13664179538705 60 39.528770858756268;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_03_Knuckle_03_FK_Ctrl_rotateZ";
 	rename -uid "DAF00C79-44AB-512F-5DFF-0BA6E09DDC03";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 27.13664179538705 48 39.528770858756268;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 27.13664179538705 60 39.528770858756268;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_04_Knuckle_02_FK_Ctrl_rotateZ";
 	rename -uid "2AC3614B-4560-8EEB-E2F5-638DB3F4EAA6";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 27.13664179538705 48 39.528770858756268;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 27.13664179538705 60 39.528770858756268;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_05_Knuckle_04_FK_Ctrl_rotateZ";
 	rename -uid "20EA5098-49CE-2C9D-13CF-E3AF30361E72";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 27.13664179538705 48 39.528770858756268;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 27.13664179538705 60 39.528770858756268;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_02_Knuckle_02_FK_Ctrl_rotateZ";
 	rename -uid "7CDC38F8-4CBF-9D79-79C1-55A16D86473D";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 27.13664179538705 48 39.528770858756268;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 27.13664179538705 60 39.528770858756268;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_01_Knuckle_03_FK_Ctrl_rotateZ";
 	rename -uid "47C62D57-4094-4A20-7768-098617AA2C7B";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 12.750128698147217 48 25.142257761516458;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 12.750128698147217 60 25.142257761516458;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_03_Knuckle_01_FK_Ctrl_rotateZ";
 	rename -uid "B0F59261-4479-579B-5DB4-A697B45F0729";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 27.13664179538705 48 39.528770858756268;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 27.13664179538705 60 39.528770858756268;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "R_Finger_03_Knuckle_02_FK_Ctrl_rotateZ";
 	rename -uid "7DB41E4C-4980-0ABF-7029-2193184FD2AB";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  18 0 24 27.13664179538705 48 39.528770858756268;
-	setAttr -s 3 ".kot[0:2]"  5 5 18;
+	setAttr -s 4 ".ktv[0:3]"  0 0 30 0 36 27.13664179538705 60 39.528770858756268;
+	setAttr -s 4 ".kot[1:3]"  5 5 18;
 createNode animCurveTA -n "L_Leg_IK_Ctrl_rotateX";
 	rename -uid "F667372E-4905-BB72-ED15-36B78809CDFF";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 -3.3121002267058079 48 -3.3121002267058079
-		 60 -3.3121002267058079 64 -3.3121002267058079 72 -3.3121002267058079;
-	setAttr -s 5 ".kit[3:4]"  1 9;
-	setAttr -s 5 ".kot[3:4]"  1 9;
-	setAttr -s 5 ".kix[3:4]"  1 1;
-	setAttr -s 5 ".kiy[3:4]"  0 0;
-	setAttr -s 5 ".kox[3:4]"  1 1;
-	setAttr -s 5 ".koy[3:4]"  0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 -3.3121002267058079 12 -3.3121002267058079
+		 60 -3.3121002267058079 72 -3.3121002267058079 76 -3.3121002267058079 84 -3.3121002267058079;
+	setAttr -s 7 ".kit[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kot[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kix[1:6]"  0.99973277471180022 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  -0.023116642642148758 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  0.99973277471180022 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  -0.023116642642148758 0 0 0 0 0;
 createNode animCurveTA -n "R_Leg_IK_Ctrl_rotateX";
 	rename -uid "DFAEE21C-4D8A-D662-AB36-389C46F80021";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 -3.3121002267058079 48 -3.3121002267058079
-		 60 -3.3121002267058079 64 -3.3121002267058079 72 -3.3121002267058079;
-	setAttr -s 5 ".kit[3:4]"  1 9;
-	setAttr -s 5 ".kot[3:4]"  1 9;
-	setAttr -s 5 ".kix[3:4]"  1 1;
-	setAttr -s 5 ".kiy[3:4]"  0 0;
-	setAttr -s 5 ".kox[3:4]"  1 1;
-	setAttr -s 5 ".koy[3:4]"  0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 -3.3121002267058079 12 -3.3121002267058079
+		 60 -3.3121002267058079 72 -3.3121002267058079 76 -3.3121002267058079 84 -3.3121002267058079;
+	setAttr -s 7 ".kit[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kot[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kix[1:6]"  0.99973277471180022 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  -0.023116642642148758 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  0.99973277471180022 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  -0.023116642642148758 0 0 0 0 0;
 createNode animCurveTA -n "L_Leg_IK_Ctrl_rotateY";
 	rename -uid "0D209599-4366-BE85-8A37-04B7BCD6DC26";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 48 0 60 0 64 0 72 0;
-	setAttr -s 5 ".kit[3:4]"  1 9;
-	setAttr -s 5 ".kot[3:4]"  1 9;
-	setAttr -s 5 ".kix[3:4]"  1 1;
-	setAttr -s 5 ".kiy[3:4]"  0 0;
-	setAttr -s 5 ".kox[3:4]"  1 1;
-	setAttr -s 5 ".koy[3:4]"  0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 60 0 72 0 76 0 84 0;
+	setAttr -s 7 ".kit[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kot[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "R_Leg_IK_Ctrl_rotateY";
 	rename -uid "F1B74464-4213-FAA8-EB81-DEA9A5FE27E9";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 48 0 60 0 64 0 72 0;
-	setAttr -s 5 ".kit[3:4]"  1 9;
-	setAttr -s 5 ".kot[3:4]"  1 9;
-	setAttr -s 5 ".kix[3:4]"  1 1;
-	setAttr -s 5 ".kiy[3:4]"  0 0;
-	setAttr -s 5 ".kox[3:4]"  1 1;
-	setAttr -s 5 ".koy[3:4]"  0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 60 0 72 0 76 0 84 0;
+	setAttr -s 7 ".kit[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kot[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "L_Leg_IK_Ctrl_rotateZ";
 	rename -uid "F2283B2D-4A89-F7FF-7193-D591F8A3E2ED";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 48 0 60 0 64 0 72 0;
-	setAttr -s 5 ".kit[3:4]"  1 9;
-	setAttr -s 5 ".kot[3:4]"  1 9;
-	setAttr -s 5 ".kix[3:4]"  1 1;
-	setAttr -s 5 ".kiy[3:4]"  0 0;
-	setAttr -s 5 ".kox[3:4]"  1 1;
-	setAttr -s 5 ".koy[3:4]"  0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 60 0 72 0 76 0 84 0;
+	setAttr -s 7 ".kit[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kot[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTA -n "R_Leg_IK_Ctrl_rotateZ";
 	rename -uid "B0C33966-4680-C02E-1F2F-178EF74B08F3";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 48 0 60 0 64 0 72 0;
-	setAttr -s 5 ".kit[3:4]"  1 9;
-	setAttr -s 5 ".kot[3:4]"  1 9;
-	setAttr -s 5 ".kix[3:4]"  1 1;
-	setAttr -s 5 ".kiy[3:4]"  0 0;
-	setAttr -s 5 ".kox[3:4]"  1 1;
-	setAttr -s 5 ".koy[3:4]"  0 0;
+	setAttr -s 7 ".ktv[0:6]"  0 0 10 0 12 0 60 0 72 0 76 0 84 0;
+	setAttr -s 7 ".kit[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kot[0:6]"  18 1 9 9 9 1 9;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
 createNode animCurveTL -n "Pelvis_FK_Ctrl_translateX";
 	rename -uid "963F35EF-4F25-AC27-640A-93A2C7AAD330";
-	setAttr ".tan" 9;
+	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr ".ktv[0]"  48 0;
+	setAttr -s 2 ".ktv[0:1]"  0 0 60 0;
+	setAttr -s 2 ".kit[1]"  9;
+	setAttr -s 2 ".kot[1]"  9;
 createNode animCurveTL -n "Pelvis_FK_Ctrl_translateY";
 	rename -uid "62D90171-4AE1-A643-384A-1A8F9C590A79";
-	setAttr ".tan" 9;
+	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr ".ktv[0]"  48 0;
+	setAttr -s 2 ".ktv[0:1]"  0 0 60 0;
+	setAttr -s 2 ".kit[1]"  9;
+	setAttr -s 2 ".kot[1]"  9;
 createNode animCurveTL -n "Pelvis_FK_Ctrl_translateZ";
 	rename -uid "B03B4995-4B12-2AA0-B845-F784200670F0";
-	setAttr ".tan" 9;
+	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr ".ktv[0]"  48 0;
+	setAttr -s 2 ".ktv[0:1]"  0 0 60 0;
+	setAttr -s 2 ".kit[1]"  9;
+	setAttr -s 2 ".kot[1]"  9;
 createNode animCurveTA -n "Pelvis_FK_Ctrl_rotateX";
 	rename -uid "4EB5A15F-4228-F45C-88AA-B4B5A077E934";
-	setAttr ".tan" 9;
+	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr ".ktv[0]"  48 0;
+	setAttr -s 2 ".ktv[0:1]"  0 0 60 0;
+	setAttr -s 2 ".kit[1]"  9;
+	setAttr -s 2 ".kot[1]"  9;
 createNode animCurveTA -n "Pelvis_FK_Ctrl_rotateY";
 	rename -uid "6E72AB33-47F9-169B-0848-6499F52C7F8F";
-	setAttr ".tan" 9;
+	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr ".ktv[0]"  48 0;
+	setAttr -s 2 ".ktv[0:1]"  0 0 60 0;
+	setAttr -s 2 ".kit[1]"  9;
+	setAttr -s 2 ".kot[1]"  9;
 createNode animCurveTA -n "Pelvis_FK_Ctrl_rotateZ";
 	rename -uid "EFE052D7-4D4B-C6FF-0938-08B063168825";
-	setAttr ".tan" 9;
+	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr ".ktv[0]"  48 0;
+	setAttr -s 2 ".ktv[0:1]"  0 0 60 0;
+	setAttr -s 2 ".kit[1]"  9;
+	setAttr -s 2 ".kot[1]"  9;
 createNode animCurveTL -n "COG_Ctrl_translateX";
 	rename -uid "F2E59E18-49DE-99D9-7B8A-1991035E0B8B";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 4 ".ktv[0:3]"  48 0 60 -4.3056156302895934 64 -4.3056156302895934
-		 72 -1.4340716324927163;
-	setAttr -s 4 ".kit[2:3]"  1 9;
-	setAttr -s 4 ".kot[2:3]"  1 9;
-	setAttr -s 4 ".kix[2:3]"  0.1530132161177154 0.11530728995512791;
-	setAttr -s 4 ".kiy[2:3]"  -0.98822414243597256 0.99332986911861465;
-	setAttr -s 4 ".kox[2:3]"  0.1530132161177154 0.11530728995512791;
-	setAttr -s 4 ".koy[2:3]"  -0.98822414243597256 0.99332986911861465;
+	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 72 -4.3056156302895934 76 -4.3056156302895934
+		 84 -1.4340716324927163;
+	setAttr -s 5 ".kit[0:4]"  18 9 9 1 9;
+	setAttr -s 5 ".kot[0:4]"  18 9 9 1 9;
+	setAttr -s 5 ".kix[3:4]"  0.1530132161177154 0.11530728995512791;
+	setAttr -s 5 ".kiy[3:4]"  -0.98822414243597256 0.99332986911861465;
+	setAttr -s 5 ".kox[3:4]"  0.1530132161177154 0.11530728995512791;
+	setAttr -s 5 ".koy[3:4]"  -0.98822414243597256 0.99332986911861465;
 createNode animCurveTL -n "COG_Ctrl_translateY";
 	rename -uid "459F6A43-4E77-3A80-B211-E4B82F19F60D";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 4 ".ktv[0:3]"  48 0 60 0 64 0 72 0;
-	setAttr -s 4 ".kit[2:3]"  1 9;
-	setAttr -s 4 ".kot[2:3]"  1 9;
-	setAttr -s 4 ".kix[2:3]"  1 1;
-	setAttr -s 4 ".kiy[2:3]"  0 0;
-	setAttr -s 4 ".kox[2:3]"  1 1;
-	setAttr -s 4 ".koy[2:3]"  0 0;
+	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 72 0 76 0 84 0;
+	setAttr -s 5 ".kit[0:4]"  18 9 9 1 9;
+	setAttr -s 5 ".kot[0:4]"  18 9 9 1 9;
+	setAttr -s 5 ".kix[3:4]"  1 1;
+	setAttr -s 5 ".kiy[3:4]"  0 0;
+	setAttr -s 5 ".kox[3:4]"  1 1;
+	setAttr -s 5 ".koy[3:4]"  0 0;
 createNode animCurveTL -n "COG_Ctrl_translateZ";
 	rename -uid "513A4100-4F28-F13D-2055-749F8C743D1C";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 4 ".ktv[0:3]"  48 0 60 0 64 0 72 0;
-	setAttr -s 4 ".kit[2:3]"  1 9;
-	setAttr -s 4 ".kot[2:3]"  1 9;
-	setAttr -s 4 ".kix[2:3]"  1 1;
-	setAttr -s 4 ".kiy[2:3]"  0 0;
-	setAttr -s 4 ".kox[2:3]"  1 1;
-	setAttr -s 4 ".koy[2:3]"  0 0;
+	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 72 0 76 0 84 0;
+	setAttr -s 5 ".kit[0:4]"  18 9 9 1 9;
+	setAttr -s 5 ".kot[0:4]"  18 9 9 1 9;
+	setAttr -s 5 ".kix[3:4]"  1 1;
+	setAttr -s 5 ".kiy[3:4]"  0 0;
+	setAttr -s 5 ".kox[3:4]"  1 1;
+	setAttr -s 5 ".koy[3:4]"  0 0;
 createNode animCurveTA -n "COG_Ctrl_rotateX";
 	rename -uid "38719D09-4EC8-AEBF-9ECC-BBB314918AD8";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 4 ".ktv[0:3]"  48 0 60 0 64 0 72 0;
-	setAttr -s 4 ".kit[2:3]"  1 9;
-	setAttr -s 4 ".kot[2:3]"  1 9;
-	setAttr -s 4 ".kix[2:3]"  1 1;
-	setAttr -s 4 ".kiy[2:3]"  0 0;
-	setAttr -s 4 ".kox[2:3]"  1 1;
-	setAttr -s 4 ".koy[2:3]"  0 0;
+	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 72 0 76 0 84 0;
+	setAttr -s 5 ".kit[0:4]"  18 9 9 1 9;
+	setAttr -s 5 ".kot[0:4]"  18 9 9 1 9;
+	setAttr -s 5 ".kix[3:4]"  1 1;
+	setAttr -s 5 ".kiy[3:4]"  0 0;
+	setAttr -s 5 ".kox[3:4]"  1 1;
+	setAttr -s 5 ".koy[3:4]"  0 0;
 createNode animCurveTA -n "COG_Ctrl_rotateY";
 	rename -uid "EEE96194-44BF-D424-FEB5-C7A101479A0A";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 4 ".ktv[0:3]"  48 0 60 0 64 0 72 0;
-	setAttr -s 4 ".kit[2:3]"  1 9;
-	setAttr -s 4 ".kot[2:3]"  1 9;
-	setAttr -s 4 ".kix[2:3]"  1 1;
-	setAttr -s 4 ".kiy[2:3]"  0 0;
-	setAttr -s 4 ".kox[2:3]"  1 1;
-	setAttr -s 4 ".koy[2:3]"  0 0;
+	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 72 0 76 0 84 0;
+	setAttr -s 5 ".kit[0:4]"  18 9 9 1 9;
+	setAttr -s 5 ".kot[0:4]"  18 9 9 1 9;
+	setAttr -s 5 ".kix[3:4]"  1 1;
+	setAttr -s 5 ".kiy[3:4]"  0 0;
+	setAttr -s 5 ".kox[3:4]"  1 1;
+	setAttr -s 5 ".koy[3:4]"  0 0;
 createNode animCurveTA -n "COG_Ctrl_rotateZ";
 	rename -uid "B1CCE204-48B7-408E-BB69-6CAF627D0595";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 4 ".ktv[0:3]"  48 0 60 0 64 0 72 0;
-	setAttr -s 4 ".kit[2:3]"  1 9;
-	setAttr -s 4 ".kot[2:3]"  1 9;
-	setAttr -s 4 ".kix[2:3]"  1 1;
-	setAttr -s 4 ".kiy[2:3]"  0 0;
-	setAttr -s 4 ".kox[2:3]"  1 1;
-	setAttr -s 4 ".koy[2:3]"  0 0;
+	setAttr -s 5 ".ktv[0:4]"  0 0 60 0 72 0 76 0 84 0;
+	setAttr -s 5 ".kit[0:4]"  18 9 9 1 9;
+	setAttr -s 5 ".kot[0:4]"  18 9 9 1 9;
+	setAttr -s 5 ".kix[3:4]"  1 1;
+	setAttr -s 5 ".kiy[3:4]"  0 0;
+	setAttr -s 5 ".kox[3:4]"  1 1;
+	setAttr -s 5 ".koy[3:4]"  0 0;
 createNode polyAutoProj -n "polyAutoProj6";
 	rename -uid "C8303E50-4799-1B49-AFFE-B8B06816083B";
 	setAttr ".cch" yes;
@@ -17586,11 +17945,11 @@ createNode reference -n "TestRoomNoSubstanceRN";
 		":initialShadingGroup.dagSetMembers" "-na"
 		3 "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_5|TestRoomNoSubstance:ProceduralBox1_5Shape.instObjGroups" 
 		":initialShadingGroup.dagSetMembers" "-na"
-		3 "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_2|TestRoomNoSubstance:ProceduralBox1_2Shape.instObjGroups" 
-		":initialShadingGroup.dagSetMembers" "-na"
 		3 "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_4|TestRoomNoSubstance:ProceduralBox1_4Shape.instObjGroups" 
 		":initialShadingGroup.dagSetMembers" "-na"
 		3 "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_0|TestRoomNoSubstance:ProceduralBox1_0Shape.instObjGroups" 
+		":initialShadingGroup.dagSetMembers" "-na"
+		3 "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_2|TestRoomNoSubstance:ProceduralBox1_2Shape.instObjGroups" 
 		":initialShadingGroup.dagSetMembers" "-na"
 		3 "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_1|TestRoomNoSubstance:ProceduralBox1_1Shape.instObjGroups" 
 		":initialShadingGroup.dagSetMembers" "-na"
@@ -17620,8 +17979,227 @@ createNode polyClean -n "polyClean1";
 createNode polyClean -n "polyClean2";
 	rename -uid "90E8F6ED-4807-27AA-7BD3-7880FB01B68C";
 	setAttr ".uopa" yes;
+createNode AlembicNode -n "FirstTry:FirstTry_AlembicNode";
+	rename -uid "DACA38EB-4B06-C0E5-73F0-539A20FB2E8C";
+	setAttr ".fn" -type "string" "C:/Users/GuyBF/Personal Projects/SchoolProjects/ScientistWoman/Animations/AlembicCloth/FirstTry.abc";
+	setAttr ".fns" -type "stringArray" 1 "C:/Users/GuyBF/Personal Projects/SchoolProjects/ScientistWoman/Animations/AlembicCloth/FirstTry.abc"  ;
+createNode animCurveTL -n "R_Leg_Clav_FK_Ctrl_translateX";
+	rename -uid "DB9607CD-4AF7-52FB-3FF3-988BE5069700";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "Spine_01_FK_Ctrl_translateX";
+	rename -uid "EEC69230-4D40-94BD-4E95-BCBAE9A92E3A";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "R_Arm_IK_Base_Ctrl_translateX";
+	rename -uid "9B503CF2-4082-C536-2C7D-70AC73F6728C";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "L_Leg_Clav_FK_Ctrl_translateX";
+	rename -uid "0A67B3DD-4069-7D57-DD41-6BA1FACC4172";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "R_Hand_FK_Ctrl_translateX";
+	rename -uid "7987BAA9-46C0-F5BF-9832-AF9426055F1B";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "L_Leg_Base_IK_Ctrl_translateX";
+	rename -uid "F94804E1-405B-8A0C-2577-99AB4D7CC5F2";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "Spine_02_FK_Ctrl_translateX";
+	rename -uid "235036D9-4512-9DC7-AE9E-BBB71BF30764";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "L_Hand_FK_Ctrl_translateX";
+	rename -uid "5B7CFFEF-4467-63FE-F76D-FA9686354FE2";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "Spine_03_FK_Ctrl_translateX";
+	rename -uid "9F91FE96-4EFB-7DF0-EFEB-C080FF52EC60";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "R_Leg_Base_IK_Ctrl_translateX";
+	rename -uid "EF467E56-4693-E7FB-0A6F-728B537750C1";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "R_Leg_Clav_FK_Ctrl_translateY";
+	rename -uid "7469C31A-4EAC-4B60-5F5E-7DB91466E78B";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "Spine_01_FK_Ctrl_translateY";
+	rename -uid "55E681B0-4C2C-6430-F60B-998F15454660";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "R_Arm_IK_Base_Ctrl_translateY";
+	rename -uid "EBD3989A-4508-B3BF-16B2-A48AB07D9AF5";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "L_Leg_Clav_FK_Ctrl_translateY";
+	rename -uid "E999DE5A-49A0-F110-9A2C-4DAC1EBAA79A";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "R_Hand_FK_Ctrl_translateY";
+	rename -uid "6FC70D9D-47EE-7C0A-7A59-038F43C8A7FE";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "L_Leg_Base_IK_Ctrl_translateY";
+	rename -uid "1AB0FBBC-4E8D-512E-A966-F6B4C43F0ED4";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "Spine_02_FK_Ctrl_translateY";
+	rename -uid "3E66185E-4BCB-C0CD-C8FE-878FF514A720";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "L_Hand_FK_Ctrl_translateY";
+	rename -uid "656CDAB7-455F-73C0-293B-589B2773C382";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "Spine_03_FK_Ctrl_translateY";
+	rename -uid "B1A62968-4471-ECBF-690F-928F9CEE2B38";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "R_Leg_Base_IK_Ctrl_translateY";
+	rename -uid "F018FE12-497C-84A2-86D3-D7B86EE153E8";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "R_Leg_Clav_FK_Ctrl_translateZ";
+	rename -uid "DF4174D2-4A62-5461-978A-17A3E38C78D1";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "Spine_01_FK_Ctrl_translateZ";
+	rename -uid "FB3A9EDE-4D29-C02A-31CC-94B4219F4808";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "R_Arm_IK_Base_Ctrl_translateZ";
+	rename -uid "137B63FA-43AD-5AB8-8E24-3CB986B51B1C";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "L_Leg_Clav_FK_Ctrl_translateZ";
+	rename -uid "9CBF7024-4335-D101-0E02-34AF61D534F1";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "R_Hand_FK_Ctrl_translateZ";
+	rename -uid "532E115F-4B2D-37F5-C8DD-DD85AC65AD4A";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "L_Leg_Base_IK_Ctrl_translateZ";
+	rename -uid "BC637365-41E2-B1FC-2148-F69CBB1A0BF5";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "Spine_02_FK_Ctrl_translateZ";
+	rename -uid "9B720FF6-4EFD-4F16-F72C-629664C985E4";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "L_Hand_FK_Ctrl_translateZ";
+	rename -uid "53032198-4A1B-6683-B537-CC9407275D99";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "Spine_03_FK_Ctrl_translateZ";
+	rename -uid "72CC6BB7-40E1-44E5-C91E-8F9CDD08B18A";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTL -n "R_Leg_Base_IK_Ctrl_translateZ";
+	rename -uid "1483FB65-4C42-8D92-8346-ECAB4159DB75";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTA -n "R_Leg_Clav_FK_Ctrl_rotateX";
+	rename -uid "987F3A08-47A4-608D-0F1F-888DCAAF779F";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTA -n "L_Leg_Clav_FK_Ctrl_rotateX";
+	rename -uid "13EB824F-4A99-4F14-ACFF-93A815B5AE4C";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTA -n "R_Hand_FK_Ctrl_rotateX";
+	rename -uid "5FEBCDB2-467B-4AF7-3103-1BB131B02FD1";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTA -n "L_Hand_FK_Ctrl_rotateX";
+	rename -uid "F83D0848-4D6F-A18D-01B8-5FB2F638F92C";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTA -n "R_Leg_Clav_FK_Ctrl_rotateY";
+	rename -uid "3A26D014-4A2D-2368-BBBA-CDB8FEDF2C81";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTA -n "L_Leg_Clav_FK_Ctrl_rotateY";
+	rename -uid "7F38355B-435B-B330-2A72-E19B0CEF6F90";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTA -n "R_Hand_FK_Ctrl_rotateY";
+	rename -uid "CEF1234C-4466-E666-1B8E-4491EE6701C9";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTA -n "L_Hand_FK_Ctrl_rotateY";
+	rename -uid "76573BC1-48AB-76A3-3243-78BA473DA6FF";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTA -n "R_Leg_Clav_FK_Ctrl_rotateZ";
+	rename -uid "6A63F4EB-4EF5-1BF8-37D9-97BAB448EA82";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTA -n "L_Leg_Clav_FK_Ctrl_rotateZ";
+	rename -uid "B546B907-4464-D15A-12A2-33B204A9B9EA";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTA -n "R_Hand_FK_Ctrl_rotateZ";
+	rename -uid "C72DE372-46C1-A5E0-8396-35BF530D7617";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode animCurveTA -n "L_Hand_FK_Ctrl_rotateZ";
+	rename -uid "CE88FBCA-4148-0AD2-FC2B-1581B567CEB8";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  0 0;
+createNode AlembicNode -n "SecondTry:SecondTry_AlembicNode";
+	rename -uid "FBD26EB8-42A1-0145-2113-EF9570351C45";
+	setAttr ".fn" -type "string" "C:/Users/GuyBF/Personal Projects/SchoolProjects/ScientistWoman/Animations/AlembicCloth/SecondTry.abc";
+	setAttr ".fns" -type "stringArray" 1 "C:/Users/GuyBF/Personal Projects/SchoolProjects/ScientistWoman/Animations/AlembicCloth/SecondTry.abc"  ;
 select -ne :time1;
-	setAttr ".o" 0;
+	setAttr ".o" 168;
+	setAttr ".unw" 168;
 select -ne :hardwareRenderingGlobals;
 	setAttr ".otfna" -type "stringArray" 22 "NURBS Curves" "NURBS Surfaces" "Polygons" "Subdiv Surface" "Particles" "Particle Instance" "Fluids" "Strokes" "Image Planes" "UI" "Lights" "Cameras" "Locators" "Joints" "IK Handles" "Deformers" "Motion Trails" "Components" "Hair Systems" "Follicles" "Misc. UI" "Ornaments"  ;
 	setAttr ".otfva" -type "Int32Array" 22 0 1 1 1 1 1
@@ -17644,7 +18222,7 @@ select -ne :lightList1;
 select -ne :defaultTextureList1;
 	setAttr -s 328 ".tx";
 select -ne :initialShadingGroup;
-	setAttr -s 16 ".dsm";
+	setAttr -s 18 ".dsm";
 	setAttr ".ro" yes;
 	setAttr -s 2 ".gn";
 select -ne :initialParticleSE;
@@ -17687,579 +18265,654 @@ connectAttr "Pelvis_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[9]";
 connectAttr "Pelvis_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[10]";
 connectAttr "Pelvis_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[11]";
 connectAttr "Pelvis_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[12]";
-connectAttr "Spine_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[13]";
-connectAttr "Spine_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[14]";
-connectAttr "Spine_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[15]";
-connectAttr "Spine_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[16]";
-connectAttr "Spine_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[17]";
-connectAttr "Spine_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[18]";
-connectAttr "Spine_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[19]";
-connectAttr "Spine_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[20]";
-connectAttr "Spine_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[21]";
-connectAttr "Neck_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[22]"
+connectAttr "Spine_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[13]"
 		;
-connectAttr "Neck_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[23]"
+connectAttr "Spine_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[14]"
 		;
-connectAttr "Neck_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[24]"
+connectAttr "Spine_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[15]"
 		;
-connectAttr "Neck_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[25]";
-connectAttr "Neck_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[26]";
-connectAttr "Neck_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[27]";
-connectAttr "Neck_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[28]"
+connectAttr "Spine_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[16]";
+connectAttr "Spine_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[17]";
+connectAttr "Spine_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[18]";
+connectAttr "Spine_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[19]"
+		;
+connectAttr "Spine_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[20]"
+		;
+connectAttr "Spine_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[21]"
+		;
+connectAttr "Spine_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[22]";
+connectAttr "Spine_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[23]";
+connectAttr "Spine_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[24]";
+connectAttr "Spine_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[25]"
 		;
-connectAttr "Neck_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[29]"
+connectAttr "Spine_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[26]"
 		;
-connectAttr "Neck_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[30]"
+connectAttr "Spine_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[27]"
 		;
-connectAttr "Neck_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[31]";
-connectAttr "Neck_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[32]";
-connectAttr "Neck_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[33]";
-connectAttr "Head_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[34]";
-connectAttr "Head_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[35]";
-connectAttr "Head_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[36]";
-connectAttr "Head_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[37]";
-connectAttr "Head_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[38]";
-connectAttr "Head_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[39]";
-connectAttr "L_Clav_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[40]";
-connectAttr "L_Clav_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[41]";
-connectAttr "L_Clav_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[42]";
-connectAttr "L_Clav_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[43]";
-connectAttr "L_Clav_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[44]";
-connectAttr "L_Clav_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[45]";
-connectAttr "L_Arm_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[46]"
+connectAttr "Spine_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[28]";
+connectAttr "Spine_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[29]";
+connectAttr "Spine_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[30]";
+connectAttr "Neck_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[31]"
 		;
-connectAttr "L_Arm_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[47]"
+connectAttr "Neck_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[32]"
 		;
-connectAttr "L_Arm_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[48]"
+connectAttr "Neck_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[33]"
 		;
-connectAttr "L_Arm_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[49]";
-connectAttr "L_Arm_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[50]";
-connectAttr "L_Arm_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[51]";
-connectAttr "L_Arm_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[52]"
+connectAttr "Neck_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[34]";
+connectAttr "Neck_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[35]";
+connectAttr "Neck_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[36]";
+connectAttr "Neck_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[37]"
 		;
-connectAttr "L_Arm_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[53]"
+connectAttr "Neck_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[38]"
 		;
-connectAttr "L_Arm_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[54]"
+connectAttr "Neck_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[39]"
 		;
-connectAttr "L_Arm_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[55]";
-connectAttr "L_Arm_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[56]";
-connectAttr "L_Arm_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[57]";
-connectAttr "L_Arm_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[58]"
+connectAttr "Neck_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[40]";
+connectAttr "Neck_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[41]";
+connectAttr "Neck_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[42]";
+connectAttr "Head_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[43]";
+connectAttr "Head_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[44]";
+connectAttr "Head_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[45]";
+connectAttr "Head_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[46]";
+connectAttr "Head_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[47]";
+connectAttr "Head_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[48]";
+connectAttr "L_Clav_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[49]";
+connectAttr "L_Clav_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[50]";
+connectAttr "L_Clav_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[51]";
+connectAttr "L_Clav_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[52]";
+connectAttr "L_Clav_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[53]";
+connectAttr "L_Clav_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[54]";
+connectAttr "L_Arm_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[55]"
 		;
-connectAttr "L_Arm_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[59]"
+connectAttr "L_Arm_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[56]"
 		;
-connectAttr "L_Arm_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[60]"
+connectAttr "L_Arm_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[57]"
 		;
-connectAttr "L_Arm_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[61]";
-connectAttr "L_Arm_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[62]";
-connectAttr "L_Arm_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[63]";
-connectAttr "R_Clav_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[64]";
-connectAttr "R_Clav_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[65]";
-connectAttr "R_Clav_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[66]";
-connectAttr "R_Clav_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[67]";
-connectAttr "R_Clav_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[68]";
-connectAttr "R_Clav_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[69]";
-connectAttr "R_Arm_IK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[70]";
-connectAttr "R_Arm_IK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[71]";
-connectAttr "R_Arm_IK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[72]";
-connectAttr "R_Arm_IK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[73]";
-connectAttr "R_Arm_IK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[74]";
-connectAttr "R_Arm_IK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[75]";
-connectAttr "R_Arm_PV_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[76]";
-connectAttr "R_Arm_PV_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[77]";
-connectAttr "R_Arm_PV_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[78]";
-connectAttr "L_Finger_01_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[79]"
+connectAttr "L_Arm_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[58]";
+connectAttr "L_Arm_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[59]";
+connectAttr "L_Arm_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[60]";
+connectAttr "L_Arm_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[61]"
 		;
-connectAttr "L_Finger_01_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[80]"
+connectAttr "L_Arm_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[62]"
 		;
-connectAttr "L_Finger_01_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[81]"
+connectAttr "L_Arm_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[63]"
 		;
-connectAttr "L_Finger_01_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[82]"
+connectAttr "L_Arm_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[64]";
+connectAttr "L_Arm_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[65]";
+connectAttr "L_Arm_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[66]";
+connectAttr "L_Arm_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[67]"
 		;
-connectAttr "L_Finger_01_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[83]"
+connectAttr "L_Arm_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[68]"
 		;
-connectAttr "L_Finger_01_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[84]"
+connectAttr "L_Arm_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[69]"
 		;
-connectAttr "L_Finger_01_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[85]"
+connectAttr "L_Arm_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[70]";
+connectAttr "L_Arm_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[71]";
+connectAttr "L_Arm_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[72]";
+connectAttr "R_Clav_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[73]";
+connectAttr "R_Clav_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[74]";
+connectAttr "R_Clav_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[75]";
+connectAttr "R_Clav_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[76]";
+connectAttr "R_Clav_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[77]";
+connectAttr "R_Clav_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[78]";
+connectAttr "R_Arm_IK_Base_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[79]"
 		;
-connectAttr "L_Finger_01_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[86]"
+connectAttr "R_Arm_IK_Base_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[80]"
 		;
-connectAttr "L_Finger_01_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[87]"
+connectAttr "R_Arm_IK_Base_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[81]"
 		;
-connectAttr "L_Finger_01_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[88]"
+connectAttr "R_Arm_IK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[82]";
+connectAttr "R_Arm_IK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[83]";
+connectAttr "R_Arm_IK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[84]";
+connectAttr "R_Arm_IK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[85]";
+connectAttr "R_Arm_IK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[86]";
+connectAttr "R_Arm_IK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[87]";
+connectAttr "R_Arm_PV_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[88]";
+connectAttr "R_Arm_PV_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[89]";
+connectAttr "R_Arm_PV_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[90]";
+connectAttr "L_Hand_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[91]";
+connectAttr "L_Hand_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[92]";
+connectAttr "L_Hand_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[93]";
+connectAttr "L_Hand_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[94]";
+connectAttr "L_Hand_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[95]";
+connectAttr "L_Hand_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[96]";
+connectAttr "L_Finger_01_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[97]"
 		;
-connectAttr "L_Finger_01_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[89]"
+connectAttr "L_Finger_01_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[98]"
 		;
-connectAttr "L_Finger_01_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[90]"
+connectAttr "L_Finger_01_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[99]"
 		;
-connectAttr "L_Finger_01_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[91]"
+connectAttr "L_Finger_01_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[100]"
 		;
-connectAttr "L_Finger_01_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[92]"
+connectAttr "L_Finger_01_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[101]"
 		;
-connectAttr "L_Finger_01_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[93]"
+connectAttr "L_Finger_01_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[102]"
 		;
-connectAttr "L_Finger_01_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[94]"
+connectAttr "L_Finger_01_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[103]"
 		;
-connectAttr "L_Finger_01_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[95]"
+connectAttr "L_Finger_01_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[104]"
 		;
-connectAttr "L_Finger_01_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[96]"
+connectAttr "L_Finger_01_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[105]"
 		;
-connectAttr "L_Finger_01_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[97]"
+connectAttr "L_Finger_01_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[106]"
 		;
-connectAttr "L_Finger_01_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[98]"
+connectAttr "L_Finger_01_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[107]"
 		;
-connectAttr "L_Finger_01_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[99]"
+connectAttr "L_Finger_01_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[108]"
 		;
-connectAttr "L_Finger_01_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[100]"
+connectAttr "L_Finger_01_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[109]"
 		;
-connectAttr "L_Finger_01_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[101]"
+connectAttr "L_Finger_01_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[110]"
 		;
-connectAttr "L_Finger_01_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[102]"
+connectAttr "L_Finger_01_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[111]"
 		;
-connectAttr "L_Finger_02_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[103]"
+connectAttr "L_Finger_01_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[112]"
 		;
-connectAttr "L_Finger_02_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[104]"
+connectAttr "L_Finger_01_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[113]"
 		;
-connectAttr "L_Finger_02_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[105]"
+connectAttr "L_Finger_01_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[114]"
 		;
-connectAttr "L_Finger_02_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[106]"
+connectAttr "L_Finger_01_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[115]"
 		;
-connectAttr "L_Finger_02_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[107]"
+connectAttr "L_Finger_01_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[116]"
 		;
-connectAttr "L_Finger_02_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[108]"
+connectAttr "L_Finger_01_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[117]"
 		;
-connectAttr "L_Finger_02_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[109]"
+connectAttr "L_Finger_01_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[118]"
 		;
-connectAttr "L_Finger_02_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[110]"
+connectAttr "L_Finger_01_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[119]"
 		;
-connectAttr "L_Finger_02_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[111]"
+connectAttr "L_Finger_01_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[120]"
 		;
-connectAttr "L_Finger_02_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[112]"
+connectAttr "L_Finger_02_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[121]"
 		;
-connectAttr "L_Finger_02_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[113]"
+connectAttr "L_Finger_02_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[122]"
 		;
-connectAttr "L_Finger_02_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[114]"
+connectAttr "L_Finger_02_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[123]"
 		;
-connectAttr "L_Finger_02_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[115]"
+connectAttr "L_Finger_02_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[124]"
 		;
-connectAttr "L_Finger_02_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[116]"
+connectAttr "L_Finger_02_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[125]"
 		;
-connectAttr "L_Finger_02_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[117]"
+connectAttr "L_Finger_02_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[126]"
 		;
-connectAttr "L_Finger_02_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[118]"
+connectAttr "L_Finger_02_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[127]"
 		;
-connectAttr "L_Finger_02_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[119]"
+connectAttr "L_Finger_02_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[128]"
 		;
-connectAttr "L_Finger_02_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[120]"
+connectAttr "L_Finger_02_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[129]"
 		;
-connectAttr "L_Finger_02_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[121]"
+connectAttr "L_Finger_02_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[130]"
 		;
-connectAttr "L_Finger_02_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[122]"
+connectAttr "L_Finger_02_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[131]"
 		;
-connectAttr "L_Finger_02_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[123]"
+connectAttr "L_Finger_02_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[132]"
 		;
-connectAttr "L_Finger_02_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[124]"
+connectAttr "L_Finger_02_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[133]"
 		;
-connectAttr "L_Finger_02_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[125]"
+connectAttr "L_Finger_02_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[134]"
 		;
-connectAttr "L_Finger_02_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[126]"
+connectAttr "L_Finger_02_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[135]"
 		;
-connectAttr "L_Finger_03_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[127]"
+connectAttr "L_Finger_02_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[136]"
 		;
-connectAttr "L_Finger_03_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[128]"
+connectAttr "L_Finger_02_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[137]"
 		;
-connectAttr "L_Finger_03_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[129]"
+connectAttr "L_Finger_02_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[138]"
 		;
-connectAttr "L_Finger_03_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[130]"
+connectAttr "L_Finger_02_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[139]"
 		;
-connectAttr "L_Finger_03_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[131]"
+connectAttr "L_Finger_02_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[140]"
 		;
-connectAttr "L_Finger_03_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[132]"
+connectAttr "L_Finger_02_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[141]"
 		;
-connectAttr "L_Finger_03_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[133]"
+connectAttr "L_Finger_02_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[142]"
 		;
-connectAttr "L_Finger_03_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[134]"
+connectAttr "L_Finger_02_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[143]"
 		;
-connectAttr "L_Finger_03_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[135]"
+connectAttr "L_Finger_02_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[144]"
 		;
-connectAttr "L_Finger_03_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[136]"
+connectAttr "L_Finger_03_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[145]"
 		;
-connectAttr "L_Finger_03_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[137]"
+connectAttr "L_Finger_03_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[146]"
 		;
-connectAttr "L_Finger_03_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[138]"
+connectAttr "L_Finger_03_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[147]"
 		;
-connectAttr "L_Finger_03_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[139]"
+connectAttr "L_Finger_03_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[148]"
 		;
-connectAttr "L_Finger_03_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[140]"
+connectAttr "L_Finger_03_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[149]"
 		;
-connectAttr "L_Finger_03_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[141]"
+connectAttr "L_Finger_03_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[150]"
 		;
-connectAttr "L_Finger_03_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[142]"
+connectAttr "L_Finger_03_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[151]"
 		;
-connectAttr "L_Finger_03_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[143]"
+connectAttr "L_Finger_03_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[152]"
 		;
-connectAttr "L_Finger_03_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[144]"
+connectAttr "L_Finger_03_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[153]"
 		;
-connectAttr "L_Finger_03_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[145]"
+connectAttr "L_Finger_03_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[154]"
 		;
-connectAttr "L_Finger_03_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[146]"
+connectAttr "L_Finger_03_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[155]"
 		;
-connectAttr "L_Finger_03_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[147]"
+connectAttr "L_Finger_03_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[156]"
 		;
-connectAttr "L_Finger_03_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[148]"
+connectAttr "L_Finger_03_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[157]"
 		;
-connectAttr "L_Finger_03_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[149]"
+connectAttr "L_Finger_03_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[158]"
 		;
-connectAttr "L_Finger_03_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[150]"
+connectAttr "L_Finger_03_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[159]"
 		;
-connectAttr "L_Finger_04_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[151]"
+connectAttr "L_Finger_03_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[160]"
 		;
-connectAttr "L_Finger_04_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[152]"
+connectAttr "L_Finger_03_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[161]"
 		;
-connectAttr "L_Finger_04_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[153]"
+connectAttr "L_Finger_03_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[162]"
 		;
-connectAttr "L_Finger_04_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[154]"
+connectAttr "L_Finger_03_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[163]"
 		;
-connectAttr "L_Finger_04_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[155]"
+connectAttr "L_Finger_03_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[164]"
 		;
-connectAttr "L_Finger_04_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[156]"
+connectAttr "L_Finger_03_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[165]"
 		;
-connectAttr "L_Finger_04_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[157]"
+connectAttr "L_Finger_03_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[166]"
 		;
-connectAttr "L_Finger_04_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[158]"
+connectAttr "L_Finger_03_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[167]"
 		;
-connectAttr "L_Finger_04_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[159]"
+connectAttr "L_Finger_03_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[168]"
 		;
-connectAttr "L_Finger_04_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[160]"
+connectAttr "L_Finger_04_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[169]"
 		;
-connectAttr "L_Finger_04_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[161]"
+connectAttr "L_Finger_04_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[170]"
 		;
-connectAttr "L_Finger_04_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[162]"
+connectAttr "L_Finger_04_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[171]"
 		;
-connectAttr "L_Finger_04_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[163]"
+connectAttr "L_Finger_04_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[172]"
 		;
-connectAttr "L_Finger_04_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[164]"
+connectAttr "L_Finger_04_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[173]"
 		;
-connectAttr "L_Finger_04_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[165]"
+connectAttr "L_Finger_04_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[174]"
 		;
-connectAttr "L_Finger_04_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[166]"
+connectAttr "L_Finger_04_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[175]"
 		;
-connectAttr "L_Finger_04_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[167]"
+connectAttr "L_Finger_04_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[176]"
 		;
-connectAttr "L_Finger_04_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[168]"
+connectAttr "L_Finger_04_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[177]"
 		;
-connectAttr "L_Finger_04_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[169]"
+connectAttr "L_Finger_04_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[178]"
 		;
-connectAttr "L_Finger_04_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[170]"
+connectAttr "L_Finger_04_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[179]"
 		;
-connectAttr "L_Finger_04_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[171]"
+connectAttr "L_Finger_04_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[180]"
 		;
-connectAttr "L_Finger_04_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[172]"
+connectAttr "L_Finger_04_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[181]"
 		;
-connectAttr "L_Finger_04_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[173]"
+connectAttr "L_Finger_04_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[182]"
 		;
-connectAttr "L_Finger_04_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[174]"
+connectAttr "L_Finger_04_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[183]"
 		;
-connectAttr "L_Finger_05_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[175]"
+connectAttr "L_Finger_04_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[184]"
 		;
-connectAttr "L_Finger_05_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[176]"
+connectAttr "L_Finger_04_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[185]"
 		;
-connectAttr "L_Finger_05_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[177]"
+connectAttr "L_Finger_04_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[186]"
 		;
-connectAttr "L_Finger_05_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[178]"
+connectAttr "L_Finger_04_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[187]"
 		;
-connectAttr "L_Finger_05_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[179]"
+connectAttr "L_Finger_04_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[188]"
 		;
-connectAttr "L_Finger_05_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[180]"
+connectAttr "L_Finger_04_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[189]"
 		;
-connectAttr "L_Finger_05_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[181]"
+connectAttr "L_Finger_04_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[190]"
 		;
-connectAttr "L_Finger_05_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[182]"
+connectAttr "L_Finger_04_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[191]"
 		;
-connectAttr "L_Finger_05_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[183]"
+connectAttr "L_Finger_04_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[192]"
 		;
-connectAttr "L_Finger_05_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[184]"
+connectAttr "L_Finger_05_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[193]"
 		;
-connectAttr "L_Finger_05_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[185]"
+connectAttr "L_Finger_05_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[194]"
 		;
-connectAttr "L_Finger_05_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[186]"
+connectAttr "L_Finger_05_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[195]"
 		;
-connectAttr "L_Finger_05_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[187]"
+connectAttr "L_Finger_05_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[196]"
 		;
-connectAttr "L_Finger_05_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[188]"
+connectAttr "L_Finger_05_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[197]"
 		;
-connectAttr "L_Finger_05_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[189]"
+connectAttr "L_Finger_05_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[198]"
 		;
-connectAttr "L_Finger_05_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[190]"
+connectAttr "L_Finger_05_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[199]"
 		;
-connectAttr "L_Finger_05_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[191]"
+connectAttr "L_Finger_05_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[200]"
 		;
-connectAttr "L_Finger_05_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[192]"
+connectAttr "L_Finger_05_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[201]"
 		;
-connectAttr "L_Finger_05_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[193]"
+connectAttr "L_Finger_05_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[202]"
 		;
-connectAttr "L_Finger_05_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[194]"
+connectAttr "L_Finger_05_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[203]"
 		;
-connectAttr "L_Finger_05_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[195]"
+connectAttr "L_Finger_05_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[204]"
 		;
-connectAttr "L_Finger_05_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[196]"
+connectAttr "L_Finger_05_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[205]"
 		;
-connectAttr "L_Finger_05_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[197]"
+connectAttr "L_Finger_05_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[206]"
 		;
-connectAttr "L_Finger_05_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[198]"
+connectAttr "L_Finger_05_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[207]"
 		;
-connectAttr "R_Finger_01_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[199]"
+connectAttr "L_Finger_05_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[208]"
 		;
-connectAttr "R_Finger_01_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[200]"
+connectAttr "L_Finger_05_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[209]"
 		;
-connectAttr "R_Finger_01_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[201]"
+connectAttr "L_Finger_05_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[210]"
 		;
-connectAttr "R_Finger_01_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[202]"
+connectAttr "L_Finger_05_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[211]"
 		;
-connectAttr "R_Finger_01_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[203]"
+connectAttr "L_Finger_05_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[212]"
 		;
-connectAttr "R_Finger_01_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[204]"
+connectAttr "L_Finger_05_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[213]"
 		;
-connectAttr "R_Finger_01_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[205]"
+connectAttr "L_Finger_05_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[214]"
 		;
-connectAttr "R_Finger_01_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[206]"
+connectAttr "L_Finger_05_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[215]"
 		;
-connectAttr "R_Finger_01_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[207]"
+connectAttr "L_Finger_05_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[216]"
 		;
-connectAttr "R_Finger_01_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[208]"
+connectAttr "R_Hand_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[217]"
 		;
-connectAttr "R_Finger_01_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[209]"
+connectAttr "R_Hand_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[218]"
 		;
-connectAttr "R_Finger_01_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[210]"
+connectAttr "R_Hand_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[219]"
 		;
-connectAttr "R_Finger_01_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[211]"
+connectAttr "R_Hand_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[220]";
+connectAttr "R_Hand_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[221]";
+connectAttr "R_Hand_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[222]";
+connectAttr "R_Finger_01_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[223]"
 		;
-connectAttr "R_Finger_01_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[212]"
+connectAttr "R_Finger_01_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[224]"
 		;
-connectAttr "R_Finger_01_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[213]"
+connectAttr "R_Finger_01_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[225]"
 		;
-connectAttr "R_Finger_01_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[214]"
+connectAttr "R_Finger_01_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[226]"
 		;
-connectAttr "R_Finger_01_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[215]"
+connectAttr "R_Finger_01_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[227]"
 		;
-connectAttr "R_Finger_01_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[216]"
+connectAttr "R_Finger_01_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[228]"
 		;
-connectAttr "R_Finger_01_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[217]"
+connectAttr "R_Finger_01_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[229]"
 		;
-connectAttr "R_Finger_01_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[218]"
+connectAttr "R_Finger_01_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[230]"
 		;
-connectAttr "R_Finger_01_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[219]"
+connectAttr "R_Finger_01_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[231]"
 		;
-connectAttr "R_Finger_01_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[220]"
+connectAttr "R_Finger_01_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[232]"
 		;
-connectAttr "R_Finger_01_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[221]"
+connectAttr "R_Finger_01_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[233]"
 		;
-connectAttr "R_Finger_01_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[222]"
+connectAttr "R_Finger_01_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[234]"
 		;
-connectAttr "R_Finger_02_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[223]"
+connectAttr "R_Finger_01_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[235]"
 		;
-connectAttr "R_Finger_02_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[224]"
+connectAttr "R_Finger_01_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[236]"
 		;
-connectAttr "R_Finger_02_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[225]"
+connectAttr "R_Finger_01_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[237]"
 		;
-connectAttr "R_Finger_02_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[226]"
+connectAttr "R_Finger_01_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[238]"
 		;
-connectAttr "R_Finger_02_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[227]"
+connectAttr "R_Finger_01_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[239]"
 		;
-connectAttr "R_Finger_02_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[228]"
+connectAttr "R_Finger_01_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[240]"
 		;
-connectAttr "R_Finger_02_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[229]"
+connectAttr "R_Finger_01_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[241]"
 		;
-connectAttr "R_Finger_02_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[230]"
+connectAttr "R_Finger_01_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[242]"
 		;
-connectAttr "R_Finger_02_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[231]"
+connectAttr "R_Finger_01_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[243]"
 		;
-connectAttr "R_Finger_02_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[232]"
+connectAttr "R_Finger_01_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[244]"
 		;
-connectAttr "R_Finger_02_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[233]"
+connectAttr "R_Finger_01_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[245]"
 		;
-connectAttr "R_Finger_02_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[234]"
+connectAttr "R_Finger_01_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[246]"
 		;
-connectAttr "R_Finger_02_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[235]"
+connectAttr "R_Finger_02_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[247]"
 		;
-connectAttr "R_Finger_02_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[236]"
+connectAttr "R_Finger_02_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[248]"
 		;
-connectAttr "R_Finger_02_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[237]"
+connectAttr "R_Finger_02_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[249]"
 		;
-connectAttr "R_Finger_02_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[238]"
+connectAttr "R_Finger_02_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[250]"
 		;
-connectAttr "R_Finger_02_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[239]"
+connectAttr "R_Finger_02_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[251]"
 		;
-connectAttr "R_Finger_02_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[240]"
+connectAttr "R_Finger_02_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[252]"
 		;
-connectAttr "R_Finger_02_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[241]"
+connectAttr "R_Finger_02_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[253]"
 		;
-connectAttr "R_Finger_02_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[242]"
+connectAttr "R_Finger_02_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[254]"
 		;
-connectAttr "R_Finger_02_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[243]"
+connectAttr "R_Finger_02_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[255]"
 		;
-connectAttr "R_Finger_02_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[244]"
+connectAttr "R_Finger_02_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[256]"
 		;
-connectAttr "R_Finger_02_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[245]"
+connectAttr "R_Finger_02_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[257]"
 		;
-connectAttr "R_Finger_02_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[246]"
+connectAttr "R_Finger_02_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[258]"
 		;
-connectAttr "R_Finger_03_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[247]"
+connectAttr "R_Finger_02_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[259]"
 		;
-connectAttr "R_Finger_03_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[248]"
+connectAttr "R_Finger_02_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[260]"
 		;
-connectAttr "R_Finger_03_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[249]"
+connectAttr "R_Finger_02_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[261]"
 		;
-connectAttr "R_Finger_03_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[250]"
+connectAttr "R_Finger_02_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[262]"
 		;
-connectAttr "R_Finger_03_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[251]"
+connectAttr "R_Finger_02_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[263]"
 		;
-connectAttr "R_Finger_03_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[252]"
+connectAttr "R_Finger_02_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[264]"
 		;
-connectAttr "R_Finger_03_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[253]"
+connectAttr "R_Finger_02_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[265]"
 		;
-connectAttr "R_Finger_03_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[254]"
+connectAttr "R_Finger_02_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[266]"
 		;
-connectAttr "R_Finger_03_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[255]"
+connectAttr "R_Finger_02_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[267]"
 		;
-connectAttr "R_Finger_03_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[256]"
+connectAttr "R_Finger_02_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[268]"
 		;
-connectAttr "R_Finger_03_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[257]"
+connectAttr "R_Finger_02_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[269]"
 		;
-connectAttr "R_Finger_03_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[258]"
+connectAttr "R_Finger_02_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[270]"
 		;
-connectAttr "R_Finger_03_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[259]"
+connectAttr "R_Finger_03_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[271]"
 		;
-connectAttr "R_Finger_03_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[260]"
+connectAttr "R_Finger_03_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[272]"
 		;
-connectAttr "R_Finger_03_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[261]"
+connectAttr "R_Finger_03_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[273]"
 		;
-connectAttr "R_Finger_03_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[262]"
+connectAttr "R_Finger_03_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[274]"
 		;
-connectAttr "R_Finger_03_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[263]"
+connectAttr "R_Finger_03_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[275]"
 		;
-connectAttr "R_Finger_03_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[264]"
+connectAttr "R_Finger_03_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[276]"
 		;
-connectAttr "R_Finger_03_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[265]"
+connectAttr "R_Finger_03_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[277]"
 		;
-connectAttr "R_Finger_03_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[266]"
+connectAttr "R_Finger_03_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[278]"
 		;
-connectAttr "R_Finger_03_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[267]"
+connectAttr "R_Finger_03_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[279]"
 		;
-connectAttr "R_Finger_03_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[268]"
+connectAttr "R_Finger_03_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[280]"
 		;
-connectAttr "R_Finger_03_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[269]"
+connectAttr "R_Finger_03_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[281]"
 		;
-connectAttr "R_Finger_03_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[270]"
+connectAttr "R_Finger_03_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[282]"
 		;
-connectAttr "R_Finger_04_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[271]"
+connectAttr "R_Finger_03_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[283]"
 		;
-connectAttr "R_Finger_04_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[272]"
+connectAttr "R_Finger_03_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[284]"
 		;
-connectAttr "R_Finger_04_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[273]"
+connectAttr "R_Finger_03_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[285]"
 		;
-connectAttr "R_Finger_04_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[274]"
+connectAttr "R_Finger_03_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[286]"
 		;
-connectAttr "R_Finger_04_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[275]"
+connectAttr "R_Finger_03_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[287]"
 		;
-connectAttr "R_Finger_04_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[276]"
+connectAttr "R_Finger_03_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[288]"
 		;
-connectAttr "R_Finger_04_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[277]"
+connectAttr "R_Finger_03_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[289]"
 		;
-connectAttr "R_Finger_04_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[278]"
+connectAttr "R_Finger_03_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[290]"
 		;
-connectAttr "R_Finger_04_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[279]"
+connectAttr "R_Finger_03_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[291]"
 		;
-connectAttr "R_Finger_04_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[280]"
+connectAttr "R_Finger_03_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[292]"
 		;
-connectAttr "R_Finger_04_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[281]"
+connectAttr "R_Finger_03_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[293]"
 		;
-connectAttr "R_Finger_04_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[282]"
+connectAttr "R_Finger_03_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[294]"
 		;
-connectAttr "R_Finger_04_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[283]"
+connectAttr "R_Finger_04_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[295]"
 		;
-connectAttr "R_Finger_04_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[284]"
+connectAttr "R_Finger_04_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[296]"
 		;
-connectAttr "R_Finger_04_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[285]"
+connectAttr "R_Finger_04_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[297]"
 		;
-connectAttr "R_Finger_04_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[286]"
+connectAttr "R_Finger_04_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[298]"
 		;
-connectAttr "R_Finger_04_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[287]"
+connectAttr "R_Finger_04_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[299]"
 		;
-connectAttr "R_Finger_04_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[288]"
+connectAttr "R_Finger_04_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[300]"
 		;
-connectAttr "R_Finger_04_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[289]"
+connectAttr "R_Finger_04_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[301]"
 		;
-connectAttr "R_Finger_04_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[290]"
+connectAttr "R_Finger_04_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[302]"
 		;
-connectAttr "R_Finger_04_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[291]"
+connectAttr "R_Finger_04_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[303]"
 		;
-connectAttr "R_Finger_04_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[292]"
+connectAttr "R_Finger_04_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[304]"
 		;
-connectAttr "R_Finger_04_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[293]"
+connectAttr "R_Finger_04_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[305]"
 		;
-connectAttr "R_Finger_04_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[294]"
+connectAttr "R_Finger_04_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[306]"
 		;
-connectAttr "R_Finger_05_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[295]"
+connectAttr "R_Finger_04_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[307]"
 		;
-connectAttr "R_Finger_05_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[296]"
+connectAttr "R_Finger_04_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[308]"
 		;
-connectAttr "R_Finger_05_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[297]"
+connectAttr "R_Finger_04_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[309]"
 		;
-connectAttr "R_Finger_05_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[298]"
+connectAttr "R_Finger_04_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[310]"
 		;
-connectAttr "R_Finger_05_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[299]"
+connectAttr "R_Finger_04_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[311]"
 		;
-connectAttr "R_Finger_05_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[300]"
+connectAttr "R_Finger_04_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[312]"
 		;
-connectAttr "R_Finger_05_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[301]"
+connectAttr "R_Finger_04_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[313]"
 		;
-connectAttr "R_Finger_05_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[302]"
+connectAttr "R_Finger_04_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[314]"
 		;
-connectAttr "R_Finger_05_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[303]"
+connectAttr "R_Finger_04_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[315]"
 		;
-connectAttr "R_Finger_05_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[304]"
+connectAttr "R_Finger_04_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[316]"
 		;
-connectAttr "R_Finger_05_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[305]"
+connectAttr "R_Finger_04_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[317]"
 		;
-connectAttr "R_Finger_05_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[306]"
+connectAttr "R_Finger_04_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[318]"
 		;
-connectAttr "R_Finger_05_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[307]"
+connectAttr "R_Finger_05_Knuckle_01_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[319]"
 		;
-connectAttr "R_Finger_05_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[308]"
+connectAttr "R_Finger_05_Knuckle_01_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[320]"
 		;
-connectAttr "R_Finger_05_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[309]"
+connectAttr "R_Finger_05_Knuckle_01_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[321]"
 		;
-connectAttr "R_Finger_05_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[310]"
+connectAttr "R_Finger_05_Knuckle_01_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[322]"
 		;
-connectAttr "R_Finger_05_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[311]"
+connectAttr "R_Finger_05_Knuckle_01_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[323]"
 		;
-connectAttr "R_Finger_05_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[312]"
+connectAttr "R_Finger_05_Knuckle_01_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[324]"
 		;
-connectAttr "R_Finger_05_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[313]"
+connectAttr "R_Finger_05_Knuckle_02_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[325]"
 		;
-connectAttr "R_Finger_05_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[314]"
+connectAttr "R_Finger_05_Knuckle_02_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[326]"
 		;
-connectAttr "R_Finger_05_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[315]"
+connectAttr "R_Finger_05_Knuckle_02_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[327]"
 		;
-connectAttr "R_Finger_05_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[316]"
+connectAttr "R_Finger_05_Knuckle_02_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[328]"
 		;
-connectAttr "R_Finger_05_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[317]"
+connectAttr "R_Finger_05_Knuckle_02_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[329]"
 		;
-connectAttr "R_Finger_05_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[318]"
+connectAttr "R_Finger_05_Knuckle_02_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[330]"
 		;
-connectAttr "L_Leg_IK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[319]";
-connectAttr "L_Leg_IK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[320]";
-connectAttr "L_Leg_IK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[321]";
-connectAttr "L_Leg_IK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[322]";
-connectAttr "L_Leg_IK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[323]";
-connectAttr "L_Leg_IK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[324]";
-connectAttr "R_Leg_IK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[325]";
-connectAttr "R_Leg_IK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[326]";
-connectAttr "R_Leg_IK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[327]";
-connectAttr "R_Leg_IK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[328]";
-connectAttr "R_Leg_IK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[329]";
-connectAttr "R_Leg_IK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[330]";
+connectAttr "R_Finger_05_Knuckle_03_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[331]"
+		;
+connectAttr "R_Finger_05_Knuckle_03_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[332]"
+		;
+connectAttr "R_Finger_05_Knuckle_03_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[333]"
+		;
+connectAttr "R_Finger_05_Knuckle_03_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[334]"
+		;
+connectAttr "R_Finger_05_Knuckle_03_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[335]"
+		;
+connectAttr "R_Finger_05_Knuckle_03_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[336]"
+		;
+connectAttr "R_Finger_05_Knuckle_04_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[337]"
+		;
+connectAttr "R_Finger_05_Knuckle_04_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[338]"
+		;
+connectAttr "R_Finger_05_Knuckle_04_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[339]"
+		;
+connectAttr "R_Finger_05_Knuckle_04_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[340]"
+		;
+connectAttr "R_Finger_05_Knuckle_04_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[341]"
+		;
+connectAttr "R_Finger_05_Knuckle_04_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[342]"
+		;
+connectAttr "L_Leg_Clav_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[343]"
+		;
+connectAttr "L_Leg_Clav_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[344]"
+		;
+connectAttr "L_Leg_Clav_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[345]"
+		;
+connectAttr "L_Leg_Clav_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[346]"
+		;
+connectAttr "L_Leg_Clav_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[347]"
+		;
+connectAttr "L_Leg_Clav_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[348]"
+		;
+connectAttr "L_Leg_Base_IK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[349]"
+		;
+connectAttr "L_Leg_Base_IK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[350]"
+		;
+connectAttr "L_Leg_Base_IK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[351]"
+		;
+connectAttr "L_Leg_IK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[352]";
+connectAttr "L_Leg_IK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[353]";
+connectAttr "L_Leg_IK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[354]";
+connectAttr "L_Leg_IK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[355]";
+connectAttr "L_Leg_IK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[356]";
+connectAttr "L_Leg_IK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[357]";
+connectAttr "R_Leg_Clav_FK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[358]"
+		;
+connectAttr "R_Leg_Clav_FK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[359]"
+		;
+connectAttr "R_Leg_Clav_FK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[360]"
+		;
+connectAttr "R_Leg_Clav_FK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[361]"
+		;
+connectAttr "R_Leg_Clav_FK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[362]"
+		;
+connectAttr "R_Leg_Clav_FK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[363]"
+		;
+connectAttr "R_Leg_Base_IK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[364]"
+		;
+connectAttr "R_Leg_Base_IK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[365]"
+		;
+connectAttr "R_Leg_Base_IK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[366]"
+		;
+connectAttr "R_Leg_IK_Ctrl_rotateX.o" "ScientistWithClothingTestRN.phl[367]";
+connectAttr "R_Leg_IK_Ctrl_rotateY.o" "ScientistWithClothingTestRN.phl[368]";
+connectAttr "R_Leg_IK_Ctrl_rotateZ.o" "ScientistWithClothingTestRN.phl[369]";
+connectAttr "R_Leg_IK_Ctrl_translateX.o" "ScientistWithClothingTestRN.phl[370]";
+connectAttr "R_Leg_IK_Ctrl_translateY.o" "ScientistWithClothingTestRN.phl[371]";
+connectAttr "R_Leg_IK_Ctrl_translateZ.o" "ScientistWithClothingTestRN.phl[372]";
 connectAttr "layer1.di" "TestRoomNoSubstanceRN.phl[1]";
 connectAttr "TestRoomNoSubstanceRN.phl[2]" ":initialShadingGroup.dsm" -na;
 connectAttr "TestRoomNoSubstanceRN.phl[3]" ":initialShadingGroup.dsm" -na;
@@ -18270,6 +18923,9 @@ connectAttr "TestRoomNoSubstanceRN.phl[7]" ":initialShadingGroup.dsm" -na;
 connectAttr "SceneLayer.di" "Scene.do";
 connectAttr "polyAutoProj13.out" "pCylinderShape27.i";
 connectAttr "polyClean2.out" "TestBoxMainShape.i";
+connectAttr "FirstTry:FirstTry_AlembicNode.opoly[0]" "FirstTry:cloth_shape_0.i";
+connectAttr "SecondTry:SecondTry_AlembicNode.opoly[0]" "SecondTry:cloth_shape_0.i"
+		;
 relationship "link" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" "phong1SG.message" ":defaultLightSet.message";
@@ -21501,6 +22157,8 @@ connectAttr "pCylinderShape27.wm" "polyAutoProj13.mp";
 connectAttr "layerManager.dli[2]" "layer1.id";
 connectAttr "polyAutoProj6.out" "polyClean1.ip";
 connectAttr "polyClean1.out" "polyClean2.ip";
+connectAttr ":time1.o" "FirstTry:FirstTry_AlembicNode.tm";
+connectAttr ":time1.o" "SecondTry:SecondTry_AlembicNode.tm";
 connectAttr "phong1SG.pa" ":renderPartition.st" -na;
 connectAttr "blinn1SG.pa" ":renderPartition.st" -na;
 connectAttr "lambert2SG.pa" ":renderPartition.st" -na;
@@ -21807,6 +22465,8 @@ connectAttr "file118.msg" ":defaultTextureList1.tx" -na;
 connectAttr "pCylinder30Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "TestBoxMainShape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "pCylinderShape27.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "FirstTry:cloth_shape_0.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "SecondTry:cloth_shape_0.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "aiAreaLight1.iog" ":defaultLightSet.dsm" -na;
 connectAttr "aiAreaLight2.iog" ":defaultLightSet.dsm" -na;
 connectAttr "aiAreaLight3.iog" ":defaultLightSet.dsm" -na;
