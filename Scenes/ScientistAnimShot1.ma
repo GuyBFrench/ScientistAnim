@@ -1,6 +1,6 @@
 //Maya ASCII 2023 scene
 //Name: ScientistAnimShot1.ma
-//Last modified: Thu, Nov 09, 2023 11:41:35 PM
+//Last modified: Fri, Nov 10, 2023 02:47:21 PM
 //Codeset: 1252
 file -rdi 1 -ns "ScientistWithClothingTest" -rfn "ScientistWithClothingTestRN"
 		 -op "v=0;" -typ "mayaAscii" "C:/Users/GuyBF/Personal Projects/GitKraken/ScientistAnim/Scenes/ScientistRig.ma";
@@ -13,9 +13,13 @@ file -r -ns "TestRoomNoSubstance" -dr 1 -rfn "TestRoomNoSubstanceRN" -op "v=0;"
 requires maya "2023";
 requires "stereoCamera" "10.0";
 requires -nodeType "substanceNode" -nodeType "substanceOutputNode" "substancemaya" "2.4.0";
-requires -nodeType "aiOptions" -nodeType "aiAOVDriver" -nodeType "aiAOVFilter" -nodeType "aiAreaLight"
-		 "mtoa" "5.1.0";
+requires -nodeType "aiOptions" -nodeType "aiAOV" -nodeType "aiAOVDriver" -nodeType "aiAOVFilter"
+		 -nodeType "aiAreaLight" -nodeType "aiStandardSurface" "mtoa" "5.1.0";
 requires -nodeType "AlembicNode" "AbcImport" "1.0";
+requires -nodeType "simpleSelector" -nodeType "renderSetupLayer" -nodeType "renderSetup"
+		 -nodeType "collection" -nodeType "renderSettingsCollection" -nodeType "aovCollection"
+		 -nodeType "aovChildCollection" -nodeType "absOverride" -nodeType "absUniqueOverride"
+		 -nodeType "arnoldAOVChildSelector" "renderSetup.py" "1.0";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -23,22 +27,23 @@ fileInfo "product" "Maya 2023";
 fileInfo "version" "2023";
 fileInfo "cutIdentifier" "202202161415-df43006fd3";
 fileInfo "osv" "Windows 11 Home v2009 (Build: 22621)";
-fileInfo "UUID" "DD36BFBD-4AFA-07AE-BBCB-5EB8CDE04B3F";
+fileInfo "UUID" "73E36D44-42A9-5256-8DD7-56B30996C20F";
 createNode transform -s -n "persp";
 	rename -uid "02318938-485E-A77A-5C0D-5C83C2BE3899";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 31.150332091366334 15.831834357435589 -86.161242700582619 ;
-	setAttr ".r" -type "double3" -12.93835220212512 -2085.3999999998828 0 ;
+	setAttr ".t" -type "double3" 28.174189774313245 16.228731977304022 -85.712365799310717 ;
+	setAttr ".r" -type "double3" -24.938352116404577 -383.39999999806247 8.6639570981366082e-16 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "D5DACAAC-485E-7439-D12C-55BBDD72B3F7";
 	setAttr -k off ".v" no;
+	setAttr ".rnd" no;
 	setAttr ".fl" 34.999999999999993;
 	setAttr ".ncp" 0.02;
-	setAttr ".coi" 2.4820333186456733;
+	setAttr ".coi" 1.404245407190726;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
-	setAttr ".tp" -type "double3" 28.818167654916049 15.27610078311038 -86.803627811392786 ;
+	setAttr ".tp" -type "double3" 28.805879315479995 15.269425964415788 -86.746785305460932 ;
 	setAttr ".hc" -type "string" "viewSet -p %camera";
 createNode transform -s -n "top";
 	rename -uid "A1DDE97E-4B97-33E0-C057-84B3C7FDAA53";
@@ -105,7 +110,6 @@ createNode transform -n "Camera_2" -p "Scene";
 createNode camera -n "Camera_Shape2" -p "Camera_2";
 	rename -uid "64124CA2-4E5C-DC58-8986-378ABA2E99B5";
 	setAttr -k off ".v";
-	setAttr ".rnd" no;
 	setAttr ".cap" -type "double2" 1.41732 0.94488 ;
 	setAttr ".ff" 0;
 	setAttr -l on ".coi" 2.3372064346253851;
@@ -115,6 +119,7 @@ createNode camera -n "Camera_Shape2" -p "Camera_2";
 	setAttr ".man" -type "string" "camera1_mask";
 	setAttr ".dfg" yes;
 	setAttr ".dr" yes;
+	setAttr ".dep" yes;
 createNode transform -n "Camera_1" -p "Scene";
 	rename -uid "10515D3E-4E06-C485-0A9F-37AA2AD684E1";
 	setAttr ".t" -type "double3" 29.214634762342946 17.714405392220517 -107.20153079496495 ;
@@ -140,6 +145,8 @@ createNode camera -n "Camera_Shape1" -p "Camera_1";
 	setAttr ".dr" yes;
 createNode transform -n "pCylinder27";
 	rename -uid "CDA946A0-45B8-2190-82A5-64952B05DE21";
+	setAttr -s 2 ".rlio";
+	setAttr -s 2 ".rlio";
 	setAttr ".t" -type "double3" 28.664863089359223 14.771563726160764 -87.061929868899469 ;
 	setAttr ".s" -type "double3" 0.025 1 0.025 ;
 createNode mesh -n "pCylinderShape27" -p "pCylinder27";
@@ -327,6 +334,8 @@ createNode mesh -n "polySurfaceShape20" -p "pCylinder27";
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "TestBoxMain";
 	rename -uid "69CA3B8E-4BC8-3534-DFDC-1DBE4B14CD94";
+	setAttr -s 2 ".rlio";
+	setAttr -s 2 ".rlio";
 	setAttr ".t" -type "double3" 28.035069315530549 14.924731981888065 -86.821712712368353 ;
 	setAttr ".s" -type "double3" 0.25 0.25 0.25 ;
 createNode mesh -n "TestBoxMainShape" -p "TestBoxMain";
@@ -8577,6 +8586,8 @@ createNode aiAreaLight -n "aiAreaLightShape1" -p "aiAreaLight1";
 	rename -uid "B1AB5CA4-48C6-E256-3BCA-A7BBF991CF62";
 	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr -k off ".v";
+	setAttr -s 4 ".rlio";
+	setAttr -s 4 ".rlio";
 	setAttr ".csh" no;
 	setAttr ".rcsh" no;
 	setAttr ".intensity" 30;
@@ -8595,6 +8606,8 @@ createNode aiAreaLight -n "aiAreaLightShape2" -p "aiAreaLight2";
 	rename -uid "DDFC151C-4936-3BB2-3B08-9597976C421D";
 	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr -k off ".v";
+	setAttr -s 4 ".rlio";
+	setAttr -s 4 ".rlio";
 	setAttr ".csh" no;
 	setAttr ".rcsh" no;
 	setAttr ".intensity" 20;
@@ -8607,7 +8620,6 @@ createNode aiAreaLight -n "aiAreaLightShape2" -p "aiAreaLight2";
 		} ;
 createNode transform -n "pCylinder30";
 	rename -uid "39B4F9FD-49B1-330D-44AC-A89B275F0945";
-	setAttr ".t" -type "double3" 28.656093016831782 -0.12439655523344373 -87.069833223899778 ;
 	setAttr ".s" -type "double3" 0.04 0.04 0.04 ;
 	setAttr ".rp" -type "double3" -1.2987639197437062e-07 15.553543351954835 -1.9481458801706708e-07 ;
 	setAttr ".sp" -type "double3" -1.2987639197437062e-07 15.553543351954835 -1.9481458801706708e-07 ;
@@ -10898,6 +10910,8 @@ createNode aiAreaLight -n "aiAreaLightShape3" -p "aiAreaLight3";
 	rename -uid "20A7E950-4D75-AD79-1AEB-1A830330BA9E";
 	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr -k off ".v";
+	setAttr -s 4 ".rlio";
+	setAttr -s 4 ".rlio";
 	setAttr ".csh" no;
 	setAttr ".rcsh" no;
 	setAttr ".intensity" 15;
@@ -10908,52 +10922,40 @@ createNode aiAreaLight -n "aiAreaLightShape3" -p "aiAreaLight3";
 	setAttr ".ai_translator" -type "string" "quad";
 	setAttr ".aal" -type "attributeAlias" {"exposure","aiExposure","normalize","aiNormalize"
 		} ;
-createNode transform -n "FirstTry:cloth_parent";
-	rename -uid "E7FF4D33-407D-B685-6366-A39D2D342B50";
-	setAttr ".v" no;
-	setAttr ".t" -type "double3" 28.79689 14.796757376707678 -86.746909 ;
-	setAttr ".r" -type "double3" 0 -90 0 ;
-	setAttr ".s" -type "double3" 0.0625 0.0625 0.0625 ;
-createNode mesh -n "FirstTry:cloth_shape_0" -p "FirstTry:cloth_parent";
-	rename -uid "627F1284-44B2-D2FD-2DAA-0B9EDAD74A2D";
-	addAttr -ci true -k true -sn "noNormals" -ln "noNormals" -dv 1 -min 0 -max 1 -at "bool";
-	setAttr -k off ".v";
-	setAttr ".vir" yes;
-	setAttr ".vif" yes;
-	setAttr ".uvst[0].uvsn" -type "string" "map1";
-	setAttr ".cuvs" -type "string" "map1";
-	setAttr ".dcc" -type "string" "Ambient+Diffuse";
-createNode transform -n "SecondTry:cloth_parent";
-	rename -uid "C472E6E1-4B2E-5902-C292-CE914C233A95";
+createNode transform -n "FourthTry:cloth_parent";
+	rename -uid "47EAB8D5-4792-1B58-343D-138E55F0203C";
 	setAttr ".t" -type "double3" 28.79689 14.796757 -86.746909 ;
 	setAttr ".r" -type "double3" 0 -90 0 ;
 	setAttr ".s" -type "double3" 0.0625 0.0625 0.0625 ;
-createNode mesh -n "SecondTry:cloth_shape_0" -p "SecondTry:cloth_parent";
-	rename -uid "3E377A27-410D-B2C1-D03C-B4BA95D0993B";
+createNode mesh -n "FourthTry:cloth_shape_0" -p "FourthTry:cloth_parent";
+	rename -uid "E11A0783-450D-E645-1D30-9EB2314B237A";
 	addAttr -ci true -k true -sn "noNormals" -ln "noNormals" -dv 1 -min 0 -max 1 -at "bool";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
+	setAttr ".pv" -type "double2" 0.87860393524169922 0.901031494140625 ;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
 	setAttr ".cuvs" -type "string" "map1";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 createNode lightLinker -s -n "lightLinker1";
-	rename -uid "E3CF01DF-4451-8050-8527-D19C7F87D5DF";
-	setAttr -s 117 ".lnk";
-	setAttr -s 117 ".slnk";
+	rename -uid "BE2F8A7F-4C17-0CD8-FB0D-EF81D7AC7587";
+	setAttr -s 97 ".lnk";
+	setAttr -s 97 ".slnk";
 createNode shapeEditorManager -n "shapeEditorManager";
-	rename -uid "8BBC46FF-4727-F56E-0CF8-9FA4D0E02038";
+	rename -uid "95C2411E-4F93-488E-ABD0-558CCE54F60C";
 createNode poseInterpolatorManager -n "poseInterpolatorManager";
-	rename -uid "E88F9243-4AC1-8BCA-6713-E7AACDE0569E";
+	rename -uid "D81D4218-4E61-9AC4-4FAA-E19918E1E5F9";
 createNode displayLayerManager -n "layerManager";
-	rename -uid "4BE3DE6B-433A-6DEF-2C63-0BB1EAF051CF";
+	rename -uid "0A3E0FD9-4435-BF06-D90B-A6895CE0634D";
 	setAttr ".cdl" 2;
 	setAttr -s 3 ".dli[1:2]"  1 2;
 	setAttr -s 3 ".dli";
 createNode displayLayer -n "defaultLayer";
 	rename -uid "53635E12-41F1-4B6B-8507-FEA207A11C67";
 createNode renderLayerManager -n "renderLayerManager";
-	rename -uid "A833595C-4599-1ED7-2FDD-4FBAA6D15651";
+	rename -uid "E8A452FE-4D61-1755-0BA0-9399DFEFE4EB";
+	setAttr -s 5 ".rlmi[1:4]"  1 2 3 4;
+	setAttr -s 5 ".rlmi";
 createNode renderLayer -n "defaultRenderLayer";
 	rename -uid "BB69E074-422D-487E-7C18-5784511A6542";
 	setAttr ".g" yes;
@@ -11011,6 +11013,7 @@ createNode script -n "sceneConfigurationScriptNode";
 createNode aiOptions -s -n "defaultArnoldRenderOptions";
 	rename -uid "8F832747-4071-CA01-B6EA-CDA9EE4AA1F9";
 	addAttr -ci true -sn "ARV_options" -ln "ARV_options" -dt "string";
+	setAttr -s 4 ".aovs";
 	setAttr ".version" -type "string" "5.1.0";
 	setAttr ".ARV_options" -type "string" "Test Resolution=100%;Color Management.Gamma=1;Color Management.Exposure=0;Background.BG=BG Color;Background.Color=0 0 0;Background.Image=;Background.Scale=1    1;Background.Offset=0    0;Background.Apply Color Management=1;Foreground.Enable FG=0;Foreground.Image=;Foreground.Scale=1    1;Foreground.Offset=0    0;Foreground.Apply Color Management=1;";
 createNode aiAOVFilter -s -n "defaultArnoldFilter";
@@ -11025,26 +11028,62 @@ createNode aiAOVDriver -s -n "defaultArnoldDisplayDriver";
 	setAttr ".ai_translator" -type "string" "maya";
 createNode shadingEngine -n "phong1SG";
 	rename -uid "3A7E530A-4AB8-2F82-319C-D0A9CE52F1B5";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo1";
 	rename -uid "6D6DA9CD-48C3-D5E3-1E38-25A744DFCDAD";
 createNode shadingEngine -n "blinn1SG";
 	rename -uid "D8E61FA6-4C02-052C-5E18-BAA5A78F1CEB";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo2";
 	rename -uid "91BA9E5E-4551-28F3-7DE6-0EB0DDE10F5C";
 createNode shadingEngine -n "lambert2SG";
 	rename -uid "253E33D1-4CC2-FEBE-B5F9-D99559BE6C44";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo3";
 	rename -uid "6FCDC507-4B18-089F-69FD-BA87C8384362";
 createNode shadingEngine -n "TempExport1:defaultMat";
 	rename -uid "1001D7FE-4D8A-8A9E-6B19-D9A25478D5FA";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "TempExport1:materialInfo1";
 	rename -uid "C0843DB9-4AC0-6790-8C0F-03A29528317D";
 createNode file -n "TempExport1:defaultMat1F";
@@ -11434,7 +11473,7 @@ createNode reference -n "ScientistWithClothingTestRN";
 	setAttr ".ed" -type "dataReferenceEdits" 
 		"ScientistWithClothingTestRN"
 		"ScientistWithClothingTestRN" 0
-		"ScientistWithClothingTestRN" 385
+		"ScientistWithClothingTestRN" 556
 		2 "|ScientistWithClothingTest:Scientist" "rotate" " -type \"double3\" 0 0 0"
 		
 		2 "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Transform_Ctrl_Grp" 
@@ -11454,10 +11493,331 @@ createNode reference -n "ScientistWithClothingTestRN";
 		"rotate" " -type \"double3\" 0 -25.69027924175917477 0"
 		2 "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:Legs_Ctrl_Grp|ScientistWithClothingTest:R_Foot_FK_Ctrl_Grp|ScientistWithClothingTest:R_Foot_03_FK_Ctrl_Grp|ScientistWithClothingTest:R_Foot_03_FK_Ctrl" 
 		"translate" " -type \"double3\" 0 0 0"
+		2 "ScientistWithClothingTest:ScientistUvd:initialShadingGroup" "aiCustomAOVs" 
+		" -s 4"
+		2 "ScientistWithClothingTest:ScientistUvd:initialShadingGroup" "aiCustomAOVs[0].aovName" 
+		" -type \"string\" \"albedo\""
+		2 "ScientistWithClothingTest:ScientistUvd:initialShadingGroup" "aiCustomAOVs[1].aovName" 
+		" -type \"string\" \"diffuse\""
+		2 "ScientistWithClothingTest:ScientistUvd:initialShadingGroup" "aiCustomAOVs[2].aovName" 
+		" -type \"string\" \"specular\""
+		2 "ScientistWithClothingTest:ScientistUvd:initialShadingGroup" "aiCustomAOVs[3].aovName" 
+		" -type \"string\" \"Z\""
+		2 "ScientistWithClothingTest:ScientistUvdHair:initialShadingGroup" "aiCustomAOVs" 
+		" -s 4"
+		2 "ScientistWithClothingTest:ScientistUvdHair:initialShadingGroup" "aiCustomAOVs[0].aovName" 
+		" -type \"string\" \"albedo\""
+		2 "ScientistWithClothingTest:ScientistUvdHair:initialShadingGroup" "aiCustomAOVs[1].aovName" 
+		" -type \"string\" \"diffuse\""
+		2 "ScientistWithClothingTest:ScientistUvdHair:initialShadingGroup" "aiCustomAOVs[2].aovName" 
+		" -type \"string\" \"specular\""
+		2 "ScientistWithClothingTest:ScientistUvdHair:initialShadingGroup" "aiCustomAOVs[3].aovName" 
+		" -type \"string\" \"Z\""
 		2 "ScientistWithClothingTest:Geometry_Layer" "displayType" " 2"
+		2 "ScientistWithClothingTest:Geometry_Layer" "visibility" " 1"
 		2 "ScientistWithClothingTest:Controls_Layer" "visibility" " 1"
 		2 "ScientistWithClothingTest:Joints_Layer" "displayType" " 2"
 		2 "ScientistWithClothingTest:Joints_Layer" "visibility" " 0"
+		2 "ScientistWithClothingTest:ScientistEyes:initialShadingGroup" "aiCustomAOVs" 
+		" -s 4"
+		2 "ScientistWithClothingTest:ScientistEyes:initialShadingGroup" "aiCustomAOVs[0].aovName" 
+		" -type \"string\" \"albedo\""
+		2 "ScientistWithClothingTest:ScientistEyes:initialShadingGroup" "aiCustomAOVs[1].aovName" 
+		" -type \"string\" \"diffuse\""
+		2 "ScientistWithClothingTest:ScientistEyes:initialShadingGroup" "aiCustomAOVs[2].aovName" 
+		" -type \"string\" \"specular\""
+		2 "ScientistWithClothingTest:ScientistEyes:initialShadingGroup" "aiCustomAOVs[3].aovName" 
+		" -type \"string\" \"Z\""
+		2 "ScientistWithClothingTest:blinn1SG" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:blinn1SG" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:blinn1SG" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:blinn1SG" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:blinn1SG" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:blinn2SG" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:blinn2SG" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:blinn2SG" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:blinn2SG" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:blinn2SG" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:EyeWhiteSG" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:EyeWhiteSG" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:EyeWhiteSG" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:EyeWhiteSG" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:EyeWhiteSG" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:EyeColorSG" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:EyeColorSG" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:EyeColorSG" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:EyeColorSG" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:EyeColorSG" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:set1" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:set1" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:set1" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:set1" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:set1" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:TeethObj:initialShadingGroup" "aiCustomAOVs" 
+		" -s 4"
+		2 "ScientistWithClothingTest:TeethObj:initialShadingGroup" "aiCustomAOVs[0].aovName" 
+		" -type \"string\" \"albedo\""
+		2 "ScientistWithClothingTest:TeethObj:initialShadingGroup" "aiCustomAOVs[1].aovName" 
+		" -type \"string\" \"diffuse\""
+		2 "ScientistWithClothingTest:TeethObj:initialShadingGroup" "aiCustomAOVs[2].aovName" 
+		" -type \"string\" \"specular\""
+		2 "ScientistWithClothingTest:TeethObj:initialShadingGroup" "aiCustomAOVs[3].aovName" 
+		" -type \"string\" \"Z\""
+		2 "ScientistWithClothingTest:set2" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:set2" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:set2" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:set2" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:set2" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:set3" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:set3" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:set3" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:set3" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:set3" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:set4" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:set4" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:set4" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:set4" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:set4" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:set5" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:set5" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:set5" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:set5" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:set5" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:set6" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:set6" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:set6" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:set6" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:set6" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:set7" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:set7" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:set7" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:set7" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:set7" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:set8" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:set8" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:set8" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:set8" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:set8" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:set9" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:set9" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:set9" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:set9" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:set9" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_1_FRONT_2398803" "aiCustomAOVs" 
+		" -s 4"
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_1_FRONT_2398803" "aiCustomAOVs[0].aovName" 
+		" -type \"string\" \"albedo\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_1_FRONT_2398803" "aiCustomAOVs[1].aovName" 
+		" -type \"string\" \"diffuse\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_1_FRONT_2398803" "aiCustomAOVs[2].aovName" 
+		" -type \"string\" \"specular\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_1_FRONT_2398803" "aiCustomAOVs[3].aovName" 
+		" -type \"string\" \"Z\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_3_FRONT_2398808" "aiCustomAOVs" 
+		" -s 4"
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_3_FRONT_2398808" "aiCustomAOVs[0].aovName" 
+		" -type \"string\" \"albedo\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_3_FRONT_2398808" "aiCustomAOVs[1].aovName" 
+		" -type \"string\" \"diffuse\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_3_FRONT_2398808" "aiCustomAOVs[2].aovName" 
+		" -type \"string\" \"specular\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_3_FRONT_2398808" "aiCustomAOVs[3].aovName" 
+		" -type \"string\" \"Z\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_4_FRONT_2398813" "aiCustomAOVs" 
+		" -s 4"
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_4_FRONT_2398813" "aiCustomAOVs[0].aovName" 
+		" -type \"string\" \"albedo\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_4_FRONT_2398813" "aiCustomAOVs[1].aovName" 
+		" -type \"string\" \"diffuse\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_4_FRONT_2398813" "aiCustomAOVs[2].aovName" 
+		" -type \"string\" \"specular\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_4_FRONT_2398813" "aiCustomAOVs[3].aovName" 
+		" -type \"string\" \"Z\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_5_FRONT_2398818" "aiCustomAOVs" 
+		" -s 4"
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_5_FRONT_2398818" "aiCustomAOVs[0].aovName" 
+		" -type \"string\" \"albedo\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_5_FRONT_2398818" "aiCustomAOVs[1].aovName" 
+		" -type \"string\" \"diffuse\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_5_FRONT_2398818" "aiCustomAOVs[2].aovName" 
+		" -type \"string\" \"specular\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_5_FRONT_2398818" "aiCustomAOVs[3].aovName" 
+		" -type \"string\" \"Z\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_6_FRONT_2398823" "aiCustomAOVs" 
+		" -s 4"
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_6_FRONT_2398823" "aiCustomAOVs[0].aovName" 
+		" -type \"string\" \"albedo\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_6_FRONT_2398823" "aiCustomAOVs[1].aovName" 
+		" -type \"string\" \"diffuse\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_6_FRONT_2398823" "aiCustomAOVs[2].aovName" 
+		" -type \"string\" \"specular\""
+		2 "ScientistWithClothingTest:MarvelousTest1:FABRIC_6_FRONT_2398823" "aiCustomAOVs[3].aovName" 
+		" -type \"string\" \"Z\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_1_FRONT_2398803" "aiCustomAOVs" 
+		" -s 4"
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_1_FRONT_2398803" "aiCustomAOVs[0].aovName" 
+		" -type \"string\" \"albedo\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_1_FRONT_2398803" "aiCustomAOVs[1].aovName" 
+		" -type \"string\" \"diffuse\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_1_FRONT_2398803" "aiCustomAOVs[2].aovName" 
+		" -type \"string\" \"specular\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_1_FRONT_2398803" "aiCustomAOVs[3].aovName" 
+		" -type \"string\" \"Z\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_3_FRONT_2398808" "aiCustomAOVs" 
+		" -s 4"
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_3_FRONT_2398808" "aiCustomAOVs[0].aovName" 
+		" -type \"string\" \"albedo\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_3_FRONT_2398808" "aiCustomAOVs[1].aovName" 
+		" -type \"string\" \"diffuse\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_3_FRONT_2398808" "aiCustomAOVs[2].aovName" 
+		" -type \"string\" \"specular\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_3_FRONT_2398808" "aiCustomAOVs[3].aovName" 
+		" -type \"string\" \"Z\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_4_FRONT_2398813" "aiCustomAOVs" 
+		" -s 4"
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_4_FRONT_2398813" "aiCustomAOVs[0].aovName" 
+		" -type \"string\" \"albedo\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_4_FRONT_2398813" "aiCustomAOVs[1].aovName" 
+		" -type \"string\" \"diffuse\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_4_FRONT_2398813" "aiCustomAOVs[2].aovName" 
+		" -type \"string\" \"specular\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_4_FRONT_2398813" "aiCustomAOVs[3].aovName" 
+		" -type \"string\" \"Z\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_5_FRONT_2398818" "aiCustomAOVs" 
+		" -s 4"
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_5_FRONT_2398818" "aiCustomAOVs[0].aovName" 
+		" -type \"string\" \"albedo\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_5_FRONT_2398818" "aiCustomAOVs[1].aovName" 
+		" -type \"string\" \"diffuse\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_5_FRONT_2398818" "aiCustomAOVs[2].aovName" 
+		" -type \"string\" \"specular\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_5_FRONT_2398818" "aiCustomAOVs[3].aovName" 
+		" -type \"string\" \"Z\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_6_FRONT_2398823" "aiCustomAOVs" 
+		" -s 4"
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_6_FRONT_2398823" "aiCustomAOVs[0].aovName" 
+		" -type \"string\" \"albedo\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_6_FRONT_2398823" "aiCustomAOVs[1].aovName" 
+		" -type \"string\" \"diffuse\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_6_FRONT_2398823" "aiCustomAOVs[2].aovName" 
+		" -type \"string\" \"specular\""
+		2 "ScientistWithClothingTest:MarvelousTest2:FABRIC_6_FRONT_2398823" "aiCustomAOVs[3].aovName" 
+		" -type \"string\" \"Z\""
+		2 "ScientistWithClothingTest:set10" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:set10" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:set10" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:set10" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:set10" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:phong1SG" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:phong1SG" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:phong1SG" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:phong1SG" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:phong1SG" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:set11" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:set11" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:set11" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:set11" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:set11" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:set12" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:set12" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:set12" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:set12" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:set12" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:set13" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:set13" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:set13" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:set13" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:set13" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:set14" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:set14" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:set14" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:set14" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:set14" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "ScientistWithClothingTest:set15" "aiCustomAOVs" " -s 4"
+		2 "ScientistWithClothingTest:set15" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "ScientistWithClothingTest:set15" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "ScientistWithClothingTest:set15" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "ScientistWithClothingTest:set15" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
 		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:COG_Ctrl_Grp|ScientistWithClothingTest:COG_Ctrl.translateX" 
 		"ScientistWithClothingTestRN.placeHolderList[1]" ""
 		5 4 "ScientistWithClothingTestRN" "|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Controls|ScientistWithClothingTest:COG_Ctrl_Grp|ScientistWithClothingTest:COG_Ctrl.translateY" 
@@ -12794,8 +13154,17 @@ createNode place2dTexture -n "place2dTexture5";
 	rename -uid "6513D8C9-4D67-B3C7-48EE-0DA0C9547CC5";
 createNode shadingEngine -n "blinn2SG";
 	rename -uid "4459B676-4614-7560-C899-77A49FC81C5B";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo4";
 	rename -uid "FC2B9760-49E0-0504-CECC-FFB16C703DBE";
 createNode groupId -n "groupId201";
@@ -12835,8 +13204,17 @@ createNode bump2d -n "bump2d1";
 	setAttr ".vc2" -type "float3" 9.9999997e-06 9.9999997e-06 0 ;
 createNode shadingEngine -n "set1";
 	rename -uid "F7E88BDD-49E8-DDB8-E845-CE828241BB3A";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo5";
 	rename -uid "E9E7DF67-47C0-4771-E97D-62BFE60F4EA5";
 createNode multiplyDivide -n "multiplyDivide1";
@@ -12874,8 +13252,17 @@ createNode bump2d -n "bump2d2";
 	setAttr ".vc2" -type "float3" 9.9999997e-06 9.9999997e-06 0 ;
 createNode shadingEngine -n "set2";
 	rename -uid "6A1B9647-45C8-C695-15C7-CCA2162831CB";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo6";
 	rename -uid "51502831-4D16-6A85-87DF-D3A3B9D6527A";
 createNode multiplyDivide -n "multiplyDivide2";
@@ -12913,8 +13300,17 @@ createNode bump2d -n "bump2d3";
 	setAttr ".vc2" -type "float3" 9.9999997e-06 9.9999997e-06 0 ;
 createNode shadingEngine -n "set3";
 	rename -uid "E35D895C-4DA5-A1BA-B3D5-B1B9BD343107";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo7";
 	rename -uid "7F5F3D88-4036-5744-F111-A4AA903A69D4";
 createNode multiplyDivide -n "multiplyDivide3";
@@ -12950,8 +13346,17 @@ createNode multiplyDivide -n "multiplyDivide4";
 	rename -uid "BECC23FC-4308-2D13-09BA-39921E19F8E1";
 createNode shadingEngine -n "set4";
 	rename -uid "E311D6C7-43C9-3DEF-BE29-EFBBFE17BD56";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo8";
 	rename -uid "FB750382-4355-B707-7286-8AAB5A99BEF5";
 createNode bump2d -n "bump2d4";
@@ -12991,8 +13396,17 @@ createNode file -n "file26";
 	setAttr ".cs" -type "string" "Raw";
 createNode shadingEngine -n "set5";
 	rename -uid "EF9FA47C-46AE-3A91-EAA8-6D928BEE577E";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo9";
 	rename -uid "265D5F49-455D-E5EC-00EB-85814092C6A8";
 createNode multiplyDivide -n "multiplyDivide5";
@@ -13034,8 +13448,17 @@ createNode bump2d -n "bump2d6";
 	setAttr ".vc2" -type "float3" 9.9999997e-06 9.9999997e-06 0 ;
 createNode shadingEngine -n "set6";
 	rename -uid "928BAECA-4718-E333-60E1-7E9FE43FC519";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo10";
 	rename -uid "54DF9E6D-472C-4308-9930-0685DC8B7D90";
 createNode multiplyDivide -n "multiplyDivide6";
@@ -13125,7 +13548,7 @@ createNode file -n "file32";
 	setAttr ".ifr" yes;
 createNode substanceOutputNode -n "Rotten_Wood_ambientocclusion";
 	rename -uid "CC35472C-4B1E-EF4A-98F6-71A53F2CEE59";
-	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Rotten_Wood_ambientocclusion.png";
+	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Rotten_Wood_ambientocclusion.exr";
 createNode file -n "file33";
 	rename -uid "0455BEFE-4967-E05D-2FF3-7A9491C2BED7";
 	setAttr ".ail" yes;
@@ -13141,7 +13564,7 @@ createNode file -n "file34";
 	setAttr ".ifr" yes;
 createNode substanceOutputNode -n "Rotten_Wood_normal";
 	rename -uid "6C1E6E2B-4B0C-46A1-7445-5BB7481A03EA";
-	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Rotten_Wood_normal.png";
+	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Rotten_Wood_normal.exr";
 createNode file -n "file35";
 	rename -uid "61CAB30D-4E56-450D-F30E-9E921EB0B130";
 	setAttr ".ail" yes;
@@ -13149,7 +13572,7 @@ createNode file -n "file35";
 	setAttr ".ifr" yes;
 createNode substanceOutputNode -n "Rotten_Wood_height";
 	rename -uid "25738CD7-441D-1039-2779-8D92C17BE905";
-	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Rotten_Wood_height.png";
+	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Rotten_Wood_height.exr";
 createNode file -n "file36";
 	rename -uid "3E19296D-4289-5DB3-7097-4E85BE45B507";
 	setAttr ".ail" yes;
@@ -13168,8 +13591,17 @@ createNode multiplyDivide -n "multiplyDivide7";
 	rename -uid "D056CE09-470F-592A-5B06-C0A286760937";
 createNode shadingEngine -n "set7";
 	rename -uid "1D07C79B-432E-B8B2-0E8C-A0A2B6CEA11E";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo11";
 	rename -uid "B4D1C001-45EB-01F0-2BF8-5EA2B3C07DF9";
 createNode bump2d -n "bump2d7";
@@ -13253,7 +13685,7 @@ createNode place2dTexture -n "place2dTexture13";
 createNode substanceOutputNode -n "Bark_Pine_basecolor";
 	rename -uid "87258A07-4A13-A1B7-EA76-CAB78DFCC6B1";
 	setAttr ".os" -type "long2" 1024 1024 ;
-	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Bark_Pine_basecolor.png";
+	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Bark_Pine_basecolor.exr";
 createNode file -n "file38";
 	rename -uid "08AC9FB2-4DC2-41C2-61F3-65BB56D4B64A";
 	setAttr ".cs" -type "string" "sRGB";
@@ -13261,7 +13693,7 @@ createNode file -n "file38";
 createNode substanceOutputNode -n "Bark_Pine_ambientocclusion";
 	rename -uid "404538A6-44C1-1916-D018-FDB6BC750612";
 	setAttr ".os" -type "long2" 1024 1024 ;
-	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Bark_Pine_ambientocclusion.png";
+	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Bark_Pine_ambientocclusion.exr";
 createNode file -n "file39";
 	rename -uid "C44C0002-4B72-4DFD-CEC4-F4A525F50112";
 	setAttr ".ail" yes;
@@ -13288,7 +13720,7 @@ createNode file -n "file41";
 createNode substanceOutputNode -n "Bark_Pine_height";
 	rename -uid "CE3D5379-4F95-D580-BD54-C09D9834487B";
 	setAttr ".os" -type "long2" 1024 1024 ;
-	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Bark_Pine_height.png";
+	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Bark_Pine_height.exr";
 createNode file -n "file42";
 	rename -uid "A8EB4E58-45C0-3F2E-F573-FF924CD67AB0";
 	setAttr ".ail" yes;
@@ -13308,8 +13740,17 @@ createNode multiplyDivide -n "multiplyDivide8";
 	rename -uid "8D10EE0D-4497-D1BE-66B5-C88898F95EC2";
 createNode shadingEngine -n "set8";
 	rename -uid "1E7E7CF4-4D22-0FF1-433E-288BC188E834";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo12";
 	rename -uid "2188DCE8-4647-810E-19C2-AD8D90B9ACCC";
 createNode bump2d -n "bump2d8";
@@ -13411,8 +13852,17 @@ createNode multiplyDivide -n "multiplyDivide9";
 	rename -uid "289C4A86-46E1-E95B-E033-20A64DF0CF0B";
 createNode shadingEngine -n "set9";
 	rename -uid "EEC1964A-422D-D9C8-7BD8-CBAE1313CCD6";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo13";
 	rename -uid "B933024F-4873-BA16-21B4-F29662A5E20A";
 createNode bump2d -n "bump2d9";
@@ -13559,7 +14009,7 @@ createNode file -n "file49";
 createNode substanceOutputNode -n "Concrete_Damp_Wall_normal";
 	rename -uid "3FB4747F-4503-C8F7-41F5-CABB67094367";
 	setAttr ".os" -type "long2" 1024 1024 ;
-	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Concrete_Damp_Wall_normal.png";
+	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Concrete_Damp_Wall_normal.exr";
 createNode file -n "file50";
 	rename -uid "26414C5A-4227-15E1-16D2-3596A67EAC4C";
 	setAttr ".ail" yes;
@@ -13568,7 +14018,7 @@ createNode file -n "file50";
 createNode substanceOutputNode -n "Concrete_Damp_Wall_height";
 	rename -uid "8DE88359-4883-AE37-88FD-14A655DFDD4A";
 	setAttr ".os" -type "long2" 1024 1024 ;
-	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Concrete_Damp_Wall_height.png";
+	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Concrete_Damp_Wall_height.exr";
 createNode file -n "file51";
 	rename -uid "445E333B-49A9-52F8-A4DC-238227B92DED";
 	setAttr ".ail" yes;
@@ -13578,7 +14028,7 @@ createNode file -n "file51";
 createNode substanceOutputNode -n "Concrete_Damp_Wall_roughness";
 	rename -uid "733E2EB5-48CD-0B73-5356-2998475E3758";
 	setAttr ".os" -type "long2" 1024 1024 ;
-	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Concrete_Damp_Wall_roughness.png";
+	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Concrete_Damp_Wall_roughness.exr";
 createNode file -n "file52";
 	rename -uid "F75B2971-4B8D-F8A1-3A00-5C8DF04CA4E6";
 	setAttr ".ail" yes;
@@ -13588,8 +14038,17 @@ createNode multiplyDivide -n "multiplyDivide10";
 	rename -uid "BF99DFF4-4C84-8A46-A4B5-AAB7BD70A89E";
 createNode shadingEngine -n "set10";
 	rename -uid "F99B524A-4241-8B43-1BC2-41AACF3FF750";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo14";
 	rename -uid "A4DFF275-495B-357E-90BD-E185BD881FDD";
 createNode bump2d -n "bump2d10";
@@ -13599,44 +14058,107 @@ createNode bump2d -n "bump2d10";
 	setAttr ".vc2" -type "float3" 9.9999997e-06 9.9999997e-06 0 ;
 createNode shadingEngine -n "MarvelousPose1:FABRIC_1_FRONT_75019";
 	rename -uid "7EC3AFD4-42E3-BD71-1141-FC830C0747B5";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "MarvelousPose1:materialInfo1";
 	rename -uid "862E24FC-41F9-C2B8-A11B-6B98585DF673";
 createNode shadingEngine -n "MarvelousPose1:FABRIC_3_FRONT_75024";
 	rename -uid "6C14CF78-4D74-B185-A243-E6B27405216D";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "MarvelousPose1:materialInfo2";
 	rename -uid "DEC46683-4D4D-B01E-BF7F-F888C3AE9F67";
 createNode shadingEngine -n "MarvelousPose1:FABRIC_4_FRONT_75029";
 	rename -uid "F71A0029-463D-EBC5-F50D-E4B437125872";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "MarvelousPose1:materialInfo3";
 	rename -uid "DD0B6867-424B-536F-FE3E-1EB597FBB642";
 createNode shadingEngine -n "MarvelousPose1:FABRIC_5_FRONT_75034";
 	rename -uid "294935F4-4F81-C038-9608-57BEC4BE456C";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "MarvelousPose1:materialInfo4";
 	rename -uid "940DF075-49B8-D36F-91BA-F5BACFC9D36A";
 createNode shadingEngine -n "MarvelousPose1:FABRIC_6_FRONT_75039";
 	rename -uid "F3C12A40-44BF-845A-648D-D1A6B5ED2D0E";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "MarvelousPose1:materialInfo5";
 	rename -uid "75E2497E-4DA5-9A22-258A-77A98E61F387";
 createNode shadingEngine -n "lambert3SG";
 	rename -uid "0215931C-42E3-9FD5-BE9A-8E960E5029FE";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo15";
 	rename -uid "83453469-49F0-CA04-0EBC-349591DCDCB7";
 createNode shadingEngine -n "BrownClothSG";
 	rename -uid "4E1252AB-42A5-AF78-5887-D5AD8F7C1C45";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo16";
 	rename -uid "E6663529-4185-C73D-6B2A-4995423FD177";
 createNode place2dTexture -n "place2dTexture16";
@@ -13672,8 +14194,17 @@ createNode file -n "file58";
 	setAttr ".cs" -type "string" "Raw";
 createNode shadingEngine -n "set11";
 	rename -uid "82D8531B-4946-395D-B7D7-BF9112FBC5A1";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo17";
 	rename -uid "E5A9B315-4188-F62D-F12C-9FBFAB11CA58";
 createNode bump2d -n "bump2d11";
@@ -13724,8 +14255,17 @@ createNode multiplyDivide -n "multiplyDivide12";
 	rename -uid "BA147AF3-40D2-257F-5789-9EB08BAFA5E5";
 createNode shadingEngine -n "set12";
 	rename -uid "E7A48D30-4FCF-0929-D25E-1DB01474D411";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo18";
 	rename -uid "74F3A03A-4A75-88EB-A28C-6696206D385E";
 createNode bump2d -n "bump2d12";
@@ -13764,8 +14304,17 @@ createNode multiplyDivide -n "multiplyDivide13";
 	rename -uid "8152649A-4181-29B5-6A3D-59ADC41C8711";
 createNode shadingEngine -n "set13";
 	rename -uid "6CA40455-4971-E04B-2C0D-3D9EFA5574B4";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo19";
 	rename -uid "6442D5D7-4D18-45A3-514B-688DCDBF8F7E";
 createNode bump2d -n "bump2d13";
@@ -13804,8 +14353,17 @@ createNode multiplyDivide -n "multiplyDivide14";
 	rename -uid "F4D62F4E-40DD-459F-CEE7-0D87A8E34D6A";
 createNode shadingEngine -n "set14";
 	rename -uid "2BEA6150-4734-2F22-2FD5-D3AD1F77B127";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo20";
 	rename -uid "B119904B-4E3A-8560-7EC4-2D9333AA07B4";
 createNode bump2d -n "bump2d14";
@@ -13844,8 +14402,17 @@ createNode multiplyDivide -n "multiplyDivide15";
 	rename -uid "B7EC1089-4475-4294-BA3B-C2B1A4258F8F";
 createNode shadingEngine -n "set15";
 	rename -uid "FB435345-4F6E-9755-A403-58BF87D68648";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo21";
 	rename -uid "354219F8-4E55-5448-AB55-40A038620519";
 createNode bump2d -n "bump2d15";
@@ -13888,8 +14455,17 @@ createNode multiplyDivide -n "multiplyDivide16";
 	rename -uid "A3FFC348-4B5E-65FB-C7E5-85B2863AA365";
 createNode shadingEngine -n "set16";
 	rename -uid "74F11151-4EAC-124D-C5ED-3E8D7A78740A";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo22";
 	rename -uid "699EE998-471E-8F34-D978-EBBFE204AC0B";
 createNode bump2d -n "bump2d16";
@@ -13928,8 +14504,17 @@ createNode multiplyDivide -n "multiplyDivide17";
 	rename -uid "748AE729-4BFB-DC62-1E51-EF876F7E53D8";
 createNode shadingEngine -n "set17";
 	rename -uid "676884B2-4494-45EA-F699-ABB862127D78";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo23";
 	rename -uid "55BD49E9-42DC-B871-158F-1B98A0D3CEBC";
 createNode bump2d -n "bump2d17";
@@ -14036,8 +14621,17 @@ createNode multiplyDivide -n "multiplyDivide18";
 	rename -uid "34BFEEB3-4229-09D3-5C9F-8E8C22130D24";
 createNode shadingEngine -n "set18";
 	rename -uid "26D585E8-4879-E2C5-0A68-2593D8F7901C";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo24";
 	rename -uid "5079D97C-4605-CEF2-5906-3CB36A5B25E5";
 createNode bump2d -n "bump2d18";
@@ -14143,8 +14737,17 @@ createNode multiplyDivide -n "multiplyDivide19";
 	rename -uid "A1E453C0-4B74-3EBD-5025-CA9CD66D3AD6";
 createNode shadingEngine -n "set19";
 	rename -uid "CA685A50-4B67-A267-0B80-A0A989BC7C76";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo25";
 	rename -uid "B07A2D53-40D8-859E-7205-A9A09CD9F4F7";
 createNode bump2d -n "bump2d19";
@@ -14323,7 +14926,7 @@ createNode file -n "file103";
 createNode substanceOutputNode -n "Carbon_Fiber_Twill_Weave_height";
 	rename -uid "B4F7F155-458B-7CC4-78FC-EEAE173669D8";
 	setAttr ".os" -type "long2" 1024 1024 ;
-	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Carbon_Fiber_Twill_Weave_height.png";
+	setAttr ".cpth" -type "string" "C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance/Carbon_Fiber_Twill_Weave_height.exr";
 createNode file -n "file104";
 	rename -uid "B17B73D0-4BB9-C845-60CC-9BA437CC8D24";
 	setAttr ".ail" yes;
@@ -14343,8 +14946,17 @@ createNode multiplyDivide -n "multiplyDivide20";
 	rename -uid "CEBD1A02-4420-ABA2-CB5A-40BC6A468FB0";
 createNode shadingEngine -n "set20";
 	rename -uid "036278E7-4C90-69BA-F8F7-FAA16202E5CE";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo26";
 	rename -uid "9FBEB081-46AC-5B11-6C41-4CB726DE221C";
 createNode bump2d -n "bump2d20";
@@ -14451,8 +15063,17 @@ createNode multiplyDivide -n "multiplyDivide21";
 	rename -uid "4BF554D9-4126-ABB8-0036-7EAC17A29FBF";
 createNode shadingEngine -n "set21";
 	rename -uid "AB0FB86A-494C-24D3-7C4E-41BAE4F957A7";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo27";
 	rename -uid "CBD8EA28-499F-672E-C46E-C697DEF60357";
 createNode bump2d -n "bump2d21";
@@ -14553,8 +15174,17 @@ createNode multiplyDivide -n "multiplyDivide22";
 	rename -uid "6F2EE225-4E3E-EC40-1ADD-92889326F0B2";
 createNode shadingEngine -n "set22";
 	rename -uid "E880721A-486E-96E1-6806-96933F068CE7";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo28";
 	rename -uid "63D56EA9-467C-279D-A3DA-7085CA2CA3EB";
 createNode bump2d -n "bump2d22";
@@ -14635,8 +15265,17 @@ createNode multiplyDivide -n "multiplyDivide23";
 	rename -uid "5752D4B8-4DCD-8E6E-0885-39B9CCEB31C0";
 createNode shadingEngine -n "set23";
 	rename -uid "3E4C42D1-4CB9-0EBA-00DA-4AA1796E8539";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ihi" 0;
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4]","ai_aov_diffuse","aiCustomAOVs[5]","ai_aov_specular","aiCustomAOVs[6]"
+		} ;
 createNode materialInfo -n "materialInfo29";
 	rename -uid "C42D82E7-43A2-03E1-EACC-40A264C98689";
 createNode bump2d -n "bump2d23";
@@ -17905,18 +18544,6 @@ createNode polyAutoProj -n "polyAutoProj13";
 	setAttr ".lm" 1;
 	setAttr ".ps" 0.20000000298023224;
 	setAttr ".dl" yes;
-createNode nodeGraphEditorInfo -n "hyperShadePrimaryNodeEditorSavedTabsInfo";
-	rename -uid "89231D05-4D5C-2949-93DC-39987D1CE2FD";
-	setAttr -s 3 ".tgi";
-	setAttr ".tgi[0].tn" -type "string" "Untitled_1";
-	setAttr ".tgi[0].vl" -type "double2" -1002.1977623740412 -271.4285606429695 ;
-	setAttr ".tgi[0].vh" -type "double2" 1002.1977623740415 271.4285606429695 ;
-	setAttr ".tgi[1].tn" -type "string" "Untitled_2";
-	setAttr ".tgi[1].vl" -type "double2" -1002.1977623740412 -271.4285606429695 ;
-	setAttr ".tgi[1].vh" -type "double2" 1002.1977623740415 271.4285606429695 ;
-	setAttr ".tgi[2].tn" -type "string" "Untitled_3";
-	setAttr ".tgi[2].vl" -type "double2" -186.90475447783425 -276.58729059671009 ;
-	setAttr ".tgi[2].vh" -type "double2" 194.04761133685977 269.44443373768462 ;
 createNode reference -n "TestRoomNoSubstanceRN";
 	rename -uid "43E03862-432E-3DF3-C129-CA86AA4CCD81";
 	setAttr -s 7 ".phl";
@@ -17930,28 +18557,136 @@ createNode reference -n "TestRoomNoSubstanceRN";
 	setAttr ".ed" -type "dataReferenceEdits" 
 		"TestRoomNoSubstanceRN"
 		"TestRoomNoSubstanceRN" 0
-		"TestRoomNoSubstanceRN" 18
+		"TestRoomNoSubstanceRN" 78
+		2 "TestRoomNoSubstance:pCube17SG" "aiCustomAOVs" " -s 4"
+		2 "TestRoomNoSubstance:pCube17SG" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "TestRoomNoSubstance:pCube17SG" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "TestRoomNoSubstance:pCube17SG" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "TestRoomNoSubstance:pCube17SG" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
 		2 "TestRoomNoSubstance:substanceNode1" "cacheFolder" " -type \"string\" \"C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance\""
 		
 		2 "TestRoomNoSubstance:substanceNode2" "cacheFolder" " -type \"string\" \"C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance\""
 		
+		2 "TestRoomNoSubstance:set1" "aiCustomAOVs" " -s 4"
+		2 "TestRoomNoSubstance:set1" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "TestRoomNoSubstance:set1" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "TestRoomNoSubstance:set1" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "TestRoomNoSubstance:set1" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "TestRoomNoSubstance:aiStandardSurface1SG" "aiCustomAOVs" " -s 4"
+		2 "TestRoomNoSubstance:aiStandardSurface1SG" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "TestRoomNoSubstance:aiStandardSurface1SG" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "TestRoomNoSubstance:aiStandardSurface1SG" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "TestRoomNoSubstance:aiStandardSurface1SG" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "TestRoomNoSubstance:blinn1SG" "aiCustomAOVs" " -s 4"
+		2 "TestRoomNoSubstance:blinn1SG" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "TestRoomNoSubstance:blinn1SG" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "TestRoomNoSubstance:blinn1SG" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "TestRoomNoSubstance:blinn1SG" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
 		2 "TestRoomNoSubstance:substanceNode3" "cacheFolder" " -type \"string\" \"C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance\""
+		
+		2 "TestRoomNoSubstance:set2" "aiCustomAOVs" " -s 4"
+		2 "TestRoomNoSubstance:set2" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "TestRoomNoSubstance:set2" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "TestRoomNoSubstance:set2" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "TestRoomNoSubstance:set2" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "TestRoomNoSubstance:set3" "aiCustomAOVs" " -s 4"
+		2 "TestRoomNoSubstance:set3" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "TestRoomNoSubstance:set3" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "TestRoomNoSubstance:set3" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "TestRoomNoSubstance:set3" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "TestRoomNoSubstance:set4" "aiCustomAOVs" " -s 4"
+		2 "TestRoomNoSubstance:set4" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "TestRoomNoSubstance:set4" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "TestRoomNoSubstance:set4" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "TestRoomNoSubstance:set4" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "TestRoomNoSubstance:set5" "aiCustomAOVs" " -s 4"
+		2 "TestRoomNoSubstance:set5" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "TestRoomNoSubstance:set5" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "TestRoomNoSubstance:set5" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "TestRoomNoSubstance:set5" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "TestRoomNoSubstance:set6" "aiCustomAOVs" " -s 4"
+		2 "TestRoomNoSubstance:set6" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "TestRoomNoSubstance:set6" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "TestRoomNoSubstance:set6" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "TestRoomNoSubstance:set6" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
+		2 "TestRoomNoSubstance:set7" "aiCustomAOVs" " -s 4"
+		2 "TestRoomNoSubstance:set7" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "TestRoomNoSubstance:set7" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "TestRoomNoSubstance:set7" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "TestRoomNoSubstance:set7" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
 		
 		2 "TestRoomNoSubstance:substanceNode4" "cacheFolder" " -type \"string\" \"C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance\""
 		
+		2 "TestRoomNoSubstance:set8" "aiCustomAOVs" " -s 4"
+		2 "TestRoomNoSubstance:set8" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "TestRoomNoSubstance:set8" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "TestRoomNoSubstance:set8" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "TestRoomNoSubstance:set8" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
 		2 "TestRoomNoSubstance:substanceNode5" "cacheFolder" " -type \"string\" \"C:/Users/GuyBF/Personal Projects/Maya/Fall 2023/Fall 2023/substance\""
 		
-		3 "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_3|TestRoomNoSubstance:ProceduralBox1_3Shape.instObjGroups" 
-		":initialShadingGroup.dagSetMembers" "-na"
-		3 "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_5|TestRoomNoSubstance:ProceduralBox1_5Shape.instObjGroups" 
-		":initialShadingGroup.dagSetMembers" "-na"
+		2 "TestRoomNoSubstance:set9" "aiCustomAOVs" " -s 4"
+		2 "TestRoomNoSubstance:set9" "aiCustomAOVs[0].aovName" " -type \"string\" \"albedo\""
+		
+		2 "TestRoomNoSubstance:set9" "aiCustomAOVs[1].aovName" " -type \"string\" \"diffuse\""
+		
+		2 "TestRoomNoSubstance:set9" "aiCustomAOVs[2].aovName" " -type \"string\" \"specular\""
+		
+		2 "TestRoomNoSubstance:set9" "aiCustomAOVs[3].aovName" " -type \"string\" \"Z\""
+		
 		3 "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_4|TestRoomNoSubstance:ProceduralBox1_4Shape.instObjGroups" 
 		":initialShadingGroup.dagSetMembers" "-na"
 		3 "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_0|TestRoomNoSubstance:ProceduralBox1_0Shape.instObjGroups" 
 		":initialShadingGroup.dagSetMembers" "-na"
+		3 "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_3|TestRoomNoSubstance:ProceduralBox1_3Shape.instObjGroups" 
+		":initialShadingGroup.dagSetMembers" "-na"
 		3 "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_2|TestRoomNoSubstance:ProceduralBox1_2Shape.instObjGroups" 
 		":initialShadingGroup.dagSetMembers" "-na"
 		3 "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_1|TestRoomNoSubstance:ProceduralBox1_1Shape.instObjGroups" 
+		":initialShadingGroup.dagSetMembers" "-na"
+		3 "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_5|TestRoomNoSubstance:ProceduralBox1_5Shape.instObjGroups" 
 		":initialShadingGroup.dagSetMembers" "-na"
 		5 4 "TestRoomNoSubstanceRN" "|TestRoomNoSubstance:Scene.drawOverride" 
 		"TestRoomNoSubstanceRN.placeHolderList[1]" ""
@@ -17971,7 +18706,6 @@ createNode reference -n "TestRoomNoSubstanceRN";
 lockNode -l 1 ;
 createNode displayLayer -n "layer1";
 	rename -uid "3C3048CF-4A6B-B2D4-54D1-BF98F928B67B";
-	setAttr ".dt" 2;
 	setAttr ".do" 2;
 createNode polyClean -n "polyClean1";
 	rename -uid "18EFAA2F-462B-D59B-CCF5-8DB05219BA75";
@@ -17979,10 +18713,6 @@ createNode polyClean -n "polyClean1";
 createNode polyClean -n "polyClean2";
 	rename -uid "90E8F6ED-4807-27AA-7BD3-7880FB01B68C";
 	setAttr ".uopa" yes;
-createNode AlembicNode -n "FirstTry:FirstTry_AlembicNode";
-	rename -uid "DACA38EB-4B06-C0E5-73F0-539A20FB2E8C";
-	setAttr ".fn" -type "string" "C:/Users/GuyBF/Personal Projects/SchoolProjects/ScientistWoman/Animations/AlembicCloth/FirstTry.abc";
-	setAttr ".fns" -type "stringArray" 1 "C:/Users/GuyBF/Personal Projects/SchoolProjects/ScientistWoman/Animations/AlembicCloth/FirstTry.abc"  ;
 createNode animCurveTL -n "R_Leg_Clav_FK_Ctrl_translateX";
 	rename -uid "DB9607CD-4AF7-52FB-3FF3-988BE5069700";
 	setAttr ".tan" 18;
@@ -18193,13 +18923,4008 @@ createNode animCurveTA -n "L_Hand_FK_Ctrl_rotateZ";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
 	setAttr ".ktv[0]"  0 0;
-createNode AlembicNode -n "SecondTry:SecondTry_AlembicNode";
-	rename -uid "FBD26EB8-42A1-0145-2113-EF9570351C45";
-	setAttr ".fn" -type "string" "C:/Users/GuyBF/Personal Projects/SchoolProjects/ScientistWoman/Animations/AlembicCloth/SecondTry.abc";
-	setAttr ".fns" -type "stringArray" 1 "C:/Users/GuyBF/Personal Projects/SchoolProjects/ScientistWoman/Animations/AlembicCloth/SecondTry.abc"  ;
+createNode renderSetup -n "renderSetup";
+	rename -uid "B9263871-46CC-8DFF-3D01-32B8533D6E7C";
+createNode renderSetupLayer -n "Character_rl";
+	rename -uid "4A3A4E34-46E3-EF77-30B5-F6807B66C5E7";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".es" yes;
+createNode renderLayer -n "rs_Character_rl";
+	rename -uid "F858E697-42E6-EE7A-69FF-DA8D8AD63746";
+	setAttr ".do" 1;
+createNode collection -n "collection1";
+	rename -uid "3591533E-4055-485D-4072-99BE399AA526";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".es" yes;
+createNode simpleSelector -n "collection1Selector";
+	rename -uid "E4FCC19A-4F61-961B-2647-F190BD9A6F47";
+	setAttr ".ssl" -type "string" "|SecondTry:cloth_parent\n|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Geo|ScientistWithClothingTest:ScientistModel\n|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Geo|ScientistWithClothingTest:Hair\n|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Geo|ScientistWithClothingTest:TeethObj:Mesh\n|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Geo|ScientistWithClothingTest:RightEye|ScientistWithClothingTest:Eye\n|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Geo|ScientistWithClothingTest:RightEye|ScientistWithClothingTest:EyeClearPart\n|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Geo|ScientistWithClothingTest:LeftEye|ScientistWithClothingTest:Eye\n|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Geo|ScientistWithClothingTest:LeftEye|ScientistWithClothingTest:EyeClearPart";
+createNode renderSetupLayer -n "Experiment_Box_rl";
+	rename -uid "A8D2F3B4-49DB-4A63-2817-39ADCE5093A9";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".es" yes;
+createNode renderLayer -n "rs_Experiment_Box_rl";
+	rename -uid "773DEE5F-4C9C-4881-ECC8-1084C7F778BE";
+	setAttr ".do" 2;
+createNode collection -n "collection2";
+	rename -uid "15C797D7-4BDD-5015-E29D-DDB357EC91F0";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".es" yes;
+createNode simpleSelector -n "collection2Selector";
+	rename -uid "24AB2668-459F-4E45-5EF9-BF83CA88125E";
+	setAttr ".ssl" -type "string" (
+		"|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ExperimentBox|TestRoomNoSubstance:polySurface15\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ExperimentBox|TestRoomNoSubstance:polySurface14\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:SmallPlatform\n|pCylinder27\n|TestBoxMain\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_1\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_4\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_5\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_2\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_0\n"
+		+ "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_3");
+createNode renderSetupLayer -n "Background_rl";
+	rename -uid "F9CA0A4A-442D-B4BF-38E0-ADA8446E8431";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".es" yes;
+createNode renderLayer -n "rs_Background_rl";
+	rename -uid "05C5036D-43F4-FE4E-B34F-798373D34E7F";
+	setAttr ".do" 3;
+createNode collection -n "collection3";
+	rename -uid "5E5A39D7-4A2E-4C02-A51E-9CA561760A92";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".es" yes;
+createNode simpleSelector -n "collection3Selector";
+	rename -uid "EE97739D-4406-6AD4-81C7-DE90F2366787";
+	setAttr ".ssl" -type "string" (
+		"|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:pCube17\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ExperimentBox1|TestRoomNoSubstance:polySurface17\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ExperimentBox1|TestRoomNoSubstance:polySurface16\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ExperimentBox2|TestRoomNoSubstance:polySurface19\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ExperimentBox2|TestRoomNoSubstance:polySurface18\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ExperimentBox3|TestRoomNoSubstance:polySurface21\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ExperimentBox3|TestRoomNoSubstance:polySurface20\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:pCube82\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:White_Board\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCylinder5\n"
+		+ "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:Rolling_Chair\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCube45\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCube50\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCube51\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCube52\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCube49\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCube46\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCube53\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCube48\n"
+		+ "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCube47\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:Room|TestRoomNoSubstance:polySurface10");
+createNode aovCollection -n "AOVCollection";
+	rename -uid "909E55BC-4637-844F-1BAA-E3B1B3C990E2";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".es" yes;
+createNode simpleSelector -n "AOVCollectionSelector";
+	rename -uid "A4FD5574-42BE-1C8D-0A2F-BB884BC6A0F9";
+	setAttr ".pat" -type "string" "*";
+	setAttr ".tf" 8;
+	setAttr ".cfv" -type "string" "aiAOV aiAOVDriver aiAOVFilter";
+createNode aovChildCollection -n "albedo";
+	rename -uid "67648119-4CD4-925C-3746-1285F68D5F72";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+createNode arnoldAOVChildSelector -n "albedoSelector";
+	rename -uid "86B639CB-4CFF-D6AD-092D-779E3B4F5C7E";
+	setAttr ".ann" -type "string" "aiAOV_albedo";
+createNode absOverride -n "enabled";
+	rename -uid "F412FF55-486E-F185-939F-FDB870E61A23";
+	addAttr -ci true -sn "atv" -ln "attrValue" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".atr" -type "string" "enabled";
+	setAttr ".atv" yes;
+	setAttr ".es" yes;
+createNode aovChildCollection -n "diffuse";
+	rename -uid "9DFBD9CD-4E86-B34C-E8C4-1BB75E82CC92";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+createNode arnoldAOVChildSelector -n "diffuseSelector";
+	rename -uid "B3948231-4B22-12F6-6497-9D9E1AA2074B";
+	setAttr ".ann" -type "string" "aiAOV_diffuse";
+createNode absOverride -n "enabled1";
+	rename -uid "F1D902E8-4832-0D16-BD23-8D84046CABA2";
+	addAttr -ci true -sn "atv" -ln "attrValue" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".atr" -type "string" "enabled";
+	setAttr ".atv" yes;
+	setAttr ".es" yes;
+createNode renderSettingsCollection -n "RenderSettingsCollection";
+	rename -uid "8AFF6BC1-4136-174C-4753-D196F8BBA743";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".es" yes;
+createNode simpleSelector -n "RenderSettingsCollectionSelector";
+	rename -uid "37DFE06D-4488-7A0D-C4AD-64975A559765";
+	setAttr ".ssl" -type "string" "defaultArnoldRenderOptions\ndefaultArnoldDriver\ndefaultArnoldFilter\ndefaultResolution\ndefaultRenderQuality\ndefaultRenderGlobals";
+	setAttr ".tf" 0;
+createNode absUniqueOverride -n "endFrame";
+	rename -uid "726B51D5-4C8F-52EB-50D3-A7A6381A7BC9";
+	addAttr -ci true -sn "atv" -ln "attrValue" -at "time";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".atr" -type "string" "endFrame";
+	setAttr ".tgName" -type "string" "defaultRenderGlobals";
+	setAttr ".atv" 1;
+	setAttr ".es" yes;
+createNode renderSettingsCollection -n "RenderSettingsCollection1";
+	rename -uid "F396D106-4D01-CFF4-D7CA-6B95F4867F77";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".es" yes;
+createNode simpleSelector -n "RenderSettingsCollection1Selector";
+	rename -uid "5334CDEF-4E61-5F07-B206-80B577F54A58";
+	setAttr ".ssl" -type "string" "defaultArnoldRenderOptions\ndefaultArnoldDriver\ndefaultArnoldFilter\ndefaultResolution\ndefaultRenderQuality\ndefaultRenderGlobals";
+	setAttr ".tf" 0;
+createNode absUniqueOverride -n "endFrame1";
+	rename -uid "307CFFE9-4577-66C1-6562-4A9E81570FF5";
+	addAttr -ci true -sn "atv" -ln "attrValue" -at "time";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".atr" -type "string" "endFrame";
+	setAttr ".tgName" -type "string" "defaultRenderGlobals";
+	setAttr ".atv" 1;
+	setAttr ".es" yes;
+createNode aovCollection -n "AOVCollection1";
+	rename -uid "5688AAD5-4F0B-DDCA-DF11-619764C5AD74";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".es" yes;
+createNode simpleSelector -n "AOVCollection1Selector";
+	rename -uid "290F6D45-45AE-1F0B-3D8A-53838569994D";
+	setAttr ".pat" -type "string" "*";
+	setAttr ".tf" 8;
+	setAttr ".cfv" -type "string" "aiAOV aiAOVDriver aiAOVFilter";
+createNode aovChildCollection -n "Z";
+	rename -uid "8F933DBB-41EC-34B6-DFD6-D8A4FE9B31F6";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".es" yes;
+createNode arnoldAOVChildSelector -n "ZSelector";
+	rename -uid "655DD35E-4ACE-2AB2-B0D0-A29D4608D42D";
+	setAttr ".ann" -type "string" "aiAOV_Z";
+createNode absOverride -n "enabled2";
+	rename -uid "9999B217-4C11-A143-1DAC-B995CD2F21A2";
+	addAttr -ci true -sn "atv" -ln "attrValue" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".atr" -type "string" "enabled";
+	setAttr ".es" yes;
+createNode aovChildCollection -n "specular";
+	rename -uid "A8C9168D-41D1-D020-6F68-5BA6CA94F5B0";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+createNode arnoldAOVChildSelector -n "specularSelector";
+	rename -uid "6E00B98C-44CB-A9CD-F420-E09FD8A7B29C";
+	setAttr ".ann" -type "string" "aiAOV_specular";
+createNode absOverride -n "enabled3";
+	rename -uid "1F3F02A1-48AA-F161-A3E4-FFAA34DB3079";
+	addAttr -ci true -sn "atv" -ln "attrValue" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".atr" -type "string" "enabled";
+	setAttr ".atv" yes;
+	setAttr ".es" yes;
+createNode aovCollection -n "AOVCollection2";
+	rename -uid "42CC9CEA-42FC-24AC-9715-EAA6729FD239";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+createNode simpleSelector -n "AOVCollection2Selector";
+	rename -uid "260C2EAD-4B91-6EA8-3D40-69BCBC4C975E";
+	setAttr ".pat" -type "string" "*";
+	setAttr ".tf" 8;
+	setAttr ".cfv" -type "string" "aiAOV aiAOVDriver aiAOVFilter";
+createNode aovChildCollection -n "specular1";
+	rename -uid "AA202BC9-43C4-3A05-4BE6-61BB41C96F10";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+createNode arnoldAOVChildSelector -n "specular1Selector";
+	rename -uid "C5B67A38-4337-A6C6-9F8C-9DB9520A143E";
+	setAttr ".ann" -type "string" "aiAOV_specular";
+createNode absOverride -n "enabled4";
+	rename -uid "3EDD0143-4EC7-5665-C7B4-F2A323343091";
+	addAttr -ci true -sn "atv" -ln "attrValue" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".atr" -type "string" "enabled";
+	setAttr ".atv" yes;
+	setAttr ".es" yes;
+createNode aovChildCollection -n "diffuse1";
+	rename -uid "12779C1B-48B7-0A8B-D718-9484C784772B";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+createNode arnoldAOVChildSelector -n "diffuse1Selector";
+	rename -uid "20A3E7F8-4B29-812D-B492-62B6B5FC1707";
+	setAttr ".ann" -type "string" "aiAOV_diffuse";
+createNode absOverride -n "enabled5";
+	rename -uid "57C07889-4DD3-95E8-8F0A-938D28DD474B";
+	addAttr -ci true -sn "atv" -ln "attrValue" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".atr" -type "string" "enabled";
+	setAttr ".atv" yes;
+	setAttr ".es" yes;
+createNode aovChildCollection -n "albedo1";
+	rename -uid "B83604AE-4618-471D-4682-A79FCD793C27";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+createNode arnoldAOVChildSelector -n "albedo1Selector";
+	rename -uid "07A48693-4E80-7751-6A8F-2DBB165B72E7";
+	setAttr ".ann" -type "string" "aiAOV_albedo";
+createNode absOverride -n "enabled6";
+	rename -uid "0CAF1DED-4156-09BE-A93D-58B3BDE8AB45";
+	addAttr -ci true -sn "atv" -ln "attrValue" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".atr" -type "string" "enabled";
+	setAttr ".atv" yes;
+	setAttr ".es" yes;
+createNode aovChildCollection -n "Z1";
+	rename -uid "1FD009A1-48C9-3AEA-6F02-708E974670B5";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".es" yes;
+createNode arnoldAOVChildSelector -n "Z1Selector";
+	rename -uid "50E68E53-48CF-FB1B-B1F1-C2BBD9479C80";
+	setAttr ".ann" -type "string" "aiAOV_Z";
+createNode absOverride -n "enabled7";
+	rename -uid "CBBD1A0A-4DA7-98BD-27DD-229FA6259FD4";
+	addAttr -ci true -sn "atv" -ln "attrValue" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".atr" -type "string" "enabled";
+	setAttr ".es" yes;
+createNode renderSetupLayer -n "Z_rl";
+	rename -uid "59385916-4E79-1D49-AE56-D4BF05FAC391";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".es" yes;
+createNode renderLayer -n "rs_Z_rl";
+	rename -uid "FA089377-4047-FE77-D1E5-5096A0584924";
+	setAttr ".do" 4;
+createNode aiAOV -n "aiAOV_Z";
+	rename -uid "53E1E2C3-4AB5-6901-1DA3-3E94371A9396";
+	setAttr ".aovn" -type "string" "Z";
+	setAttr ".aovt" 4;
+createNode aiAOVFilter -n "aiAOVFilter1";
+	rename -uid "FBF1F42E-43A2-F7AF-A2EC-D19DD076A9EB";
+	setAttr ".ai_translator" -type "string" "closest";
+createNode collection -n "collection4";
+	rename -uid "25D28E5D-49A4-8DA5-B388-6EB3806C97B8";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".es" yes;
+createNode simpleSelector -n "collection4Selector";
+	rename -uid "364D3FE6-4C1C-2196-92CB-C29E6FCFD7AC";
+	setAttr ".ssl" -type "string" (
+		"|pCylinder27\n|TestBoxMain\n|Staff\n|SecondTry:cloth_parent\n|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Geo|ScientistWithClothingTest:ScientistModel\n|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Geo|ScientistWithClothingTest:Hair\n|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Geo|ScientistWithClothingTest:TeethObj:Mesh\n|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Geo|ScientistWithClothingTest:RightEye|ScientistWithClothingTest:Eye\n|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Geo|ScientistWithClothingTest:RightEye|ScientistWithClothingTest:EyeClearPart\n|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Geo|ScientistWithClothingTest:LeftEye|ScientistWithClothingTest:Eye\n|ScientistWithClothingTest:Scientist|ScientistWithClothingTest:Geo|ScientistWithClothingTest:LeftEye|ScientistWithClothingTest:EyeClearPart\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:pCube17\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:Room|TestRoomNoSubstance:polySurface10\n"
+		+ "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:Room|TestRoomNoSubstance:polySurface11\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCube51\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCube52\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCube53\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCube50\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCube49\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCube48\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCube45\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCube46\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCube47\n"
+		+ "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCylinder5\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:Rolling_Chair\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:pCylinder16\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ScreensNTable|TestRoomNoSubstance:White_Board\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:pCube82\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:SmallPlatform\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:pCylinder21\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_5\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_4\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_2\n"
+		+ "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_1\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_0\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:TestBoxes|TestRoomNoSubstance:ProceduralBox1_3\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ExperimentBox|TestRoomNoSubstance:polySurface15\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ExperimentBox|TestRoomNoSubstance:polySurface14\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ExperimentBox1|TestRoomNoSubstance:polySurface16\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ExperimentBox1|TestRoomNoSubstance:polySurface17\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ExperimentBox2|TestRoomNoSubstance:polySurface18\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ExperimentBox2|TestRoomNoSubstance:polySurface19\n"
+		+ "|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ExperimentBox3|TestRoomNoSubstance:polySurface20\n|TestRoomNoSubstance:Scene|TestRoomNoSubstance:Room|TestRoomNoSubstance:ExperimentBox3|TestRoomNoSubstance:polySurface21");
+createNode aiAOV -n "aiAOV_albedo";
+	rename -uid "CD2206B9-481D-B0B1-E2A1-A290673CB5FE";
+	setAttr ".aovn" -type "string" "albedo";
+	setAttr ".aovt" 5;
+createNode aiAOV -n "aiAOV_diffuse";
+	rename -uid "E9D715E3-4573-2CD0-5DA7-65B246D0BBF1";
+	setAttr ".aovn" -type "string" "diffuse";
+	setAttr ".aovt" 5;
+createNode aiAOV -n "aiAOV_specular";
+	rename -uid "C7381D47-4D8A-00CC-56D5-2EB01DCEFAE0";
+	setAttr ".aovn" -type "string" "specular";
+	setAttr ".aovt" 5;
+createNode aovChildCollection -n "Z2";
+	rename -uid "E8AEAA36-4C7B-83A9-9808-9384FC6DDD1A";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".es" yes;
+createNode arnoldAOVChildSelector -n "Z2Selector";
+	rename -uid "B0980DF2-4A18-1376-4222-9E97C79C9444";
+	setAttr ".ann" -type "string" "aiAOV_Z";
+createNode absOverride -n "enabled8";
+	rename -uid "0E2F2222-4843-F215-7DA9-F69C174D839E";
+	addAttr -ci true -sn "atv" -ln "attrValue" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".atr" -type "string" "enabled";
+	setAttr ".es" yes;
+createNode aovChildCollection -n "albedo2";
+	rename -uid "DCD3F85C-4E3D-EC9C-467A-8CAFAA0F9575";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".es" yes;
+createNode arnoldAOVChildSelector -n "albedo2Selector";
+	rename -uid "31A87FD7-4BD2-1950-728C-34A4ACAFE620";
+	setAttr ".ann" -type "string" "aiAOV_albedo";
+createNode absOverride -n "enabled9";
+	rename -uid "E753E46E-4628-17E6-8E0F-87A605416588";
+	addAttr -ci true -sn "atv" -ln "attrValue" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".atr" -type "string" "enabled";
+	setAttr ".atv" yes;
+	setAttr ".es" yes;
+createNode aovChildCollection -n "diffuse2";
+	rename -uid "6DE395C8-43A4-C927-CB70-248145DA21A4";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".es" yes;
+createNode arnoldAOVChildSelector -n "diffuse2Selector";
+	rename -uid "634B9BBE-43DC-D39A-78D9-6E81692E99A5";
+	setAttr ".ann" -type "string" "aiAOV_diffuse";
+createNode absOverride -n "enabled10";
+	rename -uid "EFBA88D9-48F6-5643-79FB-689E7DF5357B";
+	addAttr -ci true -sn "atv" -ln "attrValue" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".atr" -type "string" "enabled";
+	setAttr ".atv" yes;
+	setAttr ".es" yes;
+createNode aovChildCollection -n "specular2";
+	rename -uid "0FF0CD63-4CFF-2E19-A84F-08AC6ACC4412";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".es" yes;
+createNode arnoldAOVChildSelector -n "specular2Selector";
+	rename -uid "1B17C8A2-4718-E623-5B37-E4B20C2E406B";
+	setAttr ".ann" -type "string" "aiAOV_specular";
+createNode absOverride -n "enabled11";
+	rename -uid "7BA697D4-4CC9-780F-7FF3-F5980813D8D9";
+	addAttr -ci true -sn "atv" -ln "attrValue" -min 0 -max 1 -at "bool";
+	addAttr -ci true -sn "es" -ln "expandedState" -min 0 -max 1 -at "bool";
+	setAttr ".atr" -type "string" "enabled";
+	setAttr ".atv" yes;
+	setAttr ".es" yes;
+createNode nodeGraphEditorInfo -n "SecondTry:hyperShadePrimaryNodeEditorSavedTabsInfo";
+	rename -uid "2C58D794-46F4-3932-CA62-F6AC619C7877";
+	setAttr -s 3 ".tgi";
+	setAttr ".tgi[0].tn" -type "string" "Untitled_1";
+	setAttr ".tgi[0].vl" -type "double2" -1004.3955644845105 -272.02379871455497 ;
+	setAttr ".tgi[0].vh" -type "double2" 1004.3955644845108 272.02379871455497 ;
+	setAttr ".tgi[1].tn" -type "string" "Untitled_2";
+	setAttr ".tgi[1].vl" -type "double2" -1004.3955644845105 -272.02379871455497 ;
+	setAttr ".tgi[1].vh" -type "double2" 1004.3955644845108 272.02379871455497 ;
+	setAttr ".tgi[2].tn" -type "string" "Untitled_3";
+	setAttr ".tgi[2].vl" -type "double2" -263.64228996915466 -277.38094135882397 ;
+	setAttr ".tgi[2].vh" -type "double2" 271.97562297135107 269.04760835662768 ;
+createNode nodeGraphEditorInfo -n "SecondTry:hyperShadePrimaryNodeEditorSavedTabsInfo1";
+	rename -uid "891A10B6-4A46-BCBD-AE10-299CD34F60E0";
+	setAttr ".tgi[0].tn" -type "string" "Untitled_1";
+	setAttr ".tgi[0].vl" -type "double2" -44.047617297323995 -617.85711830570688 ;
+	setAttr ".tgi[0].vh" -type "double2" 604.76188073082676 44.047617297323995 ;
+createNode AlembicNode -n "FourthTry:FourthTry_AlembicNode";
+	rename -uid "432431E3-4BD8-048B-2A20-CDB8B35C9EB3";
+	setAttr ".fn" -type "string" "C:/Users/GuyBF/Personal Projects/SchoolProjects/ScientistWoman/Animations/AlembicCloth/FourthTry.abc";
+	setAttr ".fns" -type "stringArray" 1 "C:/Users/GuyBF/Personal Projects/SchoolProjects/ScientistWoman/Animations/AlembicCloth/FourthTry.abc"  ;
+createNode polyTweakUV -n "ThirdTry:polyTweakUV1";
+	rename -uid "3261A83A-4D61-5148-EDC3-92B1AFDF2E66";
+	setAttr ".uopa" yes;
+	setAttr -s 11421 ".uvtk";
+	setAttr ".uvtk[0:249]" -type "float2" 416.030609131 -225.15084839 412.43936157
+		 -226.96517944 402.03112793 -232.22392273 398.45153809 -234.032516479 388.34533691
+		 -239.13867188 384.4637146 -241.099853516 374.055480957 -246.35845947 370.47589111
+		 -248.16708374 360.66015625 -253.12649536 356.48812866 -255.23442078 346.079833984
+		 -260.49304199 342.50021362 -262.30163574 332.97491455 -267.11431885 332.092071533
+		 -267.56033325 328.51248169 -269.368927 318.10424805 -274.62756348 314.52456665 -276.43615723
+		 305.28964233 -281.10214233 304.11642456 -281.69488525 300.53677368 -283.50354004
+		 290.12860107 -288.76211548 286.54891968 -290.57070923 277.60440063 -295.089996338
+		 276.14071655 -295.82943726 272.56109619 -297.63806152 262.15289307 -302.89666748
+		 258.57327271 -304.70526123 249.91914368 -309.077789307 248.16503906 -309.96401978
+		 244.58540344 -311.77261353 234.17727661 -317.031219482 230.59757996 -318.83981323
+		 222.23388672 -323.065643311 220.18945313 -324.09854126 216.60974121 -325.90716553
+		 206.20162964 -331.16577148 202.62191772 -332.97436523 194.54862976 -337.053466797
+		 192.21374512 -338.23312378 188.63412476 -340.041717529 178.22596741 -345.30029297
+		 174.64627075 -347.10888672 166.86343384 -351.041290283 164.23814392 -352.36767578
+		 160.65844727 -354.17626953 150.25038147 -359.43490601 146.67062378 -361.24356079
+		 139.17817688 -365.02911377 136.26249695 -366.50219727 132.68276978 -368.31079102
+		 125.92116547 -371.72714233 122.51574707 -379.016815186 120.024932861 -384.34887695
+		 118.69496918 -387.19573975 115.98132324 -393.0047607422 112.41424561 -400.64059448
+		 109.44691467 -406.99258423 107.096153259 -412.024597168 104.70714569 -417.1385498
+		 102.91246796 -420.98040771 97.91275787 -431.68304443 97.67938232 -433.0061035156
+		 97.3332901 -434.96810913 95.21214294 -446.99380493 94.86604309 -448.95608521 92.39879608
+		 -462.94390869 90.7193222 -472.46563721 89.9315567 -476.93173218 87.46434021 -490.91958618
+		 84.99706268 -504.90737915 82.52985382 -518.89520264 80.81198883 -528.63452148 80.31114197
+		 -531.47393799 90.7193222 -525.40844727 94.29893494 -523.32232666 101.89593506 -518.89520264
+		 104.70714569 -517.25701904 108.28681946 -515.17095947 118.69496918 -509.10549927
+		 122.2746582 -507.019287109 125.89890289 -504.90737915 132.68276978 -500.95391846
+		 136.26246643 -498.86795044 146.67062378 -492.8024292 149.90182495 -490.91958618 160.65844727
+		 -484.65109253 164.2381134 -482.56488037 173.90478516 -476.93173218 174.64627075 -476.4994812
+		 178.22596741 -474.41345215 188.63409424 -468.34802246 192.21374512 -466.26205444
+		 197.90771484 -462.94390869 202.62191772 -460.1965332 206.20162964 -458.11044312 216.60977173
+		 -452.045166016 220.18939209 -449.95910645 221.91061401 -448.95608521 230.59757996
+		 -443.89358521 234.17727661 -441.80749512 244.58540344 -435.74224854 245.91351318
+		 -434.9682312 248.1651001 -433.65603638 258.57327271 -427.59063721 262.1529541 -425.50454712
+		 269.91656494 -420.98040771 272.56115723 -419.43927002 276.14083862 -417.35321045
+		 286.54898071 -411.28768921 290.12866211 -409.20159912 293.91943359 -406.99258423
+		 300.53677368 -403.13632202 304.11642456 -401.050262451 314.52456665 -394.98474121
+		 317.92236328 -393.0047607422 328.51242065 -386.83337402 332.092132568 -384.74734497
+		 342.50021362 -378.68179321 346.08001709 -376.59570313 356.48806763 -370.53042603
+		 360.067840576 -368.44421387 365.92828369 -365.02911377 370.47595215 -362.37884521
+		 374.055603027 -360.29275513 384.4637146 -354.22747803 388.043426514 -352.1413269
+		 389.93118286 -351.041290283 398.45159912 -346.075866699 402.03125 -343.98980713 412.43936157
+		 -337.92453003 413.93411255 -337.053466797 416.019073486 -335.83843994 426.42724609
+		 -329.7729187 430.0068969727 -327.68685913 437.93701172 -323.065643311 440.41500854
+		 -321.62158203 439.61297607 -318.44830322 437.24441528 -309.077789307 436.077362061
+		 -304.46060181 435.40957642 -301.8187561 433.70874023 -295.089996338 432.54168701
+		 -290.47265625 430.17315674 -281.10214233 429.0061035156 -276.48495483 426.63754272
+		 -267.11419678 426.42718506 -266.2822876 425.47042847 -262.49700928 423.10189819 -253.12649536
+		 421.93481445 -248.5092926 421.42175293 -246.47956848 419.56622314 -239.13867188 418.3991394
+		 -234.52134705 426.42718506 -281.10214233 426.42724609 -295.089996338 426.42718506
+		 -309.077789307 426.42718506 -323.065643311 412.43936157 -239.13867188 412.43936157
+		 -253.12649536 412.43936157 -267.11431885 412.43936157 -281.10214233 412.43936157
+		 -295.089996338 412.43936157 -309.077789307 412.43936157 -323.065643311 412.43936157
+		 -337.053466797 398.45153809 -239.13867188 398.45153809 -253.12649536 398.45153809
+		 -267.11431885 398.45153809 -281.10214233 398.45159912 -295.089996338 398.45153809
+		 -309.077789307 398.45153809 -323.065643311 398.45153809 -337.053466797 384.4637146
+		 -253.12649536 384.46377563 -267.11431885 384.4637146 -281.10214233 384.4637146 -295.089996338
+		 384.4637146 -309.077789307 384.4637146 -323.065643311 384.4637146 -337.053466797
+		 384.4637146 -351.041290283 370.47589111 -253.12649536 370.47595215 -267.11431885
+		 370.47589111 -281.10214233 370.47589111 -295.089996338 370.47589111 -309.077789307
+		 370.47589111 -323.065643311 370.47589111 -337.053466797 370.47589111 -351.041290283
+		 356.48806763 -267.11431885 356.48806763 -281.10214233 356.48806763 -295.089996338
+		 356.48806763 -309.077789307 356.48806763 -323.065643311 356.48806763 -337.053466797
+		 356.48806763 -351.041290283 356.48806763 -365.02911377 342.50021362 -267.11431885
+		 342.50021362 -281.10214233 342.50021362 -295.089996338 342.50021362 -309.077789307
+		 342.50021362 -323.065643311 342.50021362 -337.053466797 342.50021362 -351.041290283
+		 342.50021362 -365.02911377 328.51242065 -281.10214233 328.51242065 -295.089996338
+		 328.51242065 -309.077789307 328.51242065 -323.065643311 328.51242065 -337.053466797
+		 328.51242065 -351.041290283 328.51242065 -365.02911377 328.51242065 -379.016937256
+		 314.52456665 -281.10214233 314.52456665 -295.089996338 314.52456665 -309.077789307
+		 314.52456665 -323.065643311 314.52456665 -337.053466797 314.52456665 -351.041290283
+		 314.52456665 -365.02911377 314.52456665 -379.016937256 314.52456665 -393.0047607422
+		 300.53677368 -295.089996338 300.53677368 -309.077789307 300.53677368 -323.065643311
+		 300.53677368 -337.053466797 300.53677368 -351.041290283 300.53677368 -365.02911377
+		 300.53677368 -379.016937256 300.53677368 -393.0047607422 286.54891968 -295.089996338
+		 286.54891968 -309.077789307 286.54891968 -323.065643311 286.54891968 -337.053466797
+		 286.54891968 -351.041290283 286.54891968 -365.02911377 286.54891968 -379.016937256
+		 286.54891968 -393.0047607422 286.54891968 -406.99258423 272.56109619 -309.077789307
+		 272.56109619 -323.065643311 272.56109619 -337.053466797 272.56109619 -351.041290283
+		 272.56109619 -365.02911377 272.56109619 -379.016937256 272.56109619 -393.0047607422
+		 272.56109619 -406.99258423 258.57327271 -309.077789307 258.57327271 -323.065643311
+		 258.57327271 -337.053466797 258.57327271 -351.041290283;
+	setAttr ".uvtk[250:499]" 258.57327271 -365.02911377 258.57327271 -379.016937256
+		 258.57327271 -393.0047607422 258.57327271 -406.99258423 258.57327271 -420.98040771
+		 244.58540344 -323.065643311 244.58540344 -337.053466797 244.58540344 -351.041290283
+		 244.58540344 -365.02911377 244.58540344 -379.016937256 244.58540344 -393.0047607422
+		 244.58540344 -406.99258423 244.58540344 -420.98040771 244.58540344 -434.9682312 230.59757996
+		 -323.065643311 230.59757996 -337.053466797 230.59757996 -351.041290283 230.59757996
+		 -365.02911377 230.59757996 -379.016937256 230.59757996 -393.0047607422 230.59757996
+		 -406.99258423 230.59757996 -420.98040771 230.59757996 -434.9682312 216.60974121 -337.053466797
+		 216.60974121 -351.041290283 216.60974121 -365.02911377 216.60974121 -379.016937256
+		 216.60974121 -393.0047607422 216.60974121 -406.99258423 216.60974121 -420.98040771
+		 216.60974121 -434.9682312 216.60974121 -448.95608521 202.62191772 -337.053466797
+		 202.62191772 -351.041290283 202.62191772 -365.02911377 202.62191772 -379.016937256
+		 202.62191772 -393.0047607422 202.62191772 -406.99258423 202.62191772 -420.98040771
+		 202.62191772 -434.9682312 202.62191772 -448.95608521 188.63409424 -351.041290283
+		 188.63409424 -365.02911377 188.63409424 -379.016937256 188.63409424 -393.0047607422
+		 188.63409424 -406.99258423 188.63409424 -420.98040771 188.63409424 -434.9682312 188.63409424
+		 -448.95608521 188.63409424 -462.94390869 174.64627075 -351.041290283 174.64627075
+		 -365.02911377 174.64627075 -379.016937256 174.64627075 -393.0047607422 174.64627075
+		 -406.99258423 174.64627075 -420.98040771 174.64627075 -434.9682312 174.64627075 -448.95608521
+		 174.64627075 -462.94390869 160.65844727 -365.02911377 160.65844727 -379.016937256
+		 160.65844727 -393.0047607422 160.65844727 -406.99258423 160.65844727 -420.98040771
+		 160.65844727 -434.9682312 160.65844727 -448.95608521 160.65844727 -462.94390869 160.65844727
+		 -476.93173218 146.67062378 -365.02911377 146.67062378 -379.016937256 146.67062378
+		 -393.0047607422 146.67062378 -406.99258423 146.67062378 -420.98040771 146.67062378
+		 -434.9682312 146.67062378 -448.95608521 146.67062378 -462.94390869 146.67062378 -476.93173218
+		 146.67062378 -490.91958618 132.68276978 -379.016937256 132.68276978 -393.0047607422
+		 132.68276978 -406.99258423 132.68276978 -420.98040771 132.68276978 -434.9682312 132.68276978
+		 -448.95608521 132.68276978 -462.94390869 132.68276978 -476.93173218 132.68276978
+		 -490.91958618 118.69496918 -393.0047607422 118.69496918 -406.99258423 118.69496918
+		 -420.98040771 118.69496918 -434.9682312 118.69496918 -448.95608521 118.69496918 -462.94390869
+		 118.69496918 -476.93173218 118.69496918 -490.91958618 118.69496918 -504.90737915
+		 104.70714569 -420.98040771 104.70714569 -434.9682312 104.70714569 -448.95608521 104.70714569
+		 -462.94390869 104.70714569 -476.93173218 104.70714569 -490.91958618 104.70714569
+		 -504.90737915 90.7193222 -476.93173218 90.7193222 -490.91958618 90.7193222 -504.90737915
+		 90.7193222 -518.89520264 426.42718506 -267.11419678 80.39557648 -530.99536133 440.41500854
+		 -321.62164307 444.0061950684 -319.52883911 445.8600769 -318.44836426 449.3973999
+		 -316.38717651 446.38272095 -304.46054077 442.84713745 -290.47271729 439.3114624 -276.4848938
+		 435.77590942 -262.49707031 435.40957642 -261.047637939 432.24032593 -248.50935364
+		 428.70471191 -234.52153015 425.16912842 -220.53370667 421.42175293 -222.42694092
+		 416.030609131 -225.15090942 418.39920044 -234.52153015 419.56628418 -239.13873291
+		 421.42175293 -246.47962952 421.93475342 -248.50935364 423.10183716 -253.1265564 425.47036743
+		 -262.49719238 426.42718506 -266.28234863 426.63748169 -267.11437988 429.0059814453
+		 -276.48501587 430.1730957 -281.10220337 432.54162598 -290.47271729 433.7086792 -295.090057373
+		 435.40951538 -301.81881714 436.077301025 -304.46054077 437.24435425 -309.077850342
+		 439.61297607 -318.44836426 435.40957642 -276.48501587 435.40957642 -290.47283936
+		 421.42175293 -234.52153015 435.40957642 -262.49707031 -415.024810791 -225.14949036
+		 -420.41589355 -222.42553711 -424.16326904 -220.53216553 -427.69891357 -234.51998901
+		 -429.012634277 -239.71762085 -431.23452759 -248.5078125 -434.77011108 -262.49563599
+		 -438.30566406 -276.48345947 -441.84133911 -290.47128296 -443.00045776367 -295.057159424
+		 -445.37692261 -304.45910645 -448.39154053 -316.38574219 -444.85446167 -318.44692993
+		 -443.00045776367 -319.52728271 -439.40908813 -321.62020874 -438.60699463 -318.44680786
+		 -436.23843384 -309.076416016 -435.071380615 -304.45910645 -432.70281982 -295.088653564
+		 -431.5357666 -290.47128296 -429.012634277 -280.48904419 -428.00012207031 -276.48345947
+		 -425.63168335 -267.11282349 -424.46450806 -262.49563599 -422.095977783 -253.12513733
+		 -420.92889404 -248.5078125 -418.5604248 -239.13731384 -417.39334106 -234.51986694
+		 -429.012573242 -248.5078125 -429.012634277 -262.49563599 -429.012634277 -276.48345947
+		 -443.00045776367 -304.45910645 -443.00045776367 -318.44692993 -429.17822266 -281.14382935
+		 -439.40908813 -321.62020874 -436.93109131 -323.064300537 -429.0009765625 -327.68551636
+		 -425.42132568 -329.77154541 -415.013153076 -335.83706665 -412.92819214 -337.052124023
+		 -411.43344116 -337.92315674 -401.02532959 -343.98846436 -397.44567871 -346.074493408
+		 -388.92526245 -351.03994751 -387.037506104 -352.14007568 -383.45779419 -354.22610474
+		 -373.049682617 -360.29141235 -369.47000122 -362.37750244 -364.92236328 -365.027770996
+		 -359.061859131 -368.44296265 -355.48214722 -370.52905273 -345.074035645 -376.59436035
+		 -340.91937256 -379.015594482 -331.086212158 -384.74597168 -327.50643921 -386.83200073
+		 -317.098388672 -392.89730835 -313.51858521 -394.98339844 -303.11056519 -401.048919678
+		 -299.53085327 -403.13494873 -292.91345215 -406.99124146 -289.1227417 -409.20025635
+		 -285.5430603 -411.28634644 -275.13491821 -417.35186768 -271.55523682 -419.43789673
+		 -268.91070557 -420.97906494 -261.14703369 -425.50317383 -257.56741333 -427.58926392
+		 -247.15925598 -433.65481567 -244.90769958 -434.96688843 -243.5796051 -435.74090576
+		 -233.1714325 -441.80612183 -229.59178162 -443.89221191 -220.9047699 -448.95471191
+		 -219.18360901 -449.95776367 -215.60395813 -452.043792725 -205.19578552 -458.10906982
+		 -201.61613464 -460.19515991 -196.90187073 -462.9425354 -191.20796204 -466.26071167
+		 -187.62831116 -468.34667969 -177.22012329 -474.41207886 -173.64048767 -476.49810791
+		 -172.89894104 -476.93035889 -163.2322998 -482.56365967 -159.65266418 -484.64974976
+		 -149.24447632 -490.71496582 -145.66482544 -492.80105591 -135.25665283 -498.86660767
+		 -131.67700195 -500.95269775 -124.89311981 -504.90600586 -121.26883698 -507.017913818
+		 -117.6891861 -509.10400391 -107.28100586 -515.16955566 -103.70136261 -517.25561523
+		 -100.89020538 -518.89379883 -93.29318237 -523.32098389 -89.71353912 -525.40704346
+		 -79.30535889 -531.47253418 -79.80613708 -528.63311768 -81.5240097 -518.89379883 -83.99134064
+		 -504.90600586 -86.45855713 -490.91821289 -88.92575836 -476.93035889 -91.39297485
+		 -462.9425354 -93.29318237 -452.16967773 -93.86031342 -448.95471191 -94.20632935 -446.99243164;
+	setAttr ".uvtk[500:749]" -96.32752991 -434.96676636 -96.67365265 -433.0047302246
+		 -96.90697479 -431.68167114 -101.90664673 -420.97894287 -103.7977066 -416.93093872
+		 -106.090270996 -412.023223877 -107.28100586 -409.47454834 -108.44113159 -406.99124146
+		 -111.40839386 -400.63922119 -114.97547913 -393.0034179688 -117.81821442 -386.91812134
+		 -119.019081116 -384.34750366 -121.26883698 -379.53158569 -124.91531372 -371.72579956
+		 -131.67700195 -368.30944824 -135.25665283 -366.50085449 -138.17233276 -365.027770996
+		 -145.66470337 -361.2421875 -149.24447632 -359.43353271 -159.65266418 -354.17489624
+		 -163.2322998 -352.36630249 -165.85758972 -351.03994751 -173.6403656 -347.10754395
+		 -177.22012329 -345.29907227 -187.62831116 -340.040344238 -191.20796204 -338.23175049
+		 -193.54284668 -337.052124023 -201.61613464 -332.97311401 -205.19578552 -331.16439819
+		 -215.60395813 -325.90579224 -219.18360901 -324.097045898 -221.22810364 -323.064300537
+		 -229.59178162 -318.83843994 -233.1714325 -317.029846191 -243.5796051 -311.77124023
+		 -247.15925598 -309.96264648 -248.9133606 -309.076416016 -257.56741333 -304.70388794
+		 -261.14703369 -302.89529419 -271.55523682 -297.63671875 -275.13491821 -295.82806396
+		 -276.59860229 -295.088653564 -285.5430603 -290.56936646 -289.1227417 -288.76074219
+		 -299.53091431 -283.50204468 -303.11056519 -281.69351196 -304.28372192 -281.10076904
+		 -313.51870728 -276.43481445 -317.098388672 -274.6262207 -327.50662231 -269.36758423
+		 -331.086212158 -267.55886841 -331.96908569 -267.11282349 -341.49435425 -262.30026245
+		 -345.074035645 -260.4916687 -355.059356689 -255.4466095 -359.061859131 -253.42445374
+		 -369.47006226 -248.16572571 -373.049682617 -246.3571167 -383.23788452 -241.20960999
+		 -387.037506104 -239.28990173 -397.44567871 -234.031158447 -401.02532959 -232.2225647
+		 -411.43356323 -226.96382141 -415.024810791 -225.14949036 -417.39328003 -234.51986694
+		 -418.5604248 -239.13731384 -420.92895508 -248.5078125 -422.095977783 -253.12513733
+		 -424.46450806 -262.49563599 -425.63168335 -267.11294556 -428.00012207031 -276.48345947
+		 -429.0009765625 -280.44293213 -431.5357666 -290.47128296 -432.70281982 -295.088531494
+		 -435.071380615 -304.45910645 -436.23843384 -309.076416016 -438.60699463 -318.44692993
+		 -93.29318237 -462.9425354 -93.29318237 -476.93035889 -93.29318237 -490.91821289 -93.29318237
+		 -504.90600586 -93.29318237 -518.89379883 -107.28100586 -420.97906494 -107.28100586
+		 -434.96688843 -107.28100586 -448.95471191 -107.28100586 -462.9425354 -107.28100586
+		 -476.93035889 -107.28100586 -490.91821289 -107.28100586 -504.90600586 -121.26883698
+		 -393.0034179688 -121.26883698 -406.99124146 -121.26883698 -420.97906494 -121.26883698
+		 -434.96688843 -121.26883698 -448.95471191 -121.26883698 -462.9425354 -121.26883698
+		 -476.93035889 -121.26883698 -490.91821289 -121.26883698 -504.90600586 -135.25665283
+		 -379.015594482 -135.25665283 -393.0034179688 -135.25665283 -406.99124146 -135.25665283
+		 -420.97906494 -135.25665283 -434.96688843 -135.25665283 -448.95471191 -135.25665283
+		 -462.9425354 -135.25665283 -476.93035889 -135.25665283 -490.91821289 -149.24447632
+		 -365.027770996 -149.24447632 -379.015594482 -149.24447632 -393.0034179688 -149.24447632
+		 -406.99124146 -149.24447632 -420.97906494 -149.24447632 -434.96688843 -149.24447632
+		 -448.95471191 -149.24447632 -462.9425354 -149.24447632 -476.93035889 -163.2322998
+		 -365.027770996 -163.2322998 -379.015594482 -163.2322998 -393.0034179688 -163.2322998
+		 -406.99124146 -163.2322998 -420.97906494 -163.2322998 -434.96688843 -163.2322998
+		 -448.95471191 -163.2322998 -462.9425354 -163.2322998 -476.93035889 -177.22012329
+		 -351.03994751 -177.22012329 -365.027770996 -177.22012329 -379.015594482 -177.22012329
+		 -393.0034179688 -177.22012329 -406.99124146 -177.22012329 -420.97906494 -177.22012329
+		 -434.96688843 -177.22012329 -448.95471191 -177.22012329 -462.9425354 -191.20796204
+		 -351.03994751 -191.20796204 -365.027770996 -191.20796204 -379.015594482 -191.20796204
+		 -393.0034179688 -191.20796204 -406.99124146 -191.20796204 -420.97906494 -191.20796204
+		 -434.96688843 -191.20796204 -448.95471191 -191.20796204 -462.9425354 -205.19578552
+		 -337.052124023 -205.19578552 -351.03994751 -205.19578552 -365.027770996 -205.19578552
+		 -379.015594482 -205.19578552 -393.0034179688 -205.19578552 -406.99124146 -205.19578552
+		 -420.97906494 -205.19578552 -434.96688843 -205.19578552 -448.95471191 -219.18360901
+		 -337.052124023 -219.18360901 -351.03994751 -219.18360901 -365.027770996 -219.18360901
+		 -379.015594482 -219.18360901 -393.0034179688 -219.18360901 -406.99124146 -219.18360901
+		 -420.97906494 -219.18360901 -434.96688843 -219.18360901 -448.95471191 -233.1714325
+		 -323.064300537 -233.1714325 -337.052124023 -233.1714325 -351.03994751 -233.1714325
+		 -365.027770996 -233.1714325 -379.015594482 -233.1714325 -393.0034179688 -233.1714325
+		 -406.99124146 -233.1714325 -420.97906494 -233.1714325 -434.96688843 -247.15925598
+		 -323.064300537 -247.15925598 -337.052124023 -247.15925598 -351.03994751 -247.15925598
+		 -365.027770996 -247.15925598 -379.015594482 -247.15925598 -393.0034179688 -247.15925598
+		 -406.99124146 -247.15925598 -420.97906494 -261.14703369 -309.076416016 -261.14703369
+		 -323.064300537 -261.14703369 -337.052124023 -261.14703369 -351.03994751 -261.14703369
+		 -365.027770996 -261.14703369 -379.015594482 -261.14703369 -393.0034179688 -261.14703369
+		 -406.99124146 -261.14703369 -420.97906494 -275.13491821 -309.076416016 -275.13491821
+		 -323.064300537 -275.13491821 -337.052124023 -275.13491821 -351.03994751 -275.13491821
+		 -365.027770996 -275.13491821 -379.015594482 -275.13491821 -393.0034179688 -275.13491821
+		 -406.99124146 -289.1227417 -295.088653564 -289.1227417 -309.076416016 -289.1227417
+		 -323.064300537 -289.1227417 -337.052124023 -289.1227417 -351.03994751 -289.1227417
+		 -365.027770996 -289.1227417 -379.015594482 -289.1227417 -393.0034179688 -289.1227417
+		 -406.99124146 -303.11056519 -295.088653564 -303.11056519 -309.076416016 -303.11056519
+		 -323.064300537 -303.11056519 -337.052124023 -303.11056519 -351.03994751 -303.11056519
+		 -365.027770996 -303.11056519 -379.015594482 -303.11056519 -393.0034179688 -317.098388672
+		 -281.10076904 -317.098388672 -295.088653564 -317.098388672 -309.076416016 -317.098388672
+		 -323.064300537 -317.098388672 -337.052124023 -317.098388672 -351.03994751 -317.098388672
+		 -365.027770996 -317.098388672 -379.015594482 -331.086212158 -281.10076904 -331.086212158
+		 -295.088653564 -331.086212158 -309.076416016 -331.086212158 -323.064300537 -331.086212158
+		 -337.052124023 -331.086212158 -351.03994751 -331.086212158 -365.027770996 -331.086212158
+		 -379.015594482 -345.074035645 -267.11294556 -345.074035645 -281.10076904 -345.074035645
+		 -295.088653564 -345.074035645 -309.076416016 -345.074035645 -323.064300537 -345.074035645
+		 -337.052124023 -345.074035645 -351.03994751 -345.074035645 -365.027770996 -359.061859131
+		 -267.11294556 -359.061859131 -281.10076904 -359.061859131 -295.088653564 -359.061859131
+		 -309.076416016 -359.061859131 -323.064300537 -359.061859131 -337.052124023 -359.061859131
+		 -351.03994751 -359.061859131 -365.027770996 -373.049682617 -253.12513733 -373.049682617
+		 -267.11294556 -373.049682617 -281.10076904 -373.049682617 -295.088653564 -373.049682617
+		 -309.076416016 -373.049682617 -323.064300537;
+	setAttr ".uvtk[750:999]" -373.049682617 -337.052124023 -373.049682617 -351.03994751
+		 -387.037506104 -253.12513733 -387.037506104 -267.11294556 -387.037506104 -281.10076904
+		 -387.037506104 -295.088653564 -387.037506104 -309.076416016 -387.037506104 -323.064300537
+		 -387.037506104 -337.052124023 -387.037506104 -351.03994751 -401.02532959 -239.13731384
+		 -401.02532959 -253.12513733 -401.02532959 -267.11294556 -401.02532959 -281.10076904
+		 -401.02532959 -295.088653564 -401.02532959 -309.076416016 -401.02532959 -323.064300537
+		 -401.02532959 -337.052124023 -415.013153076 -239.13731384 -415.013153076 -253.12513733
+		 -415.013153076 -267.11294556 -415.013153076 -281.10076904 -415.013153076 -295.088653564
+		 -415.013153076 -309.076416016 -415.013153076 -323.064300537 -429.0009765625 -295.088653564
+		 -429.0009765625 -309.076416016 -429.0009765625 -323.064300537 -121.50995636 -379.015594482
+		 -429.16729736 -281.10076904 -429.0009765625 -281.10076904 -79.38987732 -530.99395752
+		 440.4147644 -321.62133789 437.93670654 -323.065643311 430.0068359375 -327.68661499
+		 426.42694092 -329.7729187 416.019012451 -335.8381958 413.9336853 -337.053466797 412.43911743
+		 -337.92428589 402.031188965 -343.98956299 398.45129395 -346.075744629 389.93087769
+		 -351.041290283 388.043365479 -352.14120483 384.46347046 -354.22723389 374.055541992
+		 -360.29251099 370.47564697 -362.37872314 365.92785645 -365.02911377 360.067718506
+		 -368.4440918 356.48782349 -370.53018188 346.07989502 -376.59545898 341.92480469 -379.016937256
+		 332.092071533 -384.74710083 328.51217651 -386.83312988 318.10424805 -392.89840698
+		 314.52432251 -394.98474121 304.11630249 -401.050018311 300.53652954 -403.13607788
+		 293.91906738 -406.99258423 290.12860107 -409.20147705 286.54879761 -411.28768921
+		 276.14065552 -417.35296631 272.56097412 -419.43902588 269.91619873 -420.98040771
+		 262.152771 -425.50442505 258.57315063 -427.59051514 248.16493225 -433.65591431 245.91325378
+		 -434.9682312 244.58529663 -435.74200439 234.17710876 -441.80737305 230.59747314 -443.89346313
+		 221.9103241 -448.95608521 220.18928528 -449.9588623 216.6096344 -452.044921875 206.20146179
+		 -458.11032104 202.62181091 -460.1965332 197.90730286 -462.94390869 192.21363831 -466.2618103
+		 188.63398743 -468.34790039 178.22579956 -474.41333008 174.64616394 -476.49935913
+		 173.90437317 -476.93173218 164.23797607 -482.5647583 160.65834045 -484.65084839 150.25015259
+		 -490.71633911 146.67051697 -492.80230713 136.2623291 -498.8677063 132.68266296 -500.95379639
+		 125.89855194 -504.90737915 122.27452087 -507.019287109 118.69486237 -509.1053772
+		 108.28668213 -515.17071533 104.70703888 -517.2567749 101.89564514 -518.89520264 94.29885864
+		 -523.32232666 90.71921539 -525.40844727 80.31103516 -531.47369385 80.81182098 -528.63439941
+		 82.52968597 -518.89520264 84.99689484 -504.90725708 87.4642334 -490.91958618 89.93144989
+		 -476.93173218 92.39865875 -462.94390869 94.29885864 -452.17092896 94.86587524 -448.95608521
+		 95.21200562 -446.99368286 97.33321381 -434.9682312 97.67933655 -433.0059814453 97.91265106
+		 -431.68280029 102.91233063 -420.98040771 104.80351257 -416.93206787 107.096076965
+		 -412.024475098 108.28668213 -409.47567749 109.44668579 -406.99246216 112.41407776
+		 -400.64047241 115.9811554 -393.0046386719 118.82390594 -386.91921997 120.024765015
+		 -384.34875488 122.27452087 -379.53283691 125.92099762 -371.72689819 132.68266296
+		 -368.31066895 136.2623291 -366.5020752 139.17776489 -365.02911377 146.6703949 -361.24331665
+		 150.25015259 -359.43478394 160.65834045 -354.17614746 164.23797607 -352.36755371
+		 166.86302185 -351.041290283 174.64604187 -347.10888672 178.22579956 -345.3001709
+		 188.63386536 -340.041595459 192.21363831 -338.23287964 194.54815674 -337.053466797
+		 202.62181091 -332.97424316 206.20146179 -331.16577148 216.6096344 -325.90692139 220.18928528
+		 -324.098419189 222.23353577 -323.065643311 230.59747314 -318.83981323 234.17710876
+		 -317.031097412 244.58529663 -311.77249146 248.16493225 -309.96389771 249.91879272
+		 -309.077789307 258.57315063 -304.70513916 262.152771 -302.89654541 272.56097412 -297.63793945
+		 276.14077759 -295.82931519 277.60409546 -295.089996338 286.54879761 -290.57058716
+		 290.128479 -288.76199341 300.53665161 -283.50341797 304.11642456 -281.69464111 305.28933716
+		 -281.10214233 314.52432251 -276.43603516 318.10424805 -274.62731934 328.51217651
+		 -269.36880493 332.092071533 -267.56008911 332.97460938 -267.11431885 342.49996948
+		 -262.30151367 346.07989502 -260.49291992 356.065093994 -255.44784546 360.067718506
+		 -253.42555237 370.47589111 -248.16696167 374.055541992 -246.3583374 384.24368286
+		 -241.21084595 388.043365479 -239.29101563 398.45153809 -234.032394409 402.031188965
+		 -232.22380066 412.43936157 -226.96505737 416.030487061 -225.15060425 418.39901733
+		 -234.52110291 419.56622314 -239.13867188 421.93475342 -248.50904846 423.10171509
+		 -253.12649536 425.47024536 -262.49676514 426.63748169 -267.11431885 429.0059814453
+		 -276.48471069 430.0068359375 -280.44491577 432.54150391 -290.47241211 433.7086792
+		 -295.089996338 436.07723999 -304.46035767 437.24417114 -309.077789307 439.61273193
+		 -318.44805908 94.29885864 -462.94378662 94.29885864 -476.93161011 94.29885864 -490.91946411
+		 94.29885864 -504.90725708 94.29885864 -518.89508057 108.28668213 -420.98028564 108.28668213
+		 -434.96810913 108.28668213 -448.95596313 108.28668213 -462.94378662 108.28668213
+		 -476.93161011 108.28668213 -490.91946411 108.28668213 -504.90725708 122.27452087
+		 -393.0046386719 122.27452087 -406.99246216 122.27452087 -420.98028564 122.27452087
+		 -434.96810913 122.27452087 -448.95596313 122.27452087 -462.94378662 122.27452087
+		 -476.93161011 122.27452087 -490.91946411 122.27452087 -504.90725708 136.2623291 -379.016815186
+		 136.2623291 -393.0046386719 136.2623291 -406.99246216 136.2623291 -420.98028564 136.2623291
+		 -434.96810913 136.2623291 -448.95596313 136.2623291 -462.94378662 136.2623291 -476.93161011
+		 136.2623291 -490.91946411 150.25015259 -365.028991699 150.25015259 -379.016815186
+		 150.25015259 -393.0046386719 150.25015259 -406.99246216 150.25015259 -420.98028564
+		 150.25015259 -434.96810913 150.25015259 -448.95596313 150.25015259 -462.94378662
+		 150.25015259 -476.93161011 164.23797607 -365.028991699 164.23797607 -379.016815186
+		 164.23797607 -393.0046386719 164.23797607 -406.99246216 164.23797607 -420.98028564
+		 164.23797607 -434.96810913 164.23797607 -448.95596313 164.23797607 -462.94378662
+		 164.23797607 -476.93161011 178.22579956 -351.041168213 178.22579956 -365.028991699
+		 178.22579956 -379.016815186 178.22579956 -393.0046386719 178.22579956 -406.99246216
+		 178.22579956 -420.98028564 178.22579956 -434.96810913 178.22579956 -448.95596313
+		 178.22579956 -462.94378662 192.21363831 -351.041168213 192.21363831 -365.028991699
+		 192.21363831 -379.016815186 192.21363831 -393.0046386719 192.21363831 -406.99246216
+		 192.21363831 -420.98028564 192.21363831 -434.96810913 192.21363831 -448.95596313
+		 192.21363831 -462.94378662 206.20146179 -337.053344727 206.20146179 -351.041168213;
+	setAttr ".uvtk[1000:1249]" 206.20146179 -365.028991699 206.20146179 -379.016815186
+		 206.20146179 -393.0046386719 206.20146179 -406.99246216 206.20146179 -420.98028564
+		 206.20146179 -434.96810913 206.20146179 -448.95596313 220.18928528 -337.053344727
+		 220.18928528 -351.041168213 220.18928528 -365.028991699 220.18928528 -379.016815186
+		 220.18928528 -393.0046386719 220.18928528 -406.99246216 220.18928528 -420.98028564
+		 220.18928528 -434.96810913 220.18928528 -448.95596313 234.17710876 -323.06552124
+		 234.17710876 -337.053344727 234.17710876 -351.041168213 234.17710876 -365.028991699
+		 234.17710876 -379.016815186 234.17710876 -393.0046386719 234.17710876 -406.99246216
+		 234.17710876 -420.98028564 234.17710876 -434.96810913 248.16493225 -323.06552124
+		 248.16493225 -337.053344727 248.16493225 -351.041168213 248.16493225 -365.028991699
+		 248.16493225 -379.016815186 248.16493225 -393.0046386719 248.16493225 -406.99246216
+		 248.16493225 -420.98028564 262.152771 -309.077667236 262.152771 -323.06552124 262.152771
+		 -337.053344727 262.152771 -351.041168213 262.152771 -365.028991699 262.152771 -379.016815186
+		 262.152771 -393.0046386719 262.152771 -406.99246216 262.152771 -420.98028564 276.14065552
+		 -309.077667236 276.14065552 -323.06552124 276.14065552 -337.053344727 276.14065552
+		 -351.041168213 276.14065552 -365.028991699 276.14065552 -379.016815186 276.14065552
+		 -393.0046386719 276.14065552 -406.99246216 290.128479 -295.089874268 290.128479 -309.077667236
+		 290.128479 -323.06552124 290.128479 -337.053344727 290.128479 -351.041168213 290.128479
+		 -365.028991699 290.128479 -379.016815186 290.128479 -393.0046386719 290.128479 -406.99246216
+		 304.11630249 -295.089874268 304.11630249 -309.077667236 304.11630249 -323.06552124
+		 304.11630249 -337.053344727 304.11630249 -351.041168213 304.11630249 -365.028991699
+		 304.11630249 -379.016815186 304.11630249 -393.0046386719 318.10424805 -281.10202026
+		 318.10424805 -295.089874268 318.10424805 -309.077667236 318.10424805 -323.06552124
+		 318.10424805 -337.053344727 318.10424805 -351.041168213 318.10424805 -365.028991699
+		 318.10424805 -379.016815186 332.092071533 -281.10202026 332.092071533 -295.089874268
+		 332.092071533 -309.077667236 332.092071533 -323.06552124 332.092071533 -337.053344727
+		 332.092071533 -351.041168213 332.092071533 -365.028991699 332.092071533 -379.016815186
+		 346.07989502 -267.11419678 346.07989502 -281.10202026 346.07989502 -295.089874268
+		 346.07989502 -309.077667236 346.07989502 -323.06552124 346.07989502 -337.053344727
+		 346.07989502 -351.041168213 346.07989502 -365.028991699 360.067718506 -267.11419678
+		 360.067718506 -281.10202026 360.067718506 -295.089874268 360.067718506 -309.077667236
+		 360.067718506 -323.06552124 360.067718506 -337.053344727 360.067718506 -351.041168213
+		 360.067718506 -365.028991699 374.055541992 -253.12637329 374.055541992 -267.11419678
+		 374.055541992 -281.10202026 374.055541992 -295.089874268 374.055541992 -309.077667236
+		 374.055541992 -323.06552124 374.055541992 -337.053344727 374.055541992 -351.041168213
+		 388.043121338 -253.12637329 388.043365479 -267.11419678 388.043365479 -281.10202026
+		 388.043365479 -295.089874268 388.043121338 -309.077667236 388.043365479 -323.06552124
+		 388.043365479 -337.053344727 388.043365479 -351.041168213 402.031188965 -239.1385498
+		 402.031188965 -253.12637329 402.031188965 -267.11419678 402.031188965 -281.10202026
+		 402.031188965 -295.089874268 402.031188965 -309.077667236 402.031188965 -323.06552124
+		 402.031188965 -337.053344727 416.019012451 -239.1385498 416.019012451 -253.12637329
+		 416.018768311 -267.11419678 416.019012451 -281.10202026 416.019012451 -295.089874268
+		 416.019012451 -309.077667236 416.019012451 -323.06552124 430.0068359375 -295.089874268
+		 430.0068359375 -309.077667236 430.0068359375 -323.06552124 122.51551819 -379.016815186
+		 430.17297363 -281.10202026 430.0068359375 -281.10202026 80.39531708 -530.99511719
+		 416.030487061 -225.15084839 421.42175293 -222.42687988 425.16900635 -220.53352356
+		 428.70452881 -234.52134705 430.018310547 -239.71871948 432.24026489 -248.50917053
+		 435.77572632 -262.49700928 439.3114624 -276.48483276 442.84701538 -290.47265625 444.0061340332
+		 -295.058502197 446.38272095 -304.46047974 449.3972168 -316.38711548 445.86019897
+		 -318.44830322 444.0061340332 -319.52865601 440.4147644 -321.62158203 439.61273193
+		 -318.44818115 437.24417114 -309.077789307 436.07723999 -304.46047974 433.7086792
+		 -295.090118408 432.54150391 -290.47265625 430.018310547 -280.49038696 429.0059814453
+		 -276.48483276 426.63748169 -267.11444092 425.47024536 -262.49700928 423.10171509
+		 -253.12649536 421.93475342 -248.50917053 419.56622314 -239.13879395 418.39901733
+		 -234.52134705 430.018310547 -248.50917053 430.018310547 -262.49700928 430.018310547
+		 -276.48483276 444.0061340332 -304.46047974 444.0061340332 -318.44830322 430.18371582
+		 -281.14459229 -439.40930176 -321.62020874 -443.00054931641 -319.52740479 -444.85437012
+		 -318.44692993 -448.39169312 -316.38574219 -445.37701416 -304.45910645 -441.84143066
+		 -290.47128296 -438.30575562 -276.48345947 -434.77020264 -262.49563599 -434.40386963
+		 -261.046203613 -431.23461914 -248.50793457 -427.69894409 -234.52011108 -424.1633606
+		 -220.5322876 -420.41598511 -222.42553711 -415.024841309 -225.14949036 -417.39343262
+		 -234.52011108 -418.56051636 -239.13731384 -420.41598511 -246.47822571 -420.92904663
+		 -248.50793457 -422.096130371 -253.12513733 -424.46466064 -262.49575806 -425.42147827
+		 -266.28091431 -425.6317749 -267.11294556 -428.0002746582 -276.48358154 -429.16738892
+		 -281.10076904 -431.53591919 -290.47128296 -432.70297241 -295.088653564 -434.40380859
+		 -301.81738281 -435.071594238 -304.45910645 -436.23864746 -309.076416016 -438.60726929
+		 -318.44692993 -434.40386963 -276.48358154 -434.40386963 -290.47140503 -420.41598511
+		 -234.52011108 -434.40386963 -262.49563599 -415.024658203 -225.14949036 -411.43341064
+		 -226.96382141 -401.025360107 -232.2225647 -397.44558716 -234.031158447 -387.33938599
+		 -239.13731384 -383.45776367 -241.098495483 -373.049713135 -246.3571167 -369.46994019
+		 -248.16572571 -359.65420532 -253.12513733 -355.48217773 -255.23306274 -345.074066162
+		 -260.49154663 -341.4942627 -262.30026245 -331.96896362 -267.11294556 -331.086242676
+		 -267.55886841 -327.50653076 -269.36758423 -317.098480225 -274.6262207 -313.51861572
+		 -276.43481445 -304.28369141 -281.10076904 -303.11047363 -281.69351196 -299.53082275
+		 -283.50216675 -289.12271118 -288.76074219 -285.54296875 -290.56936646 -276.59844971
+		 -295.088653564 -275.1348877 -295.82794189 -271.55514526 -297.63671875 -261.14700317
+		 -302.89529419 -257.56732178 -304.70388794 -248.91326904 -309.076416016 -247.15922546
+		 -309.96264648 -243.57951355 -311.77124023 -233.17140198 -317.029846191 -229.59169006
+		 -318.83843994 -221.22801208 -323.064300537 -219.18351746 -324.097167969 -215.60386658
+		 -325.90579224 -205.195755 -331.16439819 -201.61604309 -332.97299194 -193.54275513
+		 -337.052124023 -191.20796204 -338.23175049 -187.62825012 -340.040344238 -177.22012329
+		 -345.2989502 -173.64039612 -347.10754395 -165.8575592 -351.03994751 -163.23226929
+		 -352.36630249 -159.65257263 -354.17489624;
+	setAttr ".uvtk[1250:1499]" -149.24450684 -359.43353271 -145.66473389 -361.2421875
+		 -138.17230225 -365.027770996 -135.25662231 -366.50085449 -131.6769104 -368.30944824
+		 -124.9152832 -371.72579956 -121.50986481 -379.015472412 -119.019050598 -384.34750366
+		 -117.68909454 -387.19439697 -114.97544861 -393.0034179688 -111.40836334 -400.63922119
+		 -108.44104004 -406.99124146 -106.090270996 -412.023223877 -103.70127106 -417.13717651
+		 -101.90658569 -420.97906494 -96.90688324 -431.68167114 -96.67350006 -433.0047302246
+		 -96.32740784 -434.96676636 -94.20626831 -446.99243164 -93.86016083 -448.95471191
+		 -91.39291382 -462.9425354 -89.71344757 -472.46429443 -88.92566681 -476.93035889 -86.45846558
+		 -490.91821289 -83.99118805 -504.90600586 -81.52397919 -518.89379883 -79.80610657
+		 -528.63311768 -79.30526733 -531.47253418 -89.71344757 -525.40704346 -93.29309082
+		 -523.32098389 -100.8900528 -518.89379883 -103.70127106 -517.25561523 -107.28094482
+		 -515.16955566 -117.68909454 -509.10412598 -121.26877594 -507.017913818 -124.89302826
+		 -504.90600586 -131.6769104 -500.95257568 -135.2565918 -498.86660767 -145.66473389
+		 -492.80105591 -148.89593506 -490.91821289 -159.65257263 -484.64974976 -163.2322998
+		 -482.5635376 -172.89891052 -476.93035889 -173.64039612 -476.49810791 -177.22009277
+		 -474.41207886 -187.6282196 -468.34667969 -191.20793152 -466.26071167 -196.90184021
+		 -462.9425354 -201.61604309 -460.19515991 -205.195755 -458.10906982 -215.60389709
+		 -452.043792725 -219.18357849 -449.95776367 -220.90473938 -448.95471191 -229.59169006
+		 -443.89221191 -233.17146301 -441.80612183 -243.57951355 -435.74090576 -244.072219849
+		 -435.45376587 -244.90763855 -434.96688843 -257.56732178 -427.58926392 -261.14700317
+		 -425.50317383 -268.91061401 -420.97906494 -271.5552063 -419.43789673 -275.1348877
+		 -417.35186768 -285.54302979 -411.28634644 -289.12271118 -409.20025635 -292.91348267
+		 -406.99124146 -299.53082275 -403.13494873 -303.11053467 -401.048919678 -313.51861572
+		 -394.98339844 -316.91641235 -393.0034179688 -327.50646973 -386.83200073 -331.086364746
+		 -384.74572754 -341.4942627 -378.68045044 -345.074188232 -376.59436035 -355.4821167
+		 -370.52905273 -359.062011719 -368.44271851 -364.92233276 -365.027770996 -369.47000122
+		 -362.37750244 -373.049835205 -360.29141235 -383.45776367 -354.22610474 -387.037658691
+		 -352.13995361 -388.92523193 -351.03994751 -397.44564819 -346.074493408 -401.025482178
+		 -343.98846436 -411.43341064 -337.92315674 -412.057434082 -337.55944824 -412.9281311
+		 -337.052124023 -425.42129517 -329.77154541 -429.0011291504 -327.68551636 -436.93106079
+		 -323.064300537 -439.40905762 -321.62020874 -438.60702515 -318.44692993 -436.23846436
+		 -309.076416016 -435.071411133 -304.45922852 -434.40362549 -301.81738281 -432.70278931
+		 -295.088653564 -431.53573608 -290.47128296 -429.16720581 -281.10076904 -428.00015258789
+		 -276.48358154 -425.6315918 -267.11282349 -425.42123413 -266.28091431 -424.46447754
+		 -262.49563599 -422.095947266 -253.12513733 -420.92886353 -248.50793457 -420.415802
+		 -246.47822571 -418.56027222 -239.13731384 -417.39318848 -234.51998901 -425.42123413
+		 -281.10076904 -425.42129517 -295.088653564 -425.42123413 -309.076416016 -425.42123413
+		 -323.064300537 -411.43341064 -239.13731384 -411.43341064 -253.12513733 -411.43341064
+		 -267.11294556 -411.43341064 -281.10076904 -411.43341064 -295.088653564 -411.43341064
+		 -309.076416016 -411.43341064 -323.064300537 -411.43341064 -337.052124023 -397.44558716
+		 -239.13731384 -397.44558716 -253.12513733 -397.44558716 -267.11294556 -397.44558716
+		 -281.10076904 -397.44564819 -295.088653564 -397.44558716 -309.076416016 -397.44558716
+		 -323.064300537 -397.44558716 -337.052124023 -383.45776367 -253.12513733 -383.45782471
+		 -267.11294556 -383.45776367 -281.10076904 -383.45776367 -295.088653564 -383.45776367
+		 -309.076416016 -383.45776367 -323.064300537 -383.45776367 -337.052124023 -383.45776367
+		 -351.03994751 -369.46994019 -253.12513733 -369.47000122 -267.11294556 -369.46994019
+		 -281.10076904 -369.46994019 -295.088653564 -369.46994019 -309.076416016 -369.46994019
+		 -323.064300537 -369.46994019 -337.052124023 -369.46994019 -351.03994751 -355.4821167
+		 -267.11294556 -355.4821167 -281.10076904 -355.4821167 -295.088653564 -355.4821167
+		 -309.076416016 -355.4821167 -323.064300537 -355.4821167 -337.052124023 -355.4821167
+		 -351.03994751 -355.4821167 -365.027770996 -341.4942627 -267.11294556 -341.4942627
+		 -281.10076904 -341.4942627 -295.088653564 -341.4942627 -309.076416016 -341.4942627
+		 -323.064300537 -341.4942627 -337.052124023 -341.4942627 -351.03994751 -341.4942627
+		 -365.027770996 -327.50646973 -281.10076904 -327.50646973 -295.088653564 -327.50646973
+		 -309.076416016 -327.50646973 -323.064300537 -327.50646973 -337.052124023 -327.50646973
+		 -351.03994751 -327.50646973 -365.027770996 -327.50646973 -379.015594482 -313.51861572
+		 -281.10076904 -313.51861572 -295.088653564 -313.51861572 -309.076416016 -313.51861572
+		 -323.064300537 -313.51861572 -337.052124023 -313.51861572 -351.03994751 -313.51861572
+		 -365.027770996 -313.51861572 -379.015594482 -313.51861572 -393.0034179688 -299.53082275
+		 -295.088653564 -299.53082275 -309.076416016 -299.53082275 -323.064300537 -299.53082275
+		 -337.052124023 -299.53082275 -351.03994751 -299.53082275 -365.027770996 -299.53082275
+		 -379.015594482 -299.53082275 -393.0034179688 -285.54296875 -295.088653564 -285.54296875
+		 -309.076416016 -285.54296875 -323.064300537 -285.54296875 -337.052124023 -285.54296875
+		 -351.03994751 -285.54296875 -365.027770996 -285.54296875 -379.015594482 -285.54296875
+		 -393.0034179688 -285.54296875 -406.99124146 -271.55514526 -309.076416016 -271.55514526
+		 -323.064300537 -271.55514526 -337.052124023 -271.55514526 -351.03994751 -271.55514526
+		 -365.027770996 -271.55514526 -379.015594482 -271.55514526 -393.0034179688 -271.55514526
+		 -406.99124146 -257.56732178 -309.076416016 -257.56732178 -323.064300537 -257.56732178
+		 -337.052124023 -257.56732178 -351.03994751 -257.56732178 -365.027770996 -257.56732178
+		 -379.015594482 -257.56732178 -393.0034179688 -257.56732178 -406.99124146 -257.56732178
+		 -420.97906494 -243.57951355 -323.064300537 -243.57951355 -337.052124023 -243.57951355
+		 -351.03994751 -243.57951355 -365.027770996 -243.57951355 -379.015594482 -243.57951355
+		 -393.0034179688 -243.57951355 -406.99124146 -243.57951355 -420.97906494 -243.57951355
+		 -434.96688843 -229.59169006 -323.064300537 -229.59169006 -337.052124023 -229.59169006
+		 -351.03994751 -229.59169006 -365.027770996 -229.59169006 -379.015594482 -229.59169006
+		 -393.0034179688 -229.59169006 -406.99124146 -229.59169006 -420.97906494 -229.59169006
+		 -434.96688843 -215.60386658 -337.052124023 -215.60386658 -351.03994751 -215.60386658
+		 -365.027770996 -215.60386658 -379.015594482 -215.60386658 -393.0034179688 -215.60386658
+		 -406.99124146 -215.60386658 -420.97906494 -215.60386658 -434.96688843 -215.60386658
+		 -448.95471191 -201.61604309 -337.052124023 -201.61604309 -351.03994751 -201.61604309
+		 -365.027770996 -201.61604309 -379.015594482 -201.61604309 -393.0034179688 -201.61604309
+		 -406.99124146 -201.61604309 -420.97906494 -201.61604309 -434.96688843 -201.61604309
+		 -448.95471191 -187.6282196 -351.03994751 -187.6282196 -365.027770996 -187.6282196
+		 -379.015594482 -187.6282196 -393.0034179688;
+	setAttr ".uvtk[1500:1749]" -187.6282196 -406.99124146 -187.6282196 -420.97906494
+		 -187.6282196 -434.96688843 -187.6282196 -448.95471191 -187.6282196 -462.9425354 -173.64039612
+		 -351.03994751 -173.64039612 -365.027770996 -173.64039612 -379.015594482 -173.64039612
+		 -393.0034179688 -173.64039612 -406.99124146 -173.64039612 -420.97906494 -173.64039612
+		 -434.96688843 -173.64039612 -448.95471191 -173.64039612 -462.9425354 -159.65257263
+		 -365.027770996 -159.65257263 -379.015594482 -159.65257263 -393.0034179688 -159.65257263
+		 -406.99124146 -159.65257263 -420.97906494 -159.65257263 -434.96688843 -159.65257263
+		 -448.95471191 -159.65257263 -462.9425354 -159.65257263 -476.93035889 -145.66473389
+		 -365.027770996 -145.66473389 -379.015594482 -145.66473389 -393.0034179688 -145.66473389
+		 -406.99124146 -145.66473389 -420.97906494 -145.66473389 -434.96688843 -145.66473389
+		 -448.95471191 -145.66473389 -462.9425354 -145.66473389 -476.93035889 -145.66473389
+		 -490.91821289 -131.6769104 -379.015594482 -131.6769104 -393.0034179688 -131.6769104
+		 -406.99124146 -131.6769104 -420.97906494 -131.6769104 -434.96688843 -131.6769104
+		 -448.95471191 -131.6769104 -462.9425354 -131.6769104 -476.93035889 -131.6769104 -490.91821289
+		 -117.68909454 -393.0034179688 -117.68909454 -406.99124146 -117.68909454 -420.97906494
+		 -117.68909454 -434.96688843 -117.68909454 -448.95471191 -117.68909454 -462.9425354
+		 -117.68909454 -476.93035889 -117.68909454 -490.91821289 -117.68909454 -504.90600586
+		 -103.70127106 -420.97906494 -103.70127106 -434.96688843 -103.70127106 -448.95471191
+		 -103.70127106 -462.9425354 -103.70127106 -476.93035889 -103.70127106 -490.91821289
+		 -103.70127106 -504.90600586 -89.71344757 -476.93035889 -89.71344757 -490.91821289
+		 -89.71344757 -504.90600586 -89.71344757 -518.89379883 -425.42123413 -267.11282349
+		 -79.38969421 -530.99395752 -15.49546623 -491.74185181 -8.67594719 -499.91516113 -8.13772774
+		 -500.56011963 -6.14783669 -502.94497681 -3.036850929 -506.67355347 2.69029689 -513.53765869
+		 5.52328014 -516.93280029 10.95097637 -523.43792725 14.89927578 -528.17010498 17.19438934
+		 -530.92071533 21.78659248 -536.42449951 24.91640472 -536.15985107 38.9266243 -534.97460938
+		 52.91445541 -533.79144287 66.90229034 -532.6081543 80.3111496 -531.47393799 80.89011383
+		 -528.19158936 82.87596893 -516.93280029 85.34320831 -502.94497681 87.81045532 -488.95727539
+		 89.60951996 -478.75741577 90.27767181 -474.96932983 92.74490356 -460.98150635 94.87793732
+		 -448.88851929 95.21215057 -446.99368286 97.33329773 -434.96798706 97.67938995 -433.005859375
+		 97.91275024 -431.68280029 103.87590027 -422.4937439 106.1313858 -419.018035889 108.8657608
+		 -414.80450439 111.66950226 -410.48394775 115.20863342 -405.030212402 119.46308136
+		 -398.47427368 122.85359955 -393.24942017 124.28585815 -391.042388916 127.25668335
+		 -386.4644165 131.31832886 -380.20562744 133.36309814 -377.0546875 136.82023621 -371.72714233
+		 137.61230469 -363.066741943 138.89164734 -349.078918457 140.17095947 -335.091156006
+		 141.45030212 -321.10327148 142.72961426 -307.11550903 144.0089569092 -293.12756348
+		 145.28826904 -279.13973999 146.56758118 -265.1519165 147.84690857 -251.16409302 149.1262207
+		 -237.1763916 150.40553284 -223.18855286 150.82923889 -218.55586243 151.68487549 -209.20072937
+		 152.96418762 -195.21284485 154.24353027 -181.22502136 155.52284241 -167.23719788
+		 156.80215454 -153.24931335 158.081497192 -139.2615509 159.36082458 -125.27366638
+		 160.64012146 -111.28590393 161.91944885 -97.29814148 163.1987915 -83.3102417 164.47810364
+		 -69.32241821 164.81706238 -65.61629486 165.75744629 -55.33465195 167.036758423 -41.34676743
+		 168.31610107 -27.35893631 169.59541321 -13.37117386 170.87472534 0.61671484 172.15406799
+		 14.60460186 173.43338013 28.59236908 174.71269226 42.58019638 175.99203491 56.5680809
+		 177.27134705 70.55584717 178.55070496 84.54360962 178.80488586 87.32329559 179.82998657
+		 98.53149414 181.10932922 112.51931763 182.38867188 126.50715637 183.66798401 140.49499512
+		 184.94732666 154.48287964 186.22663879 168.47064209 187.50595093 182.45840454 188.78527832
+		 196.44636536 190.064590454 210.43418884 191.34390259 224.42195129 192.62324524 238.40977478
+		 192.79270935 240.26278687 193.90255737 252.3976593 195.18186951 266.38534546 196.46121216
+		 280.37316895 197.74055481 294.36114502 199.019866943 308.34890747 200.29917908 322.33666992
+		 201.57852173 336.32455444 202.85784912 350.31240845 204.13716125 364.30010986 205.41647339
+		 378.28799438 206.7805481 393.20248413 207.97512817 406.26361084 209.25447083 420.25158691
+		 210.53378296 434.23931885 211.81312561 448.22717285 213.092407227 462.21490479 214.37174988
+		 476.20281982 215.65109253 490.19064331 216.93040466 504.17855835 218.20973206 518.16625977
+		 219.48905945 532.15405273 220.76837158 546.14196777 206.78125 546.042907715 192.79408264
+		 545.94390869 178.80696106 545.84490967 164.81993103 545.74584961 150.83283997 545.64685059
+		 108.86573029 545.34973145 94.87792206 545.25073242 80.88994598 545.1517334 66.90229034
+		 545.05267334 52.91445541 544.95373535 38.9266243 544.85467529 24.93881607 544.75561523
+		 10.95099163 544.65661621 -3.036820412 544.55755615 -17.024646759 544.45855713 -31.012475967
+		 544.35955811 -45.00043487549 544.26043701 -58.98825836 544.16149902 -60.17703247
+		 544.15307617 -60.17703247 532.1541748 -60.17703247 518.16638184 -60.17703247 504.17852783
+		 -60.17703247 490.19073486 -60.17703247 476.20294189 -60.17703247 462.21499634 -60.17703247
+		 448.22729492 -60.17703247 434.2394104 -60.17703247 420.25152588 -60.17703247 406.26382446
+		 -60.17703247 392.27597046 -60.17703247 378.28808594 -60.17703247 364.300354 -60.17703247
+		 350.31253052 -60.17703247 336.324646 -60.17703247 322.33691406 -60.17703247 308.34899902
+		 -60.17703247 294.36114502 -60.17703247 280.37341309 -60.17703247 266.38534546 -60.17703629
+		 252.39772034 -60.17702866 238.40983582 -60.17703247 224.42195129 -60.17703247 210.43418884
+		 -60.17703247 196.44630432 -60.17703247 182.45846558 -60.17703247 168.47076416 -60.17703247
+		 154.48287964 -60.17703247 140.49499512 -60.17703247 126.50721741 -60.17703247 112.51937866
+		 -60.17703247 98.53149414 -60.17703247 84.54379272 -60.17703247 70.5559082 -60.17703247
+		 56.56801987 -60.17703247 42.58031845 -60.17703247 28.59230804 -60.17703247 14.60460186
+		 -60.17703247 0.61689782 -60.17703247 -13.37117386 -60.17703247 -27.35887527 -60.17703247
+		 -41.34664536 -60.17703247 -55.33452988 -60.17703247 -69.32235718 -60.17703247 -83.31005859
+		 -60.17703247 -97.29801941 -60.17703247 -111.28590393 -60.17703247 -125.27372742 -60.17703247
+		 -139.26148987 -60.17703247 -153.24931335 -60.17703247 -167.23719788 -60.17703247
+		 -181.22489929 -60.17703247 -195.21278381 -60.17703247 -209.2006073 -60.17703247 -223.18855286
+		 -60.17703247 -237.17626953 -60.17703247 -251.16409302;
+	setAttr ".uvtk[1750:1999]" -60.17703247 -265.15203857 -60.17703247 -279.13973999
+		 -60.17703247 -293.12756348 -60.17703247 -307.11538696 -60.17703247 -321.10327148
+		 -60.17703247 -335.091033936 -60.17703247 -349.078918457 -60.17703247 -363.066802979
+		 -60.17703247 -377.05456543 -60.17703247 -391.042388916 -60.17703247 -405.030334473
+		 -60.17703247 -419.018035889 -60.17703247 -433.005859375 -60.17703247 -446.99380493
+		 -60.17703247 -458.71343994 -58.98814392 -459.59231567 -57.10871887 -460.98162842
+		 -51.1961937 -465.3520813 -45.00038528442 -469.9319458 -41.72397614 -472.35391235
+		 -38.18579865 -474.96932983 -31.01250267 -480.27182007 -23.22054863 -486.031616211
+		 -22.33095741 -486.68908691 -19.26264572 -488.95715332 -17.024738312 -490.61148071
+		 206.7805481 532.15411377 206.7805481 518.1663208 206.7805481 504.17852783 206.7805481
+		 490.19064331 206.7805481 476.20291138 206.7805481 462.21502686 206.7805481 448.22720337
+		 206.7805481 434.23934937 206.7805481 420.2515564 206.7805481 406.26373291 192.79270935
+		 532.15411377 192.79270935 518.1663208 192.79270935 504.17852783 192.79270935 490.19064331
+		 192.79270935 476.20291138 192.79273987 462.21502686 192.79270935 448.22720337 192.79270935
+		 434.23934937 192.79270935 420.2515564 192.79270935 406.26373291 192.79270935 392.27590942
+		 192.79270935 378.28808594 192.79270935 364.30026245 192.79270935 350.31243896 192.79270935
+		 336.32458496 192.79270935 322.33679199 192.79270935 308.34893799 192.79270935 294.36114502
+		 192.79270935 280.37329102 192.79270935 266.38546753 192.79270935 252.3976593 178.80488586
+		 532.15411377 178.80491638 518.1663208 178.80488586 504.17852783 178.80488586 490.19064331
+		 178.80488586 476.20291138 178.80488586 462.21502686 178.80488586 448.22720337 178.80488586
+		 434.23934937 178.80488586 420.2515564 178.80488586 406.26373291 178.80488586 392.27590942
+		 178.80488586 378.28808594 178.80491638 364.30026245 178.80488586 350.31243896 178.80491638
+		 336.32458496 178.80488586 322.33679199 178.80488586 308.34893799 178.80488586 294.36114502
+		 178.80488586 280.37329102 178.80488586 266.38546753 178.80488586 252.3976593 178.80488586
+		 238.40983582 178.80488586 224.42201233 178.80488586 210.43418884 178.80488586 196.44636536
+		 178.80488586 182.45852661 178.80488586 168.47064209 178.80488586 154.48287964 178.80488586
+		 140.49505615 178.80488586 126.50715637 178.80488586 112.51937866 178.80488586 98.53155518
+		 164.81706238 532.15411377 164.8170929 518.1663208 164.81706238 504.17852783 164.81706238
+		 490.19064331 164.81706238 476.20291138 164.81706238 462.21502686 164.81706238 448.22720337
+		 164.81706238 434.23934937 164.81706238 420.2515564 164.81706238 406.26373291 164.81706238
+		 392.27590942 164.8170929 378.28808594 164.81706238 364.30026245 164.81706238 350.31243896
+		 164.81706238 336.32458496 164.81706238 322.33679199 164.81706238 308.34893799 164.81706238
+		 294.36114502 164.81706238 280.37329102 164.81706238 266.38546753 164.81706238 252.3976593
+		 164.81706238 238.40983582 164.81706238 224.42201233 164.81706238 210.43418884 164.81706238
+		 196.44636536 164.81706238 182.45852661 164.81706238 168.47064209 164.81706238 154.48287964
+		 164.81706238 140.49505615 164.81706238 126.50715637 164.81706238 112.51937866 164.81706238
+		 98.53155518 164.81706238 84.54373169 164.81706238 70.5559082 164.81706238 56.56801987
+		 164.81706238 42.58019638 164.81706238 28.59236908 164.81706238 14.60460186 164.81706238
+		 0.61677587 164.81706238 -13.37105179 164.81706238 -27.35893631 164.81706238 -41.34676743
+		 164.81706238 -55.33459091 150.82923889 532.15411377 150.82923889 518.1663208 150.82923889
+		 504.17852783 150.82923889 490.19064331 150.82923889 476.20291138 150.82923889 462.21502686
+		 150.82923889 448.22720337 150.82923889 434.23934937 150.82923889 420.2515564 150.82923889
+		 406.26373291 150.82923889 392.27590942 150.82923889 378.28808594 150.82923889 364.30026245
+		 150.82923889 350.31243896 150.82923889 336.32458496 150.82923889 322.33679199 150.82923889
+		 308.34893799 150.82923889 294.36114502 150.82923889 280.37329102 150.82923889 266.38546753
+		 150.82923889 252.3976593 150.82923889 238.40983582 150.82923889 224.42201233 150.82923889
+		 210.43418884 150.82923889 196.44636536 150.82923889 182.45852661 150.82923889 168.47064209
+		 150.82923889 154.48287964 150.82923889 140.49505615 150.82923889 126.50715637 150.82923889
+		 112.51937866 150.82923889 98.53155518 150.82923889 84.54373169 150.82923889 70.5559082
+		 150.82923889 56.56801987 150.82923889 42.58019638 150.82923889 28.59236908 150.82923889
+		 14.60460186 150.82923889 0.61677587 150.82923889 -13.37105179 150.82923889 -27.35893631
+		 150.82923889 -41.34676743 150.82923889 -55.33459091 150.82923889 -69.32235718 150.82923889
+		 -83.31018066 150.82923889 -97.29801941 150.82923889 -111.28590393 150.82923889 -125.27366638
+		 150.82923889 -139.26148987 150.82923889 -153.24931335 150.82923889 -167.23713684
+		 150.82923889 -181.22496033 150.82923889 -195.21278381 150.82923889 -209.20066833
+		 136.84141541 532.15411377 136.84141541 518.1663208 136.84141541 504.17852783 136.84141541
+		 490.19064331 136.84141541 476.20291138 136.84141541 462.21502686 136.84141541 448.22720337
+		 136.84141541 434.23934937 136.84141541 420.2515564 136.84141541 406.26373291 136.84141541
+		 392.27590942 136.84141541 378.28808594 136.84141541 364.30026245 136.84141541 350.31243896
+		 136.84141541 336.32458496 136.84141541 322.33679199 136.84141541 308.34893799 136.84141541
+		 294.36114502 136.84141541 280.37329102 136.84141541 266.38546753 136.84141541 252.3976593
+		 136.84141541 238.40983582 136.84141541 224.42201233 136.84141541 210.43418884 136.84141541
+		 196.44636536 136.84141541 182.45852661 136.84141541 168.47064209 136.84141541 154.48287964
+		 136.84141541 140.49505615 136.84141541 126.50715637 136.84141541 112.51937866 136.84141541
+		 98.53155518 136.84141541 84.54373169 136.84141541 70.5559082 136.84141541 56.56801987
+		 136.84141541 42.58019638 136.84141541 28.59236908 136.84141541 14.60460186 136.84141541
+		 0.61677587 136.84141541 -13.37105179 136.84141541 -27.35893631 136.84141541 -41.34676743
+		 136.84141541 -55.33459091 136.84141541 -69.32235718 136.84141541 -83.31018066 136.84141541
+		 -97.29801941 136.84141541 -111.28590393 136.84141541 -125.27366638 136.84141541 -139.26148987
+		 136.84141541 -153.24931335 136.84141541 -167.23713684 136.84141541 -181.22496033
+		 136.84141541 -195.21278381 136.84141541 -209.20066833 136.84141541 -223.18843079
+		 136.84141541 -237.17626953 136.84141541 -251.16409302 136.84141541 -265.1519165 136.84141541
+		 -279.13973999 136.84141541 -293.12768555 136.84141541 -307.11550903 136.84141541
+		 -321.10327148 136.84141541 -335.091033936 136.84141541 -349.078918457;
+	setAttr ".uvtk[2000:2249]" 136.84141541 -363.066741943 122.85359955 532.15411377
+		 122.85359955 518.1663208 122.85359955 504.17852783 122.85359955 490.19064331 122.85359955
+		 476.20291138 122.85359955 462.21502686 122.85359955 448.22720337 122.85359955 434.23934937
+		 122.85359955 420.2515564 122.85359955 406.26373291 122.85359955 392.27590942 122.85359955
+		 378.28808594 122.85359955 364.30026245 122.85359955 350.31243896 122.85359955 336.32458496
+		 122.85359955 322.33679199 122.85359955 308.34893799 122.85359955 294.36114502 122.85359955
+		 280.37329102 122.85359955 266.38546753 122.85359955 252.3976593 122.85359955 238.40983582
+		 122.85359955 224.42201233 122.85359955 210.43418884 122.85359955 196.44636536 122.85359955
+		 182.45852661 122.85359955 168.47064209 122.85359955 154.48287964 122.85359955 140.49505615
+		 122.85359955 126.50715637 122.85359955 112.51937866 122.85359955 98.53155518 122.85359955
+		 84.54373169 122.85359955 70.5559082 122.85359955 56.56801987 122.85359955 42.58019638
+		 122.85359955 28.59236908 122.85359955 14.60460186 122.85359955 0.61677587 122.85359955
+		 -13.37105179 122.85359955 -27.35893631 122.85359955 -41.34676743 122.85359955 -55.33459091
+		 122.85359955 -69.32235718 122.85359955 -83.31018066 122.85359955 -97.29801941 122.85359955
+		 -111.28590393 122.85359955 -125.27366638 122.85359955 -139.26148987 122.85359955
+		 -153.24931335 122.85359955 -167.23713684 122.85359955 -181.22496033 122.85359955
+		 -195.21278381 122.85359955 -209.20066833 122.85359955 -223.18843079 122.85359955
+		 -237.17626953 122.85359955 -251.16409302 122.85359955 -265.1519165 122.85359955 -279.13973999
+		 122.85359955 -293.12768555 122.85359955 -307.11550903 122.85359955 -321.10327148
+		 122.85359955 -335.091033936 122.85359955 -349.078918457 122.85359955 -363.066741943
+		 122.85359955 -377.0546875 122.85359955 -391.042388916 108.8657608 532.15411377 108.8657608
+		 518.1663208 108.8657608 504.17852783 108.8657608 490.19064331 108.8657608 476.20291138
+		 108.8657608 462.21502686 108.8657608 448.22720337 108.8657608 434.23934937 108.8657608
+		 420.2515564 108.8657608 406.26373291 108.8657608 392.27590942 108.8657608 378.28808594
+		 108.8657608 364.30026245 108.8657608 350.31243896 108.8657608 336.32458496 108.8657608
+		 322.33679199 108.8657608 308.34893799 108.8657608 294.36114502 108.8657608 280.37329102
+		 108.8657608 266.38546753 108.8657608 252.3976593 108.8657608 238.40983582 108.8657608
+		 224.42201233 108.8657608 210.43418884 108.8657608 196.44636536 108.8657608 182.45852661
+		 108.8657608 168.47064209 108.8657608 154.48287964 108.8657608 140.49505615 108.8657608
+		 126.50715637 108.8657608 112.51937866 108.8657608 98.53155518 108.8657608 84.54373169
+		 108.8657608 70.5559082 108.8657608 56.56801987 108.8657608 42.58019638 108.8657608
+		 28.59236908 108.8657608 14.60460186 108.8657608 0.61677587 108.8657608 -13.37105179
+		 108.8657608 -27.35893631 108.8657608 -41.34676743 108.8657608 -55.33459091 108.8657608
+		 -69.32235718 108.8657608 -83.31018066 108.8657608 -97.29801941 108.8657608 -111.28590393
+		 108.8657608 -125.27366638 108.8657608 -139.26148987 108.8657608 -153.24931335 108.8657608
+		 -167.23713684 108.8657608 -181.22496033 108.8657608 -195.21278381 108.8657608 -209.20066833
+		 108.8657608 -223.18843079 108.8657608 -237.17626953 108.8657608 -251.16409302 108.8657608
+		 -265.1519165 108.8657608 -279.13973999 108.8657608 -293.12768555 108.8657608 -307.11550903
+		 108.8657608 -321.10327148 108.8657608 -335.091033936 108.8657608 -349.078918457 108.8657608
+		 -363.066741943 108.8657608 -377.0546875 108.8657608 -391.042388916 108.8657608 -405.030212402
+		 94.87793732 532.15411377 94.87793732 518.1663208 94.87793732 504.17852783 94.87793732
+		 490.19064331 94.87793732 476.20291138 94.87793732 462.21502686 94.87793732 448.22720337
+		 94.87793732 434.23934937 94.87793732 420.2515564 94.87793732 406.26373291 94.87793732
+		 392.27590942 94.87793732 378.28808594 94.87793732 364.30026245 94.87793732 350.31243896
+		 94.87793732 336.32458496 94.87793732 322.33679199 94.87793732 308.34893799 94.87793732
+		 294.36114502 94.87793732 280.37329102 94.87793732 266.38546753 94.87793732 252.3976593
+		 94.87793732 238.40983582 94.87793732 224.42201233 94.87793732 210.43418884 94.87793732
+		 196.44636536 94.87793732 182.45852661 94.87793732 168.47064209 94.87793732 154.48287964
+		 94.87793732 140.49505615 94.87793732 126.50715637 94.87793732 112.51937866 94.87793732
+		 98.53155518 94.87793732 84.54373169 94.87793732 70.5559082 94.87793732 56.56801987
+		 94.87793732 42.58019638 94.87793732 28.59236908 94.87793732 14.60460186 94.87793732
+		 0.61677587 94.87793732 -13.37105179 94.87793732 -27.35893631 94.87793732 -41.34676743
+		 94.87793732 -55.33459091 94.87793732 -69.32235718 94.87793732 -83.31018066 94.87793732
+		 -97.29801941 94.87793732 -111.28590393 94.87793732 -125.27366638 94.87793732 -139.26148987
+		 94.87793732 -153.24931335 94.87793732 -167.23713684 94.87793732 -181.22496033 94.87793732
+		 -195.21278381 94.87793732 -209.20066833 94.87793732 -223.18843079 94.87793732 -237.17626953
+		 94.87793732 -251.16409302 94.87793732 -265.1519165 94.87793732 -279.13973999 94.87793732
+		 -293.12768555 94.87793732 -307.11550903 94.87793732 -321.10327148 94.87793732 -335.091033936
+		 94.87793732 -349.078918457 94.87793732 -363.066741943 94.87793732 -377.0546875 94.87793732
+		 -391.042388916 94.87793732 -405.030212402 94.87793732 -419.018157959 94.87793732
+		 -433.0059814453 80.89011383 532.15411377 80.89011383 518.1663208 80.89011383 504.17852783
+		 80.89011383 490.19064331 80.89011383 476.20291138 80.89011383 462.21502686 80.89011383
+		 448.22720337 80.89011383 434.23934937 80.89011383 420.2515564 80.89011383 406.26373291
+		 80.89011383 392.27590942 80.89011383 378.28808594 80.89011383 364.30026245 80.89011383
+		 350.31243896 80.89011383 336.32458496 80.89011383 322.33679199 80.89011383 308.34893799
+		 80.89011383 294.36114502 80.89011383 280.37329102 80.89011383 266.38546753 80.89011383
+		 252.3976593 80.89011383 238.40983582 80.89011383 224.42201233 80.89011383 210.43418884
+		 80.89011383 196.44636536 80.89011383 182.45852661 80.89011383 168.47064209 80.89011383
+		 154.48287964 80.89011383 140.49505615 80.89011383 126.50715637 80.89011383 112.51937866
+		 80.89011383 98.53155518 80.89011383 84.54373169 80.89011383 70.5559082 80.89011383
+		 56.56801987 80.89011383 42.58019638 80.89011383 28.59236908 80.89011383 14.60460186
+		 80.89011383 0.61677587 80.89011383 -13.37105179 80.89011383 -27.35893631 80.89011383
+		 -41.34676743 80.89011383 -55.33459091 80.89011383 -69.32235718;
+	setAttr ".uvtk[2250:2499]" 80.89011383 -83.31018066 80.89011383 -97.29801941
+		 80.89011383 -111.28590393 80.89011383 -125.27366638 80.89011383 -139.26148987 80.89011383
+		 -153.24931335 80.89011383 -167.23713684 80.89011383 -181.22496033 80.89011383 -195.21278381
+		 80.89011383 -209.20066833 80.89011383 -223.18843079 80.89011383 -237.17626953 80.89011383
+		 -251.16409302 80.89011383 -265.1519165 80.89011383 -279.13973999 80.89011383 -293.12768555
+		 80.89011383 -307.11550903 80.89011383 -321.10327148 80.89011383 -335.091033936 80.89011383
+		 -349.078918457 80.89011383 -363.066741943 80.89011383 -377.0546875 80.89011383 -391.042388916
+		 80.89011383 -405.030212402 80.89011383 -419.018157959 80.89011383 -433.0059814453
+		 80.89011383 -446.99380493 80.89011383 -460.98150635 80.89011383 -474.96932983 80.89011383
+		 -488.95715332 80.89011383 -502.94497681 80.89011383 -516.93280029 66.90229034 532.15411377
+		 66.90229034 518.1663208 66.90229034 504.17852783 66.90229034 490.19064331 66.90229034
+		 476.20291138 66.90229034 462.21502686 66.90229034 448.22720337 66.90229034 434.23934937
+		 66.90229034 420.2515564 66.90229034 406.26373291 66.90229034 392.27590942 66.90229034
+		 378.28808594 66.90229034 364.30026245 66.90229034 350.31243896 66.90229034 336.32458496
+		 66.90229034 322.33679199 66.90229034 308.34893799 66.90229034 294.36114502 66.90229034
+		 280.37329102 66.90229034 266.38546753 66.90229034 252.3976593 66.90229034 238.40983582
+		 66.90229034 224.42201233 66.90229034 210.43418884 66.90229034 196.44636536 66.90229034
+		 182.45852661 66.90229034 168.47064209 66.90229034 154.48287964 66.90229034 140.49505615
+		 66.90229034 126.50715637 66.90229034 112.51937866 66.90229034 98.53155518 66.90229034
+		 84.54373169 66.90229034 70.5559082 66.90229034 56.56801987 66.90229034 42.58019638
+		 66.90229034 28.59236908 66.90229034 14.60460186 66.90229034 0.61677587 66.90229034
+		 -13.37105179 66.90229034 -27.35893631 66.90229034 -41.34676743 66.90229034 -55.33459091
+		 66.90229034 -69.32235718 66.90229034 -83.31018066 66.90229034 -97.29801941 66.90229034
+		 -111.28590393 66.90229034 -125.27366638 66.90229034 -139.26148987 66.90229034 -153.24931335
+		 66.90229034 -167.23713684 66.90229034 -181.22496033 66.90229034 -195.21278381 66.90229034
+		 -209.20066833 66.90229034 -223.18843079 66.90229034 -237.17626953 66.90229034 -251.16409302
+		 66.90229034 -265.1519165 66.90229034 -279.13973999 66.90229034 -293.12768555 66.90229034
+		 -307.11550903 66.90229034 -321.10327148 66.90229034 -335.091033936 66.90229034 -349.078918457
+		 66.90229034 -363.066741943 66.90229034 -377.0546875 66.90229034 -391.042388916 66.90229034
+		 -405.030212402 66.90229034 -419.018157959 66.90229034 -433.0059814453 66.90229034
+		 -446.99380493 66.90229034 -460.98150635 66.90229034 -474.96932983 66.90229034 -488.95715332
+		 66.90229034 -502.94497681 66.90229034 -516.93280029 66.90229034 -530.92071533 52.91445541
+		 532.15411377 52.91445541 518.1663208 52.91445541 504.17852783 52.91445541 490.19064331
+		 52.91445541 476.20291138 52.91445541 462.21502686 52.91445541 448.22720337 52.91445541
+		 434.23934937 52.91445541 420.2515564 52.91445541 406.26373291 52.91445541 392.27590942
+		 52.91445541 378.28808594 52.91445541 364.30026245 52.91445541 350.31243896 52.91445541
+		 336.32458496 52.91445541 322.33679199 52.91445541 308.34893799 52.91445541 294.36114502
+		 52.91445541 280.37329102 52.91445541 266.38546753 52.91445541 252.3976593 52.91445541
+		 238.40983582 52.91445541 224.42201233 52.91445541 210.43418884 52.91445541 196.44636536
+		 52.91445541 182.45852661 52.91445541 168.47064209 52.91445541 154.48287964 52.91445541
+		 140.49505615 52.91445541 126.50715637 52.91445541 112.51937866 52.91445541 98.53155518
+		 52.91445541 84.54373169 52.91445541 70.5559082 52.91445541 56.56801987 52.91445541
+		 42.58019638 52.91445541 28.59236908 52.91445541 14.60460186 52.91445541 0.61677587
+		 52.91445541 -13.37105179 52.91445541 -27.35893631 52.91445541 -41.34676743 52.91445541
+		 -55.33459091 52.91445541 -69.32235718 52.91445541 -83.31018066 52.91445541 -97.29801941
+		 52.91445541 -111.28590393 52.91445541 -125.27366638 52.91445541 -139.26148987 52.91445541
+		 -153.24931335 52.91445541 -167.23713684 52.91445541 -181.22496033 52.91445541 -195.21278381
+		 52.91445541 -209.20066833 52.91445541 -223.18843079 52.91445541 -237.17626953 52.91445541
+		 -251.16409302 52.91445541 -265.1519165 52.91445541 -279.13973999 52.91445541 -293.12768555
+		 52.91445541 -307.11550903 52.91445541 -321.10327148 52.91445541 -335.091033936 52.91445541
+		 -349.078918457 52.91445541 -363.066741943 52.91445541 -377.0546875 52.91445541 -391.042388916
+		 52.91445541 -405.030212402 52.91445541 -419.018157959 52.91445541 -433.0059814453
+		 52.91445541 -446.99380493 52.91445541 -460.98150635 52.91445541 -474.96932983 52.91445541
+		 -488.95715332 52.91445541 -502.94497681 52.91445541 -516.93280029 52.91445541 -530.92071533
+		 38.9266243 532.15411377 38.9266243 518.1663208 38.9266243 504.17852783 38.9266243
+		 490.19064331 38.9266243 476.20291138 38.9266243 462.21502686 38.9266243 448.22720337
+		 38.9266243 434.23934937 38.9266243 420.2515564 38.9266243 406.26373291 38.9266243
+		 392.27590942 38.9266243 378.28808594 38.9266243 364.30026245 38.9266243 350.31243896
+		 38.9266243 336.32458496 38.9266243 322.33679199 38.9266243 308.34893799 38.9266243
+		 294.36114502 38.9266243 280.37329102 38.9266243 266.38546753 38.9266243 252.3976593
+		 38.9266243 238.40983582 38.9266243 224.42201233 38.9266243 210.43418884 38.9266243
+		 196.44636536 38.9266243 182.45852661 38.9266243 168.47064209 38.9266243 154.48287964
+		 38.9266243 140.49505615 38.9266243 126.50715637 38.9266243 112.51937866 38.9266243
+		 98.53155518 38.9266243 84.54373169 38.9266243 70.5559082 38.9266243 56.56801987 38.9266243
+		 42.58019638 38.9266243 28.59236908 38.9266243 14.60460186 38.9266243 0.61677587 38.9266243
+		 -13.37105179 38.9266243 -27.35893631 38.9266243 -41.34676743 38.9266243 -55.33459091
+		 38.9266243 -69.32235718 38.9266243 -83.31018066 38.9266243 -97.29801941 38.9266243
+		 -111.28590393 38.9266243 -125.27366638 38.9266243 -139.26148987 38.9266243 -153.24931335
+		 38.9266243 -167.23713684 38.9266243 -181.22496033 38.9266243 -195.21278381 38.9266243
+		 -209.20066833 38.9266243 -223.18843079 38.9266243 -237.17626953 38.9266243 -251.16409302
+		 38.9266243 -265.1519165 38.9266243 -279.13973999 38.9266243 -293.12768555 38.9266243
+		 -307.11550903 38.9266243 -321.10327148 38.9266243 -335.091033936 38.9266243 -349.078918457;
+	setAttr ".uvtk[2500:2749]" 38.9266243 -363.066741943 38.9266243 -377.0546875
+		 38.9266243 -391.042388916 38.9266243 -405.030212402 38.9266243 -419.018157959 38.9266243
+		 -433.0059814453 38.9266243 -446.99380493 38.9266243 -460.98150635 38.9266243 -474.96932983
+		 38.9266243 -488.95715332 38.9266243 -502.94497681 38.9266243 -516.93280029 38.9266243
+		 -530.92071533 24.93880081 532.15411377 24.93880081 518.1663208 24.93880081 504.17852783
+		 24.93880081 490.19064331 24.93880081 476.20291138 24.93880081 462.21502686 24.93880081
+		 448.22720337 24.93880081 434.23934937 24.93880081 420.2515564 24.93880081 406.26373291
+		 24.93880081 392.27590942 24.93880081 378.28808594 24.93880081 364.30026245 24.93880081
+		 350.31243896 24.93880081 336.32458496 24.93880081 322.33679199 24.93880081 308.34893799
+		 24.93880081 294.36114502 24.93880081 280.37329102 24.93880081 266.38546753 24.93880081
+		 252.3976593 24.93880081 238.40983582 24.93880081 224.42201233 24.93880081 210.43418884
+		 24.93880081 196.44636536 24.93880081 182.45852661 24.93880081 168.47064209 24.93880081
+		 154.48287964 24.93880081 140.49505615 24.93880081 126.50715637 24.93880081 112.51937866
+		 24.93880081 98.53155518 24.93880081 84.54373169 24.93880081 70.5559082 24.93880081
+		 56.56801987 24.93880081 42.58019638 24.93880081 28.59236908 24.93880081 14.60460186
+		 24.93880081 0.61677587 24.93880081 -13.37105179 24.93880081 -27.35893631 24.93880081
+		 -41.34676743 24.93880081 -55.33459091 24.93880081 -69.32235718 24.93880081 -83.31018066
+		 24.93880081 -97.29801941 24.93880081 -111.28590393 24.93880081 -125.27366638 24.93880081
+		 -139.26148987 24.93880081 -153.24931335 24.93880081 -167.23713684 24.93880081 -181.22496033
+		 24.93880081 -195.21278381 24.93880081 -209.20066833 24.93880081 -223.18843079 24.93880081
+		 -237.17626953 24.93880081 -251.16409302 24.93880081 -265.1519165 24.93880081 -279.13973999
+		 24.93880081 -293.12768555 24.93880081 -307.11550903 24.93880081 -321.10327148 24.93880081
+		 -335.091033936 24.93880081 -349.078918457 24.93880081 -363.066741943 24.93880081
+		 -377.0546875 24.93880081 -391.042388916 24.93880081 -405.030212402 24.93880081 -419.018157959
+		 24.93880081 -433.0059814453 24.93880081 -446.99380493 24.93880081 -460.98150635 24.93880081
+		 -474.96932983 24.93880081 -488.95715332 24.93880081 -502.94497681 24.93880081 -516.93280029
+		 24.93880081 -530.92071533 10.95097637 532.15411377 10.95097637 518.1663208 10.95097637
+		 504.17852783 10.95097637 490.19064331 10.95097637 476.20291138 10.95097637 462.21502686
+		 10.95097637 448.22720337 10.95097637 434.23934937 10.95097637 420.2515564 10.95097637
+		 406.26373291 10.95097637 392.27590942 10.95097637 378.28808594 10.95097637 364.30026245
+		 10.95097637 350.31243896 10.95097637 336.32458496 10.95097637 322.33679199 10.95097637
+		 308.34893799 10.95097637 294.36114502 10.95097637 280.37329102 10.95097637 266.38546753
+		 10.95097637 252.3976593 10.95097637 238.40983582 10.95097637 224.42201233 10.95097637
+		 210.43418884 10.95097637 196.44636536 10.95097637 182.45852661 10.95097637 168.47064209
+		 10.95097637 154.48287964 10.95097637 140.49505615 10.95097637 126.50715637 10.95097637
+		 112.51937866 10.95097637 98.53155518 10.95097637 84.54373169 10.95097637 70.5559082
+		 10.95097637 56.56801987 10.95097637 42.58019638 10.95097637 28.59236908 10.95097637
+		 14.60460186 10.95097637 0.61677587 10.95097637 -13.37105179 10.95097637 -27.35893631
+		 10.95097637 -41.34676743 10.95097637 -55.33459091 10.95097637 -69.32235718 10.95097637
+		 -83.31018066 10.95097637 -97.29801941 10.95097637 -111.28590393 10.95097637 -125.27366638
+		 10.95097637 -139.26148987 10.95097637 -153.24931335 10.95097637 -167.23713684 10.95097637
+		 -181.22496033 10.95097637 -195.21278381 10.95097637 -209.20066833 10.95097637 -223.18843079
+		 10.95097637 -237.17626953 10.95097637 -251.16409302 10.95097637 -265.1519165 10.95097637
+		 -279.13973999 10.95097637 -293.12768555 10.95097637 -307.11550903 10.95097637 -321.10327148
+		 10.95097637 -335.091033936 10.95097637 -349.078918457 10.95097637 -363.066741943
+		 10.95097637 -377.0546875 10.95097637 -391.042388916 10.95097637 -405.030212402 10.95097637
+		 -419.018157959 10.95097637 -433.0059814453 10.95097637 -446.99380493 10.95097637
+		 -460.98150635 10.95097637 -474.96932983 10.95097637 -488.95715332 10.95097637 -502.94497681
+		 10.95097637 -516.93280029 -3.036850929 532.15411377 -3.036850929 518.1663208 -3.036850929
+		 504.17852783 -3.036850929 490.19064331 -3.036850929 476.20291138 -3.036850929 462.21502686
+		 -3.036850929 448.22720337 -3.036850929 434.23934937 -3.036850929 420.2515564 -3.036850929
+		 406.26373291 -3.036850929 392.27590942 -3.036850929 378.28808594 -3.036850929 364.30026245
+		 -3.036850929 350.31243896 -3.036850929 336.32458496 -3.036850929 322.33679199 -3.036850929
+		 308.34893799 -3.036850929 294.36114502 -3.036850929 280.37329102 -3.036850929 266.38546753
+		 -3.036850929 252.3976593 -3.036850929 238.40983582 -3.036850929 224.42201233 -3.036850929
+		 210.43418884 -3.036850929 196.44636536 -3.036850929 182.45852661 -3.036850929 168.47064209
+		 -3.036850929 154.48287964 -3.036850929 140.49505615 -3.036850929 126.50715637 -3.036850929
+		 112.51937866 -3.036850929 98.53155518 -3.036850929 84.54373169 -3.036850929 70.5559082
+		 -3.036850929 56.56801987 -3.036850929 42.58019638 -3.036850929 28.59236908 -3.036850929
+		 14.60460186 -3.036850929 0.61677587 -3.036850929 -13.37105179 -3.036850929 -27.35893631
+		 -3.036850929 -41.34676743 -3.036850929 -55.33459091 -3.036850929 -69.32235718 -3.036850929
+		 -83.31018066 -3.036850929 -97.29801941 -3.036850929 -111.28590393 -3.036850929 -125.27366638
+		 -3.036850929 -139.26148987 -3.036850929 -153.24931335 -3.036850929 -167.23713684
+		 -3.036850929 -181.22496033 -3.036850929 -195.21278381 -3.036850929 -209.20066833
+		 -3.036850929 -223.18843079 -3.036850929 -237.17626953 -3.036850929 -251.16409302
+		 -3.036850929 -265.1519165 -3.036850929 -279.13973999 -3.036850929 -293.12768555 -3.036850929
+		 -307.11550903 -3.036850929 -321.10327148 -3.036850929 -335.091033936 -3.036850929
+		 -349.078918457 -3.036850929 -363.066741943 -3.036850929 -377.0546875 -3.036850929
+		 -391.042388916 -3.036850929 -405.030212402 -3.036850929 -419.018157959 -3.036850929
+		 -433.0059814453 -3.036850929 -446.99380493 -3.036850929 -460.98150635 -3.036850929
+		 -474.96932983 -3.036850929 -488.95715332 -3.036850929 -502.94497681 -17.024677277
+		 532.15411377 -17.024677277 518.1663208 -17.024677277 504.17852783 -17.024677277 490.19064331
+		 -17.024677277 476.20291138 -17.024677277 462.21502686 -17.024677277 448.22720337
+		 -17.024677277 434.23934937 -17.024677277 420.2515564;
+	setAttr ".uvtk[2750:2999]" -17.024677277 406.26373291 -17.024677277 392.27590942
+		 -17.024677277 378.28808594 -17.024677277 364.30026245 -17.024677277 350.31243896
+		 -17.024677277 336.32458496 -17.024677277 322.33679199 -17.024677277 308.34893799
+		 -17.024677277 294.36114502 -17.024677277 280.37329102 -17.024677277 266.38546753
+		 -17.024677277 252.3976593 -17.024677277 238.40983582 -17.024677277 224.42201233 -17.024677277
+		 210.43418884 -17.024677277 196.44636536 -17.024677277 182.45852661 -17.024677277
+		 168.47064209 -17.024677277 154.48287964 -17.024677277 140.49505615 -17.024677277
+		 126.50715637 -17.024677277 112.51937866 -17.024677277 98.53155518 -17.024677277 84.54373169
+		 -17.024677277 70.5559082 -17.024677277 56.56801987 -17.024677277 42.58019638 -17.024677277
+		 28.59236908 -17.024677277 14.60460186 -17.024677277 0.61677587 -17.024677277 -13.37105179
+		 -17.024677277 -27.35893631 -17.024677277 -41.34676743 -17.024677277 -55.33459091
+		 -17.024677277 -69.32235718 -17.024677277 -83.31018066 -17.024677277 -97.29801941
+		 -17.024677277 -111.28590393 -17.024677277 -125.27366638 -17.024677277 -139.26148987
+		 -17.024677277 -153.24931335 -17.024677277 -167.23713684 -17.024677277 -181.22496033
+		 -17.024677277 -195.21278381 -17.024677277 -209.20066833 -17.024677277 -223.18843079
+		 -17.024677277 -237.17626953 -17.024677277 -251.16409302 -17.024677277 -265.1519165
+		 -17.024677277 -279.13973999 -17.024677277 -293.12768555 -17.024677277 -307.11550903
+		 -17.024677277 -321.10327148 -17.024677277 -335.091033936 -17.024677277 -349.078918457
+		 -17.024677277 -363.066741943 -17.024677277 -377.0546875 -17.024677277 -391.042388916
+		 -17.024677277 -405.030212402 -17.024677277 -419.018157959 -17.024677277 -433.0059814453
+		 -17.024677277 -446.99380493 -17.024677277 -460.98150635 -17.024677277 -474.96932983
+		 -17.024677277 -488.95715332 -31.012506485 532.15411377 -31.012506485 518.1663208
+		 -31.012506485 504.17852783 -31.012506485 490.19064331 -31.012506485 476.20291138
+		 -31.012506485 462.21502686 -31.012506485 448.22720337 -31.012506485 434.23934937
+		 -31.012506485 420.2515564 -31.012506485 406.26373291 -31.012506485 392.27590942 -31.012506485
+		 378.28808594 -31.012506485 364.30026245 -31.012506485 350.31243896 -31.012506485
+		 336.32458496 -31.012506485 322.33679199 -31.012506485 308.34893799 -31.012506485
+		 294.36114502 -31.012506485 280.37329102 -31.012506485 266.38546753 -31.012506485
+		 252.3976593 -31.012506485 238.40983582 -31.012506485 224.42201233 -31.012506485 210.43418884
+		 -31.012506485 196.44636536 -31.012506485 182.45852661 -31.012506485 168.47064209
+		 -31.012506485 154.48287964 -31.012506485 140.49505615 -31.012506485 126.50715637
+		 -31.012506485 112.51937866 -31.012506485 98.53155518 -31.012506485 84.54373169 -31.012506485
+		 70.5559082 -31.012506485 56.56801987 -31.012506485 42.58019638 -31.012506485 28.59236908
+		 -31.012506485 14.60460186 -31.012506485 0.61677587 -31.012506485 -13.37105179 -31.012506485
+		 -27.35893631 -31.012506485 -41.34676743 -31.012506485 -55.33459091 -31.012506485
+		 -69.32235718 -31.012506485 -83.31018066 -31.012506485 -97.29801941 -31.012506485
+		 -111.28590393 -31.012506485 -125.27366638 -31.012506485 -139.26148987 -31.012506485
+		 -153.24931335 -31.012506485 -167.23713684 -31.012506485 -181.22496033 -31.012506485
+		 -195.21278381 -31.012506485 -209.20066833 -31.012506485 -223.18843079 -31.012506485
+		 -237.17626953 -31.012506485 -251.16409302 -31.012506485 -265.1519165 -31.012506485
+		 -279.13973999 -31.012506485 -293.12768555 -31.012506485 -307.11550903 -31.012506485
+		 -321.10327148 -31.012506485 -335.091033936 -31.012506485 -349.078918457 -31.012506485
+		 -363.066741943 -31.012506485 -377.0546875 -31.012506485 -391.042388916 -31.012506485
+		 -405.030212402 -31.012506485 -419.018157959 -31.012506485 -433.0059814453 -31.012506485
+		 -446.99380493 -31.012506485 -460.98150635 -31.012506485 -474.96932983 -45.00033187866
+		 532.15411377 -45.00033569336 518.1663208 -45.00033187866 504.17852783 -45.00033187866
+		 490.19064331 -45.00033187866 476.20291138 -45.00033569336 462.21502686 -45.00033187866
+		 448.22720337 -45.00033187866 434.23934937 -45.00032806396 420.2515564 -45.00033187866
+		 406.26373291 -45.00033187866 392.27590942 -45.00033187866 378.28808594 -45.00033187866
+		 364.30026245 -45.00033187866 350.31243896 -45.00033187866 336.32458496 -45.00033187866
+		 322.33679199 -45.00033187866 308.34893799 -45.00033187866 294.36114502 -45.00033187866
+		 280.37329102 -45.00033187866 266.38546753 -45.00033569336 252.3976593 -45.00033187866
+		 238.40983582 -45.00033187866 224.42201233 -45.00033187866 210.43418884 -45.00033187866
+		 196.44636536 -45.00033187866 182.45852661 -45.00033187866 168.47064209 -45.00033187866
+		 154.48287964 -45.00033187866 140.49505615 -45.00033187866 126.50715637 -45.00033187866
+		 112.51937866 -45.00033187866 98.53155518 -45.00033187866 84.54373169 -45.00033187866
+		 70.5559082 -45.00033187866 56.56801987 -45.00033187866 42.58019638 -45.00033187866
+		 28.59236908 -45.00033187866 14.60460186 -45.00033187866 0.61677587 -45.00033187866
+		 -13.37105179 -45.00033187866 -27.35893631 -45.00033187866 -41.34676743 -45.00033187866
+		 -55.33459091 -45.00033187866 -69.32235718 -45.00033187866 -83.31018066 -45.00033187866
+		 -97.29801941 -45.00033187866 -111.28590393 -45.00033187866 -125.27366638 -45.00033187866
+		 -139.26148987 -45.00033187866 -153.24931335 -45.00033187866 -167.23713684 -45.00033187866
+		 -181.22496033 -45.00033187866 -195.21278381 -45.00033187866 -209.20066833 -45.00033187866
+		 -223.18843079 -45.00033187866 -237.17626953 -45.00033187866 -251.16409302 -45.00033187866
+		 -265.1519165 -45.00033187866 -279.13973999 -45.00033187866 -293.12768555 -45.00033187866
+		 -307.11550903 -45.00033187866 -321.10327148 -45.00033187866 -335.091033936 -45.00033187866
+		 -349.078918457 -45.00033187866 -363.066741943 -45.00033187866 -377.0546875 -45.00033187866
+		 -391.042388916 -45.00033187866 -405.030212402 -45.00033187866 -419.018157959 -45.00033187866
+		 -433.0059814453 -45.00033187866 -446.99380493 -45.00033187866 -460.98150635 -58.98815536
+		 532.15411377 -58.98815536 518.1663208 -58.98815536 504.17852783 -58.98815536 490.19064331
+		 -58.98815536 476.20291138 -58.98815536 462.21502686 -58.98815536 448.22720337 -58.98815536
+		 434.23934937 -58.98815536 420.2515564 -58.98815536 406.26373291 -58.98815536 392.27590942
+		 -58.98815536 378.28808594 -58.98815536 364.30026245 -58.98815536 350.31243896 -58.98815918
+		 336.32458496 -58.98815536 322.33679199 -58.98815536 308.34893799 -58.98815536 294.36114502
+		 -58.98815155 280.37329102 -58.98815536 266.38546753 -58.98815536 252.3976593 -58.98815536
+		 238.40983582 -58.98815536 224.42201233 -58.98815536 210.43418884 -58.98815536 196.44636536
+		 -58.98815536 182.45852661 -58.98815536 168.47064209 -58.98815536 154.48287964 -58.98815536
+		 140.49505615 -58.98815536 126.50715637 -58.98815536 112.51937866 -58.98815918 98.53155518
+		 -58.98815536 84.54373169 -58.98815536 70.5559082 -58.98815536 56.56801987 -58.98815536
+		 42.58019638 -58.98815536 28.59236908 -58.98815536 14.60460186 -58.98815536 0.61677587
+		 -58.98815536 -13.37105179;
+	setAttr ".uvtk[3000:3249]" -58.98815536 -27.35893631 -58.98815536 -41.34676743
+		 -58.98815536 -55.33459091 -58.98815536 -69.32235718 -58.98815536 -83.31018066 -58.98815536
+		 -97.29801941 -58.98815536 -111.28590393 -58.98815536 -125.27366638 -58.98815536 -139.26148987
+		 -58.98815536 -153.24931335 -58.98815536 -167.23713684 -58.98815536 -181.22496033
+		 -58.98815536 -195.21278381 -58.98815536 -209.20066833 -58.98815536 -223.18843079
+		 -58.98815536 -237.17626953 -58.98815536 -251.16409302 -58.98815536 -265.1519165 -58.98815536
+		 -279.13973999 -58.98815536 -293.12768555 -58.98815536 -307.11550903 -58.98815536
+		 -321.10327148 -58.98815536 -335.091033936 -58.98815536 -349.078918457 -58.98815536
+		 -363.066741943 -58.98815536 -377.0546875 -58.98815536 -391.042388916 -58.98815536
+		 -405.030212402 -58.98815536 -419.018157959 -58.98815536 -433.0059814453 -58.98815536
+		 -446.99380493 80.40873718 -530.92071533 136.84141541 545.54779053 122.85359955 545.4487915
+		 206.7805481 392.27584839 94.87793732 -446.99368286 -59.6998024 -458.76965332 -59.69980621
+		 -472.74911499 -59.6998024 -486.72857666 -59.6998024 -489.81262207 -50.72429657 -496.4473877
+		 -44.96030426 -500.70803833 -36.74482346 -506.78091431 -31.83778 -510.40814209 -27.92881012
+		 -514.6875 -22.76535797 -520.34020996 -15.1593008 -528.66693115 -8.78588676 -535.64434814
+		 -5.495327 -539.24664307 5.19357967 -538.28436279 19.1730442 -537.025878906 14.95826149
+		 -531.45239258 12.85177422 -528.66693115 9.2279768 -523.87506104 5.19357204 -518.54040527
+		 2.27994347 -514.6875 -3.61024785 -506.89874268 -6.46555138 -503.12307739 -8.29189968
+		 -500.70803833 -8.78588676 -500.05480957 -15.044934273 -491.77832031 -16.57329369
+		 -490.64849854 -18.80986595 -488.99526978 -21.8762989 -486.72857666 -22.76535416 -486.071380615
+		 -30.55270004 -480.31500244 -36.74481964 -475.73788452 -40.78805161 -472.74911499
+		 -44.53222656 -469.98144531 -50.72429276 -465.40429688 -56.63331223 -461.036468506
+		 -58.5116272 -459.64788818 5.19357967 -528.66693115 -8.78588676 -514.6875 -8.78588676
+		 -528.66693115 -22.76535797 -500.70803833 -22.76535797 -514.6875 -36.74482346 -486.72857666
+		 -36.74482346 -500.70803833 -50.72429276 -472.74911499 -50.72429657 -486.72857666
+		 -8.78588676 -500.70803833 -22.76535416 -486.72857666 -25.25969124 -495.64984131 -23.29850769
+		 -497.12069702 -21.66272354 -498.34738159 -17.024669647 -501.82583618 -15.53243828
+		 -502.94497681 -9.090045929 -507.77670288 -3.61019683 -511.88641357 -3.0368433 -512.31646729
+		 1.29093337 -515.56219482 2.62790442 -516.93280029 6.37330198 -520.77276611 10.950984
+		 -525.46600342 16.27142525 -530.92071533 21.6516304 -536.43670654 24.91539383 -536.1605835
+		 38.92663193 -534.97521973 52.91446304 -533.79168701 66.90229797 -532.60839844 80.31115723
+		 -531.47393799 80.89012146 -528.19158936 82.87594604 -516.93280029 85.34327698 -502.94497681
+		 87.81049347 -488.95715332 90.27770996 -474.96932983 92.74491119 -460.98150635 94.29898071
+		 -452.17105103 94.87794495 -448.88864136 95.21212769 -446.99368286 97.33333588 -434.9682312
+		 97.67945862 -433.005859375 97.91277313 -431.68280029 103.87584686 -422.49386597 106.13145447
+		 -419.018035889 108.86576843 -414.80438232 110.28592682 -412.61611938 111.66947937
+		 -410.48406982 115.20864105 -405.030212402 119.46299744 -398.47439575 122.85360718
+		 -393.24942017 124.28582001 -391.042388916 126.96916962 -386.90756226 131.31826782
+		 -380.20562744 133.36300659 -377.05456543 136.82020569 -371.72714233 137.61221313
+		 -363.066741943 138.89164734 -349.078918457 140.17089844 -335.091033936 141.45021057
+		 -321.10339355 142.72961426 -307.11538696 144.008895874 -293.12756348 145.28829956
+		 -279.13973999 146.56758118 -265.15203857 147.84684753 -251.16409302 149.12625122
+		 -237.17626953 150.40553284 -223.18843079 150.82923889 -218.55561829 151.68481445
+		 -209.2006073 152.96421814 -195.21284485 154.24349976 -181.22502136 155.52278137 -167.23719788
+		 156.80218506 -153.24931335 158.081466675 -139.2615509 159.36076355 -125.27372742
+		 160.64015198 -111.28590393 161.91944885 -97.29808044 163.19873047 -83.31018066 164.47813416
+		 -69.32241821 164.81706238 -65.61611176 165.75741577 -55.33465195 167.036697388 -41.34676743
+		 168.31610107 -27.35887527 169.59538269 -13.37111282 170.87466431 0.61677587 172.15406799
+		 14.60454082 173.43334961 28.59236908 174.71263123 42.58025742 175.99203491 56.56801987
+		 177.27131653 70.5559082 178.5506134 84.54373169 178.80488586 87.32335663 179.82998657
+		 98.53143311 181.10929871 112.51937866 182.38870239 126.50721741 183.66798401 140.49499512
+		 184.94726563 154.48287964 186.22654724 168.47070313 187.50595093 182.45852661 188.78521729
+		 196.44624329 190.064620972 210.43412781 191.34390259 224.42201233 192.6231842 238.40977478
+		 192.79270935 240.2628479 193.90258789 252.39753723 195.18186951 266.3855896 196.46115112
+		 280.37329102 197.74058533 294.36114502 199.019836426 308.34884644 200.29924011 322.33685303
+		 201.57852173 336.32449341 202.8578186 350.31240845 204.13722229 364.3001709 205.41650391
+		 378.28811646 206.7805481 393.2024231 207.97518921 406.26370239 209.25447083 420.25164795
+		 210.53375244 434.23925781 211.81315613 448.22717285 213.092437744 462.21496582 214.37171936
+		 476.20281982 215.65112305 490.19070435 216.93040466 504.17855835 218.20970154 518.16638184
+		 219.48908997 532.1541748 220.76837158 546.14196777 206.78128052 546.042907715 192.79417419
+		 545.94390869 178.80696106 545.84490967 164.81987 545.74584961 150.83277893 545.64685059
+		 108.86564636 545.34979248 94.87806702 545.25073242 80.89012146 545.1517334 66.9021759
+		 545.05267334 52.91446304 544.95373535 38.92663193 544.85467529 24.93880844 544.75561523
+		 10.95110607 544.65661621 -3.0368433 544.55755615 -17.024669647 544.45855713 -31.012498856
+		 544.35955811 -45.00044631958 544.26049805 -58.98814774 544.16156006 -60.17705536
+		 544.15307617 -60.17705536 532.15411377 -60.17705536 518.1663208 -60.17705536 504.17852783
+		 -60.17705536 490.19067383 -60.17705536 476.20288086 -60.17705536 462.21496582 -60.17705536
+		 448.22714233 -60.17705536 434.23931885 -60.17705536 420.25146484 -60.17705536 406.26361084
+		 -60.17705536 392.27597046 -60.17705536 378.28811646 -60.17705536 364.30026245 -60.17705536
+		 350.31231689 -60.17705536 336.32458496 -60.17705536 322.33679199 -60.17705536 308.34893799
+		 -60.17705536 294.36114502 -60.17705536 280.37322998 -60.17705536 266.3855896 -60.17705536
+		 252.39759827 -60.17705536 238.40971375 -60.17705536 224.42195129 -60.17705536 210.43406677
+		 -60.17705536 196.44624329 -60.17705536 182.45858765 -60.17705536 168.47058105 -60.17705536
+		 154.48287964 -60.17705536 140.49523926 -60.17705536 126.50721741 -60.17705536 112.51937866
+		 -60.17705536 98.53155518 -60.17705536 84.54373169 -60.17705536 70.55584717;
+	setAttr ".uvtk[3250:3499]" -60.17705536 56.56820297 -60.17705536 42.58019638
+		 -60.17705536 28.59236908 -60.17705536 14.60447979 -60.17705536 0.61683679 -60.17705536
+		 -13.37099075 -60.17705536 -27.35887527 -60.17705536 -41.34682846 -60.17705536 -55.33452988
+		 -60.17705536 -69.32235718 -60.17705536 -83.31018066 -60.17705536 -97.29801941 -60.17705536
+		 -111.2858429 -60.17705536 -125.27354431 -60.17705536 -139.2615509 -60.17705536 -153.24919128
+		 -60.17705536 -167.23725891 -60.17705536 -181.22502136 -60.17705536 -195.21278381
+		 -60.17705536 -209.20072937 -60.17705536 -223.18855286 -60.17705536 -237.1763916 -60.17705536
+		 -251.16409302 -60.17705536 -265.1519165 -60.17705536 -279.13986206 -60.17705536 -293.12756348
+		 -60.17705536 -307.11538696 -60.17705536 -321.10339355 -60.17705536 -335.091033936
+		 -60.17705536 -349.078918457 -60.17705536 -363.066741943 -60.17705536 -377.05456543
+		 -60.17705536 -391.042510986 -60.17705536 -405.030334473 -60.17705536 -419.018157959
+		 -60.17705536 -433.005859375 -60.17705536 -446.99368286 -60.17705536 -460.98162842
+		 -60.17705536 -474.96932983 -60.17705536 -484.28884888 -58.98814774 -484.67572021
+		 -51.33111954 -487.16705322 -45.82943726 -488.95715332 -45.00032424927 -489.22695923
+		 -37.34329224 -491.71829224 -31.012376785 -493.77813721 206.7805481 532.15411377 206.7805481
+		 518.1663208 206.7805481 504.17855835 206.7805481 490.19070435 206.7805481 476.20291138
+		 206.7805481 462.21502686 206.7805481 448.22720337 206.7805481 434.23937988 206.7805481
+		 420.25152588 206.7805481 406.26373291 192.79270935 532.15411377 192.79270935 518.1663208
+		 192.79270935 504.17855835 192.79270935 490.19070435 192.79270935 476.20291138 192.79270935
+		 462.21502686 192.79270935 448.22720337 192.79270935 434.23937988 192.79270935 420.25152588
+		 192.79270935 406.26373291 192.79270935 392.27590942 192.79270935 378.28808594 192.79270935
+		 364.30023193 192.79270935 350.31243896 192.79270935 336.32461548 192.79270935 322.33679199
+		 192.79270935 308.34893799 192.79270935 294.36114502 192.79270935 280.37329102 192.79270935
+		 266.38540649 192.79270935 252.3976593 178.80488586 532.15411377 178.80488586 518.1663208
+		 178.80488586 504.17855835 178.80488586 490.19070435 178.80488586 476.20291138 178.80488586
+		 462.21502686 178.80488586 448.22720337 178.80488586 434.23937988 178.80488586 420.25152588
+		 178.80488586 406.26373291 178.80488586 392.27590942 178.80488586 378.28808594 178.80488586
+		 364.30023193 178.80488586 350.31243896 178.80488586 336.32461548 178.80488586 322.33679199
+		 178.80488586 308.34893799 178.80488586 294.36114502 178.80488586 280.37329102 178.80488586
+		 266.38540649 178.80488586 252.3976593 178.80488586 238.40983582 178.80488586 224.42201233
+		 178.80488586 210.43418884 178.80488586 196.44636536 178.80488586 182.45852661 178.80488586
+		 168.47070313 178.80488586 154.48287964 178.80488586 140.49505615 178.80488586 126.50721741
+		 178.80488586 112.51937866 178.80488586 98.53155518 164.81706238 532.15411377 164.81706238
+		 518.1663208 164.81706238 504.17855835 164.81706238 490.19070435 164.81706238 476.20291138
+		 164.81706238 462.21502686 164.81706238 448.22720337 164.81706238 434.23937988 164.81706238
+		 420.25152588 164.81706238 406.26373291 164.81706238 392.27590942 164.81706238 378.28808594
+		 164.81706238 364.30023193 164.81706238 350.31243896 164.81706238 336.32461548 164.81706238
+		 322.33679199 164.81706238 308.34893799 164.81706238 294.36114502 164.81706238 280.37329102
+		 164.81706238 266.38540649 164.81706238 252.3976593 164.81706238 238.40983582 164.81706238
+		 224.42201233 164.81706238 210.43418884 164.81706238 196.44636536 164.81706238 182.45852661
+		 164.81706238 168.47070313 164.81706238 154.48287964 164.81706238 140.49505615 164.81706238
+		 126.50721741 164.81706238 112.51937866 164.81706238 98.53155518 164.81706238 84.54373169
+		 164.81706238 70.5559082 164.81706238 56.56801987 164.81706238 42.58019638 164.81706238
+		 28.59243011 164.81706238 14.60460186 164.81706238 0.61677587 164.81706238 -13.37111282
+		 164.81706238 -27.35887527 164.81706238 -41.34670639 164.81706238 -55.33459091 150.82923889
+		 532.15411377 150.82923889 518.1663208 150.82923889 504.17855835 150.82923889 490.19070435
+		 150.82923889 476.20291138 150.82923889 462.21502686 150.82923889 448.22720337 150.82923889
+		 434.23937988 150.82923889 420.25152588 150.82923889 406.26373291 150.82923889 392.27590942
+		 150.82923889 378.28808594 150.82923889 364.30023193 150.82923889 350.31243896 150.82923889
+		 336.32461548 150.82923889 322.33679199 150.82923889 308.34893799 150.82923889 294.36114502
+		 150.82923889 280.37329102 150.82923889 266.38540649 150.82923889 252.3976593 150.82923889
+		 238.40983582 150.82923889 224.42201233 150.82923889 210.43418884 150.82923889 196.44636536
+		 150.82923889 182.45852661 150.82923889 168.47070313 150.82923889 154.48287964 150.82923889
+		 140.49505615 150.82923889 126.50721741 150.82923889 112.51937866 150.82923889 98.53155518
+		 150.82923889 84.54373169 150.82923889 70.5559082 150.82923889 56.56801987 150.82923889
+		 42.58019638 150.82923889 28.59243011 150.82923889 14.60460186 150.82923889 0.61677587
+		 150.82923889 -13.37111282 150.82923889 -27.35887527 150.82923889 -41.34670639 150.82923889
+		 -55.33459091 150.82923889 -69.32235718 150.82923889 -83.31018066 150.82923889 -97.29808044
+		 150.82923889 -111.28590393 150.82923889 -125.27366638 150.82923889 -139.26148987
+		 150.82923889 -153.24931335 150.82923889 -167.23719788 150.82923889 -181.22502136
+		 150.82923889 -195.21278381 150.82923889 -209.2006073 136.84141541 532.15411377 136.84141541
+		 518.1663208 136.84141541 504.17855835 136.84141541 490.19070435 136.84141541 476.20291138
+		 136.84141541 462.21502686 136.84141541 448.22720337 136.84141541 434.23937988 136.84141541
+		 420.25152588 136.84141541 406.26373291 136.84141541 392.27590942 136.84141541 378.28808594
+		 136.84141541 364.30023193 136.84141541 350.31243896 136.84141541 336.32461548 136.84141541
+		 322.33679199 136.84141541 308.34893799 136.84141541 294.36114502 136.84141541 280.37329102
+		 136.84141541 266.38540649 136.84141541 252.3976593 136.84141541 238.40983582 136.84141541
+		 224.42201233 136.84141541 210.43418884 136.84141541 196.44636536 136.84141541 182.45852661
+		 136.84141541 168.47070313 136.84141541 154.48287964 136.84141541 140.49505615 136.84141541
+		 126.50721741 136.84141541 112.51937866 136.84141541 98.53155518 136.84141541 84.54373169
+		 136.84141541 70.5559082 136.84141541 56.56801987 136.84141541 42.58019638 136.84141541
+		 28.59243011 136.84141541 14.60460186 136.84141541 0.61677587 136.84141541 -13.37111282
+		 136.84141541 -27.35887527 136.84141541 -41.34670639 136.84141541 -55.33459091 136.84141541
+		 -69.32235718;
+	setAttr ".uvtk[3500:3749]" 136.84141541 -83.31018066 136.84141541 -97.29808044
+		 136.84141541 -111.28590393 136.84141541 -125.27366638 136.84141541 -139.26148987
+		 136.84141541 -153.24931335 136.84141541 -167.23719788 136.84141541 -181.22502136
+		 136.84141541 -195.21278381 136.84141541 -209.2006073 136.84141541 -223.18843079 136.84141541
+		 -237.17626953 136.84141541 -251.16409302 136.84141541 -265.1519165 136.84141541 -279.13973999
+		 136.84141541 -293.12756348 136.84141541 -307.11538696 136.84141541 -321.10327148
+		 136.84141541 -335.091033936 136.84141541 -349.078918457 136.84141541 -363.066741943
+		 122.85360718 532.15411377 122.85360718 518.1663208 122.85360718 504.17855835 122.85360718
+		 490.19070435 122.85360718 476.20291138 122.85360718 462.21502686 122.85360718 448.22720337
+		 122.85360718 434.23937988 122.85360718 420.25152588 122.85360718 406.26373291 122.85360718
+		 392.27590942 122.85360718 378.28808594 122.85360718 364.30023193 122.85360718 350.31243896
+		 122.85360718 336.32461548 122.85360718 322.33679199 122.85360718 308.34893799 122.85360718
+		 294.36114502 122.85360718 280.37329102 122.85360718 266.38540649 122.85360718 252.3976593
+		 122.85360718 238.40983582 122.85360718 224.42201233 122.85360718 210.43418884 122.85360718
+		 196.44636536 122.85360718 182.45852661 122.85360718 168.47070313 122.85360718 154.48287964
+		 122.85360718 140.49505615 122.85360718 126.50721741 122.85360718 112.51937866 122.85360718
+		 98.53155518 122.85360718 84.54373169 122.85360718 70.5559082 122.85360718 56.56801987
+		 122.85360718 42.58019638 122.85360718 28.59243011 122.85360718 14.60460186 122.85360718
+		 0.61677587 122.85360718 -13.37111282 122.85360718 -27.35887527 122.85360718 -41.34670639
+		 122.85360718 -55.33459091 122.85360718 -69.32235718 122.85360718 -83.31018066 122.85360718
+		 -97.29808044 122.85360718 -111.28590393 122.85360718 -125.27366638 122.85360718 -139.26148987
+		 122.85360718 -153.24931335 122.85360718 -167.23719788 122.85360718 -181.22502136
+		 122.85360718 -195.21278381 122.85360718 -209.2006073 122.85360718 -223.18843079 122.85360718
+		 -237.17626953 122.85360718 -251.16409302 122.85360718 -265.1519165 122.85360718 -279.13973999
+		 122.85360718 -293.12756348 122.85360718 -307.11538696 122.85360718 -321.10327148
+		 122.85360718 -335.091033936 122.85360718 -349.078918457 122.85360718 -363.066741943
+		 122.85360718 -377.05456543 122.85360718 -391.042388916 108.86576843 532.15411377
+		 108.86576843 518.1663208 108.86576843 504.17855835 108.86576843 490.19070435 108.86576843
+		 476.20291138 108.86576843 462.21502686 108.86576843 448.22720337 108.86576843 434.23937988
+		 108.86576843 420.25152588 108.86576843 406.26373291 108.86576843 392.27590942 108.86576843
+		 378.28808594 108.86576843 364.30023193 108.86576843 350.31243896 108.86576843 336.32461548
+		 108.86576843 322.33679199 108.86576843 308.34893799 108.86576843 294.36114502 108.86576843
+		 280.37329102 108.86576843 266.38540649 108.86576843 252.3976593 108.86576843 238.40983582
+		 108.86576843 224.42201233 108.86576843 210.43418884 108.86576843 196.44636536 108.86576843
+		 182.45852661 108.86576843 168.47070313 108.86576843 154.48287964 108.86576843 140.49505615
+		 108.86576843 126.50721741 108.86576843 112.51937866 108.86576843 98.53155518 108.86576843
+		 84.54373169 108.86576843 70.5559082 108.86576843 56.56801987 108.86576843 42.58019638
+		 108.86576843 28.59243011 108.86576843 14.60460186 108.86576843 0.61677587 108.86576843
+		 -13.37111282 108.86576843 -27.35887527 108.86576843 -41.34670639 108.86576843 -55.33459091
+		 108.86576843 -69.32235718 108.86576843 -83.31018066 108.86576843 -97.29808044 108.86576843
+		 -111.28590393 108.86576843 -125.27366638 108.86576843 -139.26148987 108.86576843
+		 -153.24931335 108.86576843 -167.23719788 108.86576843 -181.22502136 108.86576843
+		 -195.21278381 108.86576843 -209.2006073 108.86576843 -223.18843079 108.86576843 -237.17626953
+		 108.86576843 -251.16409302 108.86576843 -265.1519165 108.86576843 -279.13973999 108.86576843
+		 -293.12756348 108.86576843 -307.11538696 108.86576843 -321.10327148 108.86576843
+		 -335.091033936 108.86576843 -349.078918457 108.86576843 -363.066741943 108.86576843
+		 -377.05456543 108.86576843 -391.042388916 108.86576843 -405.030212402 94.87794495
+		 532.15411377 94.87794495 518.1663208 94.87794495 504.17855835 94.87794495 490.19070435
+		 94.87794495 476.20291138 94.87794495 462.21502686 94.87794495 448.22720337 94.87794495
+		 434.23937988 94.87794495 420.25152588 94.87794495 406.26373291 94.87794495 392.27590942
+		 94.87794495 378.28808594 94.87794495 364.30023193 94.87794495 350.31243896 94.87794495
+		 336.32461548 94.87794495 322.33679199 94.87794495 308.34893799 94.87794495 294.36114502
+		 94.87794495 280.37329102 94.87794495 266.38540649 94.87794495 252.3976593 94.87794495
+		 238.40983582 94.87794495 224.42201233 94.87794495 210.43418884 94.87794495 196.44636536
+		 94.87794495 182.45852661 94.87794495 168.47070313 94.87794495 154.48287964 94.87794495
+		 140.49505615 94.87794495 126.50721741 94.87794495 112.51937866 94.87794495 98.53155518
+		 94.87794495 84.54373169 94.87794495 70.5559082 94.87794495 56.56801987 94.87794495
+		 42.58019638 94.87794495 28.59243011 94.87794495 14.60460186 94.87794495 0.61677587
+		 94.87794495 -13.37111282 94.87794495 -27.35887527 94.87794495 -41.34670639 94.87794495
+		 -55.33459091 94.87794495 -69.32235718 94.87794495 -83.31018066 94.87794495 -97.29808044
+		 94.87794495 -111.28590393 94.87794495 -125.27366638 94.87794495 -139.26148987 94.87794495
+		 -153.24931335 94.87794495 -167.23719788 94.87794495 -181.22502136 94.87794495 -195.21278381
+		 94.87794495 -209.2006073 94.87794495 -223.18843079 94.87794495 -237.17626953 94.87794495
+		 -251.16409302 94.87794495 -265.1519165 94.87794495 -279.13973999 94.87794495 -293.12756348
+		 94.87794495 -307.11538696 94.87794495 -321.10327148 94.87794495 -335.091033936 94.87794495
+		 -349.078918457 94.87794495 -363.066741943 94.87794495 -377.05456543 94.87794495 -391.042388916
+		 94.87794495 -405.030212402 94.87794495 -419.018035889 94.87794495 -433.0059814453
+		 80.89012146 532.15411377 80.89012146 518.1663208 80.89012146 504.17855835 80.89012146
+		 490.19070435 80.89012146 476.20291138 80.89012146 462.21502686 80.89012146 448.22720337
+		 80.89012146 434.23937988 80.89012146 420.25152588 80.89012146 406.26373291 80.89012146
+		 392.27590942 80.89012146 378.28808594 80.89012146 364.30023193 80.89012146 350.31243896
+		 80.89012146 336.32461548 80.89012146 322.33679199 80.89012146 308.34893799 80.89012146
+		 294.36114502 80.89012146 280.37329102 80.89012146 266.38540649 80.89012146 252.3976593
+		 80.89012146 238.40983582 80.89012146 224.42201233 80.89012146 210.43418884;
+	setAttr ".uvtk[3750:3999]" 80.89012146 196.44636536 80.89012146 182.45852661
+		 80.89012146 168.47070313 80.89012146 154.48287964 80.89012146 140.49505615 80.89012146
+		 126.50721741 80.89012146 112.51937866 80.89012146 98.53155518 80.89012146 84.54373169
+		 80.89012146 70.5559082 80.89012146 56.56801987 80.89012146 42.58019638 80.89012146
+		 28.59243011 80.89012146 14.60460186 80.89012146 0.61677587 80.89012146 -13.37111282
+		 80.89012146 -27.35887527 80.89012146 -41.34670639 80.89012146 -55.33459091 80.89012146
+		 -69.32235718 80.89012146 -83.31018066 80.89012146 -97.29808044 80.89012146 -111.28590393
+		 80.89012146 -125.27366638 80.89012146 -139.26148987 80.89012146 -153.24931335 80.89012146
+		 -167.23719788 80.89012146 -181.22502136 80.89012146 -195.21278381 80.89012146 -209.2006073
+		 80.89012146 -223.18843079 80.89012146 -237.17626953 80.89012146 -251.16409302 80.89012146
+		 -265.1519165 80.89012146 -279.13973999 80.89012146 -293.12756348 80.89012146 -307.11538696
+		 80.89012146 -321.10327148 80.89012146 -335.091033936 80.89012146 -349.078918457 80.89012146
+		 -363.066741943 80.89012146 -377.05456543 80.89012146 -391.042388916 80.89012146 -405.030212402
+		 80.89012146 -419.018035889 80.89012146 -433.0059814453 80.89012146 -446.99368286
+		 80.89012146 -460.98150635 80.89012146 -474.9694519 80.89012146 -488.95715332 80.89012146
+		 -502.94497681 80.89012146 -516.93280029 66.90229797 532.15411377 66.90229797 518.1663208
+		 66.90229797 504.17855835 66.90229797 490.19070435 66.90229797 476.20291138 66.90229797
+		 462.21502686 66.90229797 448.22720337 66.90229797 434.23937988 66.90229797 420.25152588
+		 66.90229797 406.26373291 66.90229797 392.27590942 66.90229797 378.28808594 66.90229797
+		 364.30023193 66.90229797 350.31243896 66.90229797 336.32461548 66.90229797 322.33679199
+		 66.90229797 308.34893799 66.90229797 294.36114502 66.90229797 280.37329102 66.90229797
+		 266.38540649 66.90229797 252.3976593 66.90229797 238.40983582 66.90229797 224.42201233
+		 66.90229797 210.43418884 66.90229797 196.44636536 66.90229797 182.45852661 66.90229797
+		 168.47070313 66.90229797 154.48287964 66.90229797 140.49505615 66.90229797 126.50721741
+		 66.90229797 112.51937866 66.90229797 98.53155518 66.90229797 84.54373169 66.90229797
+		 70.5559082 66.90229797 56.56801987 66.90229797 42.58019638 66.90229797 28.59243011
+		 66.90229797 14.60460186 66.90229797 0.61677587 66.90229797 -13.37111282 66.90229797
+		 -27.35887527 66.90229797 -41.34670639 66.90229797 -55.33459091 66.90229797 -69.32235718
+		 66.90229797 -83.31018066 66.90229797 -97.29808044 66.90229797 -111.28590393 66.90229797
+		 -125.27366638 66.90229797 -139.26148987 66.90229797 -153.24931335 66.90229797 -167.23719788
+		 66.90229797 -181.22502136 66.90229797 -195.21278381 66.90229797 -209.2006073 66.90229797
+		 -223.18843079 66.90229797 -237.17626953 66.90229797 -251.16409302 66.90229797 -265.1519165
+		 66.90229797 -279.13973999 66.90229797 -293.12756348 66.90229797 -307.11538696 66.90229797
+		 -321.10327148 66.90229797 -335.091033936 66.90229797 -349.078918457 66.90229797 -363.066741943
+		 66.90229797 -377.05456543 66.90229797 -391.042388916 66.90229797 -405.030212402 66.90229797
+		 -419.018035889 66.90229797 -433.0059814453 66.90229797 -446.99368286 66.90229797
+		 -460.98150635 66.90229797 -474.9694519 66.90229797 -488.95715332 66.90229797 -502.94497681
+		 66.90229797 -516.93280029 66.90229797 -530.92071533 52.91446304 532.15411377 52.91446304
+		 518.1663208 52.91446304 504.17855835 52.91446304 490.19070435 52.91446304 476.20291138
+		 52.91446304 462.21502686 52.91446304 448.22720337 52.91446304 434.23937988 52.91446304
+		 420.25152588 52.91446304 406.26373291 52.91446304 392.27590942 52.91446304 378.28808594
+		 52.91446304 364.30023193 52.91446304 350.31243896 52.91446304 336.32461548 52.91446304
+		 322.33679199 52.91446304 308.34893799 52.91446304 294.36114502 52.91446304 280.37329102
+		 52.91446304 266.38540649 52.91446304 252.3976593 52.91446304 238.40983582 52.91446304
+		 224.42201233 52.91446304 210.43418884 52.91446304 196.44636536 52.91446304 182.45852661
+		 52.91446304 168.47070313 52.91446304 154.48287964 52.91446304 140.49505615 52.91446304
+		 126.50721741 52.91446304 112.51937866 52.91446304 98.53155518 52.91446304 84.54373169
+		 52.91446304 70.5559082 52.91446304 56.56801987 52.91446304 42.58019638 52.91446304
+		 28.59243011 52.91446304 14.60460186 52.91446304 0.61677587 52.91446304 -13.37111282
+		 52.91446304 -27.35887527 52.91446304 -41.34670639 52.91446304 -55.33459091 52.91446304
+		 -69.32235718 52.91446304 -83.31018066 52.91446304 -97.29808044 52.91446304 -111.28590393
+		 52.91446304 -125.27366638 52.91446304 -139.26148987 52.91446304 -153.24931335 52.91446304
+		 -167.23719788 52.91446304 -181.22502136 52.91446304 -195.21278381 52.91446304 -209.2006073
+		 52.91446304 -223.18843079 52.91446304 -237.17626953 52.91446304 -251.16409302 52.91446304
+		 -265.1519165 52.91446304 -279.13973999 52.91446304 -293.12756348 52.91446304 -307.11538696
+		 52.91446304 -321.10327148 52.91446304 -335.091033936 52.91446304 -349.078918457 52.91446304
+		 -363.066741943 52.91446304 -377.05456543 52.91446304 -391.042388916 52.91446304 -405.030212402
+		 52.91446304 -419.018035889 52.91446304 -433.0059814453 52.91446304 -446.99368286
+		 52.91446304 -460.98150635 52.91446304 -474.9694519 52.91446304 -488.95715332 52.91446304
+		 -502.94497681 52.91446304 -516.93280029 52.91446304 -530.92071533 38.92663193 532.15411377
+		 38.92663193 518.1663208 38.92663193 504.17855835 38.92663193 490.19070435 38.92663193
+		 476.20291138 38.92663193 462.21502686 38.92663193 448.22720337 38.92663193 434.23937988
+		 38.92663193 420.25152588 38.92663193 406.26373291 38.92663193 392.27590942 38.92663193
+		 378.28808594 38.92663193 364.30023193 38.92663193 350.31243896 38.92663193 336.32461548
+		 38.92663193 322.33679199 38.92663193 308.34893799 38.92663193 294.36114502 38.92663193
+		 280.37329102 38.92663193 266.38540649 38.92663193 252.3976593 38.92663193 238.40983582
+		 38.92663193 224.42201233 38.92663193 210.43418884 38.92663193 196.44636536 38.92663193
+		 182.45852661 38.92663193 168.47070313 38.92663193 154.48287964 38.92663193 140.49505615
+		 38.92663193 126.50721741 38.92663193 112.51937866 38.92663193 98.53155518 38.92663193
+		 84.54373169 38.92663193 70.5559082 38.92663193 56.56801987 38.92663193 42.58019638
+		 38.92663193 28.59243011 38.92663193 14.60460186 38.92663193 0.61677587 38.92663193
+		 -13.37111282 38.92663193 -27.35887527 38.92663193 -41.34670639 38.92663193 -55.33459091
+		 38.92663193 -69.32235718;
+	setAttr ".uvtk[4000:4249]" 38.92663193 -83.31018066 38.92663193 -97.29808044
+		 38.92663193 -111.28590393 38.92663193 -125.27366638 38.92663193 -139.26148987 38.92663193
+		 -153.24931335 38.92663193 -167.23719788 38.92663193 -181.22502136 38.92663193 -195.21278381
+		 38.92663193 -209.2006073 38.92663193 -223.18843079 38.92663193 -237.17626953 38.92663193
+		 -251.16409302 38.92663193 -265.1519165 38.92663193 -279.13973999 38.92663193 -293.12756348
+		 38.92663193 -307.11538696 38.92663193 -321.10327148 38.92663193 -335.091033936 38.92663193
+		 -349.078918457 38.92663193 -363.066741943 38.92663193 -377.05456543 38.92663193 -391.042388916
+		 38.92663193 -405.030212402 38.92663193 -419.018035889 38.92663193 -433.0059814453
+		 38.92663193 -446.99368286 38.92663193 -460.98150635 38.92663193 -474.9694519 38.92663193
+		 -488.95715332 38.92663193 -502.94497681 38.92663193 -516.93280029 38.92663193 -530.92071533
+		 24.93880844 532.15411377 24.93880844 518.1663208 24.93880844 504.17855835 24.93880844
+		 490.19070435 24.93880844 476.20291138 24.93880844 462.21502686 24.93880844 448.22720337
+		 24.93880844 434.23937988 24.93880844 420.25152588 24.93880844 406.26373291 24.93880844
+		 392.27590942 24.93880844 378.28808594 24.93880844 364.30023193 24.93880844 350.31243896
+		 24.93880844 336.32461548 24.93880844 322.33679199 24.93880844 308.34893799 24.93880844
+		 294.36114502 24.93880844 280.37329102 24.93880844 266.38540649 24.93880844 252.3976593
+		 24.93880844 238.40983582 24.93880844 224.42201233 24.93880844 210.43418884 24.93880844
+		 196.44636536 24.93880844 182.45852661 24.93880844 168.47070313 24.93880844 154.48287964
+		 24.93880844 140.49505615 24.93880844 126.50721741 24.93880844 112.51937866 24.93880844
+		 98.53155518 24.93880844 84.54373169 24.93880844 70.5559082 24.93880844 56.56801987
+		 24.93880844 42.58019638 24.93880844 28.59243011 24.93880844 14.60460186 24.93880844
+		 0.61677587 24.93880844 -13.37111282 24.93880844 -27.35887527 24.93880844 -41.34670639
+		 24.93880844 -55.33459091 24.93880844 -69.32235718 24.93880844 -83.31018066 24.93880844
+		 -97.29808044 24.93880844 -111.28590393 24.93880844 -125.27366638 24.93880844 -139.26148987
+		 24.93880844 -153.24931335 24.93880844 -167.23719788 24.93880844 -181.22502136 24.93880844
+		 -195.21278381 24.93880844 -209.2006073 24.93880844 -223.18843079 24.93880844 -237.17626953
+		 24.93880844 -251.16409302 24.93880844 -265.1519165 24.93880844 -279.13973999 24.93880844
+		 -293.12756348 24.93880844 -307.11538696 24.93880844 -321.10327148 24.93880844 -335.091033936
+		 24.93880844 -349.078918457 24.93880844 -363.066741943 24.93880844 -377.05456543 24.93880844
+		 -391.042388916 24.93880844 -405.030212402 24.93880844 -419.018035889 24.93880844
+		 -433.0059814453 24.93880844 -446.99368286 24.93880844 -460.98150635 24.93880844 -474.9694519
+		 24.93880844 -488.95715332 24.93880844 -502.94497681 24.93880844 -516.93280029 24.93880844
+		 -530.92071533 10.950984 532.15411377 10.950984 518.1663208 10.950984 504.17855835
+		 10.950984 490.19070435 10.950984 476.20291138 10.950984 462.21502686 10.950984 448.22720337
+		 10.950984 434.23937988 10.950984 420.25152588 10.950984 406.26373291 10.950984 392.27590942
+		 10.950984 378.28808594 10.950984 364.30023193 10.950984 350.31243896 10.950984 336.32461548
+		 10.950984 322.33679199 10.950984 308.34893799 10.950984 294.36114502 10.950984 280.37329102
+		 10.950984 266.38540649 10.950984 252.3976593 10.950984 238.40983582 10.950984 224.42201233
+		 10.950984 210.43418884 10.950984 196.44636536 10.950984 182.45852661 10.950984 168.47070313
+		 10.950984 154.48287964 10.950984 140.49505615 10.950984 126.50721741 10.950984 112.51937866
+		 10.950984 98.53155518 10.950984 84.54373169 10.950984 70.5559082 10.950984 56.56801987
+		 10.950984 42.58019638 10.950984 28.59243011 10.950984 14.60460186 10.950984 0.61677587
+		 10.950984 -13.37111282 10.950984 -27.35887527 10.950984 -41.34670639 10.950984 -55.33459091
+		 10.950984 -69.32235718 10.950984 -83.31018066 10.950984 -97.29808044 10.950984 -111.28590393
+		 10.950984 -125.27366638 10.950984 -139.26148987 10.950984 -153.24931335 10.950984
+		 -167.23719788 10.950984 -181.22502136 10.950984 -195.21278381 10.950984 -209.2006073
+		 10.950984 -223.18843079 10.950984 -237.17626953 10.950984 -251.16409302 10.950984
+		 -265.1519165 10.950984 -279.13973999 10.950984 -293.12756348 10.950984 -307.11538696
+		 10.950984 -321.10327148 10.950984 -335.091033936 10.950984 -349.078918457 10.950984
+		 -363.066741943 10.950984 -377.05456543 10.950984 -391.042388916 10.950984 -405.030212402
+		 10.950984 -419.018035889 10.950984 -433.0059814453 10.950984 -446.99368286 10.950984
+		 -460.98150635 10.950984 -474.9694519 10.950984 -488.95715332 10.950984 -502.94497681
+		 10.950984 -516.93280029 -3.0368433 532.15411377 -3.0368433 518.1663208 -3.0368433
+		 504.17855835 -3.0368433 490.19070435 -3.0368433 476.20291138 -3.0368433 462.21502686
+		 -3.0368433 448.22720337 -3.0368433 434.23937988 -3.0368433 420.25152588 -3.0368433
+		 406.26373291 -3.0368433 392.27590942 -3.0368433 378.28808594 -3.0368433 364.30023193
+		 -3.0368433 350.31243896 -3.0368433 336.32461548 -3.0368433 322.33679199 -3.0368433
+		 308.34893799 -3.0368433 294.36114502 -3.0368433 280.37329102 -3.0368433 266.38540649
+		 -3.0368433 252.3976593 -3.0368433 238.40983582 -3.0368433 224.42201233 -3.0368433
+		 210.43418884 -3.0368433 196.44636536 -3.0368433 182.45852661 -3.0368433 168.47070313
+		 -3.0368433 154.48287964 -3.0368433 140.49505615 -3.0368433 126.50721741 -3.0368433
+		 112.51937866 -3.0368433 98.53155518 -3.0368433 84.54373169 -3.0368433 70.5559082
+		 -3.0368433 56.56801987 -3.0368433 42.58019638 -3.0368433 28.59243011 -3.0368433 14.60460186
+		 -3.0368433 0.61677587 -3.0368433 -13.37111282 -3.0368433 -27.35887527 -3.0368433
+		 -41.34670639 -3.0368433 -55.33459091 -3.0368433 -69.32235718 -3.0368433 -83.31018066
+		 -3.0368433 -97.29808044 -3.0368433 -111.28590393 -3.0368433 -125.27366638 -3.0368433
+		 -139.26148987 -3.0368433 -153.24931335 -3.0368433 -167.23719788 -3.0368433 -181.22502136
+		 -3.0368433 -195.21278381 -3.0368433 -209.2006073 -3.0368433 -223.18843079 -3.0368433
+		 -237.17626953 -3.0368433 -251.16409302 -3.0368433 -265.1519165 -3.0368433 -279.13973999
+		 -3.0368433 -293.12756348 -3.0368433 -307.11538696 -3.0368433 -321.10327148 -3.0368433
+		 -335.091033936 -3.0368433 -349.078918457;
+	setAttr ".uvtk[4250:4499]" -3.0368433 -363.066741943 -3.0368433 -377.05456543
+		 -3.0368433 -391.042388916 -3.0368433 -405.030212402 -3.0368433 -419.018035889 -3.0368433
+		 -433.0059814453 -3.0368433 -446.99368286 -3.0368433 -460.98150635 -3.0368433 -474.9694519
+		 -3.0368433 -488.95715332 -3.0368433 -502.94497681 -17.024669647 532.15411377 -17.024669647
+		 518.1663208 -17.024669647 504.17855835 -17.024669647 490.19070435 -17.024669647 476.20291138
+		 -17.024669647 462.21502686 -17.024669647 448.22720337 -17.024669647 434.23937988
+		 -17.024669647 420.25152588 -17.024669647 406.26373291 -17.024669647 392.27590942
+		 -17.024669647 378.28808594 -17.024669647 364.30023193 -17.024669647 350.31243896
+		 -17.024669647 336.32461548 -17.024669647 322.33679199 -17.024669647 308.34893799
+		 -17.024669647 294.36114502 -17.024669647 280.37329102 -17.024669647 266.38540649
+		 -17.024669647 252.3976593 -17.024669647 238.40983582 -17.024669647 224.42201233 -17.024669647
+		 210.43418884 -17.024669647 196.44636536 -17.024669647 182.45852661 -17.024669647
+		 168.47070313 -17.024669647 154.48287964 -17.024669647 140.49505615 -17.024669647
+		 126.50721741 -17.024669647 112.51937866 -17.024669647 98.53155518 -17.024669647 84.54373169
+		 -17.024669647 70.5559082 -17.024669647 56.56801987 -17.024669647 42.58019638 -17.024669647
+		 28.59243011 -17.024669647 14.60460186 -17.024669647 0.61677587 -17.024669647 -13.37111282
+		 -17.024669647 -27.35887527 -17.024669647 -41.34670639 -17.024669647 -55.33459091
+		 -17.024669647 -69.32235718 -17.024669647 -83.31018066 -17.024669647 -97.29808044
+		 -17.024669647 -111.28590393 -17.024669647 -125.27366638 -17.024669647 -139.26148987
+		 -17.024669647 -153.24931335 -17.024669647 -167.23719788 -17.024669647 -181.22502136
+		 -17.024669647 -195.21278381 -17.024669647 -209.2006073 -17.024669647 -223.18843079
+		 -17.024669647 -237.17626953 -17.024669647 -251.16409302 -17.024669647 -265.1519165
+		 -17.024669647 -279.13973999 -17.024669647 -293.12756348 -17.024669647 -307.11538696
+		 -17.024669647 -321.10327148 -17.024669647 -335.091033936 -17.024669647 -349.078918457
+		 -17.024669647 -363.066741943 -17.024669647 -377.05456543 -17.024669647 -391.042388916
+		 -17.024669647 -405.030212402 -17.024669647 -419.018035889 -17.024669647 -433.0059814453
+		 -17.024669647 -446.99368286 -17.024669647 -460.98150635 -17.024669647 -474.9694519
+		 -17.024669647 -488.95715332 -31.012498856 532.15411377 -31.012498856 518.1663208
+		 -31.012498856 504.17855835 -31.012498856 490.19070435 -31.012498856 476.20291138
+		 -31.012498856 462.21502686 -31.012498856 448.22720337 -31.012498856 434.23937988
+		 -31.012498856 420.25152588 -31.012498856 406.26373291 -31.012498856 392.27590942
+		 -31.012498856 378.28808594 -31.012498856 364.30023193 -31.012498856 350.31243896
+		 -31.012498856 336.32461548 -31.012498856 322.33679199 -31.012498856 308.34893799
+		 -31.012498856 294.36114502 -31.012498856 280.37329102 -31.012498856 266.38540649
+		 -31.012498856 252.3976593 -31.012498856 238.40983582 -31.012498856 224.42201233 -31.012498856
+		 210.43418884 -31.012498856 196.44636536 -31.012498856 182.45852661 -31.012498856
+		 168.47070313 -31.012498856 154.48287964 -31.012498856 140.49505615 -31.012498856
+		 126.50721741 -31.012498856 112.51937866 -31.012498856 98.53155518 -31.012498856 84.54373169
+		 -31.012498856 70.5559082 -31.012498856 56.56801987 -31.012498856 42.58019638 -31.012498856
+		 28.59243011 -31.012498856 14.60460186 -31.012498856 0.61677587 -31.012498856 -13.37111282
+		 -31.012498856 -27.35887527 -31.012498856 -41.34670639 -31.012498856 -55.33459091
+		 -31.012498856 -69.32235718 -31.012498856 -83.31018066 -31.012498856 -97.29808044
+		 -31.012498856 -111.28590393 -31.012498856 -125.27366638 -31.012498856 -139.26148987
+		 -31.012498856 -153.24931335 -31.012498856 -167.23719788 -31.012498856 -181.22502136
+		 -31.012498856 -195.21278381 -31.012498856 -209.2006073 -31.012498856 -223.18843079
+		 -31.012498856 -237.17626953 -31.012498856 -251.16409302 -31.012498856 -265.1519165
+		 -31.012498856 -279.13973999 -31.012498856 -293.12756348 -31.012498856 -307.11538696
+		 -31.012498856 -321.10327148 -31.012498856 -335.091033936 -31.012498856 -349.078918457
+		 -31.012498856 -363.066741943 -31.012498856 -377.05456543 -31.012498856 -391.042388916
+		 -31.012498856 -405.030212402 -31.012498856 -419.018035889 -31.012498856 -433.0059814453
+		 -31.012498856 -446.99368286 -31.012498856 -460.98150635 -31.012498856 -474.9694519
+		 -31.012498856 -488.95715332 -45.00032424927 532.15411377 -45.00032424927 518.1663208
+		 -45.00032424927 504.17855835 -45.00032424927 490.19070435 -45.00032424927 476.20291138
+		 -45.00032424927 462.21502686 -45.00032424927 448.22720337 -45.00032424927 434.23937988
+		 -45.00032424927 420.25152588 -45.00032424927 406.26373291 -45.00032424927 392.27590942
+		 -45.00032424927 378.28808594 -45.00032424927 364.30023193 -45.00032424927 350.31243896
+		 -45.00032424927 336.32461548 -45.00032424927 322.33679199 -45.00032424927 308.34893799
+		 -45.00032424927 294.36114502 -45.00032424927 280.37329102 -45.00032424927 266.38540649
+		 -45.00032424927 252.3976593 -45.00032424927 238.40983582 -45.00032424927 224.42201233
+		 -45.00032424927 210.43418884 -45.00032424927 196.44636536 -45.00032424927 182.45852661
+		 -45.00032424927 168.47070313 -45.00032424927 154.48287964 -45.00032424927 140.49505615
+		 -45.00032424927 126.50721741 -45.00032424927 112.51937866 -45.00032424927 98.53155518
+		 -45.00032424927 84.54373169 -45.00032424927 70.5559082 -45.00032424927 56.56801987
+		 -45.00032424927 42.58019638 -45.00032424927 28.59243011 -45.00032424927 14.60460186
+		 -45.00032424927 0.61677587 -45.00032424927 -13.37111282 -45.00032424927 -27.35887527
+		 -45.00032424927 -41.34670639 -45.00032424927 -55.33459091 -45.00032424927 -69.32235718
+		 -45.00032424927 -83.31018066 -45.00032424927 -97.29808044 -45.00032424927 -111.28590393
+		 -45.00032424927 -125.27366638 -45.00032424927 -139.26148987 -45.00032424927 -153.24931335
+		 -45.00032424927 -167.23719788 -45.00032424927 -181.22502136 -45.00032424927 -195.21278381
+		 -45.00032424927 -209.2006073 -45.00032424927 -223.18843079 -45.00032424927 -237.17626953
+		 -45.00032424927 -251.16409302 -45.00032424927 -265.1519165 -45.00032424927 -279.13973999
+		 -45.00032424927 -293.12756348 -45.00032424927 -307.11538696 -45.00032424927 -321.10327148
+		 -45.00032424927 -335.091033936 -45.00032424927 -349.078918457 -45.00032424927 -363.066741943
+		 -45.00032424927 -377.05456543 -45.00032424927 -391.042388916 -45.00032424927 -405.030212402
+		 -45.00032424927 -419.018035889 -45.00032424927 -433.0059814453 -45.00032424927 -446.99368286
+		 -45.00032424927 -460.98150635 -45.00032424927 -474.9694519 -58.98814774 532.15411377
+		 -58.98814774 518.1663208 -58.98814774 504.17855835 -58.98814774 490.19070435 -58.98814774
+		 476.20291138 -58.98814774 462.21502686 -58.98814774 448.22720337 -58.98814774 434.23937988
+		 -58.98814774 420.25152588 -58.98814774 406.26373291 -58.98814774 392.27590942 -58.98814774
+		 378.28808594 -58.98814774 364.30023193 -58.98814774 350.31243896 -58.98814774 336.32461548
+		 -58.98814774 322.33679199 -58.98814774 308.34893799 -58.98814774 294.36114502;
+	setAttr ".uvtk[4500:4749]" -58.98814774 280.37329102 -58.98814774 266.38540649
+		 -58.98814774 252.3976593 -58.98814774 238.40983582 -58.98814774 224.42201233 -58.98814774
+		 210.43418884 -58.98814774 196.44636536 -58.98814774 182.45852661 -58.98814774 168.47070313
+		 -58.98814774 154.48287964 -58.98814774 140.49505615 -58.98814774 126.50721741 -58.98814774
+		 112.51937866 -58.98814774 98.53155518 -58.98814774 84.54373169 -58.98814774 70.5559082
+		 -58.98814774 56.56801987 -58.98814774 42.58019638 -58.98814774 28.59243011 -58.98814774
+		 14.60460186 -58.98814774 0.61677587 -58.98814774 -13.37111282 -58.98814774 -27.35887527
+		 -58.98814774 -41.34670639 -58.98814774 -55.33459091 -58.98814774 -69.32235718 -58.98814774
+		 -83.31018066 -58.98814774 -97.29808044 -58.98814774 -111.28590393 -58.98814774 -125.27366638
+		 -58.98814774 -139.26148987 -58.98814774 -153.24931335 -58.98814774 -167.23719788
+		 -58.98814774 -181.22502136 -58.98814774 -195.21278381 -58.98814774 -209.2006073 -58.98814774
+		 -223.18843079 -58.98814774 -237.17626953 -58.98814774 -251.16409302 -58.98814774
+		 -265.1519165 -58.98814774 -279.13973999 -58.98814774 -293.12756348 -58.98814774 -307.11538696
+		 -58.98814774 -321.10327148 -58.98814774 -335.091033936 -58.98814774 -349.078918457
+		 -58.98814774 -363.066741943 -58.98814774 -377.05456543 -58.98814774 -391.042388916
+		 -58.98814774 -405.030212402 -58.98814774 -419.018035889 -58.98814774 -433.0059814453
+		 -58.98814774 -446.99368286 -58.98814774 -460.98150635 -58.98814774 -474.9694519 80.40872955
+		 -530.92071533 136.84141541 545.54779053 122.85360718 545.4487915 206.7805481 392.27590942
+		 94.87794495 -446.99368286 -45.00032424927 -488.95715332 127.25675201 -386.46453857
+		 -59.65391159 -484.3067627 -59.65391159 -498.28622437 -59.65391159 -510.38513184 -53.43160629
+		 -512.26574707 -50.81326294 -513.057067871 -36.83379364 -517.28216553 -35.89499283
+		 -517.56573486 -23.69390678 -526.24517822 -22.85432053 -526.84259033 -8.87485123 -536.78710938
+		 -5.4494648 -539.22363281 5.10461426 -538.27368164 19.08408165 -537.015075684 14.11116219
+		 -531.4208374 9.51001167 -526.24517822 5.10461426 -521.28955078 1.50028932 -517.23529053
+		 0.26455548 -515.8449707 -2.91729426 -512.26574707 -3.39413381 -511.72927856 -8.87485123
+		 -507.60714722 -15.31839275 -502.76062012 -16.76633644 -501.67150879 -21.2670517 -498.28622437
+		 -22.85432053 -497.092407227 -24.75741196 -495.66098022 -30.50666046 -493.79037476
+		 -36.83379364 -491.73175049 -44.48625183 -489.24191284 -45.31486511 -488.97225952
+		 -50.81326294 -487.18325806 -58.4657135 -484.69338989 5.10461426 -526.24517822 -8.87485123
+		 -512.26574707 -8.87485123 -526.24517822 -22.85432053 -498.28622437 -22.85432053 -512.26574707
+		 -36.83379364 -498.28622437 -36.83379364 -512.26574707 -50.81326294 -498.28622437
+		 -50.81326294 -512.26574707 -22.85432053 -526.24517822 60.70081711 -458.77450562 60.70082092
+		 -472.75396729 60.70081711 -486.73345947 60.70081711 -489.81747437 51.72530365 -496.45223999
+		 45.96131897 -500.71289063 37.74583817 -506.78579712 32.83879471 -510.4130249 28.92982101
+		 -514.69226074 23.76636887 -520.34503174 16.16031837 -528.67175293 9.7869091 -535.64923096
+		 6.49634266 -539.25146484 -4.1925621 -538.28918457 -18.17203331 -537.030700684 -13.95724106
+		 -531.45727539 -11.85075378 -528.67175293 -8.22695732 -523.87994385 -4.19255447 -518.54516602
+		 -1.27892613 -514.69226074 4.61126328 -506.90359497 7.46656704 -503.12792969 9.29292107
+		 -500.71289063 9.7869091 -500.059661865 16.045951843 -491.78320313 17.57430458 -490.65338135
+		 19.81087303 -489.00012207031 22.87730598 -486.73345947 23.76636505 -486.07623291
+		 31.55370331 -480.31988525 37.74583435 -475.7427063 41.78905487 -472.75396729 45.53323364
+		 -469.98629761 51.72529984 -465.40914917 57.63432693 -461.041320801 59.51264191 -459.65274048
+		 -4.1925621 -528.67175293 9.7869091 -514.69226074 9.7869091 -528.67175293 23.76636887
+		 -500.71289063 23.76636887 -514.69226074 37.74583817 -486.73345947 37.74583817 -500.71289063
+		 51.72529984 -472.75396729 51.72530365 -486.73345947 9.7869091 -500.71289063 23.76636505
+		 -486.73345947 16.50127983 -491.74047852 9.68176174 -499.91378784 9.14354038 -500.55874634
+		 7.15364885 -502.94360352 4.042663574 -506.67221069 -1.68448424 -513.53625488 -4.51746845
+		 -516.93151855 -9.94516277 -523.43652344 -13.89346313 -528.16870117 -16.18857765 -530.91931152
+		 -20.78078079 -536.4230957 -23.91059494 -536.15844727 -37.92081833 -534.97320557 -51.90864182
+		 -533.79003906 -65.89648438 -532.60675049 -79.30534363 -531.47253418 -79.88430786
+		 -528.19018555 -81.87016296 -516.93151855 -84.33739471 -502.94360352 -86.80464172
+		 -488.9559021 -88.60370636 -478.75604248 -89.27185059 -474.96795654 -91.7390976 -460.98013306
+		 -93.87213135 -448.88717651 -94.2063446 -446.99230957 -96.32748413 -434.96664429 -96.67357635
+		 -433.004486084 -96.90694427 -431.681427 -102.8700943 -422.49237061 -105.12557983
+		 -419.016662598 -107.85995483 -414.8031311 -110.66369629 -410.48257446 -114.20281982
+		 -405.028839111 -118.45727539 -398.47290039 -121.84778595 -393.24807739 -123.28005219
+		 -391.041015625 -126.25086975 -386.46304321 -130.31251526 -380.20425415 -132.35728455
+		 -377.053314209 -135.81440735 -371.72579956 -136.60650635 -363.065368652 -137.88581848
+		 -349.077545166 -139.16516113 -335.089782715 -140.44448853 -321.10189819 -141.72380066
+		 -307.11413574 -143.003112793 -293.12619019 -144.28245544 -279.1383667 -145.56176758
+		 -265.15054321 -146.84111023 -251.16275024 -148.12042236 -237.17504883 -149.3997345
+		 -223.18719482 -149.82344055 -218.55451965 -150.67906189 -209.19937134 -151.95837402
+		 -195.21148682 -153.23771667 -181.22366333 -154.51702881 -167.23583984 -155.79634094
+		 -153.24795532 -157.075683594 -139.26019287 -158.35499573 -125.27232361 -159.63430786
+		 -111.28456116 -160.91363525 -97.29679871 -162.19297791 -83.30890656 -163.47227478
+		 -69.32108307 -163.81126404 -65.61495209 -164.75163269 -55.33330536 -166.030944824
+		 -41.34542084 -167.31028748 -27.35758972 -168.58959961 -13.36982727 -169.86891174
+		 0.61806124 -171.14825439 14.6059494 -172.42756653 28.59371567 -173.70687866 42.58154297
+		 -174.98622131 56.56942749 -176.26553345 70.55718994 -177.5448761 84.54495239 -177.79908752
+		 87.32463074 -178.82418823 98.53283691 -180.10350037 112.5206604 -181.38285828 126.50849152
+		 -182.66215515 140.49633789 -183.94151306 154.48422241 -185.2208252 168.47198486 -186.50013733
+		 182.45974731 -187.77947998 196.44772339 -189.058792114 210.43554688 -190.33810425
+		 224.42330933 -191.6174469 238.41113281 -191.78691101 240.26412964 -192.89674377 252.39901733
+		 -194.17605591 266.38671875 -195.45539856 280.37454224 -196.73471069 294.36251831
+		 -198.014053345 308.35028076 -199.29336548 322.33804321 -200.57273865 336.32592773
+		 -201.85202026 350.31378174 -203.1313324 364.30148315 -204.41065979 378.28936768 -205.7747345
+		 393.2038269;
+	setAttr ".uvtk[4750:4999]" -206.96929932 406.26498413 -208.24865723 420.25296021
+		 -209.52796936 434.24069214 -210.80731201 448.22854614 -212.086593628 462.21627808
+		 -213.36593628 476.20419312 -214.64527893 490.1920166 -215.92459106 504.17993164 -217.2039032
+		 518.16766357 -218.48324585 532.15545654 -219.76255798 546.14337158 -205.7754364 546.044311523
+		 -191.7882843 545.94525146 -177.80116272 545.84631348 -163.81413269 545.74725342 -149.82704163
+		 545.64825439 -107.85992432 545.35113525 -93.87211609 545.25213623 -79.88414001 545.15313721
+		 -65.89648438 545.054077148 -51.90864182 544.95507813 -37.92081833 544.8560791 -23.93300629
+		 544.75701904 -9.94517803 544.65802002 4.042633057 544.55895996 18.03045845 544.4598999
+		 32.018280029 544.36096191 46.0062408447 544.26184082 59.99407196 544.16290283 61.18284607
+		 544.15447998 61.18284607 532.15557861 61.18284607 518.16778564 61.18284607 504.17990112
+		 61.18284607 490.19210815 61.18284607 476.20431519 61.18284607 462.21636963 61.18284607
+		 448.22866821 61.18284607 434.24078369 61.18284607 420.25289917 61.18284607 406.26519775
+		 61.18284607 392.27734375 61.18284607 378.28945923 61.18284607 364.30172729 61.18284607
+		 350.31390381 61.18284607 336.32601929 61.18284607 322.33828735 61.18284607 308.35037231
+		 61.18284607 294.36251831 61.18284607 280.37478638 61.18284607 266.38671875 61.18284988
+		 252.39907837 61.18284225 238.41119385 61.18284607 224.42330933 61.18284607 210.43554688
+		 61.18284607 196.44766235 61.18284607 182.45980835 61.18284607 168.47210693 61.18284607
+		 154.48422241 61.18284607 140.49633789 61.18284607 126.50855255 61.18284607 112.52072144
+		 61.18284607 98.53283691 61.18284607 84.5451355 61.18284607 70.55725098 61.18284607
+		 56.56936646 61.18284607 42.58166504 61.18284607 28.59365463 61.18284607 14.6059494
+		 61.18284607 0.61824411 61.18284607 -13.36982727 61.18284607 -27.35752869 61.18284607
+		 -41.34529877 61.18284607 -55.33318329 61.18284607 -69.32102203 61.18284607 -83.30872345
+		 61.18284607 -97.29667664 61.18284607 -111.28456116 61.18284607 -125.27238464 61.18284607
+		 -139.26013184 61.18284607 -153.24795532 61.18284607 -167.23583984 61.18284607 -181.22354126
+		 61.18284607 -195.21142578 61.18284607 -209.19924927 61.18284607 -223.18719482 61.18284607
+		 -237.17492676 61.18284607 -251.16275024 61.18284607 -265.15066528 61.18284607 -279.1383667
+		 61.18284607 -293.12619019 61.18284607 -307.11401367 61.18284607 -321.10189819 61.18284607
+		 -335.089660645 61.18284607 -349.077545166 61.18284607 -363.065490723 61.18284607
+		 -377.053192139 61.18284607 -391.041015625 61.18284607 -405.028961182 61.18284607
+		 -419.016662598 61.18284607 -433.004486084 61.18284607 -446.99243164 61.18284607 -458.71209717
+		 59.99395752 -459.59094238 58.11452866 -460.98025513 52.20199966 -465.35070801 46.0061912537
+		 -469.93057251 42.7297821 -472.35253906 39.19161224 -474.96795654 32.018306732 -480.27044678
+		 24.22636032 -486.03024292 23.3367691 -486.68774414 20.2684536 -488.95578003 18.030550003
+		 -490.61013794 -205.7747345 532.15551758 -205.7747345 518.16772461 -205.7747345 504.17990112
+		 -205.7747345 490.1920166 -205.7747345 476.20428467 -205.7747345 462.21640015 -205.7747345
+		 448.22857666 -205.7747345 434.24072266 -205.7747345 420.25292969 -205.7747345 406.2651062
+		 -191.78691101 532.15551758 -191.78691101 518.16772461 -191.78691101 504.17990112
+		 -191.78691101 490.1920166 -191.78691101 476.20428467 -191.78694153 462.21640015 -191.78691101
+		 448.22857666 -191.78691101 434.24072266 -191.78691101 420.25292969 -191.78691101
+		 406.2651062 -191.78691101 392.27728271 -191.78691101 378.28945923 -191.78691101 364.30163574
+		 -191.78691101 350.31381226 -191.78691101 336.32595825 -191.78691101 322.33816528
+		 -191.78691101 308.35031128 -191.78691101 294.36251831 -191.78691101 280.37466431
+		 -191.78691101 266.38684082 -191.78691101 252.39901733 -177.79908752 532.15551758
+		 -177.79911804 518.16772461 -177.79908752 504.17990112 -177.79908752 490.1920166 -177.79908752
+		 476.20428467 -177.79908752 462.21640015 -177.79908752 448.22857666 -177.79908752
+		 434.24072266 -177.79908752 420.25292969 -177.79908752 406.2651062 -177.79908752 392.27728271
+		 -177.79908752 378.28945923 -177.79911804 364.30163574 -177.79908752 350.31381226
+		 -177.79911804 336.32595825 -177.79908752 322.33816528 -177.79908752 308.35031128
+		 -177.79908752 294.36251831 -177.79908752 280.37466431 -177.79908752 266.38684082
+		 -177.79908752 252.39901733 -177.79908752 238.41119385 -177.79908752 224.42337036
+		 -177.79908752 210.43554688 -177.79908752 196.44772339 -177.79908752 182.45986938
+		 -177.79908752 168.47198486 -177.79908752 154.48422241 -177.79908752 140.49639893
+		 -177.79908752 126.50849152 -177.79908752 112.52072144 -177.79908752 98.53289795 -163.81126404
+		 532.15551758 -163.81129456 518.16772461 -163.81126404 504.17990112 -163.81126404
+		 490.1920166 -163.81126404 476.20428467 -163.81126404 462.21640015 -163.81126404 448.22857666
+		 -163.81126404 434.24072266 -163.81126404 420.25292969 -163.81126404 406.2651062 -163.81126404
+		 392.27728271 -163.81129456 378.28945923 -163.81126404 364.30163574 -163.81126404
+		 350.31381226 -163.81126404 336.32595825 -163.81126404 322.33816528 -163.81126404
+		 308.35031128 -163.81126404 294.36251831 -163.81126404 280.37466431 -163.81126404
+		 266.38684082 -163.81126404 252.39901733 -163.81126404 238.41119385 -163.81126404
+		 224.42337036 -163.81126404 210.43554688 -163.81126404 196.44772339 -163.81126404
+		 182.45986938 -163.81126404 168.47198486 -163.81126404 154.48422241 -163.81126404
+		 140.49639893 -163.81126404 126.50849152 -163.81126404 112.52072144 -163.81126404
+		 98.53289795 -163.81126404 84.54507446 -163.81126404 70.55725098 -163.81126404 56.56936646
+		 -163.81126404 42.58154297 -163.81126404 28.59371567 -163.81126404 14.6059494 -163.81126404
+		 0.6181221 -163.81126404 -13.3697052 -163.81126404 -27.35758972 -163.81126404 -41.34542084
+		 -163.81126404 -55.33324432 -149.82344055 532.15551758 -149.82344055 518.16772461
+		 -149.82344055 504.17990112 -149.82344055 490.1920166 -149.82344055 476.20428467 -149.82344055
+		 462.21640015 -149.82344055 448.22857666 -149.82344055 434.24072266 -149.82344055
+		 420.25292969 -149.82344055 406.2651062 -149.82344055 392.27728271 -149.82344055 378.28945923
+		 -149.82344055 364.30163574 -149.82344055 350.31381226 -149.82344055 336.32595825
+		 -149.82344055 322.33816528 -149.82344055 308.35031128 -149.82344055 294.36251831
+		 -149.82344055 280.37466431 -149.82344055 266.38684082 -149.82344055 252.39901733
+		 -149.82344055 238.41119385 -149.82344055 224.42337036 -149.82344055 210.43554688
+		 -149.82344055 196.44772339 -149.82344055 182.45986938 -149.82344055 168.47198486
+		 -149.82344055 154.48422241 -149.82344055 140.49639893 -149.82344055 126.50849152
+		 -149.82344055 112.52072144;
+	setAttr ".uvtk[5000:5249]" -149.82344055 98.53289795 -149.82344055 84.54507446
+		 -149.82344055 70.55725098 -149.82344055 56.56936646 -149.82344055 42.58154297 -149.82344055
+		 28.59371567 -149.82344055 14.6059494 -149.82344055 0.6181221 -149.82344055 -13.3697052
+		 -149.82344055 -27.35758972 -149.82344055 -41.34542084 -149.82344055 -55.33324432
+		 -149.82344055 -69.32102203 -149.82344055 -83.30884552 -149.82344055 -97.29667664
+		 -149.82344055 -111.28456116 -149.82344055 -125.27232361 -149.82344055 -139.26013184
+		 -149.82344055 -153.24795532 -149.82344055 -167.23577881 -149.82344055 -181.22360229
+		 -149.82344055 -195.21142578 -149.82344055 -209.1993103 -135.83561707 532.15551758
+		 -135.83561707 518.16772461 -135.83561707 504.17990112 -135.83561707 490.1920166 -135.83561707
+		 476.20428467 -135.83561707 462.21640015 -135.83561707 448.22857666 -135.83561707
+		 434.24072266 -135.83561707 420.25292969 -135.83561707 406.2651062 -135.83561707 392.27728271
+		 -135.83561707 378.28945923 -135.83561707 364.30163574 -135.83561707 350.31381226
+		 -135.83561707 336.32595825 -135.83561707 322.33816528 -135.83561707 308.35031128
+		 -135.83561707 294.36251831 -135.83561707 280.37466431 -135.83561707 266.38684082
+		 -135.83561707 252.39901733 -135.83561707 238.41119385 -135.83561707 224.42337036
+		 -135.83561707 210.43554688 -135.83561707 196.44772339 -135.83561707 182.45986938
+		 -135.83561707 168.47198486 -135.83561707 154.48422241 -135.83561707 140.49639893
+		 -135.83561707 126.50849152 -135.83561707 112.52072144 -135.83561707 98.53289795 -135.83561707
+		 84.54507446 -135.83561707 70.55725098 -135.83561707 56.56936646 -135.83561707 42.58154297
+		 -135.83561707 28.59371567 -135.83561707 14.6059494 -135.83561707 0.6181221 -135.83561707
+		 -13.3697052 -135.83561707 -27.35758972 -135.83561707 -41.34542084 -135.83561707 -55.33324432
+		 -135.83561707 -69.32102203 -135.83561707 -83.30884552 -135.83561707 -97.29667664
+		 -135.83561707 -111.28456116 -135.83561707 -125.27232361 -135.83561707 -139.26013184
+		 -135.83561707 -153.24795532 -135.83561707 -167.23577881 -135.83561707 -181.22360229
+		 -135.83561707 -195.21142578 -135.83561707 -209.1993103 -135.83561707 -223.18707275
+		 -135.83561707 -237.17492676 -135.83561707 -251.16275024 -135.83561707 -265.15054321
+		 -135.83561707 -279.1383667 -135.83561707 -293.12631226 -135.83561707 -307.11413574
+		 -135.83561707 -321.10189819 -135.83561707 -335.089660645 -135.83561707 -349.077545166
+		 -135.83561707 -363.065368652 -121.84778595 532.15551758 -121.84778595 518.16772461
+		 -121.84778595 504.17990112 -121.84778595 490.1920166 -121.84778595 476.20428467 -121.84778595
+		 462.21640015 -121.84778595 448.22857666 -121.84778595 434.24072266 -121.84778595
+		 420.25292969 -121.84778595 406.2651062 -121.84778595 392.27728271 -121.84778595 378.28945923
+		 -121.84778595 364.30163574 -121.84778595 350.31381226 -121.84778595 336.32595825
+		 -121.84778595 322.33816528 -121.84778595 308.35031128 -121.84778595 294.36251831
+		 -121.84778595 280.37466431 -121.84778595 266.38684082 -121.84778595 252.39901733
+		 -121.84778595 238.41119385 -121.84778595 224.42337036 -121.84778595 210.43554688
+		 -121.84778595 196.44772339 -121.84778595 182.45986938 -121.84778595 168.47198486
+		 -121.84778595 154.48422241 -121.84778595 140.49639893 -121.84778595 126.50849152
+		 -121.84778595 112.52072144 -121.84778595 98.53289795 -121.84778595 84.54507446 -121.84778595
+		 70.55725098 -121.84778595 56.56936646 -121.84778595 42.58154297 -121.84778595 28.59371567
+		 -121.84778595 14.6059494 -121.84778595 0.6181221 -121.84778595 -13.3697052 -121.84778595
+		 -27.35758972 -121.84778595 -41.34542084 -121.84778595 -55.33324432 -121.84778595
+		 -69.32102203 -121.84778595 -83.30884552 -121.84778595 -97.29667664 -121.84778595
+		 -111.28456116 -121.84778595 -125.27232361 -121.84778595 -139.26013184 -121.84778595
+		 -153.24795532 -121.84778595 -167.23577881 -121.84778595 -181.22360229 -121.84778595
+		 -195.21142578 -121.84778595 -209.1993103 -121.84778595 -223.18707275 -121.84778595
+		 -237.17492676 -121.84778595 -251.16275024 -121.84778595 -265.15054321 -121.84778595
+		 -279.1383667 -121.84778595 -293.12631226 -121.84778595 -307.11413574 -121.84778595
+		 -321.10189819 -121.84778595 -335.089660645 -121.84778595 -349.077545166 -121.84778595
+		 -363.065368652 -121.84778595 -377.053314209 -121.84778595 -391.041015625 -107.85995483
+		 532.15551758 -107.85995483 518.16772461 -107.85995483 504.17990112 -107.85995483
+		 490.1920166 -107.85995483 476.20428467 -107.85995483 462.21640015 -107.85995483 448.22857666
+		 -107.85995483 434.24072266 -107.85995483 420.25292969 -107.85995483 406.2651062 -107.85995483
+		 392.27728271 -107.85995483 378.28945923 -107.85995483 364.30163574 -107.85995483
+		 350.31381226 -107.85995483 336.32595825 -107.85995483 322.33816528 -107.85995483
+		 308.35031128 -107.85995483 294.36251831 -107.85995483 280.37466431 -107.85995483
+		 266.38684082 -107.85995483 252.39901733 -107.85995483 238.41119385 -107.85995483
+		 224.42337036 -107.85995483 210.43554688 -107.85995483 196.44772339 -107.85995483
+		 182.45986938 -107.85995483 168.47198486 -107.85995483 154.48422241 -107.85995483
+		 140.49639893 -107.85995483 126.50849152 -107.85995483 112.52072144 -107.85995483
+		 98.53289795 -107.85995483 84.54507446 -107.85995483 70.55725098 -107.85995483 56.56936646
+		 -107.85995483 42.58154297 -107.85995483 28.59371567 -107.85995483 14.6059494 -107.85995483
+		 0.6181221 -107.85995483 -13.3697052 -107.85995483 -27.35758972 -107.85995483 -41.34542084
+		 -107.85995483 -55.33324432 -107.85995483 -69.32102203 -107.85995483 -83.30884552
+		 -107.85995483 -97.29667664 -107.85995483 -111.28456116 -107.85995483 -125.27232361
+		 -107.85995483 -139.26013184 -107.85995483 -153.24795532 -107.85995483 -167.23577881
+		 -107.85995483 -181.22360229 -107.85995483 -195.21142578 -107.85995483 -209.1993103
+		 -107.85995483 -223.18707275 -107.85995483 -237.17492676 -107.85995483 -251.16275024
+		 -107.85995483 -265.15054321 -107.85995483 -279.1383667 -107.85995483 -293.12631226
+		 -107.85995483 -307.11413574 -107.85995483 -321.10189819 -107.85995483 -335.089660645
+		 -107.85995483 -349.077545166 -107.85995483 -363.065368652 -107.85995483 -377.053314209
+		 -107.85995483 -391.041015625 -107.85995483 -405.028839111 -93.87213135 532.15551758
+		 -93.87213135 518.16772461 -93.87213135 504.17990112 -93.87213135 490.1920166 -93.87213135
+		 476.20428467 -93.87213135 462.21640015 -93.87213135 448.22857666 -93.87213135 434.24072266
+		 -93.87213135 420.25292969 -93.87213135 406.2651062 -93.87213135 392.27728271 -93.87213135
+		 378.28945923 -93.87213135 364.30163574 -93.87213135 350.31381226 -93.87213135 336.32595825
+		 -93.87213135 322.33816528 -93.87213135 308.35031128 -93.87213135 294.36251831 -93.87213135
+		 280.37466431 -93.87213135 266.38684082 -93.87213135 252.39901733 -93.87213135 238.41119385
+		 -93.87213135 224.42337036 -93.87213135 210.43554688 -93.87213135 196.44772339 -93.87213135
+		 182.45986938 -93.87213135 168.47198486;
+	setAttr ".uvtk[5250:5499]" -93.87213135 154.48422241 -93.87213135 140.49639893
+		 -93.87213135 126.50849152 -93.87213135 112.52072144 -93.87213135 98.53289795 -93.87213135
+		 84.54507446 -93.87213135 70.55725098 -93.87213135 56.56936646 -93.87213135 42.58154297
+		 -93.87213135 28.59371567 -93.87213135 14.6059494 -93.87213135 0.6181221 -93.87213135
+		 -13.3697052 -93.87213135 -27.35758972 -93.87213135 -41.34542084 -93.87213135 -55.33324432
+		 -93.87213135 -69.32102203 -93.87213135 -83.30884552 -93.87213135 -97.29667664 -93.87213135
+		 -111.28456116 -93.87213135 -125.27232361 -93.87213135 -139.26013184 -93.87213135
+		 -153.24795532 -93.87213135 -167.23577881 -93.87213135 -181.22360229 -93.87213135
+		 -195.21142578 -93.87213135 -209.1993103 -93.87213135 -223.18707275 -93.87213135 -237.17492676
+		 -93.87213135 -251.16275024 -93.87213135 -265.15054321 -93.87213135 -279.1383667 -93.87213135
+		 -293.12631226 -93.87213135 -307.11413574 -93.87213135 -321.10189819 -93.87213135
+		 -335.089660645 -93.87213135 -349.077545166 -93.87213135 -363.065368652 -93.87213135
+		 -377.053314209 -93.87213135 -391.041015625 -93.87213135 -405.028839111 -93.87213135
+		 -419.016784668 -93.87213135 -433.0046081543 -79.88430786 532.15551758 -79.88430786
+		 518.16772461 -79.88430786 504.17990112 -79.88430786 490.1920166 -79.88430786 476.20428467
+		 -79.88430786 462.21640015 -79.88430786 448.22857666 -79.88430786 434.24072266 -79.88430786
+		 420.25292969 -79.88430786 406.2651062 -79.88430786 392.27728271 -79.88430786 378.28945923
+		 -79.88430786 364.30163574 -79.88430786 350.31381226 -79.88430786 336.32595825 -79.88430786
+		 322.33816528 -79.88430786 308.35031128 -79.88430786 294.36251831 -79.88430786 280.37466431
+		 -79.88430786 266.38684082 -79.88430786 252.39901733 -79.88430786 238.41119385 -79.88430786
+		 224.42337036 -79.88430786 210.43554688 -79.88430786 196.44772339 -79.88430786 182.45986938
+		 -79.88430786 168.47198486 -79.88430786 154.48422241 -79.88430786 140.49639893 -79.88430786
+		 126.50849152 -79.88430786 112.52072144 -79.88430786 98.53289795 -79.88430786 84.54507446
+		 -79.88430786 70.55725098 -79.88430786 56.56936646 -79.88430786 42.58154297 -79.88430786
+		 28.59371567 -79.88430786 14.6059494 -79.88430786 0.6181221 -79.88430786 -13.3697052
+		 -79.88430786 -27.35758972 -79.88430786 -41.34542084 -79.88430786 -55.33324432 -79.88430786
+		 -69.32102203 -79.88430786 -83.30884552 -79.88430786 -97.29667664 -79.88430786 -111.28456116
+		 -79.88430786 -125.27232361 -79.88430786 -139.26013184 -79.88430786 -153.24795532
+		 -79.88430786 -167.23577881 -79.88430786 -181.22360229 -79.88430786 -195.21142578
+		 -79.88430786 -209.1993103 -79.88430786 -223.18707275 -79.88430786 -237.17492676 -79.88430786
+		 -251.16275024 -79.88430786 -265.15054321 -79.88430786 -279.1383667 -79.88430786 -293.12631226
+		 -79.88430786 -307.11413574 -79.88430786 -321.10189819 -79.88430786 -335.089660645
+		 -79.88430786 -349.077545166 -79.88430786 -363.065368652 -79.88430786 -377.053314209
+		 -79.88430786 -391.041015625 -79.88430786 -405.028839111 -79.88430786 -419.016784668
+		 -79.88430786 -433.0046081543 -79.88430786 -446.99243164 -79.88430786 -460.98013306
+		 -79.88430786 -474.96795654 -79.88430786 -488.95578003 -79.88430786 -502.94360352
+		 -79.88430786 -516.93151855 -65.89648438 532.15551758 -65.89648438 518.16772461 -65.89648438
+		 504.17990112 -65.89648438 490.1920166 -65.89648438 476.20428467 -65.89648438 462.21640015
+		 -65.89648438 448.22857666 -65.89648438 434.24072266 -65.89648438 420.25292969 -65.89648438
+		 406.2651062 -65.89648438 392.27728271 -65.89648438 378.28945923 -65.89648438 364.30163574
+		 -65.89648438 350.31381226 -65.89648438 336.32595825 -65.89648438 322.33816528 -65.89648438
+		 308.35031128 -65.89648438 294.36251831 -65.89648438 280.37466431 -65.89648438 266.38684082
+		 -65.89648438 252.39901733 -65.89648438 238.41119385 -65.89648438 224.42337036 -65.89648438
+		 210.43554688 -65.89648438 196.44772339 -65.89648438 182.45986938 -65.89648438 168.47198486
+		 -65.89648438 154.48422241 -65.89648438 140.49639893 -65.89648438 126.50849152 -65.89648438
+		 112.52072144 -65.89648438 98.53289795 -65.89648438 84.54507446 -65.89648438 70.55725098
+		 -65.89648438 56.56936646 -65.89648438 42.58154297 -65.89648438 28.59371567 -65.89648438
+		 14.6059494 -65.89648438 0.6181221 -65.89648438 -13.3697052 -65.89648438 -27.35758972
+		 -65.89648438 -41.34542084 -65.89648438 -55.33324432 -65.89648438 -69.32102203 -65.89648438
+		 -83.30884552 -65.89648438 -97.29667664 -65.89648438 -111.28456116 -65.89648438 -125.27232361
+		 -65.89648438 -139.26013184 -65.89648438 -153.24795532 -65.89648438 -167.23577881
+		 -65.89648438 -181.22360229 -65.89648438 -195.21142578 -65.89648438 -209.1993103 -65.89648438
+		 -223.18707275 -65.89648438 -237.17492676 -65.89648438 -251.16275024 -65.89648438
+		 -265.15054321 -65.89648438 -279.1383667 -65.89648438 -293.12631226 -65.89648438 -307.11413574
+		 -65.89648438 -321.10189819 -65.89648438 -335.089660645 -65.89648438 -349.077545166
+		 -65.89648438 -363.065368652 -65.89648438 -377.053314209 -65.89648438 -391.041015625
+		 -65.89648438 -405.028839111 -65.89648438 -419.016784668 -65.89648438 -433.0046081543
+		 -65.89648438 -446.99243164 -65.89648438 -460.98013306 -65.89648438 -474.96795654
+		 -65.89648438 -488.95578003 -65.89648438 -502.94360352 -65.89648438 -516.93151855
+		 -65.89648438 -530.91931152 -51.90864182 532.15551758 -51.90864182 518.16772461 -51.90864182
+		 504.17990112 -51.90864182 490.1920166 -51.90864182 476.20428467 -51.90864182 462.21640015
+		 -51.90864182 448.22857666 -51.90864182 434.24072266 -51.90864182 420.25292969 -51.90864182
+		 406.2651062 -51.90864182 392.27728271 -51.90864182 378.28945923 -51.90864182 364.30163574
+		 -51.90864182 350.31381226 -51.90864182 336.32595825 -51.90864182 322.33816528 -51.90864182
+		 308.35031128 -51.90864182 294.36251831 -51.90864182 280.37466431 -51.90864182 266.38684082
+		 -51.90864182 252.39901733 -51.90864182 238.41119385 -51.90864182 224.42337036 -51.90864182
+		 210.43554688 -51.90864182 196.44772339 -51.90864182 182.45986938 -51.90864182 168.47198486
+		 -51.90864182 154.48422241 -51.90864182 140.49639893 -51.90864182 126.50849152 -51.90864182
+		 112.52072144 -51.90864182 98.53289795 -51.90864182 84.54507446 -51.90864182 70.55725098
+		 -51.90864182 56.56936646 -51.90864182 42.58154297 -51.90864182 28.59371567 -51.90864182
+		 14.6059494 -51.90864182 0.6181221 -51.90864182 -13.3697052 -51.90864182 -27.35758972
+		 -51.90864182 -41.34542084 -51.90864182 -55.33324432 -51.90864182 -69.32102203 -51.90864182
+		 -83.30884552 -51.90864182 -97.29667664 -51.90864182 -111.28456116 -51.90864182 -125.27232361
+		 -51.90864182 -139.26013184 -51.90864182 -153.24795532 -51.90864182 -167.23577881
+		 -51.90864182 -181.22360229 -51.90864182 -195.21142578 -51.90864182 -209.1993103;
+	setAttr ".uvtk[5500:5749]" -51.90864182 -223.18707275 -51.90864182 -237.17492676
+		 -51.90864182 -251.16275024 -51.90864182 -265.15054321 -51.90864182 -279.1383667 -51.90864182
+		 -293.12631226 -51.90864182 -307.11413574 -51.90864182 -321.10189819 -51.90864182
+		 -335.089660645 -51.90864182 -349.077545166 -51.90864182 -363.065368652 -51.90864182
+		 -377.053314209 -51.90864182 -391.041015625 -51.90864182 -405.028839111 -51.90864182
+		 -419.016784668 -51.90864182 -433.0046081543 -51.90864182 -446.99243164 -51.90864182
+		 -460.98013306 -51.90864182 -474.96795654 -51.90864182 -488.95578003 -51.90864182
+		 -502.94360352 -51.90864182 -516.93151855 -51.90864182 -530.91931152 -37.92081833
+		 532.15551758 -37.92081833 518.16772461 -37.92081833 504.17990112 -37.92081833 490.1920166
+		 -37.92081833 476.20428467 -37.92081833 462.21640015 -37.92081833 448.22857666 -37.92081833
+		 434.24072266 -37.92081833 420.25292969 -37.92081833 406.2651062 -37.92081833 392.27728271
+		 -37.92081833 378.28945923 -37.92081833 364.30163574 -37.92081833 350.31381226 -37.92081833
+		 336.32595825 -37.92081833 322.33816528 -37.92081833 308.35031128 -37.92081833 294.36251831
+		 -37.92081833 280.37466431 -37.92081833 266.38684082 -37.92081833 252.39901733 -37.92081833
+		 238.41119385 -37.92081833 224.42337036 -37.92081833 210.43554688 -37.92081833 196.44772339
+		 -37.92081833 182.45986938 -37.92081833 168.47198486 -37.92081833 154.48422241 -37.92081833
+		 140.49639893 -37.92081833 126.50849152 -37.92081833 112.52072144 -37.92081833 98.53289795
+		 -37.92081833 84.54507446 -37.92081833 70.55725098 -37.92081833 56.56936646 -37.92081833
+		 42.58154297 -37.92081833 28.59371567 -37.92081833 14.6059494 -37.92081833 0.6181221
+		 -37.92081833 -13.3697052 -37.92081833 -27.35758972 -37.92081833 -41.34542084 -37.92081833
+		 -55.33324432 -37.92081833 -69.32102203 -37.92081833 -83.30884552 -37.92081833 -97.29667664
+		 -37.92081833 -111.28456116 -37.92081833 -125.27232361 -37.92081833 -139.26013184
+		 -37.92081833 -153.24795532 -37.92081833 -167.23577881 -37.92081833 -181.22360229
+		 -37.92081833 -195.21142578 -37.92081833 -209.1993103 -37.92081833 -223.18707275 -37.92081833
+		 -237.17492676 -37.92081833 -251.16275024 -37.92081833 -265.15054321 -37.92081833
+		 -279.1383667 -37.92081833 -293.12631226 -37.92081833 -307.11413574 -37.92081833 -321.10189819
+		 -37.92081833 -335.089660645 -37.92081833 -349.077545166 -37.92081833 -363.065368652
+		 -37.92081833 -377.053314209 -37.92081833 -391.041015625 -37.92081833 -405.028839111
+		 -37.92081833 -419.016784668 -37.92081833 -433.0046081543 -37.92081833 -446.99243164
+		 -37.92081833 -460.98013306 -37.92081833 -474.96795654 -37.92081833 -488.95578003
+		 -37.92081833 -502.94360352 -37.92081833 -516.93151855 -37.92081833 -530.91931152
+		 -23.93299103 532.15551758 -23.93299103 518.16772461 -23.93299103 504.17990112 -23.93299103
+		 490.1920166 -23.93299103 476.20428467 -23.93299103 462.21640015 -23.93299103 448.22857666
+		 -23.93299103 434.24072266 -23.93299103 420.25292969 -23.93299103 406.2651062 -23.93299103
+		 392.27728271 -23.93299103 378.28945923 -23.93299103 364.30163574 -23.93299103 350.31381226
+		 -23.93299103 336.32595825 -23.93299103 322.33816528 -23.93299103 308.35031128 -23.93299103
+		 294.36251831 -23.93299103 280.37466431 -23.93299103 266.38684082 -23.93299103 252.39901733
+		 -23.93299103 238.41119385 -23.93299103 224.42337036 -23.93299103 210.43554688 -23.93299103
+		 196.44772339 -23.93299103 182.45986938 -23.93299103 168.47198486 -23.93299103 154.48422241
+		 -23.93299103 140.49639893 -23.93299103 126.50849152 -23.93299103 112.52072144 -23.93299103
+		 98.53289795 -23.93299103 84.54507446 -23.93299103 70.55725098 -23.93299103 56.56936646
+		 -23.93299103 42.58154297 -23.93299103 28.59371567 -23.93299103 14.6059494 -23.93299103
+		 0.6181221 -23.93299103 -13.3697052 -23.93299103 -27.35758972 -23.93299103 -41.34542084
+		 -23.93299103 -55.33324432 -23.93299103 -69.32102203 -23.93299103 -83.30884552 -23.93299103
+		 -97.29667664 -23.93299103 -111.28456116 -23.93299103 -125.27232361 -23.93299103 -139.26013184
+		 -23.93299103 -153.24795532 -23.93299103 -167.23577881 -23.93299103 -181.22360229
+		 -23.93299103 -195.21142578 -23.93299103 -209.1993103 -23.93299103 -223.18707275 -23.93299103
+		 -237.17492676 -23.93299103 -251.16275024 -23.93299103 -265.15054321 -23.93299103
+		 -279.1383667 -23.93299103 -293.12631226 -23.93299103 -307.11413574 -23.93299103 -321.10189819
+		 -23.93299103 -335.089660645 -23.93299103 -349.077545166 -23.93299103 -363.065368652
+		 -23.93299103 -377.053314209 -23.93299103 -391.041015625 -23.93299103 -405.028839111
+		 -23.93299103 -419.016784668 -23.93299103 -433.0046081543 -23.93299103 -446.99243164
+		 -23.93299103 -460.98013306 -23.93299103 -474.96795654 -23.93299103 -488.95578003
+		 -23.93299103 -502.94360352 -23.93299103 -516.93151855 -23.93299103 -530.91931152
+		 -9.94516277 532.15551758 -9.94516277 518.16772461 -9.94516277 504.17990112 -9.94516277
+		 490.1920166 -9.94516277 476.20428467 -9.94516277 462.21640015 -9.94516277 448.22857666
+		 -9.94516277 434.24072266 -9.94516277 420.25292969 -9.94516277 406.2651062 -9.94516277
+		 392.27728271 -9.94516277 378.28945923 -9.94516277 364.30163574 -9.94516277 350.31381226
+		 -9.94516277 336.32595825 -9.94516277 322.33816528 -9.94516277 308.35031128 -9.94516277
+		 294.36251831 -9.94516277 280.37466431 -9.94516277 266.38684082 -9.94516277 252.39901733
+		 -9.94516277 238.41119385 -9.94516277 224.42337036 -9.94516277 210.43554688 -9.94516277
+		 196.44772339 -9.94516277 182.45986938 -9.94516277 168.47198486 -9.94516277 154.48422241
+		 -9.94516277 140.49639893 -9.94516277 126.50849152 -9.94516277 112.52072144 -9.94516277
+		 98.53289795 -9.94516277 84.54507446 -9.94516277 70.55725098 -9.94516277 56.56936646
+		 -9.94516277 42.58154297 -9.94516277 28.59371567 -9.94516277 14.6059494 -9.94516277
+		 0.6181221 -9.94516277 -13.3697052 -9.94516277 -27.35758972 -9.94516277 -41.34542084
+		 -9.94516277 -55.33324432 -9.94516277 -69.32102203 -9.94516277 -83.30884552 -9.94516277
+		 -97.29667664 -9.94516277 -111.28456116 -9.94516277 -125.27232361 -9.94516277 -139.26013184
+		 -9.94516277 -153.24795532 -9.94516277 -167.23577881 -9.94516277 -181.22360229 -9.94516277
+		 -195.21142578 -9.94516277 -209.1993103 -9.94516277 -223.18707275 -9.94516277 -237.17492676
+		 -9.94516277 -251.16275024 -9.94516277 -265.15054321 -9.94516277 -279.1383667 -9.94516277
+		 -293.12631226 -9.94516277 -307.11413574 -9.94516277 -321.10189819 -9.94516277 -335.089660645
+		 -9.94516277 -349.077545166 -9.94516277 -363.065368652 -9.94516277 -377.053314209
+		 -9.94516277 -391.041015625 -9.94516277 -405.028839111 -9.94516277 -419.016784668
+		 -9.94516277 -433.0046081543 -9.94516277 -446.99243164 -9.94516277 -460.98013306 -9.94516277
+		 -474.96795654;
+	setAttr ".uvtk[5750:5999]" -9.94516277 -488.95578003 -9.94516277 -502.94360352
+		 -9.94516277 -516.93151855 4.042663574 532.15551758 4.042663574 518.16772461 4.042663574
+		 504.17990112 4.042663574 490.1920166 4.042663574 476.20428467 4.042663574 462.21640015
+		 4.042663574 448.22857666 4.042663574 434.24072266 4.042663574 420.25292969 4.042663574
+		 406.2651062 4.042663574 392.27728271 4.042663574 378.28945923 4.042663574 364.30163574
+		 4.042663574 350.31381226 4.042663574 336.32595825 4.042663574 322.33816528 4.042663574
+		 308.35031128 4.042663574 294.36251831 4.042663574 280.37466431 4.042663574 266.38684082
+		 4.042663574 252.39901733 4.042663574 238.41119385 4.042663574 224.42337036 4.042663574
+		 210.43554688 4.042663574 196.44772339 4.042663574 182.45986938 4.042663574 168.47198486
+		 4.042663574 154.48422241 4.042663574 140.49639893 4.042663574 126.50849152 4.042663574
+		 112.52072144 4.042663574 98.53289795 4.042663574 84.54507446 4.042663574 70.55725098
+		 4.042663574 56.56936646 4.042663574 42.58154297 4.042663574 28.59371567 4.042663574
+		 14.6059494 4.042663574 0.6181221 4.042663574 -13.3697052 4.042663574 -27.35758972
+		 4.042663574 -41.34542084 4.042663574 -55.33324432 4.042663574 -69.32102203 4.042663574
+		 -83.30884552 4.042663574 -97.29667664 4.042663574 -111.28456116 4.042663574 -125.27232361
+		 4.042663574 -139.26013184 4.042663574 -153.24795532 4.042663574 -167.23577881 4.042663574
+		 -181.22360229 4.042663574 -195.21142578 4.042663574 -209.1993103 4.042663574 -223.18707275
+		 4.042663574 -237.17492676 4.042663574 -251.16275024 4.042663574 -265.15054321 4.042663574
+		 -279.1383667 4.042663574 -293.12631226 4.042663574 -307.11413574 4.042663574 -321.10189819
+		 4.042663574 -335.089660645 4.042663574 -349.077545166 4.042663574 -363.065368652
+		 4.042663574 -377.053314209 4.042663574 -391.041015625 4.042663574 -405.028839111
+		 4.042663574 -419.016784668 4.042663574 -433.0046081543 4.042663574 -446.99243164
+		 4.042663574 -460.98013306 4.042663574 -474.96795654 4.042663574 -488.95578003 4.042663574
+		 -502.94360352 18.030488968 532.15551758 18.030488968 518.16772461 18.030488968 504.17990112
+		 18.030488968 490.1920166 18.030488968 476.20428467 18.030488968 462.21640015 18.030488968
+		 448.22857666 18.030488968 434.24072266 18.030488968 420.25292969 18.030488968 406.2651062
+		 18.030488968 392.27728271 18.030488968 378.28945923 18.030488968 364.30163574 18.030488968
+		 350.31381226 18.030488968 336.32595825 18.030488968 322.33816528 18.030488968 308.35031128
+		 18.030488968 294.36251831 18.030488968 280.37466431 18.030488968 266.38684082 18.030488968
+		 252.39901733 18.030488968 238.41119385 18.030488968 224.42337036 18.030488968 210.43554688
+		 18.030488968 196.44772339 18.030488968 182.45986938 18.030488968 168.47198486 18.030488968
+		 154.48422241 18.030488968 140.49639893 18.030488968 126.50849152 18.030488968 112.52072144
+		 18.030488968 98.53289795 18.030488968 84.54507446 18.030488968 70.55725098 18.030488968
+		 56.56936646 18.030488968 42.58154297 18.030488968 28.59371567 18.030488968 14.6059494
+		 18.030488968 0.6181221 18.030488968 -13.3697052 18.030488968 -27.35758972 18.030488968
+		 -41.34542084 18.030488968 -55.33324432 18.030488968 -69.32102203 18.030488968 -83.30884552
+		 18.030488968 -97.29667664 18.030488968 -111.28456116 18.030488968 -125.27232361 18.030488968
+		 -139.26013184 18.030488968 -153.24795532 18.030488968 -167.23577881 18.030488968
+		 -181.22360229 18.030488968 -195.21142578 18.030488968 -209.1993103 18.030488968 -223.18707275
+		 18.030488968 -237.17492676 18.030488968 -251.16275024 18.030488968 -265.15054321
+		 18.030488968 -279.1383667 18.030488968 -293.12631226 18.030488968 -307.11413574 18.030488968
+		 -321.10189819 18.030488968 -335.089660645 18.030488968 -349.077545166 18.030488968
+		 -363.065368652 18.030488968 -377.053314209 18.030488968 -391.041015625 18.030488968
+		 -405.028839111 18.030488968 -419.016784668 18.030488968 -433.0046081543 18.030488968
+		 -446.99243164 18.030488968 -460.98013306 18.030488968 -474.96795654 18.030488968
+		 -488.95578003 32.018310547 532.15551758 32.018310547 518.16772461 32.018310547 504.17990112
+		 32.018310547 490.1920166 32.018310547 476.20428467 32.018310547 462.21640015 32.018310547
+		 448.22857666 32.018310547 434.24072266 32.018310547 420.25292969 32.018310547 406.2651062
+		 32.018310547 392.27728271 32.018310547 378.28945923 32.018310547 364.30163574 32.018310547
+		 350.31381226 32.018310547 336.32595825 32.018310547 322.33816528 32.018310547 308.35031128
+		 32.018310547 294.36251831 32.018310547 280.37466431 32.018310547 266.38684082 32.018310547
+		 252.39901733 32.018310547 238.41119385 32.018310547 224.42337036 32.018310547 210.43554688
+		 32.018310547 196.44772339 32.018310547 182.45986938 32.018310547 168.47198486 32.018310547
+		 154.48422241 32.018310547 140.49639893 32.018310547 126.50849152 32.018310547 112.52072144
+		 32.018310547 98.53289795 32.018310547 84.54507446 32.018310547 70.55725098 32.018310547
+		 56.56936646 32.018310547 42.58154297 32.018310547 28.59371567 32.018310547 14.6059494
+		 32.018310547 0.6181221 32.018310547 -13.3697052 32.018310547 -27.35758972 32.018310547
+		 -41.34542084 32.018310547 -55.33324432 32.018310547 -69.32102203 32.018310547 -83.30884552
+		 32.018310547 -97.29667664 32.018310547 -111.28456116 32.018310547 -125.27232361 32.018310547
+		 -139.26013184 32.018310547 -153.24795532 32.018310547 -167.23577881 32.018310547
+		 -181.22360229 32.018310547 -195.21142578 32.018310547 -209.1993103 32.018310547 -223.18707275
+		 32.018310547 -237.17492676 32.018310547 -251.16275024 32.018310547 -265.15054321
+		 32.018310547 -279.1383667 32.018310547 -293.12631226 32.018310547 -307.11413574 32.018310547
+		 -321.10189819 32.018310547 -335.089660645 32.018310547 -349.077545166 32.018310547
+		 -363.065368652 32.018310547 -377.053314209 32.018310547 -391.041015625 32.018310547
+		 -405.028839111 32.018310547 -419.016784668 32.018310547 -433.0046081543 32.018310547
+		 -446.99243164 32.018310547 -460.98013306 32.018310547 -474.96795654 46.0061378479
+		 532.15551758 46.0061416626 518.16772461 46.0061378479 504.17990112 46.0061378479
+		 490.1920166 46.0061378479 476.20428467 46.0061416626 462.21640015 46.0061378479 448.22857666
+		 46.0061378479 434.24072266 46.0061340332 420.25292969 46.0061378479 406.2651062 46.0061378479
+		 392.27728271 46.0061378479 378.28945923 46.0061378479 364.30163574 46.0061378479
+		 350.31381226 46.0061378479 336.32595825 46.0061378479 322.33816528 46.0061378479
+		 308.35031128 46.0061378479 294.36251831 46.0061378479 280.37466431 46.0061378479
+		 266.38684082 46.0061416626 252.39901733 46.0061378479 238.41119385 46.0061378479
+		 224.42337036 46.0061378479 210.43554688 46.0061378479 196.44772339;
+	setAttr ".uvtk[6000:6249]" 46.0061378479 182.45986938 46.0061378479 168.47198486
+		 46.0061378479 154.48422241 46.0061378479 140.49639893 46.0061378479 126.50849152
+		 46.0061378479 112.52072144 46.0061378479 98.53289795 46.0061378479 84.54507446 46.0061378479
+		 70.55725098 46.0061378479 56.56936646 46.0061378479 42.58154297 46.0061378479 28.59371567
+		 46.0061378479 14.6059494 46.0061378479 0.6181221 46.0061378479 -13.3697052 46.0061378479
+		 -27.35758972 46.0061378479 -41.34542084 46.0061378479 -55.33324432 46.0061378479
+		 -69.32102203 46.0061378479 -83.30884552 46.0061378479 -97.29667664 46.0061378479
+		 -111.28456116 46.0061378479 -125.27232361 46.0061378479 -139.26013184 46.0061378479
+		 -153.24795532 46.0061378479 -167.23577881 46.0061378479 -181.22360229 46.0061378479
+		 -195.21142578 46.0061378479 -209.1993103 46.0061378479 -223.18707275 46.0061378479
+		 -237.17492676 46.0061378479 -251.16275024 46.0061378479 -265.15054321 46.0061378479
+		 -279.1383667 46.0061378479 -293.12631226 46.0061378479 -307.11413574 46.0061378479
+		 -321.10189819 46.0061378479 -335.089660645 46.0061378479 -349.077545166 46.0061378479
+		 -363.065368652 46.0061378479 -377.053314209 46.0061378479 -391.041015625 46.0061378479
+		 -405.028839111 46.0061378479 -419.016784668 46.0061378479 -433.0046081543 46.0061378479
+		 -446.99243164 46.0061378479 -460.98013306 59.99396896 532.15551758 59.99396896 518.16772461
+		 59.99396896 504.17990112 59.99396896 490.1920166 59.99396896 476.20428467 59.99396896
+		 462.21640015 59.99396896 448.22857666 59.99396896 434.24072266 59.99396896 420.25292969
+		 59.99396896 406.2651062 59.99396896 392.27728271 59.99396896 378.28945923 59.99396896
+		 364.30163574 59.99396896 350.31381226 59.99397278 336.32595825 59.99396896 322.33816528
+		 59.99396896 308.35031128 59.99396896 294.36251831 59.99396515 280.37466431 59.99396896
+		 266.38684082 59.99396896 252.39901733 59.99396896 238.41119385 59.99396896 224.42337036
+		 59.99396896 210.43554688 59.99396896 196.44772339 59.99396896 182.45986938 59.99396896
+		 168.47198486 59.99396896 154.48422241 59.99396896 140.49639893 59.99396896 126.50849152
+		 59.99396896 112.52072144 59.99397278 98.53289795 59.99396896 84.54507446 59.99396896
+		 70.55725098 59.99396896 56.56936646 59.99396896 42.58154297 59.99396896 28.59371567
+		 59.99396896 14.6059494 59.99396896 0.6181221 59.99396896 -13.3697052 59.99396896
+		 -27.35758972 59.99396896 -41.34542084 59.99396896 -55.33324432 59.99396896 -69.32102203
+		 59.99396896 -83.30884552 59.99396896 -97.29667664 59.99396896 -111.28456116 59.99396896
+		 -125.27232361 59.99396896 -139.26013184 59.99396896 -153.24795532 59.99396896 -167.23577881
+		 59.99396896 -181.22360229 59.99396896 -195.21142578 59.99396896 -209.1993103 59.99396896
+		 -223.18707275 59.99396896 -237.17492676 59.99396896 -251.16275024 59.99396896 -265.15054321
+		 59.99396896 -279.1383667 59.99396896 -293.12631226 59.99396896 -307.11413574 59.99396896
+		 -321.10189819 59.99396896 -335.089660645 59.99396896 -349.077545166 59.99396896 -363.065368652
+		 59.99396896 -377.053314209 59.99396896 -391.041015625 59.99396896 -405.028839111
+		 59.99396896 -419.016784668 59.99396896 -433.0046081543 59.99396896 -446.99243164
+		 -79.40293121 -530.91931152 -135.83561707 545.5491333 -121.84778595 545.45013428 -205.7747345
+		 392.27722168 -93.87213135 -446.99230957 60.66563034 -484.30090332 60.66563034 -498.28036499
+		 60.66563034 -510.37930298 54.44332504 -512.2598877 51.82497406 -513.051208496 37.84551239
+		 -517.27636719 36.90669632 -517.55993652 24.70562553 -526.23931885 23.86603928 -526.83673096
+		 9.88657761 -536.78125 6.46118641 -539.21777344 -4.09289217 -538.26782227 -18.072364807
+		 -537.0092163086 -13.099435806 -531.41503906 -8.49828529 -526.23931885 -4.09289217
+		 -521.28369141 -0.48856616 -517.22937012 0.74716771 -515.83911133 3.92901683 -512.2598877
+		 4.40585566 -511.72335815 9.88657761 -507.60131836 16.33011055 -502.75476074 17.77805519
+		 -501.66564941 22.27877045 -498.28036499 23.86603928 -497.086547852 25.76913071 -495.65515137
+		 31.51837158 -493.78451538 37.84551239 -491.72592163 45.49796295 -489.23608398 46.32658386
+		 -488.96640015 51.82497406 -487.17739868 59.47743225 -484.68753052 -4.09289217 -526.23931885
+		 9.88657761 -512.2598877 9.88657761 -526.23931885 23.86603928 -498.28036499 23.86603928
+		 -512.2598877 37.84551239 -498.28036499 37.84551239 -512.2598877 51.82497406 -498.28036499
+		 51.82497406 -512.2598877 23.86603928 -526.23931885 1.76825082 -523.23602295 20.82497025
+		 -504.43161011 26.2654953 -495.64846802 24.30431175 -497.11932373 22.6685276 -498.34603882
+		 18.030473709 -501.82446289 16.53824234 -502.94360352 10.095851898 -507.77532959 4.61600161
+		 -511.8850708 4.042648315 -512.31512451 -0.28512856 -515.56079102 -1.62209964 -516.93151855
+		 -5.36749792 -520.7713623 -9.94517803 -525.46459961 -15.26562119 -530.91931152 -20.64582825
+		 -536.43530273 -23.90958977 -536.15917969 -37.92083359 -534.97381592 -51.90865707
+		 -533.7902832 -65.89649963 -532.60699463 -79.30535889 -531.47253418 -79.88432312 -528.19018555
+		 -81.87014771 -516.93151855 -84.33747101 -502.94360352 -86.8046875 -488.95578003 -89.27189636
+		 -474.96795654 -91.73911285 -460.98013306 -93.29318237 -452.16967773 -93.87214661
+		 -448.88729858 -94.20632935 -446.99230957 -96.32752991 -434.96664429 -96.67365265
+		 -433.004486084 -96.90697479 -431.681427 -102.87017059 -422.49237061 -105.12565613
+		 -419.016662598 -107.85997009 -414.80300903 -109.27999878 -412.61477661 -110.66368103
+		 -410.48257446 -114.20283508 -405.028839111 -118.45732117 -398.47290039 -121.84780121
+		 -393.24807739 -123.28002167 -391.041015625 -125.96335602 -386.90618896 -130.31246948
+		 -380.20425415 -132.35720825 -377.053192139 -135.81439209 -371.72579956 -136.60643005
+		 -363.065368652 -137.88583374 -349.077545166 -139.16511536 -335.089660645 -140.44441223
+		 -321.10202026 -141.72381592 -307.11401367 -143.0030670166 -293.12619019 -144.28250122
+		 -279.1383667 -145.56178284 -265.15066528 -146.84106445 -251.16275024 -148.12046814
+		 -237.17492676 -149.39974976 -223.18707275 -149.82345581 -218.55427551 -150.67901611
+		 -209.19924927 -151.9584198 -195.21148682 -153.23770142 -181.22366333 -154.51698303
+		 -167.23583984 -155.79638672 -153.24795532 -157.075668335 -139.26019287 -158.35494995
+		 -125.27238464 -159.63435364 -111.28456116 -160.91365051 -97.29673767 -162.19293213
+		 -83.30884552 -163.47232056 -69.32108307 -163.8112793 -65.61476898 -164.75161743 -55.33330536
+		 -166.030899048 -41.34542084 -167.31030273 -27.35752869 -168.58958435 -13.36976624
+		 -169.86886597 0.6181221 -171.14826965 14.60588837 -172.42755127 28.59371567 -173.70683289
+		 42.581604 -174.98623657 56.56936646 -176.26551819 70.55725098 -177.5447998 84.54507446
+		 -177.79910278 87.32469177 -178.82420349 98.53277588 -180.10350037 112.52072144 -181.38290405
+		 126.50855255;
+	setAttr ".uvtk[6250:6499]" -182.66217041 140.49633789 -183.94146729 154.48422241
+		 -185.2207489 168.4720459 -186.50015259 182.45986938 -187.7794342 196.44760132 -189.058837891
+		 210.43548584 -190.33811951 224.42337036 -191.61740112 238.41113281 -191.78692627
+		 240.26419067 -192.89678955 252.39889526 -194.17607117 266.38696289 -195.45535278
+		 280.37466431 -196.73475647 294.36251831 -198.014038086 308.35021973 -199.29344177
+		 322.33822632 -200.57272339 336.3258667 -201.852005 350.31378174 -203.13140869 364.30154419
+		 -204.41070557 378.28948975 -205.77474976 393.20376587 -206.96937561 406.26507568
+		 -208.24867249 420.25302124 -209.5279541 434.2406311 -210.80735779 448.22854614 -212.086639404
+		 462.21633911 -213.36592102 476.20419312 -214.64532471 490.19207764 -215.92460632
+		 504.17993164 -217.20388794 518.16778564 -218.48329163 532.15557861 -219.76257324
+		 546.14337158 -205.77548218 546.044311523 -191.78839111 545.94525146 -177.80117798
+		 545.84631348 -163.81408691 545.74725342 -149.82699585 545.64825439 -107.85984802
+		 545.35119629 -93.87226868 545.25213623 -79.88432312 545.15313721 -65.89637756 545.054077148
+		 -51.90865707 544.95507813 -37.92083359 544.8560791 -23.93300629 544.75701904 -9.9453001
+		 544.65802002 4.042648315 544.55895996 18.030473709 544.4598999 32.018295288 544.36096191
+		 46.0062446594 544.26190186 59.9939537 544.16296387 61.18286133 544.15447998 61.18286133
+		 532.15551758 61.18286133 518.16772461 61.18286133 504.17990112 61.18286133 490.19204712
+		 61.18286133 476.20425415 61.18286133 462.21633911 61.18286133 448.22851563 61.18286133
+		 434.24069214 61.18286133 420.25283813 61.18286133 406.26498413 61.18286133 392.27734375
+		 61.18286133 378.28948975 61.18286133 364.30163574 61.18286133 350.31369019 61.18286133
+		 336.32595825 61.18286133 322.33816528 61.18286133 308.35031128 61.18286133 294.36251831
+		 61.18286133 280.37460327 61.18286133 266.38696289 61.18286133 252.3989563 61.18286133
+		 238.41107178 61.18286133 224.42330933 61.18286133 210.4354248 61.18286133 196.44760132
+		 61.18286133 182.45993042 61.18286133 168.47192383 61.18286133 154.48422241 61.18286133
+		 140.49658203 61.18286133 126.50855255 61.18286133 112.52072144 61.18286133 98.53289795
+		 61.18286133 84.54507446 61.18286133 70.55718994 61.18286133 56.56954956 61.18286133
+		 42.58154297 61.18286133 28.59371567 61.18286133 14.60582733 61.18286133 0.61818314
+		 61.18286133 -13.36964417 61.18286133 -27.35752869 61.18286133 -41.34548187 61.18286133
+		 -55.33318329 61.18286133 -69.32102203 61.18286133 -83.30884552 61.18286133 -97.29667664
+		 61.18286133 -111.28450012 61.18286133 -125.27220154 61.18286133 -139.26019287 61.18286133
+		 -153.24783325 61.18286133 -167.23590088 61.18286133 -181.22366333 61.18286133 -195.21142578
+		 61.18286133 -209.19937134 61.18286133 -223.18719482 61.18286133 -237.17504883 61.18286133
+		 -251.16275024 61.18286133 -265.15054321 61.18286133 -279.13848877 61.18286133 -293.12619019
+		 61.18286133 -307.11401367 61.18286133 -321.10202026 61.18286133 -335.089660645 61.18286133
+		 -349.077545166 61.18286133 -363.065368652 61.18286133 -377.053192139 61.18286133
+		 -391.041137695 61.18286133 -405.028961182 61.18286133 -419.016784668 61.18286133
+		 -433.004486084 61.18286133 -446.99230957 61.18286133 -460.98025513 61.18286133 -474.96795654
+		 61.18286133 -484.28747559 59.9939537 -484.67434692 52.33691788 -487.16571045 46.83523941
+		 -488.95578003 46.0061225891 -489.22558594 38.34909439 -491.71691895 32.018173218
+		 -493.77676392 -205.77474976 532.15551758 -205.77474976 518.16772461 -205.77474976
+		 504.17993164 -205.77474976 490.19207764 -205.77474976 476.20428467 -205.77474976
+		 462.21640015 -205.77474976 448.22857666 -205.77474976 434.24075317 -205.77474976
+		 420.25289917 -205.77474976 406.2651062 -191.78692627 532.15551758 -191.78692627 518.16772461
+		 -191.78692627 504.17993164 -191.78692627 490.19207764 -191.78692627 476.20428467
+		 -191.78692627 462.21640015 -191.78692627 448.22857666 -191.78692627 434.24075317
+		 -191.78692627 420.25289917 -191.78692627 406.2651062 -191.78692627 392.27728271 -191.78692627
+		 378.28945923 -191.78692627 364.30160522 -191.78692627 350.31381226 -191.78692627
+		 336.32598877 -191.78692627 322.33816528 -191.78692627 308.35031128 -191.78692627
+		 294.36251831 -191.78692627 280.37466431 -191.78692627 266.38677979 -191.78692627
+		 252.39901733 -177.79910278 532.15551758 -177.79910278 518.16772461 -177.79910278
+		 504.17993164 -177.79910278 490.19207764 -177.79910278 476.20428467 -177.79910278
+		 462.21640015 -177.79910278 448.22857666 -177.79910278 434.24075317 -177.79910278
+		 420.25289917 -177.79910278 406.2651062 -177.79910278 392.27728271 -177.79910278 378.28945923
+		 -177.79910278 364.30160522 -177.79910278 350.31381226 -177.79910278 336.32598877
+		 -177.79910278 322.33816528 -177.79910278 308.35031128 -177.79910278 294.36251831
+		 -177.79910278 280.37466431 -177.79910278 266.38677979 -177.79910278 252.39901733
+		 -177.79910278 238.41119385 -177.79910278 224.42337036 -177.79910278 210.43554688
+		 -177.79910278 196.44772339 -177.79910278 182.45986938 -177.79910278 168.4720459 -177.79910278
+		 154.48422241 -177.79910278 140.49639893 -177.79910278 126.50855255 -177.79910278
+		 112.52072144 -177.79910278 98.53289795 -163.8112793 532.15551758 -163.8112793 518.16772461
+		 -163.8112793 504.17993164 -163.8112793 490.19207764 -163.8112793 476.20428467 -163.8112793
+		 462.21640015 -163.8112793 448.22857666 -163.8112793 434.24075317 -163.8112793 420.25289917
+		 -163.8112793 406.2651062 -163.8112793 392.27728271 -163.8112793 378.28945923 -163.8112793
+		 364.30160522 -163.8112793 350.31381226 -163.8112793 336.32598877 -163.8112793 322.33816528
+		 -163.8112793 308.35031128 -163.8112793 294.36251831 -163.8112793 280.37466431 -163.8112793
+		 266.38677979 -163.8112793 252.39901733 -163.8112793 238.41119385 -163.8112793 224.42337036
+		 -163.8112793 210.43554688 -163.8112793 196.44772339 -163.8112793 182.45986938 -163.8112793
+		 168.4720459 -163.8112793 154.48422241 -163.8112793 140.49639893 -163.8112793 126.50855255
+		 -163.8112793 112.52072144 -163.8112793 98.53289795 -163.8112793 84.54507446 -163.8112793
+		 70.55725098 -163.8112793 56.56936646 -163.8112793 42.58154297 -163.8112793 28.5937767
+		 -163.8112793 14.6059494 -163.8112793 0.6181221 -163.8112793 -13.36976624 -163.8112793
+		 -27.35752869 -163.8112793 -41.3453598 -163.8112793 -55.33324432 -149.82345581 532.15551758
+		 -149.82345581 518.16772461 -149.82345581 504.17993164 -149.82345581 490.19207764
+		 -149.82345581 476.20428467 -149.82345581 462.21640015 -149.82345581 448.22857666
+		 -149.82345581 434.24075317 -149.82345581 420.25289917 -149.82345581 406.2651062 -149.82345581
+		 392.27728271 -149.82345581 378.28945923 -149.82345581 364.30160522 -149.82345581
+		 350.31381226;
+	setAttr ".uvtk[6500:6749]" -149.82345581 336.32598877 -149.82345581 322.33816528
+		 -149.82345581 308.35031128 -149.82345581 294.36251831 -149.82345581 280.37466431
+		 -149.82345581 266.38677979 -149.82345581 252.39901733 -149.82345581 238.41119385
+		 -149.82345581 224.42337036 -149.82345581 210.43554688 -149.82345581 196.44772339
+		 -149.82345581 182.45986938 -149.82345581 168.4720459 -149.82345581 154.48422241 -149.82345581
+		 140.49639893 -149.82345581 126.50855255 -149.82345581 112.52072144 -149.82345581
+		 98.53289795 -149.82345581 84.54507446 -149.82345581 70.55725098 -149.82345581 56.56936646
+		 -149.82345581 42.58154297 -149.82345581 28.5937767 -149.82345581 14.6059494 -149.82345581
+		 0.6181221 -149.82345581 -13.36976624 -149.82345581 -27.35752869 -149.82345581 -41.3453598
+		 -149.82345581 -55.33324432 -149.82345581 -69.32102203 -149.82345581 -83.30884552
+		 -149.82345581 -97.29673767 -149.82345581 -111.28456116 -149.82345581 -125.27232361
+		 -149.82345581 -139.26013184 -149.82345581 -153.24795532 -149.82345581 -167.23583984
+		 -149.82345581 -181.22366333 -149.82345581 -195.21142578 -149.82345581 -209.19924927
+		 -135.83563232 532.15551758 -135.83563232 518.16772461 -135.83563232 504.17993164
+		 -135.83563232 490.19207764 -135.83563232 476.20428467 -135.83563232 462.21640015
+		 -135.83563232 448.22857666 -135.83563232 434.24075317 -135.83563232 420.25289917
+		 -135.83563232 406.2651062 -135.83563232 392.27728271 -135.83563232 378.28945923 -135.83563232
+		 364.30160522 -135.83563232 350.31381226 -135.83563232 336.32598877 -135.83563232
+		 322.33816528 -135.83563232 308.35031128 -135.83563232 294.36251831 -135.83563232
+		 280.37466431 -135.83563232 266.38677979 -135.83563232 252.39901733 -135.83563232
+		 238.41119385 -135.83563232 224.42337036 -135.83563232 210.43554688 -135.83563232
+		 196.44772339 -135.83563232 182.45986938 -135.83563232 168.4720459 -135.83563232 154.48422241
+		 -135.83563232 140.49639893 -135.83563232 126.50855255 -135.83563232 112.52072144
+		 -135.83563232 98.53289795 -135.83563232 84.54507446 -135.83563232 70.55725098 -135.83563232
+		 56.56936646 -135.83563232 42.58154297 -135.83563232 28.5937767 -135.83563232 14.6059494
+		 -135.83563232 0.6181221 -135.83563232 -13.36976624 -135.83563232 -27.35752869 -135.83563232
+		 -41.3453598 -135.83563232 -55.33324432 -135.83563232 -69.32102203 -135.83563232 -83.30884552
+		 -135.83563232 -97.29673767 -135.83563232 -111.28456116 -135.83563232 -125.27232361
+		 -135.83563232 -139.26013184 -135.83563232 -153.24795532 -135.83563232 -167.23583984
+		 -135.83563232 -181.22366333 -135.83563232 -195.21142578 -135.83563232 -209.19924927
+		 -135.83563232 -223.18707275 -135.83563232 -237.17492676 -135.83563232 -251.16275024
+		 -135.83563232 -265.15054321 -135.83563232 -279.1383667 -135.83563232 -293.12619019
+		 -135.83563232 -307.11401367 -135.83563232 -321.10189819 -135.83563232 -335.089660645
+		 -135.83563232 -349.077545166 -135.83563232 -363.065368652 -121.84780121 532.15551758
+		 -121.84780121 518.16772461 -121.84780121 504.17993164 -121.84780121 490.19207764
+		 -121.84780121 476.20428467 -121.84780121 462.21640015 -121.84780121 448.22857666
+		 -121.84780121 434.24075317 -121.84780121 420.25289917 -121.84780121 406.2651062 -121.84780121
+		 392.27728271 -121.84780121 378.28945923 -121.84780121 364.30160522 -121.84780121
+		 350.31381226 -121.84780121 336.32598877 -121.84780121 322.33816528 -121.84780121
+		 308.35031128 -121.84780121 294.36251831 -121.84780121 280.37466431 -121.84780121
+		 266.38677979 -121.84780121 252.39901733 -121.84780121 238.41119385 -121.84780121
+		 224.42337036 -121.84780121 210.43554688 -121.84780121 196.44772339 -121.84780121
+		 182.45986938 -121.84780121 168.4720459 -121.84780121 154.48422241 -121.84780121 140.49639893
+		 -121.84780121 126.50855255 -121.84780121 112.52072144 -121.84780121 98.53289795 -121.84780121
+		 84.54507446 -121.84780121 70.55725098 -121.84780121 56.56936646 -121.84780121 42.58154297
+		 -121.84780121 28.5937767 -121.84780121 14.6059494 -121.84780121 0.6181221 -121.84780121
+		 -13.36976624 -121.84780121 -27.35752869 -121.84780121 -41.3453598 -121.84780121 -55.33324432
+		 -121.84780121 -69.32102203 -121.84780121 -83.30884552 -121.84780121 -97.29673767
+		 -121.84780121 -111.28456116 -121.84780121 -125.27232361 -121.84780121 -139.26013184
+		 -121.84780121 -153.24795532 -121.84780121 -167.23583984 -121.84780121 -181.22366333
+		 -121.84780121 -195.21142578 -121.84780121 -209.19924927 -121.84780121 -223.18707275
+		 -121.84780121 -237.17492676 -121.84780121 -251.16275024 -121.84780121 -265.15054321
+		 -121.84780121 -279.1383667 -121.84780121 -293.12619019 -121.84780121 -307.11401367
+		 -121.84780121 -321.10189819 -121.84780121 -335.089660645 -121.84780121 -349.077545166
+		 -121.84780121 -363.065368652 -121.84780121 -377.053192139 -121.84780121 -391.041015625
+		 -107.85997009 532.15551758 -107.85997009 518.16772461 -107.85997009 504.17993164
+		 -107.85997009 490.19207764 -107.85997009 476.20428467 -107.85997009 462.21640015
+		 -107.85997009 448.22857666 -107.85997009 434.24075317 -107.85997009 420.25289917
+		 -107.85997009 406.2651062 -107.85997009 392.27728271 -107.85997009 378.28945923 -107.85997009
+		 364.30160522 -107.85997009 350.31381226 -107.85997009 336.32598877 -107.85997009
+		 322.33816528 -107.85997009 308.35031128 -107.85997009 294.36251831 -107.85997009
+		 280.37466431 -107.85997009 266.38677979 -107.85997009 252.39901733 -107.85997009
+		 238.41119385 -107.85997009 224.42337036 -107.85997009 210.43554688 -107.85997009
+		 196.44772339 -107.85997009 182.45986938 -107.85997009 168.4720459 -107.85997009 154.48422241
+		 -107.85997009 140.49639893 -107.85997009 126.50855255 -107.85997009 112.52072144
+		 -107.85997009 98.53289795 -107.85997009 84.54507446 -107.85997009 70.55725098 -107.85997009
+		 56.56936646 -107.85997009 42.58154297 -107.85997009 28.5937767 -107.85997009 14.6059494
+		 -107.85997009 0.6181221 -107.85997009 -13.36976624 -107.85997009 -27.35752869 -107.85997009
+		 -41.3453598 -107.85997009 -55.33324432 -107.85997009 -69.32102203 -107.85997009 -83.30884552
+		 -107.85997009 -97.29673767 -107.85997009 -111.28456116 -107.85997009 -125.27232361
+		 -107.85997009 -139.26013184 -107.85997009 -153.24795532 -107.85997009 -167.23583984
+		 -107.85997009 -181.22366333 -107.85997009 -195.21142578 -107.85997009 -209.19924927
+		 -107.85997009 -223.18707275 -107.85997009 -237.17492676 -107.85997009 -251.16275024
+		 -107.85997009 -265.15054321 -107.85997009 -279.1383667 -107.85997009 -293.12619019
+		 -107.85997009 -307.11401367 -107.85997009 -321.10189819 -107.85997009 -335.089660645
+		 -107.85997009 -349.077545166 -107.85997009 -363.065368652 -107.85997009 -377.053192139
+		 -107.85997009 -391.041015625 -107.85997009 -405.028839111 -93.87214661 532.15551758
+		 -93.87214661 518.16772461 -93.87214661 504.17993164 -93.87214661 490.19207764 -93.87214661
+		 476.20428467 -93.87214661 462.21640015 -93.87214661 448.22857666 -93.87214661 434.24075317
+		 -93.87214661 420.25289917 -93.87214661 406.2651062;
+	setAttr ".uvtk[6750:6999]" -93.87214661 392.27728271 -93.87214661 378.28945923
+		 -93.87214661 364.30160522 -93.87214661 350.31381226 -93.87214661 336.32598877 -93.87214661
+		 322.33816528 -93.87214661 308.35031128 -93.87214661 294.36251831 -93.87214661 280.37466431
+		 -93.87214661 266.38677979 -93.87214661 252.39901733 -93.87214661 238.41119385 -93.87214661
+		 224.42337036 -93.87214661 210.43554688 -93.87214661 196.44772339 -93.87214661 182.45986938
+		 -93.87214661 168.4720459 -93.87214661 154.48422241 -93.87214661 140.49639893 -93.87214661
+		 126.50855255 -93.87214661 112.52072144 -93.87214661 98.53289795 -93.87214661 84.54507446
+		 -93.87214661 70.55725098 -93.87214661 56.56936646 -93.87214661 42.58154297 -93.87214661
+		 28.5937767 -93.87214661 14.6059494 -93.87214661 0.6181221 -93.87214661 -13.36976624
+		 -93.87214661 -27.35752869 -93.87214661 -41.3453598 -93.87214661 -55.33324432 -93.87214661
+		 -69.32102203 -93.87214661 -83.30884552 -93.87214661 -97.29673767 -93.87214661 -111.28456116
+		 -93.87214661 -125.27232361 -93.87214661 -139.26013184 -93.87214661 -153.24795532
+		 -93.87214661 -167.23583984 -93.87214661 -181.22366333 -93.87214661 -195.21142578
+		 -93.87214661 -209.19924927 -93.87214661 -223.18707275 -93.87214661 -237.17492676
+		 -93.87214661 -251.16275024 -93.87214661 -265.15054321 -93.87214661 -279.1383667 -93.87214661
+		 -293.12619019 -93.87214661 -307.11401367 -93.87214661 -321.10189819 -93.87214661
+		 -335.089660645 -93.87214661 -349.077545166 -93.87214661 -363.065368652 -93.87214661
+		 -377.053192139 -93.87214661 -391.041015625 -93.87214661 -405.028839111 -93.87214661
+		 -419.016662598 -93.87214661 -433.0046081543 -79.88432312 532.15551758 -79.88432312
+		 518.16772461 -79.88432312 504.17993164 -79.88432312 490.19207764 -79.88432312 476.20428467
+		 -79.88432312 462.21640015 -79.88432312 448.22857666 -79.88432312 434.24075317 -79.88432312
+		 420.25289917 -79.88432312 406.2651062 -79.88432312 392.27728271 -79.88432312 378.28945923
+		 -79.88432312 364.30160522 -79.88432312 350.31381226 -79.88432312 336.32598877 -79.88432312
+		 322.33816528 -79.88432312 308.35031128 -79.88432312 294.36251831 -79.88432312 280.37466431
+		 -79.88432312 266.38677979 -79.88432312 252.39901733 -79.88432312 238.41119385 -79.88432312
+		 224.42337036 -79.88432312 210.43554688 -79.88432312 196.44772339 -79.88432312 182.45986938
+		 -79.88432312 168.4720459 -79.88432312 154.48422241 -79.88432312 140.49639893 -79.88432312
+		 126.50855255 -79.88432312 112.52072144 -79.88432312 98.53289795 -79.88432312 84.54507446
+		 -79.88432312 70.55725098 -79.88432312 56.56936646 -79.88432312 42.58154297 -79.88432312
+		 28.5937767 -79.88432312 14.6059494 -79.88432312 0.6181221 -79.88432312 -13.36976624
+		 -79.88432312 -27.35752869 -79.88432312 -41.3453598 -79.88432312 -55.33324432 -79.88432312
+		 -69.32102203 -79.88432312 -83.30884552 -79.88432312 -97.29673767 -79.88432312 -111.28456116
+		 -79.88432312 -125.27232361 -79.88432312 -139.26013184 -79.88432312 -153.24795532
+		 -79.88432312 -167.23583984 -79.88432312 -181.22366333 -79.88432312 -195.21142578
+		 -79.88432312 -209.19924927 -79.88432312 -223.18707275 -79.88432312 -237.17492676
+		 -79.88432312 -251.16275024 -79.88432312 -265.15054321 -79.88432312 -279.1383667 -79.88432312
+		 -293.12619019 -79.88432312 -307.11401367 -79.88432312 -321.10189819 -79.88432312
+		 -335.089660645 -79.88432312 -349.077545166 -79.88432312 -363.065368652 -79.88432312
+		 -377.053192139 -79.88432312 -391.041015625 -79.88432312 -405.028839111 -79.88432312
+		 -419.016662598 -79.88432312 -433.0046081543 -79.88432312 -446.99230957 -79.88432312
+		 -460.98013306 -79.88432312 -474.96807861 -79.88432312 -488.95578003 -79.88432312
+		 -502.94360352 -79.88432312 -516.93151855 -65.89649963 532.15551758 -65.89649963 518.16772461
+		 -65.89649963 504.17993164 -65.89649963 490.19207764 -65.89649963 476.20428467 -65.89649963
+		 462.21640015 -65.89649963 448.22857666 -65.89649963 434.24075317 -65.89649963 420.25289917
+		 -65.89649963 406.2651062 -65.89649963 392.27728271 -65.89649963 378.28945923 -65.89649963
+		 364.30160522 -65.89649963 350.31381226 -65.89649963 336.32598877 -65.89649963 322.33816528
+		 -65.89649963 308.35031128 -65.89649963 294.36251831 -65.89649963 280.37466431 -65.89649963
+		 266.38677979 -65.89649963 252.39901733 -65.89649963 238.41119385 -65.89649963 224.42337036
+		 -65.89649963 210.43554688 -65.89649963 196.44772339 -65.89649963 182.45986938 -65.89649963
+		 168.4720459 -65.89649963 154.48422241 -65.89649963 140.49639893 -65.89649963 126.50855255
+		 -65.89649963 112.52072144 -65.89649963 98.53289795 -65.89649963 84.54507446 -65.89649963
+		 70.55725098 -65.89649963 56.56936646 -65.89649963 42.58154297 -65.89649963 28.5937767
+		 -65.89649963 14.6059494 -65.89649963 0.6181221 -65.89649963 -13.36976624 -65.89649963
+		 -27.35752869 -65.89649963 -41.3453598 -65.89649963 -55.33324432 -65.89649963 -69.32102203
+		 -65.89649963 -83.30884552 -65.89649963 -97.29673767 -65.89649963 -111.28456116 -65.89649963
+		 -125.27232361 -65.89649963 -139.26013184 -65.89649963 -153.24795532 -65.89649963
+		 -167.23583984 -65.89649963 -181.22366333 -65.89649963 -195.21142578 -65.89649963
+		 -209.19924927 -65.89649963 -223.18707275 -65.89649963 -237.17492676 -65.89649963
+		 -251.16275024 -65.89649963 -265.15054321 -65.89649963 -279.1383667 -65.89649963 -293.12619019
+		 -65.89649963 -307.11401367 -65.89649963 -321.10189819 -65.89649963 -335.089660645
+		 -65.89649963 -349.077545166 -65.89649963 -363.065368652 -65.89649963 -377.053192139
+		 -65.89649963 -391.041015625 -65.89649963 -405.028839111 -65.89649963 -419.016662598
+		 -65.89649963 -433.0046081543 -65.89649963 -446.99230957 -65.89649963 -460.98013306
+		 -65.89649963 -474.96807861 -65.89649963 -488.95578003 -65.89649963 -502.94360352
+		 -65.89649963 -516.93151855 -65.89649963 -530.91931152 -51.90865707 532.15551758 -51.90865707
+		 518.16772461 -51.90865707 504.17993164 -51.90865707 490.19207764 -51.90865707 476.20428467
+		 -51.90865707 462.21640015 -51.90865707 448.22857666 -51.90865707 434.24075317 -51.90865707
+		 420.25289917 -51.90865707 406.2651062 -51.90865707 392.27728271 -51.90865707 378.28945923
+		 -51.90865707 364.30160522 -51.90865707 350.31381226 -51.90865707 336.32598877 -51.90865707
+		 322.33816528 -51.90865707 308.35031128 -51.90865707 294.36251831 -51.90865707 280.37466431
+		 -51.90865707 266.38677979 -51.90865707 252.39901733 -51.90865707 238.41119385 -51.90865707
+		 224.42337036 -51.90865707 210.43554688 -51.90865707 196.44772339 -51.90865707 182.45986938
+		 -51.90865707 168.4720459 -51.90865707 154.48422241 -51.90865707 140.49639893 -51.90865707
+		 126.50855255 -51.90865707 112.52072144 -51.90865707 98.53289795 -51.90865707 84.54507446
+		 -51.90865707 70.55725098 -51.90865707 56.56936646 -51.90865707 42.58154297 -51.90865707
+		 28.5937767;
+	setAttr ".uvtk[7000:7249]" -51.90865707 14.6059494 -51.90865707 0.6181221 -51.90865707
+		 -13.36976624 -51.90865707 -27.35752869 -51.90865707 -41.3453598 -51.90865707 -55.33324432
+		 -51.90865707 -69.32102203 -51.90865707 -83.30884552 -51.90865707 -97.29673767 -51.90865707
+		 -111.28456116 -51.90865707 -125.27232361 -51.90865707 -139.26013184 -51.90865707
+		 -153.24795532 -51.90865707 -167.23583984 -51.90865707 -181.22366333 -51.90865707
+		 -195.21142578 -51.90865707 -209.19924927 -51.90865707 -223.18707275 -51.90865707
+		 -237.17492676 -51.90865707 -251.16275024 -51.90865707 -265.15054321 -51.90865707
+		 -279.1383667 -51.90865707 -293.12619019 -51.90865707 -307.11401367 -51.90865707 -321.10189819
+		 -51.90865707 -335.089660645 -51.90865707 -349.077545166 -51.90865707 -363.065368652
+		 -51.90865707 -377.053192139 -51.90865707 -391.041015625 -51.90865707 -405.028839111
+		 -51.90865707 -419.016662598 -51.90865707 -433.0046081543 -51.90865707 -446.99230957
+		 -51.90865707 -460.98013306 -51.90865707 -474.96807861 -51.90865707 -488.95578003
+		 -51.90865707 -502.94360352 -51.90865707 -516.93151855 -51.90865707 -530.91931152
+		 -37.92083359 532.15551758 -37.92083359 518.16772461 -37.92083359 504.17993164 -37.92083359
+		 490.19207764 -37.92083359 476.20428467 -37.92083359 462.21640015 -37.92083359 448.22857666
+		 -37.92083359 434.24075317 -37.92083359 420.25289917 -37.92083359 406.2651062 -37.92083359
+		 392.27728271 -37.92083359 378.28945923 -37.92083359 364.30160522 -37.92083359 350.31381226
+		 -37.92083359 336.32598877 -37.92083359 322.33816528 -37.92083359 308.35031128 -37.92083359
+		 294.36251831 -37.92083359 280.37466431 -37.92083359 266.38677979 -37.92083359 252.39901733
+		 -37.92083359 238.41119385 -37.92083359 224.42337036 -37.92083359 210.43554688 -37.92083359
+		 196.44772339 -37.92083359 182.45986938 -37.92083359 168.4720459 -37.92083359 154.48422241
+		 -37.92083359 140.49639893 -37.92083359 126.50855255 -37.92083359 112.52072144 -37.92083359
+		 98.53289795 -37.92083359 84.54507446 -37.92083359 70.55725098 -37.92083359 56.56936646
+		 -37.92083359 42.58154297 -37.92083359 28.5937767 -37.92083359 14.6059494 -37.92083359
+		 0.6181221 -37.92083359 -13.36976624 -37.92083359 -27.35752869 -37.92083359 -41.3453598
+		 -37.92083359 -55.33324432 -37.92083359 -69.32102203 -37.92083359 -83.30884552 -37.92083359
+		 -97.29673767 -37.92083359 -111.28456116 -37.92083359 -125.27232361 -37.92083359 -139.26013184
+		 -37.92083359 -153.24795532 -37.92083359 -167.23583984 -37.92083359 -181.22366333
+		 -37.92083359 -195.21142578 -37.92083359 -209.19924927 -37.92083359 -223.18707275
+		 -37.92083359 -237.17492676 -37.92083359 -251.16275024 -37.92083359 -265.15054321
+		 -37.92083359 -279.1383667 -37.92083359 -293.12619019 -37.92083359 -307.11401367 -37.92083359
+		 -321.10189819 -37.92083359 -335.089660645 -37.92083359 -349.077545166 -37.92083359
+		 -363.065368652 -37.92083359 -377.053192139 -37.92083359 -391.041015625 -37.92083359
+		 -405.028839111 -37.92083359 -419.016662598 -37.92083359 -433.0046081543 -37.92083359
+		 -446.99230957 -37.92083359 -460.98013306 -37.92083359 -474.96807861 -37.92083359
+		 -488.95578003 -37.92083359 -502.94360352 -37.92083359 -516.93151855 -37.92083359
+		 -530.91931152 -23.93300629 532.15551758 -23.93300629 518.16772461 -23.93300629 504.17993164
+		 -23.93300629 490.19207764 -23.93300629 476.20428467 -23.93300629 462.21640015 -23.93300629
+		 448.22857666 -23.93300629 434.24075317 -23.93300629 420.25289917 -23.93300629 406.2651062
+		 -23.93300629 392.27728271 -23.93300629 378.28945923 -23.93300629 364.30160522 -23.93300629
+		 350.31381226 -23.93300629 336.32598877 -23.93300629 322.33816528 -23.93300629 308.35031128
+		 -23.93300629 294.36251831 -23.93300629 280.37466431 -23.93300629 266.38677979 -23.93300629
+		 252.39901733 -23.93300629 238.41119385 -23.93300629 224.42337036 -23.93300629 210.43554688
+		 -23.93300629 196.44772339 -23.93300629 182.45986938 -23.93300629 168.4720459 -23.93300629
+		 154.48422241 -23.93300629 140.49639893 -23.93300629 126.50855255 -23.93300629 112.52072144
+		 -23.93300629 98.53289795 -23.93300629 84.54507446 -23.93300629 70.55725098 -23.93300629
+		 56.56936646 -23.93300629 42.58154297 -23.93300629 28.5937767 -23.93300629 14.6059494
+		 -23.93300629 0.6181221 -23.93300629 -13.36976624 -23.93300629 -27.35752869 -23.93300629
+		 -41.3453598 -23.93300629 -55.33324432 -23.93300629 -69.32102203 -23.93300629 -83.30884552
+		 -23.93300629 -97.29673767 -23.93300629 -111.28456116 -23.93300629 -125.27232361 -23.93300629
+		 -139.26013184 -23.93300629 -153.24795532 -23.93300629 -167.23583984 -23.93300629
+		 -181.22366333 -23.93300629 -195.21142578 -23.93300629 -209.19924927 -23.93300629
+		 -223.18707275 -23.93300629 -237.17492676 -23.93300629 -251.16275024 -23.93300629
+		 -265.15054321 -23.93300629 -279.1383667 -23.93300629 -293.12619019 -23.93300629 -307.11401367
+		 -23.93300629 -321.10189819 -23.93300629 -335.089660645 -23.93300629 -349.077545166
+		 -23.93300629 -363.065368652 -23.93300629 -377.053192139 -23.93300629 -391.041015625
+		 -23.93300629 -405.028839111 -23.93300629 -419.016662598 -23.93300629 -433.0046081543
+		 -23.93300629 -446.99230957 -23.93300629 -460.98013306 -23.93300629 -474.96807861
+		 -23.93300629 -488.95578003 -23.93300629 -502.94360352 -23.93300629 -516.93151855
+		 -23.93300629 -530.91931152 -9.94517803 532.15551758 -9.94517803 518.16772461 -9.94517803
+		 504.17993164 -9.94517803 490.19207764 -9.94517803 476.20428467 -9.94517803 462.21640015
+		 -9.94517803 448.22857666 -9.94517803 434.24075317 -9.94517803 420.25289917 -9.94517803
+		 406.2651062 -9.94517803 392.27728271 -9.94517803 378.28945923 -9.94517803 364.30160522
+		 -9.94517803 350.31381226 -9.94517803 336.32598877 -9.94517803 322.33816528 -9.94517803
+		 308.35031128 -9.94517803 294.36251831 -9.94517803 280.37466431 -9.94517803 266.38677979
+		 -9.94517803 252.39901733 -9.94517803 238.41119385 -9.94517803 224.42337036 -9.94517803
+		 210.43554688 -9.94517803 196.44772339 -9.94517803 182.45986938 -9.94517803 168.4720459
+		 -9.94517803 154.48422241 -9.94517803 140.49639893 -9.94517803 126.50855255 -9.94517803
+		 112.52072144 -9.94517803 98.53289795 -9.94517803 84.54507446 -9.94517803 70.55725098
+		 -9.94517803 56.56936646 -9.94517803 42.58154297 -9.94517803 28.5937767 -9.94517803
+		 14.6059494 -9.94517803 0.6181221 -9.94517803 -13.36976624 -9.94517803 -27.35752869
+		 -9.94517803 -41.3453598 -9.94517803 -55.33324432 -9.94517803 -69.32102203 -9.94517803
+		 -83.30884552 -9.94517803 -97.29673767 -9.94517803 -111.28456116 -9.94517803 -125.27232361
+		 -9.94517803 -139.26013184 -9.94517803 -153.24795532 -9.94517803 -167.23583984 -9.94517803
+		 -181.22366333 -9.94517803 -195.21142578 -9.94517803 -209.19924927 -9.94517803 -223.18707275
+		 -9.94517803 -237.17492676;
+	setAttr ".uvtk[7250:7499]" -9.94517803 -251.16275024 -9.94517803 -265.15054321
+		 -9.94517803 -279.1383667 -9.94517803 -293.12619019 -9.94517803 -307.11401367 -9.94517803
+		 -321.10189819 -9.94517803 -335.089660645 -9.94517803 -349.077545166 -9.94517803 -363.065368652
+		 -9.94517803 -377.053192139 -9.94517803 -391.041015625 -9.94517803 -405.028839111
+		 -9.94517803 -419.016662598 -9.94517803 -433.0046081543 -9.94517803 -446.99230957
+		 -9.94517803 -460.98013306 -9.94517803 -474.96807861 -9.94517803 -488.95578003 -9.94517803
+		 -502.94360352 -9.94517803 -516.93151855 4.042648315 532.15551758 4.042648315 518.16772461
+		 4.042648315 504.17993164 4.042648315 490.19207764 4.042648315 476.20428467 4.042648315
+		 462.21640015 4.042648315 448.22857666 4.042648315 434.24075317 4.042648315 420.25289917
+		 4.042648315 406.2651062 4.042648315 392.27728271 4.042648315 378.28945923 4.042648315
+		 364.30160522 4.042648315 350.31381226 4.042648315 336.32598877 4.042648315 322.33816528
+		 4.042648315 308.35031128 4.042648315 294.36251831 4.042648315 280.37466431 4.042648315
+		 266.38677979 4.042648315 252.39901733 4.042648315 238.41119385 4.042648315 224.42337036
+		 4.042648315 210.43554688 4.042648315 196.44772339 4.042648315 182.45986938 4.042648315
+		 168.4720459 4.042648315 154.48422241 4.042648315 140.49639893 4.042648315 126.50855255
+		 4.042648315 112.52072144 4.042648315 98.53289795 4.042648315 84.54507446 4.042648315
+		 70.55725098 4.042648315 56.56936646 4.042648315 42.58154297 4.042648315 28.5937767
+		 4.042648315 14.6059494 4.042648315 0.6181221 4.042648315 -13.36976624 4.042648315
+		 -27.35752869 4.042648315 -41.3453598 4.042648315 -55.33324432 4.042648315 -69.32102203
+		 4.042648315 -83.30884552 4.042648315 -97.29673767 4.042648315 -111.28456116 4.042648315
+		 -125.27232361 4.042648315 -139.26013184 4.042648315 -153.24795532 4.042648315 -167.23583984
+		 4.042648315 -181.22366333 4.042648315 -195.21142578 4.042648315 -209.19924927 4.042648315
+		 -223.18707275 4.042648315 -237.17492676 4.042648315 -251.16275024 4.042648315 -265.15054321
+		 4.042648315 -279.1383667 4.042648315 -293.12619019 4.042648315 -307.11401367 4.042648315
+		 -321.10189819 4.042648315 -335.089660645 4.042648315 -349.077545166 4.042648315 -363.065368652
+		 4.042648315 -377.053192139 4.042648315 -391.041015625 4.042648315 -405.028839111
+		 4.042648315 -419.016662598 4.042648315 -433.0046081543 4.042648315 -446.99230957
+		 4.042648315 -460.98013306 4.042648315 -474.96807861 4.042648315 -488.95578003 4.042648315
+		 -502.94360352 18.030473709 532.15551758 18.030473709 518.16772461 18.030473709 504.17993164
+		 18.030473709 490.19207764 18.030473709 476.20428467 18.030473709 462.21640015 18.030473709
+		 448.22857666 18.030473709 434.24075317 18.030473709 420.25289917 18.030473709 406.2651062
+		 18.030473709 392.27728271 18.030473709 378.28945923 18.030473709 364.30160522 18.030473709
+		 350.31381226 18.030473709 336.32598877 18.030473709 322.33816528 18.030473709 308.35031128
+		 18.030473709 294.36251831 18.030473709 280.37466431 18.030473709 266.38677979 18.030473709
+		 252.39901733 18.030473709 238.41119385 18.030473709 224.42337036 18.030473709 210.43554688
+		 18.030473709 196.44772339 18.030473709 182.45986938 18.030473709 168.4720459 18.030473709
+		 154.48422241 18.030473709 140.49639893 18.030473709 126.50855255 18.030473709 112.52072144
+		 18.030473709 98.53289795 18.030473709 84.54507446 18.030473709 70.55725098 18.030473709
+		 56.56936646 18.030473709 42.58154297 18.030473709 28.5937767 18.030473709 14.6059494
+		 18.030473709 0.6181221 18.030473709 -13.36976624 18.030473709 -27.35752869 18.030473709
+		 -41.3453598 18.030473709 -55.33324432 18.030473709 -69.32102203 18.030473709 -83.30884552
+		 18.030473709 -97.29673767 18.030473709 -111.28456116 18.030473709 -125.27232361 18.030473709
+		 -139.26013184 18.030473709 -153.24795532 18.030473709 -167.23583984 18.030473709
+		 -181.22366333 18.030473709 -195.21142578 18.030473709 -209.19924927 18.030473709
+		 -223.18707275 18.030473709 -237.17492676 18.030473709 -251.16275024 18.030473709
+		 -265.15054321 18.030473709 -279.1383667 18.030473709 -293.12619019 18.030473709 -307.11401367
+		 18.030473709 -321.10189819 18.030473709 -335.089660645 18.030473709 -349.077545166
+		 18.030473709 -363.065368652 18.030473709 -377.053192139 18.030473709 -391.041015625
+		 18.030473709 -405.028839111 18.030473709 -419.016662598 18.030473709 -433.0046081543
+		 18.030473709 -446.99230957 18.030473709 -460.98013306 18.030473709 -474.96807861
+		 18.030473709 -488.95578003 32.018295288 532.15551758 32.018295288 518.16772461 32.018295288
+		 504.17993164 32.018295288 490.19207764 32.018295288 476.20428467 32.018295288 462.21640015
+		 32.018295288 448.22857666 32.018295288 434.24075317 32.018295288 420.25289917 32.018295288
+		 406.2651062 32.018295288 392.27728271 32.018295288 378.28945923 32.018295288 364.30160522
+		 32.018295288 350.31381226 32.018295288 336.32598877 32.018295288 322.33816528 32.018295288
+		 308.35031128 32.018295288 294.36251831 32.018295288 280.37466431 32.018295288 266.38677979
+		 32.018295288 252.39901733 32.018295288 238.41119385 32.018295288 224.42337036 32.018295288
+		 210.43554688 32.018295288 196.44772339 32.018295288 182.45986938 32.018295288 168.4720459
+		 32.018295288 154.48422241 32.018295288 140.49639893 32.018295288 126.50855255 32.018295288
+		 112.52072144 32.018295288 98.53289795 32.018295288 84.54507446 32.018295288 70.55725098
+		 32.018295288 56.56936646 32.018295288 42.58154297 32.018295288 28.5937767 32.018295288
+		 14.6059494 32.018295288 0.6181221 32.018295288 -13.36976624 32.018295288 -27.35752869
+		 32.018295288 -41.3453598 32.018295288 -55.33324432 32.018295288 -69.32102203 32.018295288
+		 -83.30884552 32.018295288 -97.29673767 32.018295288 -111.28456116 32.018295288 -125.27232361
+		 32.018295288 -139.26013184 32.018295288 -153.24795532 32.018295288 -167.23583984
+		 32.018295288 -181.22366333 32.018295288 -195.21142578 32.018295288 -209.19924927
+		 32.018295288 -223.18707275 32.018295288 -237.17492676 32.018295288 -251.16275024
+		 32.018295288 -265.15054321 32.018295288 -279.1383667 32.018295288 -293.12619019 32.018295288
+		 -307.11401367 32.018295288 -321.10189819 32.018295288 -335.089660645 32.018295288
+		 -349.077545166 32.018295288 -363.065368652 32.018295288 -377.053192139 32.018295288
+		 -391.041015625 32.018295288 -405.028839111 32.018295288 -419.016662598 32.018295288
+		 -433.0046081543 32.018295288 -446.99230957 32.018295288 -460.98013306 32.018295288
+		 -474.96807861 32.018295288 -488.95578003 46.0061225891 532.15551758 46.0061225891
+		 518.16772461 46.0061225891 504.17993164 46.0061225891 490.19207764 46.0061225891
+		 476.20428467 46.0061225891 462.21640015 46.0061225891 448.22857666;
+	setAttr ".uvtk[7500:7749]" 46.0061225891 434.24075317 46.0061225891 420.25289917
+		 46.0061225891 406.2651062 46.0061225891 392.27728271 46.0061225891 378.28945923 46.0061225891
+		 364.30160522 46.0061225891 350.31381226 46.0061225891 336.32598877 46.0061225891
+		 322.33816528 46.0061225891 308.35031128 46.0061225891 294.36251831 46.0061225891
+		 280.37466431 46.0061225891 266.38677979 46.0061225891 252.39901733 46.0061225891
+		 238.41119385 46.0061225891 224.42337036 46.0061225891 210.43554688 46.0061225891
+		 196.44772339 46.0061225891 182.45986938 46.0061225891 168.4720459 46.0061225891 154.48422241
+		 46.0061225891 140.49639893 46.0061225891 126.50855255 46.0061225891 112.52072144
+		 46.0061225891 98.53289795 46.0061225891 84.54507446 46.0061225891 70.55725098 46.0061225891
+		 56.56936646 46.0061225891 42.58154297 46.0061225891 28.5937767 46.0061225891 14.6059494
+		 46.0061225891 0.6181221 46.0061225891 -13.36976624 46.0061225891 -27.35752869 46.0061225891
+		 -41.3453598 46.0061225891 -55.33324432 46.0061225891 -69.32102203 46.0061225891 -83.30884552
+		 46.0061225891 -97.29673767 46.0061225891 -111.28456116 46.0061225891 -125.27232361
+		 46.0061225891 -139.26013184 46.0061225891 -153.24795532 46.0061225891 -167.23583984
+		 46.0061225891 -181.22366333 46.0061225891 -195.21142578 46.0061225891 -209.19924927
+		 46.0061225891 -223.18707275 46.0061225891 -237.17492676 46.0061225891 -251.16275024
+		 46.0061225891 -265.15054321 46.0061225891 -279.1383667 46.0061225891 -293.12619019
+		 46.0061225891 -307.11401367 46.0061225891 -321.10189819 46.0061225891 -335.089660645
+		 46.0061225891 -349.077545166 46.0061225891 -363.065368652 46.0061225891 -377.053192139
+		 46.0061225891 -391.041015625 46.0061225891 -405.028839111 46.0061225891 -419.016662598
+		 46.0061225891 -433.0046081543 46.0061225891 -446.99230957 46.0061225891 -460.98013306
+		 46.0061225891 -474.96807861 59.9939537 532.15551758 59.9939537 518.16772461 59.9939537
+		 504.17993164 59.9939537 490.19207764 59.9939537 476.20428467 59.9939537 462.21640015
+		 59.9939537 448.22857666 59.9939537 434.24075317 59.9939537 420.25289917 59.9939537
+		 406.2651062 59.9939537 392.27728271 59.9939537 378.28945923 59.9939537 364.30160522
+		 59.9939537 350.31381226 59.9939537 336.32598877 59.9939537 322.33816528 59.9939537
+		 308.35031128 59.9939537 294.36251831 59.9939537 280.37466431 59.9939537 266.38677979
+		 59.9939537 252.39901733 59.9939537 238.41119385 59.9939537 224.42337036 59.9939537
+		 210.43554688 59.9939537 196.44772339 59.9939537 182.45986938 59.9939537 168.4720459
+		 59.9939537 154.48422241 59.9939537 140.49639893 59.9939537 126.50855255 59.9939537
+		 112.52072144 59.9939537 98.53289795 59.9939537 84.54507446 59.9939537 70.55725098
+		 59.9939537 56.56936646 59.9939537 42.58154297 59.9939537 28.5937767 59.9939537 14.6059494
+		 59.9939537 0.6181221 59.9939537 -13.36976624 59.9939537 -27.35752869 59.9939537 -41.3453598
+		 59.9939537 -55.33324432 59.9939537 -69.32102203 59.9939537 -83.30884552 59.9939537
+		 -97.29673767 59.9939537 -111.28456116 59.9939537 -125.27232361 59.9939537 -139.26013184
+		 59.9939537 -153.24795532 59.9939537 -167.23583984 59.9939537 -181.22366333 59.9939537
+		 -195.21142578 59.9939537 -209.19924927 59.9939537 -223.18707275 59.9939537 -237.17492676
+		 59.9939537 -251.16275024 59.9939537 -265.15054321 59.9939537 -279.1383667 59.9939537
+		 -293.12619019 59.9939537 -307.11401367 59.9939537 -321.10189819 59.9939537 -335.089660645
+		 59.9939537 -349.077545166 59.9939537 -363.065368652 59.9939537 -377.053192139 59.9939537
+		 -391.041015625 59.9939537 -405.028839111 59.9939537 -419.016662598 59.9939537 -433.0046081543
+		 59.9939537 -446.99230957 59.9939537 -460.98013306 59.9939537 -474.96807861 -79.40293121
+		 -530.91931152 -135.83563232 545.54919434 -121.84780121 545.45019531 -205.77474976
+		 392.27728271 -93.87214661 -446.99230957 46.0061225891 -488.95578003 -126.25082397
+		 -386.46304321 244.67831421 0.0072254427 244.99450684 0.89565611 245.30708313 1.78548908
+		 246.33274841 4.75972795 247.33659363 7.74128532 247.49427795 8.21614075 247.65180969
+		 8.69093323 248.80882263 12.22642422 249.93717957 15.77112293 251.021514893 19.26350784
+		 252.07975769 22.76394081 253.10520935 26.25608253 254.10127258 29.75675964 254.22782898
+		 30.21063614 254.35452271 30.66451645 254.49963379 31.18424606 254.64463806 31.70391464
+		 255.32241821 34.22475815 255.98521423 36.74956894 256.86724854 40.24076462 257.70715332
+		 43.74235535 258.49481201 47.23291016 259.22805786 50.73523331 259.89318848 54.22481537
+		 260.48266602 57.72799301 260.97689819 61.22765732 261.35406494 64.74162292 261.56002808
+		 67.59391785 261.63751221 70.45264435 261.62310791 71.082855225 261.60882568 71.7130127
+		 261.50845337 74.78227997 261.35345459 77.84953308 261.32614136 78.26670837 261.29830933
+		 78.68379211 261.064086914 82.19260406 260.80090332 85.69927979 260.52752686 89.19667053
+		 260.23059082 92.69210052 259.92938232 96.18917847 259.61282349 99.68491364 259.29391479
+		 103.18190002 258.96224976 106.67772675 258.63052368 110.17469788 258.2875061 113.67055511
+		 257.94366455 117.16723633 257.59399414 120.66340637 257.24038696 124.15987396 256.88540649
+		 127.65621948 256.52359009 131.15260315 256.16183472 134.64901733 255.79547119 138.14553833
+		 255.42680359 141.64183044 255.038269043 145.31756592 254.64463806 148.99272156 254.49951172
+		 150.34805298 254.35427856 151.70329285 254.14405823 153.66555786 253.93115234 155.62745667
+		 253.55152893 159.12387085 253.17190552 162.62026978 252.78791809 166.116745 252.40391541
+		 169.61309814 252.018066406 173.10961914 251.63015747 176.60592651 251.24211121 180.10249329
+		 250.85092163 183.59872437 250.45935059 187.095214844 250.066207886 190.59156799 249.67170715
+		 194.08795166 249.27651978 197.5843811 248.8790741 201.080780029 248.48155212 204.57719421
+		 248.066818237 208.20266724 247.65180969 211.82821655 247.50657654 213.090835571 247.36134338
+		 214.35346985 247.11917114 216.4581604 246.87661743 218.56288147 246.47224426 222.059295654
+		 246.06678772 225.55569458 245.66009521 229.0521698 245.25195313 232.54844666 244.96572876
+		 234.99168396 244.67831421 237.43473816 244.26431274 239.54127502 242.89012146 246.53408813
+		 241.74565125 252.35745239 241.51589966 253.52690125 240.65899658 257.88751221 240.14170837
+		 260.51971436 238.76751709 267.51254272 237.39332581 274.50537109 236.98710632 276.57232666
+		 236.019134521 281.49816895 234.64492798 288.49099731 233.66618347 293.47146606 233.27072144
+		 295.48379517 232.22846985 300.78717041 231.89653015 302.4765625 230.52232361 309.46942139
+		 229.17228699 316.33929443 227.77391052 323.45507813 226.67324829 323.45507813;
+	setAttr ".uvtk[7750:7999]" 219.68055725 323.45507813 212.68774414 323.45507813
+		 205.69493103 323.45507813 198.70210266 323.45507813 191.70928955 323.45507813 184.71647644
+		 323.45507813 177.72366333 323.45507813 170.73085022 323.45507813 163.73803711 323.45507813
+		 156.745224 323.45507813 150.80563354 323.45507813 150.48297119 316.46218872 150.16041565
+		 309.46942139 149.75238037 300.62442017 149.51519775 295.48373413 149.19265747 288.49105835
+		 148.86999512 281.49816895 148.54743958 274.50543213 148.22477722 267.51254272 147.9022522
+		 260.51971436 147.57957458 253.52690125 147.2570343 246.53408813 146.93447876 239.54127502
+		 146.83729553 237.43473816 146.39964294 234.99241638 145.97099304 232.54850769 145.36943054
+		 229.053024292 144.77897644 225.55563354 144.19889832 222.060028076 143.62843323 218.56288147
+		 143.19309998 215.8381958 142.75958252 213.11322021 142.63883972 212.34178162 142.51933289
+		 211.57000732 142.46946716 211.24777222 141.9533844 207.9132843 141.44830322 204.57719421
+		 140.92381287 201.081878662 140.41482544 197.58444214 139.90812683 194.089294434 139.42034912
+		 190.59156799 138.93318176 187.096557617 138.46662903 183.5987854 138.0004119873 180.10371399
+		 137.55569458 176.60592651 137.1126709 173.11077881 136.68988037 169.61309814 136.27246094
+		 166.11772156 135.87236023 162.62026978 135.81954956 162.14633179 135.76675415 161.67247009
+		 135.62176514 160.36936951 135.47663879 159.066390991 135.2853241 157.34764099 135.10665894
+		 155.62745667 134.74888611 152.13142395 134.39743042 148.63464355 134.074890137 145.13824463
+		 133.75234985 141.64183044 133.46736145 138.14553833 133.18457031 134.64901733 132.93469238
+		 131.15299988 132.69703674 127.65618896 132.48727417 124.16051483 132.30119324 120.66337585
+		 132.13877869 117.16772461 132.012557983 113.67055511 131.90792847 110.17480469 131.85169983
+		 106.67775726 131.82011414 103.181427 131.84684753 99.68491364 131.91110229 96.18786621
+		 132.03805542 92.69210052 132.23339844 89.19419861 132.4831543 85.69927979 132.86653137
+		 82.19763947 133.33016968 78.70649719 133.93963623 75.18566895 134.78033447 71.71365356
+		 134.93826294 71.0831604 135.096160889 70.45264435 135.28642273 69.80036163 135.47651672
+		 69.14798737 135.62164307 68.64997101 135.76675415 68.15190887 136.26586914 66.43946838
+		 136.74305725 64.7208252 137.69128418 61.23006821 138.5969696 57.72799301 139.44645691
+		 54.23652267 140.25445557 50.73517227 141.016967773 47.24324799 141.73779297 43.74241638
+		 142.11399841 41.84879684 142.46934509 39.95108414 142.61494446 39.17362213 142.75958252
+		 38.39592361 142.90322876 37.5727272 143.046875 36.74944687 143.63539124 33.25657654
+		 144.18121338 29.75675964 144.68238831 26.26327515 145.14056396 22.76394081 145.55174255
+		 19.27027702 145.91342163 15.771245 146.22962952 12.2770319 146.48950195 8.77824497
+		 146.69194031 5.28360462 146.82060242 1.78548908 146.83119202 1.22259092 146.83729553
+		 0.65944862 149.7522583 0.63999838 153.91499329 0.61231685 156.745224 0.59335428 163.73803711
+		 0.54677135 166.22106934 0.53018683 167.23297119 0.52347988 170.73085022 0.50018835
+		 175.89082336 0.46579969 177.72366333 0.45360529 179.69258118 0.44043535 184.71647644
+		 0.40696144 191.70928955 0.36031741 198.66941833 0.31391722 200.70846558 0.30032045
+		 206.068817139 0.26459059 207.0084075928 0.25837144 212.68774414 0.22044644 215.16870117
+		 0.20392287 216.94178772 0.19209415 219.68055725 0.17386335 223.3289032 0.14947447
+		 226.67337036 0.12728052 231.48912048 0.09514793 233.66618347 0.080636479 237.77340698
+		 0.053259782 239.64944458 0.040699385 240.65899658 0.033992484 254.64463806 141.64183044
+		 254.64463806 134.64904785 254.64463806 127.65621948 254.64463806 120.66337585 254.64463806
+		 113.67055511 254.64463806 106.67772675 254.64463806 99.68491364 254.64463806 92.69207001
+		 254.64463806 85.69927979 254.64463806 78.70649719 254.64463806 71.71362305 254.64463806
+		 64.7208252 254.64463806 57.72805405 254.64463806 50.73520279 254.64463806 43.74238586
+		 254.64463806 36.74956894 247.65180969 204.57719421 247.65180969 197.5843811 247.65180969
+		 190.59156799 247.65180969 183.59872437 247.65180969 176.60592651 247.65180969 169.61309814
+		 247.65180969 162.62026978 247.65180969 155.62745667 247.65180969 148.63464355 247.65180969
+		 141.64183044 247.65180969 134.64904785 247.65180969 127.65621948 247.65180969 120.66337585
+		 247.65180969 113.67055511 247.65180969 106.67772675 247.65180969 99.68491364 247.65180969
+		 92.69207001 247.65180969 85.69927979 247.65180969 78.70649719 247.65180969 71.71362305
+		 247.65180969 64.7208252 247.65180969 57.72805405 247.65180969 50.73520279 247.65180969
+		 43.74238586 247.65180969 36.74956894 247.65180969 29.75675964 247.65180969 22.76394081
+		 247.65180969 15.77112293 240.65899658 253.52690125 240.65899658 246.53408813 240.65899658
+		 239.54127502 240.65899658 232.54844666 240.65899658 225.55563354 240.65899658 218.56282043
+		 240.65899658 211.57000732 240.65899658 204.57719421 240.65899658 197.5843811 240.65899658
+		 190.59156799 240.65899658 183.59872437 240.65899658 176.60592651 240.65899658 169.61309814
+		 240.65899658 162.62026978 240.65899658 155.62745667 240.65899658 148.63464355 240.65899658
+		 141.64183044 240.65899658 134.64904785 240.65899658 127.65621948 240.65899658 120.66337585
+		 240.65899658 113.67055511 240.65899658 106.67772675 240.65899658 99.68491364 240.65899658
+		 92.69207001 240.65899658 85.69927979 240.65899658 78.70649719 240.65899658 71.71362305
+		 240.65899658 64.7208252 240.65899658 57.72805405 240.65899658 50.73520279 240.65899658
+		 43.74238586 240.65899658 36.74956894 240.65899658 29.75675964 240.65899658 22.76394081
+		 240.65899658 15.77112293 240.65899658 8.77830601 240.65899658 1.78548908 233.66618347
+		 288.49099731 233.66618347 281.49816895 233.66618347 274.50537109 233.66618347 267.51254272
+		 233.66618347 260.51971436 233.66618347 253.52690125 233.66618347 246.53408813 233.66618347
+		 239.54127502 233.66618347 232.54844666 233.66618347 225.55563354 233.66618347 218.56282043
+		 233.66618347 211.57000732 233.66618347 204.57719421 233.66618347 197.5843811 233.66618347
+		 190.59156799 233.66618347 183.59872437 233.66618347 176.60592651 233.66618347 169.61309814
+		 233.66618347 162.62026978 233.66618347 155.62745667 233.66618347 148.63464355 233.66618347
+		 141.64183044 233.66618347 134.64904785 233.66618347 127.65621948 233.66618347 120.66337585
+		 233.66618347 113.67055511 233.66618347 106.67772675 233.66618347 99.68491364 233.66618347
+		 92.69207001 233.66618347 85.69927979 233.66618347 78.70649719;
+	setAttr ".uvtk[8000:8249]" 233.66618347 71.71362305 233.66618347 64.7208252 233.66618347
+		 57.72805405 233.66618347 50.73520279 233.66618347 43.74238586 233.66618347 36.74956894
+		 233.66618347 29.75675964 233.66618347 22.76394081 233.66618347 15.77112293 233.66618347
+		 8.77830601 233.66618347 1.78548908 226.67337036 316.46224976 226.67337036 309.46942139
+		 226.67337036 302.47662354 226.67337036 295.48379517 226.67337036 288.49099731 226.67337036
+		 281.49816895 226.67337036 274.50537109 226.67337036 267.51254272 226.67337036 260.51971436
+		 226.67337036 253.52690125 226.67337036 246.53408813 226.67337036 239.54127502 226.67337036
+		 232.54844666 226.67337036 225.55563354 226.67337036 218.56282043 226.67337036 211.57000732
+		 226.67337036 204.57719421 226.67337036 197.5843811 226.67337036 190.59156799 226.67337036
+		 183.59872437 226.67337036 176.60592651 226.67337036 169.61309814 226.67337036 162.62026978
+		 226.67337036 155.62745667 226.67337036 148.63464355 226.67337036 141.64183044 226.67337036
+		 134.64904785 226.67337036 127.65621948 226.67337036 120.66337585 226.67337036 113.67055511
+		 226.67337036 106.67772675 226.67337036 99.68491364 226.67337036 92.69207001 226.67337036
+		 85.69927979 226.67337036 78.70649719 226.67337036 71.71362305 226.67337036 64.7208252
+		 226.67337036 57.72805405 226.67337036 50.73520279 226.67337036 43.74238586 226.67337036
+		 36.74956894 226.67337036 29.75675964 226.67337036 22.76394081 226.67337036 15.77112293
+		 226.67337036 8.77830601 226.67337036 1.78548908 219.68055725 316.46224976 219.68055725
+		 309.46942139 219.68055725 302.47662354 219.68055725 295.48379517 219.68055725 288.49099731
+		 219.68055725 281.49816895 219.68055725 274.50537109 219.68055725 267.51254272 219.68055725
+		 260.51971436 219.68055725 253.52690125 219.68055725 246.53408813 219.68055725 239.54127502
+		 219.68055725 232.54844666 219.68055725 225.55563354 219.68055725 218.56282043 219.68055725
+		 211.57000732 219.68055725 204.57719421 219.68055725 197.5843811 219.68055725 190.59156799
+		 219.68055725 183.59872437 219.68055725 176.60592651 219.68055725 169.61309814 219.68055725
+		 162.62026978 219.68055725 155.62745667 219.68055725 148.63464355 219.68055725 141.64183044
+		 219.68055725 134.64904785 219.68055725 127.65621948 219.68055725 120.66337585 219.68055725
+		 113.67055511 219.68055725 106.67772675 219.68055725 99.68491364 219.68055725 92.69207001
+		 219.68055725 85.69927979 219.68055725 78.70649719 219.68055725 71.71362305 219.68055725
+		 64.7208252 219.68055725 57.72805405 219.68055725 50.73520279 219.68055725 43.74238586
+		 219.68055725 36.74956894 219.68055725 29.75675964 219.68055725 22.76394081 219.68055725
+		 15.77112293 219.68055725 8.77830601 219.68055725 1.78548908 212.68774414 316.46224976
+		 212.68774414 309.46942139 212.68774414 302.47662354 212.68774414 295.48379517 212.68774414
+		 288.49099731 212.68774414 281.49816895 212.68774414 274.50537109 212.68774414 267.51254272
+		 212.68774414 260.51971436 212.68774414 253.52690125 212.68774414 246.53408813 212.68774414
+		 239.54127502 212.68774414 232.54844666 212.68774414 225.55563354 212.68774414 218.56282043
+		 212.68774414 211.57000732 212.68774414 204.57719421 212.68774414 197.5843811 212.68774414
+		 190.59156799 212.68774414 183.59872437 212.68774414 176.60592651 212.68774414 169.61309814
+		 212.68774414 162.62026978 212.68774414 155.62745667 212.68774414 148.63464355 212.68774414
+		 141.64183044 212.68774414 134.64904785 212.68774414 127.65621948 212.68774414 120.66337585
+		 212.68774414 113.67055511 212.68774414 106.67772675 212.68774414 99.68491364 212.68774414
+		 92.69207001 212.68774414 85.69927979 212.68774414 78.70649719 212.68774414 71.71362305
+		 212.68774414 64.7208252 212.68774414 57.72805405 212.68774414 50.73520279 212.68774414
+		 43.74238586 212.68774414 36.74956894 212.68774414 29.75675964 212.68774414 22.76394081
+		 212.68774414 15.77112293 212.68774414 8.77830601 212.68774414 1.78548908 205.69493103
+		 316.46224976 205.69493103 309.46942139 205.69493103 302.47662354 205.69493103 295.48379517
+		 205.69493103 288.49099731 205.69493103 281.49816895 205.69493103 274.50537109 205.69493103
+		 267.51254272 205.69493103 260.51971436 205.69493103 253.52690125 205.69493103 246.53408813
+		 205.69493103 239.54127502 205.69493103 232.54844666 205.69493103 225.55563354 205.69493103
+		 218.56282043 205.69493103 211.57000732 205.69493103 204.57719421 205.69493103 197.5843811
+		 205.69493103 190.59156799 205.69493103 183.59872437 205.69493103 176.60592651 205.69493103
+		 169.61309814 205.69493103 162.62026978 205.69493103 155.62745667 205.69493103 148.63464355
+		 205.69493103 141.64183044 205.69493103 134.64904785 205.69493103 127.65621948 205.69493103
+		 120.66337585 205.69493103 113.67055511 205.69493103 106.67772675 205.69493103 99.68491364
+		 205.69493103 92.69207001 205.69493103 85.69927979 205.69493103 78.70649719 205.69493103
+		 71.71362305 205.69493103 64.7208252 205.69493103 57.72805405 205.69493103 50.73520279
+		 205.69493103 43.74238586 205.69493103 36.74956894 205.69493103 29.75675964 205.69493103
+		 22.76394081 205.69493103 15.77112293 205.69493103 8.77830601 205.69493103 1.78548908
+		 198.70210266 316.46224976 198.70210266 309.46942139 198.70210266 302.47662354 198.70210266
+		 295.48379517 198.70210266 288.49099731 198.70210266 281.49816895 198.70210266 274.50537109
+		 198.70210266 267.51254272 198.70210266 260.51971436 198.70210266 253.52690125 198.70210266
+		 246.53408813 198.70210266 239.54127502 198.70210266 232.54844666 198.70210266 225.55563354
+		 198.70210266 218.56282043 198.70210266 211.57000732 198.70210266 204.57719421 198.70210266
+		 197.5843811 198.70210266 190.59156799 198.70210266 183.59872437 198.70210266 176.60592651
+		 198.70210266 169.61309814 198.70210266 162.62026978 198.70210266 155.62745667 198.70210266
+		 148.63464355 198.70210266 141.64183044 198.70210266 134.64904785 198.70210266 127.65621948
+		 198.70210266 120.66337585 198.70210266 113.67055511 198.70210266 106.67772675 198.70210266
+		 99.68491364 198.70210266 92.69207001 198.70210266 85.69927979 198.70210266 78.70649719
+		 198.70210266 71.71362305 198.70210266 64.7208252 198.70210266 57.72805405 198.70210266
+		 50.73520279 198.70210266 43.74238586 198.70210266 36.74956894 198.70210266 29.75675964
+		 198.70210266 22.76394081 198.70210266 15.77112293 198.70210266 8.77830601 198.70210266
+		 1.78548908 191.70928955 316.46224976 191.70928955 309.46942139 191.70928955 302.47662354
+		 191.70928955 295.48379517 191.70928955 288.49099731 191.70928955 281.49816895 191.70928955
+		 274.50537109 191.70928955 267.51254272 191.70928955 260.51971436;
+	setAttr ".uvtk[8250:8499]" 191.70928955 253.52690125 191.70928955 246.53408813
+		 191.70928955 239.54127502 191.70928955 232.54844666 191.70928955 225.55563354 191.70928955
+		 218.56282043 191.70928955 211.57000732 191.70928955 204.57719421 191.70928955 197.5843811
+		 191.70928955 190.59156799 191.70928955 183.59872437 191.70928955 176.60592651 191.70928955
+		 169.61309814 191.70928955 162.62026978 191.70928955 155.62745667 191.70928955 148.63464355
+		 191.70928955 141.64183044 191.70928955 134.64904785 191.70928955 127.65621948 191.70928955
+		 120.66337585 191.70928955 113.67055511 191.70928955 106.67772675 191.70928955 99.68491364
+		 191.70928955 92.69207001 191.70928955 85.69927979 191.70928955 78.70649719 191.70928955
+		 71.71362305 191.70928955 64.7208252 191.70928955 57.72805405 191.70928955 50.73520279
+		 191.70928955 43.74238586 191.70928955 36.74956894 191.70928955 29.75675964 191.70928955
+		 22.76394081 191.70928955 15.77112293 191.70928955 8.77830601 191.70928955 1.78548908
+		 184.71647644 316.46224976 184.71647644 309.46942139 184.71647644 302.47662354 184.71647644
+		 295.48379517 184.71647644 288.49099731 184.71647644 281.49816895 184.71647644 274.50537109
+		 184.71647644 267.51254272 184.71647644 260.51971436 184.71647644 253.52690125 184.71647644
+		 246.53408813 184.71647644 239.54127502 184.71647644 232.54844666 184.71647644 225.55563354
+		 184.71647644 218.56282043 184.71647644 211.57000732 184.71647644 204.57719421 184.71647644
+		 197.5843811 184.71647644 190.59156799 184.71647644 183.59872437 184.71647644 176.60592651
+		 184.71647644 169.61309814 184.71647644 162.62026978 184.71647644 155.62745667 184.71647644
+		 148.63464355 184.71647644 141.64183044 184.71647644 134.64904785 184.71647644 127.65621948
+		 184.71647644 120.66337585 184.71647644 113.67055511 184.71647644 106.67772675 184.71647644
+		 99.68491364 184.71647644 92.69207001 184.71647644 85.69927979 184.71647644 78.70649719
+		 184.71647644 71.71362305 184.71647644 64.7208252 184.71647644 57.72805405 184.71647644
+		 50.73520279 184.71647644 43.74238586 184.71647644 36.74956894 184.71647644 29.75675964
+		 184.71647644 22.76394081 184.71647644 15.77112293 184.71647644 8.77830601 184.71647644
+		 1.78548908 177.72366333 316.46224976 177.72366333 309.46942139 177.72366333 302.47662354
+		 177.72366333 295.48379517 177.72366333 288.49099731 177.72366333 281.49816895 177.72366333
+		 274.50537109 177.72366333 267.51254272 177.72366333 260.51971436 177.72366333 253.52690125
+		 177.72366333 246.53408813 177.72366333 239.54127502 177.72366333 232.54844666 177.72366333
+		 225.55563354 177.72366333 218.56282043 177.72366333 211.57000732 177.72366333 204.57719421
+		 177.72366333 197.5843811 177.72366333 190.59156799 177.72366333 183.59872437 177.72366333
+		 176.60592651 177.72366333 169.61309814 177.72366333 162.62026978 177.72366333 155.62745667
+		 177.72366333 148.63464355 177.72366333 141.64183044 177.72366333 134.64904785 177.72366333
+		 127.65621948 177.72366333 120.66337585 177.72366333 113.67055511 177.72366333 106.67772675
+		 177.72366333 99.68491364 177.72366333 92.69207001 177.72366333 85.69927979 177.72366333
+		 78.70649719 177.72366333 71.71362305 177.72366333 64.7208252 177.72366333 57.72805405
+		 177.72366333 50.73520279 177.72366333 43.74238586 177.72366333 36.74956894 177.72366333
+		 29.75675964 177.72366333 22.76394081 177.72366333 15.77112293 177.72366333 8.77830601
+		 177.72366333 1.78548908 170.73085022 316.46224976 170.73085022 309.46942139 170.73085022
+		 302.47662354 170.73085022 295.48379517 170.73085022 288.49099731 170.73085022 281.49816895
+		 170.73085022 274.50537109 170.73085022 267.51254272 170.73085022 260.51971436 170.73085022
+		 253.52690125 170.73085022 246.53408813 170.73085022 239.54127502 170.73085022 232.54844666
+		 170.73085022 225.55563354 170.73085022 218.56282043 170.73085022 211.57000732 170.73085022
+		 204.57719421 170.73085022 197.5843811 170.73085022 190.59156799 170.73085022 183.59872437
+		 170.73085022 176.60592651 170.73085022 169.61309814 170.73085022 162.62026978 170.73085022
+		 155.62745667 170.73085022 148.63464355 170.73085022 141.64183044 170.73085022 134.64904785
+		 170.73085022 127.65621948 170.73085022 120.66337585 170.73085022 113.67055511 170.73085022
+		 106.67772675 170.73085022 99.68491364 170.73085022 92.69207001 170.73085022 85.69927979
+		 170.73085022 78.70649719 170.73085022 71.71362305 170.73085022 64.7208252 170.73085022
+		 57.72805405 170.73085022 50.73520279 170.73085022 43.74238586 170.73085022 36.74956894
+		 170.73085022 29.75675964 170.73085022 22.76394081 170.73085022 15.77112293 170.73085022
+		 8.77830601 170.73085022 1.78548908 163.73803711 316.46224976 163.73803711 309.46942139
+		 163.73803711 302.47662354 163.73803711 295.48379517 163.73803711 288.49099731 163.73803711
+		 281.49816895 163.73803711 274.50537109 163.73803711 267.51254272 163.73803711 260.51971436
+		 163.73803711 253.52690125 163.73803711 246.53408813 163.73803711 239.54127502 163.73803711
+		 232.54844666 163.73803711 225.55563354 163.73803711 218.56282043 163.73803711 211.57000732
+		 163.73803711 204.57719421 163.73803711 197.5843811 163.73803711 190.59156799 163.73803711
+		 183.59872437 163.73803711 176.60592651 163.73803711 169.61309814 163.73803711 162.62026978
+		 163.73803711 155.62745667 163.73803711 148.63464355 163.73803711 141.64183044 163.73803711
+		 134.64904785 163.73803711 127.65621948 163.73803711 120.66337585 163.73803711 113.67055511
+		 163.73803711 106.67772675 163.73803711 99.68491364 163.73803711 92.69207001 163.73803711
+		 85.69927979 163.73803711 78.70649719 163.73803711 71.71362305 163.73803711 64.7208252
+		 163.73803711 57.72805405 163.73803711 50.73520279 163.73803711 43.74238586 163.73803711
+		 36.74956894 163.73803711 29.75675964 163.73803711 22.76394081 163.73803711 15.77112293
+		 163.73803711 8.77830601 163.73803711 1.78548908 156.745224 316.46224976 156.745224
+		 309.46942139 156.745224 302.47662354 156.745224 295.48379517 156.745224 288.49099731
+		 156.745224 281.49816895 156.745224 274.50537109 156.745224 267.51254272 156.745224
+		 260.51971436 156.745224 253.52690125 156.745224 246.53408813 156.745224 239.54127502
+		 156.745224 232.54844666 156.745224 225.55563354 156.745224 218.56282043 156.745224
+		 211.57000732 156.745224 204.57719421 156.745224 197.5843811 156.745224 190.59156799
+		 156.745224 183.59872437 156.745224 176.60592651 156.745224 169.61309814 156.745224
+		 162.62026978 156.745224 155.62745667 156.745224 148.63464355 156.745224 141.64183044
+		 156.745224 134.64904785 156.745224 127.65621948 156.745224 120.66337585;
+	setAttr ".uvtk[8500:8749]" 156.745224 113.67055511 156.745224 106.67772675 156.745224
+		 99.68491364 156.745224 92.69207001 156.745224 85.69927979 156.745224 78.70649719
+		 156.745224 71.71362305 156.745224 64.7208252 156.745224 57.72805405 156.745224 50.73520279
+		 156.745224 43.74238586 156.745224 36.74956894 156.745224 29.75675964 156.745224 22.76394081
+		 156.745224 15.77112293 156.745224 8.77830601 156.745224 1.78548908 149.75238037 281.49816895
+		 149.75238037 274.50537109 149.75238037 267.51254272 149.75238037 260.51971436 149.75238037
+		 253.52690125 149.75238037 246.53408813 149.75238037 239.54127502 149.75238037 232.54844666
+		 149.75238037 225.55563354 149.75238037 218.56282043 149.75238037 211.57000732 149.75238037
+		 204.57719421 149.75238037 197.5843811 149.75238037 190.59156799 149.75238037 183.59872437
+		 149.75238037 176.60592651 149.75238037 169.61309814 149.75238037 162.62026978 149.75238037
+		 155.62745667 149.75238037 148.63464355 149.75238037 141.64183044 149.75238037 134.64904785
+		 149.75238037 127.65621948 149.75238037 120.66337585 149.75238037 113.67055511 149.75238037
+		 106.67772675 149.75238037 99.68491364 149.75238037 92.69207001 149.75238037 85.69927979
+		 149.75238037 78.70649719 149.75238037 71.71362305 149.75238037 64.7208252 149.75238037
+		 57.72805405 149.75238037 50.73520279 149.75238037 43.74238586 149.75238037 36.74956894
+		 149.75238037 29.75675964 149.75238037 22.76394081 149.75238037 15.77112293 149.75238037
+		 8.77830601 149.75238037 1.78548908 142.75958252 204.57719421 142.75958252 197.5843811
+		 142.75958252 190.59156799 142.75958252 183.59872437 142.75958252 176.60592651 142.75958252
+		 169.61309814 142.75958252 162.62026978 142.75958252 155.62745667 142.75958252 148.63464355
+		 142.75958252 141.64183044 142.75958252 134.64904785 142.75958252 127.65621948 142.75958252
+		 120.66337585 142.75958252 113.67055511 142.75958252 106.67772675 142.75958252 99.68491364
+		 142.75958252 92.69207001 142.75958252 85.69927979 142.75958252 78.70649719 142.75958252
+		 71.71362305 142.75958252 64.7208252 142.75958252 57.72805405 142.75958252 50.73520279
+		 142.75958252 43.74238586 135.76675415 148.63464355 135.76675415 141.64183044 135.76675415
+		 134.64904785 135.76675415 127.65621948 135.76675415 120.66337585 135.76675415 113.67055511
+		 135.76675415 106.67772675 135.76675415 99.68491364 135.76675415 92.69207001 135.76675415
+		 85.69927979 135.76675415 78.70649719 135.76675415 71.71362305 149.75238037 302.4765625
+		 149.75238037 295.48373413 149.75238037 288.49105835 135.76675415 155.62745667 40.75230026
+		 0.63522446 40.75839615 1.19824481 40.76900482 1.76126492 40.89777756 5.25938082 41.10020447
+		 8.75408173 41.36006927 12.25280762 41.67627716 15.74689865 42.037963867 19.2460537
+		 42.44916153 22.73971748 42.90731049 26.23905182 43.4083786 29.73253632 43.95433044
+		 33.23235321 44.54271317 36.72534561 44.8223381 38.32779694 45.12024307 39.92686081
+		 45.47559738 41.82451248 45.85179138 43.71819305 46.57261658 47.21896362 47.33513641
+		 50.71094894 48.14326096 54.21223831 48.99273682 57.7038002 49.89829636 61.20590591
+		 50.84654617 64.69657135 51.46882629 66.91329193 52.11306763 69.12376404 52.30317688
+		 69.77604675 52.49328995 70.42842102 52.65132904 71.058937073 52.80924606 71.68943024
+		 53.64993668 75.16135406 54.25941849 78.68221283 54.72305679 82.17341614 55.10645294
+		 85.67505646 55.35619354 89.16997528 55.55167007 92.66790771 55.67849731 96.16358185
+		 55.74275589 99.66069031 55.76958847 103.15723419 55.73788071 106.65350342 55.68166351
+		 110.15052032 55.577034 113.64633179 55.45082474 117.14356232 55.28851318 120.63915253
+		 55.10242462 124.13626099 54.89267731 127.63196564 54.65488815 131.12882996 54.40501785
+		 134.62481689 54.12222672 138.12124634 53.8373642 141.61759949 53.51482391 145.11401367
+		 53.192276 148.6104126 52.84082794 152.10719299 52.48303986 155.60322571 52.30439758
+		 157.323349 52.11306763 159.042160034 51.91514969 160.81906128 51.71735382 162.59603882
+		 51.3172493 166.093429565 50.89982986 169.58886719 50.47704697 173.086486816 50.03401947
+		 176.58169556 49.58916855 180.079483032 49.12309265 183.57449341 48.65653229 187.07232666
+		 48.16923904 190.56733704 47.68145752 194.065063477 47.17477417 197.56008911 46.66589737
+		 201.057647705 46.14128876 204.55296326 45.63632202 207.8888092 45.12024307 211.22299194
+		 44.54491043 214.88145447 43.96127701 218.53865051 43.39069748 222.035797119 42.81061172
+		 225.53134155 42.22026825 229.028793335 41.61859512 232.5242157 41.18996048 234.96812439
+		 40.75230026 237.4105072 40.65510178 239.51704407 40.33256149 246.50985718 40.01001358
+		 253.50267029 39.68735123 260.4954834 39.36480713 267.48831177 39.042263031 274.48120117
+		 38.71959686 281.47393799 38.39704895 288.46682739 38.12742996 294.31063843 37.75183868
+		 302.45233154 37.42929077 309.44519043 37.10662842 316.43795776 36.78408051 323.43084717
+		 31.13461685 323.43084717 24.14179611 323.43084717 17.148983 323.43084717 10.15616798
+		 323.43084717 3.16335011 323.43084717 -3.82946825 323.43084717 -10.82228279 323.43084717
+		 -17.81510544 323.43084717 -24.80792236 323.43084717 -31.8007431 323.43084717 -38.79355621
+		 323.43084717 -40.18421555 323.43084717 -41.58256149 316.31536865 -42.93261719 309.44519043
+		 -44.30681229 302.45233154 -44.63887405 300.76306152 -45.78637314 294.92370605 -47.055210114
+		 288.46676636 -48.42940903 281.47393799 -49.39741135 276.54827881 -49.80373383 274.48120117
+		 -51.17780304 267.48831177 -52.55212784 260.4954834 -52.77918625 259.34005737 -53.92632675
+		 253.50267029 -54.15607452 252.33334351 -55.30052567 246.50985718 -56.67472458 239.51704407
+		 -57.088729858 237.4105072 -57.37602997 234.96739197 -57.66223526 232.5242157 -58.070384979
+		 229.027877808 -58.47719574 225.53134155 -58.88265991 222.035064697 -59.28666687 218.53865051
+		 -59.52945709 216.43386841 -59.77200699 214.32923889 -59.931633 212.93746948 -60.091259003
+		 211.54571533 -60.49221802 208.049545288 -60.89122009 204.55302429 -61.28948975 201.056671143
+		 -61.68642426 197.56008911 -62.081893921 194.063720703 -62.47711182 190.56739807 -62.86928177
+		 187.070922852 -63.26145554 183.57449341 -63.65179825 180.078201294 -64.04032135 176.58169556
+		 -64.42871094 173.085449219 -64.81381226 169.58886719 -65.19806671 166.092391968 -65.58218384
+		 162.59603882 -65.96156311 159.099700928 -66.34105682 155.60322571 -66.55396271 153.6413269
+		 -66.76480865 151.67918396 -66.92882538 150.14485168 -67.092971802 148.6104126 -67.46672058
+		 145.11413574;
+	setAttr ".uvtk[8750:8999]" -67.83756256 141.61759949 -68.20485687 138.12112427
+		 -68.57215118 134.62478638 -68.93396759 131.12849426 -69.29358673 127.63196564 -69.65296173
+		 124.13607788 -70.0031814575 120.63909149 -70.35328674 117.14298248 -70.69876099 113.6463623
+		 -71.037277222 110.14992523 -71.37580109 106.65350342 -71.70077515 103.15717316 -72.024787903
+		 99.66069031 -72.33672333 96.16464996 -72.64183044 92.66790771 -72.93351746 89.17201996
+		 -73.21290588 85.67505646 -73.47008514 82.1676178 -73.71324158 78.65911102 -73.73554993
+		 78.2420578 -73.75762177 77.82506561 -73.9200592 74.75814819 -74.017242432 71.6886673
+		 -74.032493591 71.058540344 -74.047737122 70.42842102 -73.97029877 67.56969452 -73.7644577
+		 64.71736908 -73.38715363 61.20337296 -72.89302826 57.70376968 -72.30355835 54.20050049
+		 -71.63833618 50.71094894 -70.90509033 47.20859528 -70.1174469 43.7181015 -69.27748871
+		 40.21654129 -68.39558411 36.72534561 -67.59281921 33.67940521 -66.76480865 30.64017105
+		 -66.638237 30.18635178 -66.51153564 29.73253632 -65.51548767 26.23185921 -64.49005127
+		 22.73971748 -63.43181229 19.23928452 -62.34748459 15.74689865 -61.23315811 12.24597931
+		 -60.091136932 8.75402069 -59.93151093 8.27325344 -59.77200699 7.79248476 -58.7558403
+		 4.77306414 -57.71747589 1.76126492 -57.40493011 0.87155402 -57.088729858 -0.016998686
+		 -52.77918625 0.011719421 -50.18383408 0.02903562 -45.78637314 0.058302235 -43.89952087
+		 0.070923693 -38.79355621 0.10494635 -35.73932266 0.12537223 -31.8007431 0.15159041
+		 -29.35220337 0.16787001 -27.57899857 0.1796988 -24.80792236 0.19817337 -19.41880417
+		 0.23408613 -18.47921753 0.24036631 -13.11899567 0.27609608 -11.079951286 0.28969285
+		 -3.82946825 0.33804414 3.16335011 0.38462737 7.89701176 0.41621116 10.15616798 0.43121037
+		 11.69877338 0.4415755 17.148983 0.47791532 20.3566246 0.49925569 21.36852264 0.50596267
+		 24.14179611 0.52449834 31.13461685 0.57108146 33.67460632 0.58803183 38.12742996
+		 0.61778617 52.11306763 148.6104126 52.11306763 141.61759949 52.11306763 134.62478638
+		 52.11306763 127.63199615 52.11306763 120.63915253 52.11306763 113.64633179 52.11306763
+		 106.65350342 52.11306763 99.66072083 52.11306763 92.66790771 52.11306763 85.67505646
+		 52.11306763 78.68227386 45.12024307 204.55296326 45.12024307 197.56015015 45.12024307
+		 190.56733704 45.12024307 183.57455444 45.12024307 176.58169556 45.12024307 169.58886719
+		 45.12024307 162.59603882 45.12024307 155.60328674 45.12024307 148.6104126 45.12024307
+		 141.61759949 45.12024307 134.62478638 45.12024307 127.63199615 45.12024307 120.63915253
+		 45.12024307 113.64633179 45.12024307 106.65350342 45.12024307 99.66072083 45.12024307
+		 92.66790771 45.12024307 85.67505646 45.12024307 78.68227386 45.12024307 71.68943024
+		 45.12024307 64.69663239 45.12024307 57.7038002 45.12024307 50.71097946 45.12024307
+		 43.71819305 38.12742996 274.48114014 38.12742996 267.48831177 38.12742996 260.49542236
+		 38.12742996 253.50267029 38.12742996 246.50985718 38.12742996 239.51704407 38.12742996
+		 232.5242157 38.12742996 225.53140259 38.12742996 218.53858948 38.12742996 211.5458374
+		 38.12742996 204.55296326 38.12742996 197.56015015 38.12742996 190.56733704 38.12742996
+		 183.57455444 38.12742996 176.58169556 38.12742996 169.58886719 38.12742996 162.59603882
+		 38.12742996 155.60328674 38.12742996 148.6104126 38.12742996 141.61759949 38.12742996
+		 134.62478638 38.12742996 127.63199615 38.12742996 120.63915253 38.12742996 113.64633179
+		 38.12742996 106.65350342 38.12742996 99.66072083 38.12742996 92.66790771 38.12742996
+		 85.67505646 38.12742996 78.68227386 38.12742996 71.68943024 38.12742996 64.69663239
+		 38.12742996 57.7038002 38.12742996 50.71097946 38.12742996 43.71819305 38.12742996
+		 36.72534561 38.12742996 29.73253632 38.12742996 22.73971748 38.12742996 15.74689865
+		 38.12742996 8.75408173 38.12742996 1.76126492 31.13461685 316.43795776 31.13461685
+		 309.44519043 31.13461685 302.45233154 31.13461685 295.45956421 31.13461685 288.46670532
+		 31.13461685 281.47393799 31.13461685 274.48114014 31.13461685 267.48831177 31.13461685
+		 260.49542236 31.13461685 253.50267029 31.13461685 246.50985718 31.13461685 239.51704407
+		 31.13461685 232.5242157 31.13461685 225.53140259 31.13461685 218.53858948 31.13461685
+		 211.5458374 31.13461685 204.55296326 31.13461685 197.56015015 31.13461685 190.56733704
+		 31.13461685 183.57455444 31.13461685 176.58169556 31.13461685 169.58886719 31.13461685
+		 162.59603882 31.13461685 155.60328674 31.13461685 148.6104126 31.13461685 141.61759949
+		 31.13461685 134.62478638 31.13461685 127.63199615 31.13461685 120.63915253 31.13461685
+		 113.64633179 31.13461685 106.65350342 31.13461685 99.66072083 31.13461685 92.66790771
+		 31.13461685 85.67505646 31.13461685 78.68227386 31.13461685 71.68943024 31.13461685
+		 64.69663239 31.13461685 57.7038002 31.13461685 50.71097946 31.13461685 43.71819305
+		 31.13461685 36.72534561 31.13461685 29.73253632 31.13461685 22.73971748 31.13461685
+		 15.74689865 31.13461685 8.75408173 31.13461685 1.76126492 24.14179611 316.43795776
+		 24.14179611 309.44519043 24.14179611 302.45233154 24.14179611 295.45956421 24.14179611
+		 288.46670532 24.14179611 281.47393799 24.14179611 274.48114014 24.14179611 267.48831177
+		 24.14179611 260.49542236 24.14179611 253.50267029 24.14179611 246.50985718 24.14179611
+		 239.51704407 24.14179611 232.5242157 24.14179611 225.53140259 24.14179611 218.53858948
+		 24.14179611 211.5458374 24.14179611 204.55296326 24.14179611 197.56015015 24.14179611
+		 190.56733704 24.14179611 183.57455444 24.14179611 176.58169556 24.14179611 169.58886719
+		 24.14179611 162.59603882 24.14179611 155.60328674 24.14179611 148.6104126 24.14179611
+		 141.61759949 24.14179611 134.62478638 24.14179611 127.63199615 24.14179611 120.63915253
+		 24.14179611 113.64633179 24.14179611 106.65350342 24.14179611 99.66072083 24.14179611
+		 92.66790771 24.14179611 85.67505646 24.14179611 78.68227386 24.14179611 71.68943024
+		 24.14179611 64.69663239 24.14179611 57.7038002 24.14179611 50.71097946 24.14179611
+		 43.71819305 24.14179611 36.72534561 24.14179611 29.73253632 24.14179611 22.73971748
+		 24.14179611 15.74689865 24.14179611 8.75408173 24.14179611 1.76126492 17.148983 316.43795776
+		 17.148983 309.44519043 17.148983 302.45233154 17.148983 295.45956421 17.148983 288.46670532
+		 17.148983 281.47393799;
+	setAttr ".uvtk[9000:9249]" 17.148983 274.48114014 17.148983 267.48831177 17.148983
+		 260.49542236 17.148983 253.50267029 17.148983 246.50985718 17.148983 239.51704407
+		 17.148983 232.5242157 17.148983 225.53140259 17.148983 218.53858948 17.148983 211.5458374
+		 17.148983 204.55296326 17.148983 197.56015015 17.148983 190.56733704 17.148983 183.57455444
+		 17.148983 176.58169556 17.148983 169.58886719 17.148983 162.59603882 17.148983 155.60328674
+		 17.148983 148.6104126 17.148983 141.61759949 17.148983 134.62478638 17.148983 127.63199615
+		 17.148983 120.63915253 17.148983 113.64633179 17.148983 106.65350342 17.148983 99.66072083
+		 17.148983 92.66790771 17.148983 85.67505646 17.148983 78.68227386 17.148983 71.68943024
+		 17.148983 64.69663239 17.148983 57.7038002 17.148983 50.71097946 17.148983 43.71819305
+		 17.148983 36.72534561 17.148983 29.73253632 17.148983 22.73971748 17.148983 15.74689865
+		 17.148983 8.75408173 17.148983 1.76126492 10.15616798 316.43795776 10.15616798 309.44519043
+		 10.15616798 302.45233154 10.15616798 295.45956421 10.15616798 288.46670532 10.15616798
+		 281.47393799 10.15616798 274.48114014 10.15616798 267.48831177 10.15616798 260.49542236
+		 10.15616798 253.50267029 10.15616798 246.50985718 10.15616798 239.51704407 10.15616798
+		 232.5242157 10.15616798 225.53140259 10.15616798 218.53858948 10.15616798 211.5458374
+		 10.15616798 204.55296326 10.15616798 197.56015015 10.15616798 190.56733704 10.15616798
+		 183.57455444 10.15616798 176.58169556 10.15616798 169.58886719 10.15616798 162.59603882
+		 10.15616798 155.60328674 10.15616798 148.6104126 10.15616798 141.61759949 10.15616798
+		 134.62478638 10.15616798 127.63199615 10.15616798 120.63915253 10.15616798 113.64633179
+		 10.15616798 106.65350342 10.15616798 99.66072083 10.15616798 92.66790771 10.15616798
+		 85.67505646 10.15616798 78.68227386 10.15616798 71.68943024 10.15616798 64.69663239
+		 10.15616798 57.7038002 10.15616798 50.71097946 10.15616798 43.71819305 10.15616798
+		 36.72534561 10.15616798 29.73253632 10.15616798 22.73971748 10.15616798 15.74689865
+		 10.15616798 8.75408173 10.15616798 1.76126492 3.16335011 316.43795776 3.16335011
+		 309.44519043 3.16335011 302.45233154 3.16335011 295.45956421 3.16335011 288.46670532
+		 3.16335011 281.47393799 3.16335011 274.48114014 3.16335011 267.48831177 3.16335011
+		 260.49542236 3.16335011 253.50267029 3.16335011 246.50985718 3.16335011 239.51704407
+		 3.16335011 232.5242157 3.16335011 225.53140259 3.16335011 218.53858948 3.16335011
+		 211.5458374 3.16335011 204.55296326 3.16335011 197.56015015 3.16335011 190.56733704
+		 3.16335011 183.57455444 3.16335011 176.58169556 3.16335011 169.58886719 3.16335011
+		 162.59603882 3.16335011 155.60328674 3.16335011 148.6104126 3.16335011 141.61759949
+		 3.16335011 134.62478638 3.16335011 127.63199615 3.16335011 120.63915253 3.16335011
+		 113.64633179 3.16335011 106.65350342 3.16335011 99.66072083 3.16335011 92.66790771
+		 3.16335011 85.67505646 3.16335011 78.68227386 3.16335011 71.68943024 3.16335011 64.69663239
+		 3.16335011 57.7038002 3.16335011 50.71097946 3.16335011 43.71819305 3.16335011 36.72534561
+		 3.16335011 29.73253632 3.16335011 22.73971748 3.16335011 15.74689865 3.16335011 8.75408173
+		 3.16335011 1.76126492 -3.82946825 316.43795776 -3.82946825 309.44519043 -3.82946825
+		 302.45233154 -3.82946825 295.45956421 -3.82946825 288.46670532 -3.82946825 281.47393799
+		 -3.82946825 274.48114014 -3.82946825 267.48831177 -3.82946825 260.49542236 -3.82946825
+		 253.50267029 -3.82946825 246.50985718 -3.82946825 239.51704407 -3.82946825 232.5242157
+		 -3.82946825 225.53140259 -3.82946825 218.53858948 -3.82946825 211.5458374 -3.82946825
+		 204.55296326 -3.82946825 197.56015015 -3.82946825 190.56733704 -3.82946825 183.57455444
+		 -3.82946825 176.58169556 -3.82946825 169.58886719 -3.82946825 162.59603882 -3.82946825
+		 155.60328674 -3.82946825 148.6104126 -3.82946825 141.61759949 -3.82946825 134.62478638
+		 -3.82946825 127.63199615 -3.82946825 120.63915253 -3.82946825 113.64633179 -3.82946825
+		 106.65350342 -3.82946825 99.66072083 -3.82946825 92.66790771 -3.82946825 85.67505646
+		 -3.82946825 78.68227386 -3.82946825 71.68943024 -3.82946825 64.69663239 -3.82946825
+		 57.7038002 -3.82946825 50.71097946 -3.82946825 43.71819305 -3.82946825 36.72534561
+		 -3.82946825 29.73253632 -3.82946825 22.73971748 -3.82946825 15.74689865 -3.82946825
+		 8.75408173 -3.82946825 1.76126492 -10.82228279 316.43795776 -10.82228279 309.44519043
+		 -10.82228279 302.45233154 -10.82228279 295.45956421 -10.82228279 288.46670532 -10.82228279
+		 281.47393799 -10.82228279 274.48114014 -10.82228279 267.48831177 -10.82228279 260.49542236
+		 -10.82228279 253.50267029 -10.82228279 246.50985718 -10.82228279 239.51704407 -10.82228279
+		 232.5242157 -10.82228279 225.53140259 -10.82228279 218.53858948 -10.82228279 211.5458374
+		 -10.82228279 204.55296326 -10.82228279 197.56015015 -10.82228279 190.56733704 -10.82228279
+		 183.57455444 -10.82228279 176.58169556 -10.82228279 169.58886719 -10.82228279 162.59603882
+		 -10.82228279 155.60328674 -10.82228279 148.6104126 -10.82228279 141.61759949 -10.82228279
+		 134.62478638 -10.82228279 127.63199615 -10.82228279 120.63915253 -10.82228279 113.64633179
+		 -10.82228279 106.65350342 -10.82228279 99.66072083 -10.82228279 92.66790771 -10.82228279
+		 85.67505646 -10.82228279 78.68227386 -10.82228279 71.68943024 -10.82228279 64.69663239
+		 -10.82228279 57.7038002 -10.82228279 50.71097946 -10.82228279 43.71819305 -10.82228279
+		 36.72534561 -10.82228279 29.73253632 -10.82228279 22.73971748 -10.82228279 15.74689865
+		 -10.82228279 8.75408173 -10.82228279 1.76126492 -17.81510544 316.43795776 -17.81510544
+		 309.44519043 -17.81510544 302.45233154 -17.81510544 295.45956421 -17.81510544 288.46670532
+		 -17.81510544 281.47393799 -17.81510544 274.48114014 -17.81510544 267.48831177 -17.81510544
+		 260.49542236 -17.81510544 253.50267029 -17.81510544 246.50985718 -17.81510544 239.51704407
+		 -17.81510544 232.5242157 -17.81510544 225.53140259 -17.81510544 218.53858948 -17.81510544
+		 211.5458374 -17.81510544 204.55296326 -17.81510544 197.56015015 -17.81510544 190.56733704
+		 -17.81510544 183.57455444 -17.81510544 176.58169556 -17.81510544 169.58886719 -17.81510544
+		 162.59603882 -17.81510544 155.60328674 -17.81510544 148.6104126 -17.81510544 141.61759949;
+	setAttr ".uvtk[9250:9499]" -17.81510544 134.62478638 -17.81510544 127.63199615
+		 -17.81510544 120.63915253 -17.81510544 113.64633179 -17.81510544 106.65350342 -17.81510544
+		 99.66072083 -17.81510544 92.66790771 -17.81510544 85.67505646 -17.81510544 78.68227386
+		 -17.81510544 71.68943024 -17.81510544 64.69663239 -17.81510544 57.7038002 -17.81510544
+		 50.71097946 -17.81510544 43.71819305 -17.81510544 36.72534561 -17.81510544 29.73253632
+		 -17.81510544 22.73971748 -17.81510544 15.74689865 -17.81510544 8.75408173 -17.81510544
+		 1.76126492 -24.80792236 316.43795776 -24.80792236 309.44519043 -24.80792236 302.45233154
+		 -24.80792236 295.45956421 -24.80792236 288.46670532 -24.80792236 281.47393799 -24.80792236
+		 274.48114014 -24.80792236 267.48831177 -24.80792236 260.49542236 -24.80792236 253.50267029
+		 -24.80792236 246.50985718 -24.80792236 239.51704407 -24.80792236 232.5242157 -24.80792236
+		 225.53140259 -24.80792236 218.53858948 -24.80792236 211.5458374 -24.80792236 204.55296326
+		 -24.80792236 197.56015015 -24.80792236 190.56733704 -24.80792236 183.57455444 -24.80792236
+		 176.58169556 -24.80792236 169.58886719 -24.80792236 162.59603882 -24.80792236 155.60328674
+		 -24.80792236 148.6104126 -24.80792236 141.61759949 -24.80792236 134.62478638 -24.80792236
+		 127.63199615 -24.80792236 120.63915253 -24.80792236 113.64633179 -24.80792236 106.65350342
+		 -24.80792236 99.66072083 -24.80792236 92.66790771 -24.80792236 85.67505646 -24.80792236
+		 78.68227386 -24.80792236 71.68943024 -24.80792236 64.69663239 -24.80792236 57.7038002
+		 -24.80792236 50.71097946 -24.80792236 43.71819305 -24.80792236 36.72534561 -24.80792236
+		 29.73253632 -24.80792236 22.73971748 -24.80792236 15.74689865 -24.80792236 8.75408173
+		 -24.80792236 1.76126492 -31.8007431 316.43795776 -31.8007431 309.44519043 -31.8007431
+		 302.45233154 -31.8007431 295.45956421 -31.8007431 288.46670532 -31.8007431 281.47393799
+		 -31.8007431 274.48114014 -31.8007431 267.48831177 -31.8007431 260.49542236 -31.8007431
+		 253.50267029 -31.8007431 246.50985718 -31.8007431 239.51704407 -31.8007431 232.5242157
+		 -31.8007431 225.53140259 -31.8007431 218.53858948 -31.8007431 211.5458374 -31.8007431
+		 204.55296326 -31.8007431 197.56015015 -31.8007431 190.56733704 -31.8007431 183.57455444
+		 -31.8007431 176.58169556 -31.8007431 169.58886719 -31.8007431 162.59603882 -31.8007431
+		 155.60328674 -31.8007431 148.6104126 -31.8007431 141.61759949 -31.8007431 134.62478638
+		 -31.8007431 127.63199615 -31.8007431 120.63915253 -31.8007431 113.64633179 -31.8007431
+		 106.65350342 -31.8007431 99.66072083 -31.8007431 92.66790771 -31.8007431 85.67505646
+		 -31.8007431 78.68227386 -31.8007431 71.68943024 -31.8007431 64.69663239 -31.8007431
+		 57.7038002 -31.8007431 50.71097946 -31.8007431 43.71819305 -31.8007431 36.72534561
+		 -31.8007431 29.73253632 -31.8007431 22.73971748 -31.8007431 15.74689865 -31.8007431
+		 8.75408173 -31.8007431 1.76126492 -38.79355621 316.43795776 -38.79355621 309.44519043
+		 -38.79355621 302.45233154 -38.79355621 295.45956421 -38.79355621 288.46670532 -38.79355621
+		 281.47393799 -38.79355621 274.48114014 -38.79355621 267.48831177 -38.79355621 260.49542236
+		 -38.79355621 253.50267029 -38.79355621 246.50985718 -38.79355621 239.51704407 -38.79355621
+		 232.5242157 -38.79355621 225.53140259 -38.79355621 218.53858948 -38.79355621 211.5458374
+		 -38.79355621 204.55296326 -38.79355621 197.56015015 -38.79355621 190.56733704 -38.79355621
+		 183.57455444 -38.79355621 176.58169556 -38.79355621 169.58886719 -38.79355621 162.59603882
+		 -38.79355621 155.60328674 -38.79355621 148.6104126 -38.79355621 141.61759949 -38.79355621
+		 134.62478638 -38.79355621 127.63199615 -38.79355621 120.63915253 -38.79355621 113.64633179
+		 -38.79355621 106.65350342 -38.79355621 99.66072083 -38.79355621 92.66790771 -38.79355621
+		 85.67505646 -38.79355621 78.68227386 -38.79355621 71.68943024 -38.79355621 64.69663239
+		 -38.79355621 57.7038002 -38.79355621 50.71097946 -38.79355621 43.71819305 -38.79355621
+		 36.72534561 -38.79355621 29.73253632 -38.79355621 22.73971748 -38.79355621 15.74689865
+		 -38.79355621 8.75408173 -38.79355621 1.76126492 -45.78637314 288.46670532 -45.78637314
+		 281.47393799 -45.78637314 274.48114014 -45.78637314 267.48831177 -45.78637314 260.49542236
+		 -45.78637314 253.50267029 -45.78637314 246.50985718 -45.78637314 239.51704407 -45.78637314
+		 232.5242157 -45.78637314 225.53140259 -45.78637314 218.53858948 -45.78637314 211.5458374
+		 -45.78637314 204.55296326 -45.78637314 197.56015015 -45.78637314 190.56733704 -45.78637314
+		 183.57455444 -45.78637314 176.58169556 -45.78637314 169.58886719 -45.78637314 162.59603882
+		 -45.78637314 155.60328674 -45.78637314 148.6104126 -45.78637314 141.61759949 -45.78637314
+		 134.62478638 -45.78637314 127.63199615 -45.78637314 120.63915253 -45.78637314 113.64633179
+		 -45.78637314 106.65350342 -45.78637314 99.66072083 -45.78637314 92.66790771 -45.78637314
+		 85.67505646 -45.78637314 78.68227386 -45.78637314 71.68943024 -45.78637314 64.69663239
+		 -45.78637314 57.7038002 -45.78637314 50.71097946 -45.78637314 43.71819305 -45.78637314
+		 36.72534561 -45.78637314 29.73253632 -45.78637314 22.73971748 -45.78637314 15.74689865
+		 -45.78637314 8.75408173 -45.78637314 1.76126492 -52.77918625 253.50267029 -52.77918625
+		 246.50985718 -52.77918625 239.51704407 -52.77918625 232.5242157 -52.77918625 225.53140259
+		 -52.77918625 218.53858948 -52.77918625 211.5458374 -52.77918625 204.55296326 -52.77918625
+		 197.56015015 -52.77918625 190.56733704 -52.77918625 183.57455444 -52.77918625 176.58169556
+		 -52.77918625 169.58886719 -52.77918625 162.59603882 -52.77918625 155.60328674 -52.77918625
+		 148.6104126 -52.77918625 141.61759949 -52.77918625 134.62478638 -52.77918625 127.63199615
+		 -52.77918625 120.63915253 -52.77918625 113.64633179 -52.77918625 106.65350342 -52.77918625
+		 99.66072083 -52.77918625 92.66790771 -52.77918625 85.67505646 -52.77918625 78.68227386
+		 -52.77918625 71.68943024 -52.77918625 64.69663239 -52.77918625 57.7038002 -52.77918625
+		 50.71097946 -52.77918625 43.71819305 -52.77918625 36.72534561 -52.77918625 29.73253632
+		 -52.77918625 22.73971748 -52.77918625 15.74689865 -52.77918625 8.75408173 -52.77918625
+		 1.76126492 -59.77200699 204.55296326 -59.77200699 197.56015015 -59.77200699 190.56733704
+		 -59.77200699 183.57455444 -59.77200699 176.58169556 -59.77200699 169.58886719 -59.77200699
+		 162.59603882 -59.77200699 155.60328674 -59.77200699 148.6104126 -59.77200699 141.61759949
+		 -59.77200699 134.62478638 -59.77200699 127.63199615 -59.77200699 120.63915253;
+	setAttr ".uvtk[9500:9749]" -59.77200699 113.64633179 -59.77200699 106.65350342
+		 -59.77200699 99.66072083 -59.77200699 92.66790771 -59.77200699 85.67505646 -59.77200699
+		 78.68227386 -59.77200699 71.68943024 -59.77200699 64.69663239 -59.77200699 57.7038002
+		 -59.77200699 50.71097946 -59.77200699 43.71819305 -59.77200699 36.72534561 -59.77200699
+		 29.73253632 -59.77200699 22.73971748 -59.77200699 15.74689865 -66.76480865 141.61759949
+		 -66.76480865 134.62478638 -66.76480865 127.63199615 -66.76480865 120.63915253 -66.76480865
+		 113.64633179 -66.76480865 106.65350342 -66.76480865 99.66072083 -66.76480865 92.66790771
+		 -66.76480865 85.67505646 -66.76480865 78.68227386 -66.76480865 71.68943024 -66.76480865
+		 64.69663239 -66.76480865 57.7038002 -66.76480865 50.71097946 -66.76480865 43.71819305
+		 -66.76480865 36.72534561 -45.6810112 295.45956421 -17.81510544 0.24481723 38.12742996
+		 295.45956421 38.12742996 288.46682739 38.12742996 281.47393799 40.75242233 0.63522446
+		 40.75851822 1.19836676 40.76912689 1.76126492 40.89777756 5.25938082 41.10020447
+		 8.75408173 41.36006927 12.25280762 41.67627716 15.74689865 42.037963867 19.2460537
+		 42.44916153 22.73971748 42.90731049 26.23905182 43.40850067 29.73253632 43.95433044
+		 33.23235321 44.54283524 36.72534561 44.68636703 37.54847336 44.8300209 38.37166977
+		 44.97464371 39.14930725 45.12024307 39.92683029 45.47559738 41.82451248 45.85179138
+		 43.71813202 46.57261658 47.21896362 47.33513641 50.71100998 48.14326096 54.21223831
+		 48.99273682 57.7038002 49.89829636 61.20590591 50.84654617 64.69660187 51.32371521
+		 66.41521454 51.82283401 68.12759399 51.96794891 68.62568665 52.11306763 69.123703
+		 52.30317688 69.77604675 52.49328995 70.4283905 52.65132904 71.058937073 52.80924606
+		 71.68943024 53.64993668 75.16138458 54.25941849 78.68224335 54.72305679 82.17341614
+		 55.10645294 85.67502594 55.35619354 89.1700058 55.55167007 92.66784668 55.67849731
+		 96.16358185 55.74275589 99.66069031 55.76958847 103.15723419 55.73788071 106.6534729
+		 55.68166351 110.15052032 55.577034 113.64633179 55.45082474 117.14356232 55.28851318
+		 120.63915253 55.10242462 124.13626099 54.89267731 127.63196564 54.65501022 131.12882996
+		 54.40513992 134.62478638 54.12222672 138.12124634 53.8373642 141.61759949 53.51482391
+		 145.11401367 53.192276 148.6104126 52.84082794 152.10713196 52.48303986 155.60322571
+		 52.30439758 157.323349 52.11306763 159.042160034 51.96794891 160.34513855 51.82295609
+		 161.6481781 51.77015305 162.12203979 51.71735382 162.59603882 51.3172493 166.093429565
+		 50.89982986 169.58886719 50.47704697 173.086486816 50.03401947 176.58169556 49.58916855
+		 180.079483032 49.12309265 183.57449341 48.65653229 187.07232666 48.16936111 190.56733704
+		 47.68157959 194.065063477 47.17489624 197.56015015 46.66589737 201.057769775 46.14141083
+		 204.55296326 45.63632202 207.88911438 45.12024307 211.22354126 44.95098877 212.31748962
+		 44.83014297 213.088989258 44.39662552 215.81396484 43.96127701 218.53852844 43.39081955
+		 222.035797119 42.81072617 225.53140259 42.22026825 229.028793335 41.61871719 232.5242157
+		 41.19008255 234.96818542 40.75242233 237.4105072 40.84960938 239.51704407 41.17227936
+		 246.50985718 41.49481964 253.50260925 41.81748962 260.4954834 42.14002991 267.48831177
+		 42.46269989 274.48120117 42.78524399 281.47393799 43.10778809 288.46676636 43.43045425
+		 295.45956421 43.66763687 300.60018921 43.75299454 302.45233154 44.07566452 309.44519043
+		 44.39821243 316.43795776 44.72087479 323.43084717 38.12742996 323.43084717 31.13461685
+		 323.43084717 24.14179611 323.43084717 17.148983 323.43084717 10.15616798 323.43084717
+		 3.16335011 323.43084717 -3.82946825 323.43084717 -10.82228279 323.43084717 -17.81510544
+		 323.43084717 -24.80780029 323.43084717 -32.24754715 323.43084717 -34.30231857 316.31524658
+		 -36.28624344 309.44519043 -38.30565262 302.45233154 -38.79355621 300.76306152 -40.3250618
+		 295.45950317 -40.90625763 293.44723511 -42.34447479 288.46676636 -44.36388397 281.47393799
+		 -45.78637314 276.54827881 -46.38329315 274.48120117 -48.40270233 267.48831177 -50.42211151
+		 260.4954834 -51.18219757 257.86334229 -52.44152069 253.50260925 -52.77918625 252.33334351
+		 -54.46093369 246.50985718 -56.48034286 239.51704407 -57.088607788 237.4105072 -57.37602997
+		 234.967453 -57.66223526 232.5242157 -58.070262909 229.027877808 -58.47719574 225.53146362
+		 -58.88265991 222.035125732 -59.28666687 218.53852844 -59.52945709 216.43386841 -59.77200699
+		 214.32929993 -59.931633 212.93753052 -60.091259003 211.54577637 -60.49221802 208.049484253
+		 -60.89122009 204.55296326 -61.28948975 201.056671143 -61.68642426 197.56015015 -62.081771851
+		 194.063720703 -62.47711182 190.56733704 -62.86928177 187.070922852 -63.26145554 183.57449341
+		 -63.65179825 180.078201294 -64.04019928 176.58169556 -64.42871094 173.085388184 -64.81381226
+		 169.58880615 -65.19806671 166.092514038 -65.58218384 162.59609985 -65.96168518 159.099639893
+		 -66.34105682 155.60316467 -66.55396271 153.64126587 -66.76480865 151.67918396 -66.92882538
+		 150.14479065 -67.092971802 148.61035156 -67.46672058 145.11413574 -67.83756256 141.61753845
+		 -68.20485687 138.12112427 -68.57215118 134.62481689 -68.93408966 131.12846375 -69.29358673
+		 127.63196564 -69.65296173 124.13601685 -70.0031814575 120.63918304 -70.35328674 117.14298248
+		 -70.69863892 113.64639282 -71.037277222 110.14992523 -71.37580109 106.65350342 -71.70077515
+		 103.15714264 -72.024665833 99.66072083 -72.3368454 96.16461945 -72.64170837 92.6678772
+		 -72.93363953 89.17201996 -73.21290588 85.67505646 -73.46996307 82.16758728 -73.71324158
+		 78.65908051 -73.73554993 78.2420578 -73.75762177 77.82500458 -73.92018127 74.75814819
+		 -74.017242432 71.68875885 -74.032493591 71.058540344 -74.047737122 70.4283905 -73.97029877
+		 67.569664 -73.7644577 64.7173996 -73.38715363 61.20346451 -72.89302826 57.7038002
+		 -72.30343628 54.20059204 -71.63833618 50.71094894 -70.90509033 47.20868683 -70.1174469
+		 43.71819305 -69.27748871 40.21663284 -68.39558411 36.72534561 -67.73268127 34.20053482
+		 -67.054924011 31.67963028 -66.909935 31.1599617 -66.76480865 30.64017105 -66.63811493
+		 30.18635178 -66.51153564 29.73247528 -65.51548767 26.23185921 -64.49005127 22.73971748
+		 -63.43193436 19.23928452 -62.34748459 15.74689865 -61.23315811 12.24597931 -60.091136932
+		 8.75408173 -59.93151093 8.27325344 -59.77200699 7.79248476 -58.7558403 4.77306414
+		 -57.71747589 1.76126492 -57.40493011 0.87143195 -57.088607788 -0.017059721;
+	setAttr ".uvtk[9750:9999]" -53.64439011 0.0059879571 -52.77930832 0.011719421
+		 -51.17159271 0.022450455 -47.65200806 0.045863818 -45.78637314 0.058302235 -41.65962982
+		 0.085861877 -38.79355621 0.10494635 -35.66724777 0.12573785 -33.32029724 0.14140788
+		 -31.8007431 0.15152937 -29.67486954 0.16573599 -24.80792236 0.19817337 -24.0027160645
+		 0.20353904 -17.81510544 0.24475619 -15.46131802 0.26048717 -10.82228279 0.29133925
+		 -3.82946825 0.33804414 3.16335011 0.38462737 10.15616798 0.43121037 14.4591217 0.45986745
+		 15.85222149 0.46919617 17.148983 0.47785446 20.79977036 0.50218242 23.27464676 0.51864487
+		 24.14179611 0.52449834 26.26961517 0.53864419 31.13461685 0.57108146 34.68736267
+		 0.5947386 38.12742996 0.61766428 52.11306763 148.61047363 52.11306763 141.61759949
+		 52.11306763 134.62478638 52.11306763 127.63199615 52.11306763 120.63912201 52.11306763
+		 113.64630127 52.11306763 106.65350342 52.11306763 99.66072083 52.11306763 92.6678772
+		 52.11306763 85.67505646 52.11306763 78.68224335 45.12024307 204.55296326 45.12024307
+		 197.56015015 45.12024307 190.56733704 45.12024307 183.57449341 45.12024307 176.58169556
+		 45.12024307 169.58886719 45.12024307 162.59597778 45.12024307 155.60322571 45.12024307
+		 148.61047363 45.12024307 141.61759949 45.12024307 134.62478638 45.12024307 127.63199615
+		 45.12024307 120.63912201 45.12024307 113.64630127 45.12024307 106.65350342 45.12024307
+		 99.66072083 45.12024307 92.6678772 45.12024307 85.67505646 45.12024307 78.68224335
+		 45.12024307 71.68943024 45.12024307 64.69657135 45.12024307 57.7038002 45.12024307
+		 50.71097946 45.12024307 43.71816254 38.12742996 316.4380188 38.12742996 309.44519043
+		 38.12742996 302.45239258 38.12742996 295.45956421 38.12742996 288.46676636 38.12742996
+		 281.47393799 38.12742996 274.48114014 38.12742996 267.48831177 38.12742996 260.4954834
+		 38.12742996 253.50267029 38.12742996 246.50985718 38.12742996 239.51704407 38.12742996
+		 232.52415466 38.12742996 225.53140259 38.12742996 218.53858948 38.12742996 211.54577637
+		 38.12742996 204.55296326 38.12742996 197.56015015 38.12742996 190.56733704 38.12742996
+		 183.57449341 38.12742996 176.58169556 38.12742996 169.58886719 38.12742996 162.59597778
+		 38.12742996 155.60322571 38.12742996 148.61047363 38.12742996 141.61759949 38.12742996
+		 134.62478638 38.12742996 127.63199615 38.12742996 120.63912201 38.12742996 113.64630127
+		 38.12742996 106.65350342 38.12742996 99.66072083 38.12742996 92.6678772 38.12742996
+		 85.67505646 38.12742996 78.68224335 38.12742996 71.68943024 38.12742996 64.69657135
+		 38.12742996 57.7038002 38.12742996 50.71097946 38.12742996 43.71816254 38.12742996
+		 36.72534561 38.12742996 29.73253632 38.12742996 22.73971748 38.12742996 15.74689865
+		 38.12742996 8.75408173 38.12742996 1.76126492 31.13461685 316.4380188 31.13461685
+		 309.44519043 31.13461685 302.45239258 31.13461685 295.45956421 31.13461685 288.46676636
+		 31.13461685 281.47393799 31.13461685 274.48114014 31.13461685 267.48831177 31.13461685
+		 260.4954834 31.13461685 253.50267029 31.13461685 246.50985718 31.13461685 239.51704407
+		 31.13461685 232.52415466 31.13461685 225.53140259 31.13461685 218.53858948 31.13461685
+		 211.54577637 31.13461685 204.55296326 31.13461685 197.56015015 31.13461685 190.56733704
+		 31.13461685 183.57449341 31.13461685 176.58169556 31.13461685 169.58886719 31.13461685
+		 162.59597778 31.13461685 155.60322571 31.13461685 148.61047363 31.13461685 141.61759949
+		 31.13461685 134.62478638 31.13461685 127.63199615 31.13461685 120.63912201 31.13461685
+		 113.64630127 31.13461685 106.65350342 31.13461685 99.66072083 31.13461685 92.6678772
+		 31.13461685 85.67505646 31.13461685 78.68224335 31.13461685 71.68943024 31.13461685
+		 64.69657135 31.13461685 57.7038002 31.13461685 50.71097946 31.13461685 43.71816254
+		 31.13461685 36.72534561 31.13461685 29.73253632 31.13461685 22.73971748 31.13461685
+		 15.74689865 31.13461685 8.75408173 31.13461685 1.76126492 24.14179611 316.4380188
+		 24.14179611 309.44519043 24.14179611 302.45239258 24.14179611 295.45956421 24.14179611
+		 288.46676636 24.14179611 281.47393799 24.14179611 274.48114014 24.14179611 267.48831177
+		 24.14179611 260.4954834 24.14179611 253.50267029 24.14179611 246.50985718 24.14179611
+		 239.51704407 24.14179611 232.52415466 24.14179611 225.53140259 24.14179611 218.53858948
+		 24.14179611 211.54577637 24.14179611 204.55296326 24.14179611 197.56015015 24.14179611
+		 190.56733704 24.14179611 183.57449341 24.14179611 176.58169556 24.14179611 169.58886719
+		 24.14179611 162.59597778 24.14179611 155.60322571 24.14179611 148.61047363 24.14179611
+		 141.61759949 24.14179611 134.62478638 24.14179611 127.63199615 24.14179611 120.63912201
+		 24.14179611 113.64630127 24.14179611 106.65350342 24.14179611 99.66072083 24.14179611
+		 92.6678772 24.14179611 85.67505646 24.14179611 78.68224335 24.14179611 71.68943024
+		 24.14179611 64.69657135 24.14179611 57.7038002 24.14179611 50.71097946 24.14179611
+		 43.71816254 24.14179611 36.72534561 24.14179611 29.73253632 24.14179611 22.73971748
+		 24.14179611 15.74689865 24.14179611 8.75408173 24.14179611 1.76126492 17.148983 316.4380188
+		 17.148983 309.44519043 17.148983 302.45239258 17.148983 295.45956421 17.148983 288.46676636
+		 17.148983 281.47393799 17.148983 274.48114014 17.148983 267.48831177 17.148983 260.4954834
+		 17.148983 253.50267029 17.148983 246.50985718 17.148983 239.51704407 17.148983 232.52415466
+		 17.148983 225.53140259 17.148983 218.53858948 17.148983 211.54577637 17.148983 204.55296326
+		 17.148983 197.56015015 17.148983 190.56733704 17.148983 183.57449341 17.148983 176.58169556
+		 17.148983 169.58886719 17.148983 162.59597778 17.148983 155.60322571 17.148983 148.61047363
+		 17.148983 141.61759949 17.148983 134.62478638 17.148983 127.63199615 17.148983 120.63912201
+		 17.148983 113.64630127 17.148983 106.65350342 17.148983 99.66072083 17.148983 92.6678772
+		 17.148983 85.67505646 17.148983 78.68224335 17.148983 71.68943024 17.148983 64.69657135
+		 17.148983 57.7038002 17.148983 50.71097946 17.148983 43.71816254 17.148983 36.72534561
+		 17.148983 29.73253632 17.148983 22.73971748 17.148983 15.74689865 17.148983 8.75408173
+		 17.148983 1.76126492 10.15616798 316.4380188 10.15616798 309.44519043;
+	setAttr ".uvtk[10000:10249]" 10.15616798 302.45239258 10.15616798 295.45956421
+		 10.15616798 288.46676636 10.15616798 281.47393799 10.15616798 274.48114014 10.15616798
+		 267.48831177 10.15616798 260.4954834 10.15616798 253.50267029 10.15616798 246.50985718
+		 10.15616798 239.51704407 10.15616798 232.52415466 10.15616798 225.53140259 10.15616798
+		 218.53858948 10.15616798 211.54577637 10.15616798 204.55296326 10.15616798 197.56015015
+		 10.15616798 190.56733704 10.15616798 183.57449341 10.15616798 176.58169556 10.15616798
+		 169.58886719 10.15616798 162.59597778 10.15616798 155.60322571 10.15616798 148.61047363
+		 10.15616798 141.61759949 10.15616798 134.62478638 10.15616798 127.63199615 10.15616798
+		 120.63912201 10.15616798 113.64630127 10.15616798 106.65350342 10.15616798 99.66072083
+		 10.15616798 92.6678772 10.15616798 85.67505646 10.15616798 78.68224335 10.15616798
+		 71.68943024 10.15616798 64.69657135 10.15616798 57.7038002 10.15616798 50.71097946
+		 10.15616798 43.71816254 10.15616798 36.72534561 10.15616798 29.73253632 10.15616798
+		 22.73971748 10.15616798 15.74689865 10.15616798 8.75408173 10.15616798 1.76126492
+		 3.16335011 316.4380188 3.16335011 309.44519043 3.16335011 302.45239258 3.16335011
+		 295.45956421 3.16335011 288.46676636 3.16335011 281.47393799 3.16335011 274.48114014
+		 3.16335011 267.48831177 3.16335011 260.4954834 3.16335011 253.50267029 3.16335011
+		 246.50985718 3.16335011 239.51704407 3.16335011 232.52415466 3.16335011 225.53140259
+		 3.16335011 218.53858948 3.16335011 211.54577637 3.16335011 204.55296326 3.16335011
+		 197.56015015 3.16335011 190.56733704 3.16335011 183.57449341 3.16335011 176.58169556
+		 3.16335011 169.58886719 3.16335011 162.59597778 3.16335011 155.60322571 3.16335011
+		 148.61047363 3.16335011 141.61759949 3.16335011 134.62478638 3.16335011 127.63199615
+		 3.16335011 120.63912201 3.16335011 113.64630127 3.16335011 106.65350342 3.16335011
+		 99.66072083 3.16335011 92.6678772 3.16335011 85.67505646 3.16335011 78.68224335 3.16335011
+		 71.68943024 3.16335011 64.69657135 3.16335011 57.7038002 3.16335011 50.71097946 3.16335011
+		 43.71816254 3.16335011 36.72534561 3.16335011 29.73253632 3.16335011 22.73971748
+		 3.16335011 15.74689865 3.16335011 8.75408173 3.16335011 1.76126492 -3.82946825 316.4380188
+		 -3.82946825 309.44519043 -3.82946825 302.45239258 -3.82946825 295.45956421 -3.82946825
+		 288.46676636 -3.82946825 281.47393799 -3.82946825 274.48114014 -3.82946825 267.48831177
+		 -3.82946825 260.4954834 -3.82946825 253.50267029 -3.82946825 246.50985718 -3.82946825
+		 239.51704407 -3.82946825 232.52415466 -3.82946825 225.53140259 -3.82946825 218.53858948
+		 -3.82946825 211.54577637 -3.82946825 204.55296326 -3.82946825 197.56015015 -3.82946825
+		 190.56733704 -3.82946825 183.57449341 -3.82946825 176.58169556 -3.82946825 169.58886719
+		 -3.82946825 162.59597778 -3.82946825 155.60322571 -3.82946825 148.61047363 -3.82946825
+		 141.61759949 -3.82946825 134.62478638 -3.82946825 127.63199615 -3.82946825 120.63912201
+		 -3.82946825 113.64630127 -3.82946825 106.65350342 -3.82946825 99.66072083 -3.82946825
+		 92.6678772 -3.82946825 85.67505646 -3.82946825 78.68224335 -3.82946825 71.68943024
+		 -3.82946825 64.69657135 -3.82946825 57.7038002 -3.82946825 50.71097946 -3.82946825
+		 43.71816254 -3.82946825 36.72534561 -3.82946825 29.73253632 -3.82946825 22.73971748
+		 -3.82946825 15.74689865 -3.82946825 8.75408173 -3.82946825 1.76126492 -10.82228279
+		 316.4380188 -10.82228279 309.44519043 -10.82228279 302.45239258 -10.82228279 295.45956421
+		 -10.82228279 288.46676636 -10.82228279 281.47393799 -10.82228279 274.48114014 -10.82228279
+		 267.48831177 -10.82228279 260.4954834 -10.82228279 253.50267029 -10.82228279 246.50985718
+		 -10.82228279 239.51704407 -10.82228279 232.52415466 -10.82228279 225.53140259 -10.82228279
+		 218.53858948 -10.82228279 211.54577637 -10.82228279 204.55296326 -10.82228279 197.56015015
+		 -10.82228279 190.56733704 -10.82228279 183.57449341 -10.82228279 176.58169556 -10.82228279
+		 169.58886719 -10.82228279 162.59597778 -10.82228279 155.60322571 -10.82228279 148.61047363
+		 -10.82228279 141.61759949 -10.82228279 134.62478638 -10.82228279 127.63199615 -10.82228279
+		 120.63912201 -10.82228279 113.64630127 -10.82228279 106.65350342 -10.82228279 99.66072083
+		 -10.82228279 92.6678772 -10.82228279 85.67505646 -10.82228279 78.68224335 -10.82228279
+		 71.68943024 -10.82228279 64.69657135 -10.82228279 57.7038002 -10.82228279 50.71097946
+		 -10.82228279 43.71816254 -10.82228279 36.72534561 -10.82228279 29.73253632 -10.82228279
+		 22.73971748 -10.82228279 15.74689865 -10.82228279 8.75408173 -10.82228279 1.76126492
+		 -17.81510544 316.4380188 -17.81510544 309.44519043 -17.81510544 302.45239258 -17.81510544
+		 295.45956421 -17.81510544 288.46676636 -17.81510544 281.47393799 -17.81510544 274.48114014
+		 -17.81510544 267.48831177 -17.81510544 260.4954834 -17.81510544 253.50267029 -17.81510544
+		 246.50985718 -17.81510544 239.51704407 -17.81510544 232.52415466 -17.81510544 225.53140259
+		 -17.81510544 218.53858948 -17.81510544 211.54577637 -17.81510544 204.55296326 -17.81510544
+		 197.56015015 -17.81510544 190.56733704 -17.81510544 183.57449341 -17.81510544 176.58169556
+		 -17.81510544 169.58886719 -17.81510544 162.59597778 -17.81510544 155.60322571 -17.81510544
+		 148.61047363 -17.81510544 141.61759949 -17.81510544 134.62478638 -17.81510544 127.63199615
+		 -17.81510544 120.63912201 -17.81510544 113.64630127 -17.81510544 106.65350342 -17.81510544
+		 99.66072083 -17.81510544 92.6678772 -17.81510544 85.67505646 -17.81510544 78.68224335
+		 -17.81510544 71.68943024 -17.81510544 64.69657135 -17.81510544 57.7038002 -17.81510544
+		 50.71097946 -17.81510544 43.71816254 -17.81510544 36.72534561 -17.81510544 29.73253632
+		 -17.81510544 22.73971748 -17.81510544 15.74689865 -17.81510544 8.75408173 -17.81510544
+		 1.76126492 -24.80792236 316.4380188 -24.80792236 309.44519043 -24.80792236 302.45239258
+		 -24.80792236 295.45956421 -24.80792236 288.46676636 -24.80792236 281.47393799 -24.80792236
+		 274.48114014 -24.80792236 267.48831177 -24.80792236 260.4954834 -24.80792236 253.50267029
+		 -24.80792236 246.50985718 -24.80792236 239.51704407 -24.80792236 232.52415466 -24.80792236
+		 225.53140259 -24.80792236 218.53858948 -24.80792236 211.54577637 -24.80792236 204.55296326
+		 -24.80792236 197.56015015 -24.80792236 190.56733704 -24.80792236 183.57449341 -24.80792236
+		 176.58169556 -24.80792236 169.58886719;
+	setAttr ".uvtk[10250:10499]" -24.80792236 162.59597778 -24.80792236 155.60322571
+		 -24.80792236 148.61047363 -24.80792236 141.61759949 -24.80792236 134.62478638 -24.80792236
+		 127.63199615 -24.80792236 120.63912201 -24.80792236 113.64630127 -24.80792236 106.65350342
+		 -24.80792236 99.66072083 -24.80792236 92.6678772 -24.80792236 85.67505646 -24.80792236
+		 78.68224335 -24.80792236 71.68943024 -24.80792236 64.69657135 -24.80792236 57.7038002
+		 -24.80792236 50.71097946 -24.80792236 43.71816254 -24.80792236 36.72534561 -24.80792236
+		 29.73253632 -24.80792236 22.73971748 -24.80792236 15.74689865 -24.80792236 8.75408173
+		 -24.80792236 1.76126492 -31.8007431 316.4380188 -31.8007431 309.44519043 -31.8007431
+		 302.45239258 -31.8007431 295.45956421 -31.8007431 288.46676636 -31.8007431 281.47393799
+		 -31.8007431 274.48114014 -31.8007431 267.48831177 -31.8007431 260.4954834 -31.8007431
+		 253.50267029 -31.8007431 246.50985718 -31.8007431 239.51704407 -31.8007431 232.52415466
+		 -31.8007431 225.53140259 -31.8007431 218.53858948 -31.8007431 211.54577637 -31.8007431
+		 204.55296326 -31.8007431 197.56015015 -31.8007431 190.56733704 -31.8007431 183.57449341
+		 -31.8007431 176.58169556 -31.8007431 169.58886719 -31.8007431 162.59597778 -31.8007431
+		 155.60322571 -31.8007431 148.61047363 -31.8007431 141.61759949 -31.8007431 134.62478638
+		 -31.8007431 127.63199615 -31.8007431 120.63912201 -31.8007431 113.64630127 -31.8007431
+		 106.65350342 -31.8007431 99.66072083 -31.8007431 92.6678772 -31.8007431 85.67505646
+		 -31.8007431 78.68224335 -31.8007431 71.68943024 -31.8007431 64.69657135 -31.8007431
+		 57.7038002 -31.8007431 50.71097946 -31.8007431 43.71816254 -31.8007431 36.72534561
+		 -31.8007431 29.73253632 -31.8007431 22.73971748 -31.8007431 15.74689865 -31.8007431
+		 8.75408173 -31.8007431 1.76126492 -38.79355621 295.45956421 -38.79355621 288.46676636
+		 -38.79355621 281.47393799 -38.79355621 274.48114014 -38.79355621 267.48831177 -38.79355621
+		 260.4954834 -38.79355621 253.50267029 -38.79355621 246.50985718 -38.79355621 239.51704407
+		 -38.79355621 232.52415466 -38.79355621 225.53140259 -38.79355621 218.53858948 -38.79355621
+		 211.54577637 -38.79355621 204.55296326 -38.79355621 197.56015015 -38.79355621 190.56733704
+		 -38.79355621 183.57449341 -38.79355621 176.58169556 -38.79355621 169.58886719 -38.79355621
+		 162.59597778 -38.79355621 155.60322571 -38.79355621 148.61047363 -38.79355621 141.61759949
+		 -38.79355621 134.62478638 -38.79355621 127.63199615 -38.79355621 120.63912201 -38.79355621
+		 113.64630127 -38.79355621 106.65350342 -38.79355621 99.66072083 -38.79355621 92.6678772
+		 -38.79355621 85.67505646 -38.79355621 78.68224335 -38.79355621 71.68943024 -38.79355621
+		 64.69657135 -38.79355621 57.7038002 -38.79355621 50.71097946 -38.79355621 43.71816254
+		 -38.79355621 36.72534561 -38.79355621 29.73253632 -38.79355621 22.73971748 -38.79355621
+		 15.74689865 -38.79355621 8.75408173 -38.79355621 1.76126492 -45.78637314 267.48831177
+		 -45.78637314 260.4954834 -45.78637314 253.50267029 -45.78637314 246.50985718 -45.78637314
+		 239.51704407 -45.78637314 232.52415466 -45.78637314 225.53140259 -45.78637314 218.53858948
+		 -45.78637314 211.54577637 -45.78637314 204.55296326 -45.78637314 197.56015015 -45.78637314
+		 190.56733704 -45.78637314 183.57449341 -45.78637314 176.58169556 -45.78637314 169.58886719
+		 -45.78637314 162.59597778 -45.78637314 155.60322571 -45.78637314 148.61047363 -45.78637314
+		 141.61759949 -45.78637314 134.62478638 -45.78637314 127.63199615 -45.78637314 120.63912201
+		 -45.78637314 113.64630127 -45.78637314 106.65350342 -45.78637314 99.66072083 -45.78637314
+		 92.6678772 -45.78637314 85.67505646 -45.78637314 78.68224335 -45.78637314 71.68943024
+		 -45.78637314 64.69657135 -45.78637314 57.7038002 -45.78637314 50.71097946 -45.78637314
+		 43.71816254 -45.78637314 36.72534561 -45.78637314 29.73253632 -45.78637314 22.73971748
+		 -45.78637314 15.74689865 -45.78637314 8.75408173 -45.78637314 1.76126492 -52.77918625
+		 246.50985718 -52.77918625 239.51704407 -52.77918625 232.52415466 -52.77918625 225.53140259
+		 -52.77918625 218.53858948 -52.77918625 211.54577637 -52.77918625 204.55296326 -52.77918625
+		 197.56015015 -52.77918625 190.56733704 -52.77918625 183.57449341 -52.77918625 176.58169556
+		 -52.77918625 169.58886719 -52.77918625 162.59597778 -52.77918625 155.60322571 -52.77918625
+		 148.61047363 -52.77918625 141.61759949 -52.77918625 134.62478638 -52.77918625 127.63199615
+		 -52.77918625 120.63912201 -52.77918625 113.64630127 -52.77918625 106.65350342 -52.77918625
+		 99.66072083 -52.77918625 92.6678772 -52.77918625 85.67505646 -52.77918625 78.68224335
+		 -52.77918625 71.68943024 -52.77918625 64.69657135 -52.77918625 57.7038002 -52.77918625
+		 50.71097946 -52.77918625 43.71816254 -52.77918625 36.72534561 -52.77918625 29.73253632
+		 -52.77918625 22.73971748 -52.77918625 15.74689865 -52.77918625 8.75408173 -52.77918625
+		 1.76126492 -59.77200699 204.55296326 -59.77200699 197.56015015 -59.77200699 190.56733704
+		 -59.77200699 183.57449341 -59.77200699 176.58169556 -59.77200699 169.58886719 -59.77200699
+		 162.59597778 -59.77200699 155.60322571 -59.77200699 148.61047363 -59.77200699 141.61759949
+		 -59.77200699 134.62478638 -59.77200699 127.63199615 -59.77200699 120.63912201 -59.77200699
+		 113.64630127 -59.77200699 106.65350342 -59.77200699 99.66072083 -59.77200699 92.6678772
+		 -59.77200699 85.67505646 -59.77200699 78.68224335 -59.77200699 71.68943024 -59.77200699
+		 64.69657135 -59.77200699 57.7038002 -59.77200699 50.71097946 -59.77200699 43.71816254
+		 -59.77200699 36.72534561 -59.77200699 29.73253632 -59.77200699 22.73971748 -59.77200699
+		 15.74689865 -66.76480865 141.61759949 -66.76480865 134.62478638 -66.76480865 127.63199615
+		 -66.76480865 120.63912201 -66.76480865 113.64630127 -66.76480865 106.65350342 -66.76480865
+		 99.66072083 -66.76480865 92.6678772 -66.76480865 85.67505646 -66.76480865 78.68224335
+		 -66.76480865 71.68943024 -66.76480865 64.69657135 -66.76480865 57.7038002 -66.76480865
+		 50.71097946 -66.76480865 43.71816254 -66.76480865 36.72534561 45.12024307 211.54577637
+		 -45.78637314 274.48120117 146.83729553 0.65944862 146.83119202 1.22259092 146.82060242
+		 1.78548908 146.69194031 5.28360462 146.48950195 8.77830601 146.22962952 12.2770319
+		 145.91342163 15.77112293 145.55174255 19.27027702 145.14056396 22.76394081 144.68238831
+		 26.26327515 144.18121338 29.75675964 143.63539124 33.25657654 143.046875 36.74956894
+		 142.76737976 38.35192871 142.46946716 39.95105362 142.11410522 41.84873581;
+	setAttr ".uvtk[10500:10749]" 141.73791504 43.74235535 141.017089844 47.24318695
+		 140.25457764 50.73523331 139.44645691 54.23646164 138.5969696 57.72802353 137.69140625
+		 61.23012924 136.74317932 64.7208252 136.12088013 66.93745422 135.47663879 69.14792633
+		 135.2865448 69.80027008 135.096405029 70.45261383 134.93838501 71.0831604 134.78045654
+		 71.71365356 133.9397583 75.18560791 133.33029175 78.70646667 132.86665344 82.19763947
+		 132.48327637 85.69924927 132.23352051 89.19422913 132.03805542 92.69207001 131.91122437
+		 96.18780518 131.8469696 99.68491364 131.82011414 103.18145752 131.8518219 106.67769623
+		 131.90805054 110.17474365 132.012680054 113.67055511 132.13890076 117.16778564 132.30119324
+		 120.66337585 132.48727417 124.16048431 132.69703674 127.65618896 132.93469238 131.15306091
+		 133.18457031 134.64901733 133.46748352 138.14547729 133.75234985 141.64183044 134.074890137
+		 145.13824463 134.39743042 148.63464355 134.74888611 152.13136292 135.10665894 155.62745667
+		 135.2853241 157.34757996 135.47663879 159.066390991 135.67443848 160.84329224 135.87236023
+		 162.62026978 136.27246094 166.11766052 136.68988037 169.61309814 137.1126709 173.11071777
+		 137.55569458 176.60592651 138.00053405762 180.10371399 138.46662903 183.59872437
+		 138.93318176 187.096557617 139.42034912 190.59156799 139.90812683 194.089294434 140.41482544
+		 197.5843811 140.92381287 201.082000732 141.44830322 204.57719421 141.9533844 207.91334534
+		 142.46946716 211.24777222 143.044799805 214.90592957 143.62843323 218.5627594 144.19889832
+		 222.060028076 144.77897644 225.55563354 145.36943054 229.053024292 145.97099304 232.54844666
+		 146.39964294 234.99241638 146.83729553 237.43473816 146.7401123 239.54127502 146.41743469
+		 246.53408813 146.094894409 253.52684021 145.7722168 260.51971436 145.44967651 267.51254272
+		 145.12701416 274.50543213 144.80445862 281.49816895 144.48191833 288.49099731 144.21232605
+		 294.33486938 144.15924072 295.48379517 143.8367157 302.4765625 143.51405334 309.46942139
+		 143.19151306 316.46218872 142.86883545 323.45507813 149.46228027 323.45507813 156.45509338
+		 323.45507813 163.44790649 323.45507813 170.4407196 323.45507813 177.43353271 323.45507813
+		 184.42637634 323.45507813 191.41917419 323.45507813 198.41200256 323.45507813 205.40481567
+		 323.45507813 212.39752197 323.45507813 219.83726501 323.45507813 221.89202881 316.33947754
+		 223.8759613 309.46942139 225.89537048 302.4765625 226.38327026 300.78729248 227.91477966
+		 295.48373413 229.93418884 288.49099731 231.95359802 281.49816895 233.37608337 276.57250977
+		 233.9730072 274.50543213 235.99241638 267.51254272 238.011825562 260.51971436 238.34545898
+		 259.36422729 240.031234741 253.52684021 240.36889648 252.35757446 242.050643921 246.53408813
+		 244.070053101 239.54127502 244.67831421 237.43473816 244.96572876 234.99168396 245.25195313
+		 232.54844666 245.65997314 229.052108765 246.06690979 225.55569458 246.47236633 222.059356689
+		 246.87637329 218.5627594 247.11917114 216.45809937 247.36170959 214.35353088 247.52134705
+		 212.96176147 247.68096924 211.57000732 248.081924438 208.07371521 248.48094177 204.57719421
+		 248.87919617 201.0809021 249.27615356 197.5843811 249.67146301 194.08795166 250.066818237
+		 190.59156799 250.45898438 187.095153809 250.85116577 183.59872437 251.24150085 180.10243225
+		 251.62991333 176.60592651 252.018432617 173.10961914 252.40354919 169.61303711 252.78779602
+		 166.116745 253.17190552 162.62033081 253.55140686 159.12387085 253.93078613 155.62739563
+		 254.14369202 153.66549683 254.35452271 151.70341492 254.51853943 150.16902161 254.68269348
+		 148.63458252 255.05645752 145.1383667 255.42729187 141.64176941 255.7946167 138.14535522
+		 256.16195679 134.64904785 256.52383423 131.1526947 256.8833313 127.65618896 257.2427063
+		 124.16024017 257.59289551 120.66340637 257.9430542 117.16720581 258.2883606 113.67061615
+		 258.62704468 110.17414856 258.96548462 106.67772675 259.29049683 103.18136597 259.6144104
+		 99.68494415 259.92657471 96.18884277 260.23144531 92.69210052 260.52337646 89.19624329
+		 260.8026123 85.69927979 261.059692383 82.19181061 261.302948 78.68330383 261.32528687
+		 78.26628113 261.34735107 77.84922791 261.50991821 74.78237152 261.60699463 71.71298218
+		 261.62225342 71.082763672 261.63751221 70.45261383 261.56002808 67.59388733 261.35418701
+		 64.74162292 260.97689819 61.22768784 260.48278809 57.72802353 259.89318848 54.22481537
+		 259.22805786 50.73517227 258.49481201 47.23291016 257.70715332 43.74241638 256.86724854
+		 40.24085617 255.9853363 36.74956894 255.18267822 33.70362854 254.35452271 30.66439438
+		 254.22782898 30.2105751 254.10127258 29.75669861 253.10520935 26.25608253 252.07975769
+		 22.76394081 251.021636963 19.26350784 249.93717957 15.77112293 248.82286072 12.27020359
+		 247.68084717 8.77830601 247.52122498 8.29747772 247.36170959 7.81670856 246.34553528
+		 4.79728794 245.3072052 1.78548908 244.99462891 0.89565611 244.67831421 0.0071644075
+		 240.36901855 0.035943702 238.7612915 0.046674691 234.9929657 0.071795277 233.37608337
+		 0.082526393 229.00057983398 0.11167156 226.38327026 0.12917048 223.0081939697 0.15166944
+		 220.91000366 0.16563213 219.39045715 0.17575353 217.015808105 0.19154549 212.39764404
+		 0.22239754 211.59242249 0.22776327 205.40481567 0.2689805 203.051055908 0.28471154
+		 198.41200256 0.31556344 191.41917419 0.36226851 184.42637634 0.40885156 177.43353271
+		 0.45543456 173.13058472 0.48409161 171.53213501 0.49482283 170.4407196 0.50207865
+		 166.58457947 0.52774793 164.31506348 0.54286903 163.44790649 0.54872251 161.071334839
+		 0.56451434 156.45509338 0.59530544 152.90234375 0.61896276 149.46228027 0.64188868
+		 135.47663879 148.63470459 135.47663879 141.64183044 135.47663879 134.64901733 135.47663879
+		 127.65621948 135.47663879 120.66334534 135.47663879 113.6705246 135.47663879 106.67772675
+		 135.47663879 99.68494415 135.47663879 92.69210052 135.47663879 85.69927979 135.47663879
+		 78.70646667 142.46946716 204.57719421 142.46946716 197.5843811 142.46946716 190.59156799
+		 142.46946716 183.59872437 142.46946716 176.60592651 142.46946716 169.61309814 142.46946716
+		 162.62020874 142.46946716 155.62745667 142.46946716 148.63470459 142.46946716 141.64183044
+		 142.46946716 134.64901733 142.46946716 127.65621948 142.46946716 120.66334534 142.46946716
+		 113.6705246 142.46946716 106.67772675 142.46946716 99.68494415 142.46946716 92.69210052
+		 142.46946716 85.69927979 142.46946716 78.70646667 142.46946716 71.71365356 142.46946716
+		 64.72079468 142.46946716 57.72802353 142.46946716 50.73520279 142.46946716 43.74238586;
+	setAttr ".uvtk[10750:10999]" 149.46228027 316.46224976 149.46228027 309.46942139
+		 149.46228027 302.47662354 149.46228027 295.48379517 149.46228027 288.49099731 149.46228027
+		 281.49816895 149.46228027 274.50537109 149.46228027 267.51254272 149.46228027 260.51971436
+		 149.46228027 253.52690125 149.46228027 246.53408813 149.46228027 239.54127502 149.46228027
+		 232.54838562 149.46228027 225.55563354 149.46228027 218.56282043 149.46228027 211.57000732
+		 149.46228027 204.57719421 149.46228027 197.5843811 149.46228027 190.59156799 149.46228027
+		 183.59872437 149.46228027 176.60592651 149.46228027 169.61309814 149.46228027 162.62020874
+		 149.46228027 155.62745667 149.46228027 148.63470459 149.46228027 141.64183044 149.46228027
+		 134.64901733 149.46228027 127.65621948 149.46228027 120.66334534 149.46228027 113.6705246
+		 149.46228027 106.67772675 149.46228027 99.68494415 149.46228027 92.69210052 149.46228027
+		 85.69927979 149.46228027 78.70646667 149.46228027 71.71365356 149.46228027 64.72079468
+		 149.46228027 57.72802353 149.46228027 50.73520279 149.46228027 43.74238586 149.46228027
+		 36.74956894 149.46228027 29.75675964 149.46228027 22.76394081 149.46228027 15.77112293
+		 149.46228027 8.77830601 149.46228027 1.78548908 156.45509338 316.46224976 156.45509338
+		 309.46942139 156.45509338 302.47662354 156.45509338 295.48379517 156.45509338 288.49099731
+		 156.45509338 281.49816895 156.45509338 274.50537109 156.45509338 267.51254272 156.45509338
+		 260.51971436 156.45509338 253.52690125 156.45509338 246.53408813 156.45509338 239.54127502
+		 156.45509338 232.54838562 156.45509338 225.55563354 156.45509338 218.56282043 156.45509338
+		 211.57000732 156.45509338 204.57719421 156.45509338 197.5843811 156.45509338 190.59156799
+		 156.45509338 183.59872437 156.45509338 176.60592651 156.45509338 169.61309814 156.45509338
+		 162.62020874 156.45509338 155.62745667 156.45509338 148.63470459 156.45509338 141.64183044
+		 156.45509338 134.64901733 156.45509338 127.65621948 156.45509338 120.66334534 156.45509338
+		 113.6705246 156.45509338 106.67772675 156.45509338 99.68494415 156.45509338 92.69210052
+		 156.45509338 85.69927979 156.45509338 78.70646667 156.45509338 71.71365356 156.45509338
+		 64.72079468 156.45509338 57.72802353 156.45509338 50.73520279 156.45509338 43.74238586
+		 156.45509338 36.74956894 156.45509338 29.75675964 156.45509338 22.76394081 156.45509338
+		 15.77112293 156.45509338 8.77830601 156.45509338 1.78548908 163.44790649 316.46224976
+		 163.44790649 309.46942139 163.44790649 302.47662354 163.44790649 295.48379517 163.44790649
+		 288.49099731 163.44790649 281.49816895 163.44790649 274.50537109 163.44790649 267.51254272
+		 163.44790649 260.51971436 163.44790649 253.52690125 163.44790649 246.53408813 163.44790649
+		 239.54127502 163.44790649 232.54838562 163.44790649 225.55563354 163.44790649 218.56282043
+		 163.44790649 211.57000732 163.44790649 204.57719421 163.44790649 197.5843811 163.44790649
+		 190.59156799 163.44790649 183.59872437 163.44790649 176.60592651 163.44790649 169.61309814
+		 163.44790649 162.62020874 163.44790649 155.62745667 163.44790649 148.63470459 163.44790649
+		 141.64183044 163.44790649 134.64901733 163.44790649 127.65621948 163.44790649 120.66334534
+		 163.44790649 113.6705246 163.44790649 106.67772675 163.44790649 99.68494415 163.44790649
+		 92.69210052 163.44790649 85.69927979 163.44790649 78.70646667 163.44790649 71.71365356
+		 163.44790649 64.72079468 163.44790649 57.72802353 163.44790649 50.73520279 163.44790649
+		 43.74238586 163.44790649 36.74956894 163.44790649 29.75675964 163.44790649 22.76394081
+		 163.44790649 15.77112293 163.44790649 8.77830601 163.44790649 1.78548908 170.4407196
+		 316.46224976 170.4407196 309.46942139 170.4407196 302.47662354 170.4407196 295.48379517
+		 170.4407196 288.49099731 170.4407196 281.49816895 170.4407196 274.50537109 170.4407196
+		 267.51254272 170.4407196 260.51971436 170.4407196 253.52690125 170.4407196 246.53408813
+		 170.4407196 239.54127502 170.4407196 232.54838562 170.4407196 225.55563354 170.4407196
+		 218.56282043 170.4407196 211.57000732 170.4407196 204.57719421 170.4407196 197.5843811
+		 170.4407196 190.59156799 170.4407196 183.59872437 170.4407196 176.60592651 170.4407196
+		 169.61309814 170.4407196 162.62020874 170.4407196 155.62745667 170.4407196 148.63470459
+		 170.4407196 141.64183044 170.4407196 134.64901733 170.4407196 127.65621948 170.4407196
+		 120.66334534 170.4407196 113.6705246 170.4407196 106.67772675 170.4407196 99.68494415
+		 170.4407196 92.69210052 170.4407196 85.69927979 170.4407196 78.70646667 170.4407196
+		 71.71365356 170.4407196 64.72079468 170.4407196 57.72802353 170.4407196 50.73520279
+		 170.4407196 43.74238586 170.4407196 36.74956894 170.4407196 29.75675964 170.4407196
+		 22.76394081 170.4407196 15.77112293 170.4407196 8.77830601 170.4407196 1.78548908
+		 177.43353271 316.46224976 177.43353271 309.46942139 177.43353271 302.47662354 177.43353271
+		 295.48379517 177.43353271 288.49099731 177.43353271 281.49816895 177.43353271 274.50537109
+		 177.43353271 267.51254272 177.43353271 260.51971436 177.43353271 253.52690125 177.43353271
+		 246.53408813 177.43353271 239.54127502 177.43353271 232.54838562 177.43353271 225.55563354
+		 177.43353271 218.56282043 177.43353271 211.57000732 177.43353271 204.57719421 177.43353271
+		 197.5843811 177.43353271 190.59156799 177.43353271 183.59872437 177.43353271 176.60592651
+		 177.43353271 169.61309814 177.43353271 162.62020874 177.43353271 155.62745667 177.43353271
+		 148.63470459 177.43353271 141.64183044 177.43353271 134.64901733 177.43353271 127.65621948
+		 177.43353271 120.66334534 177.43353271 113.6705246 177.43353271 106.67772675 177.43353271
+		 99.68494415 177.43353271 92.69210052 177.43353271 85.69927979 177.43353271 78.70646667
+		 177.43353271 71.71365356 177.43353271 64.72079468 177.43353271 57.72802353 177.43353271
+		 50.73520279 177.43353271 43.74238586 177.43353271 36.74956894 177.43353271 29.75675964
+		 177.43353271 22.76394081 177.43353271 15.77112293 177.43353271 8.77830601 177.43353271
+		 1.78548908 184.42637634 316.46224976 184.42637634 309.46942139 184.42637634 302.47662354
+		 184.42637634 295.48379517 184.42637634 288.49099731 184.42637634 281.49816895 184.42637634
+		 274.50537109 184.42637634 267.51254272 184.42637634 260.51971436 184.42637634 253.52690125
+		 184.42637634 246.53408813 184.42637634 239.54127502 184.42637634 232.54838562 184.42637634
+		 225.55563354 184.42637634 218.56282043 184.42637634 211.57000732 184.42637634 204.57719421
+		 184.42637634 197.5843811 184.42637634 190.59156799 184.42637634 183.59872437;
+	setAttr ".uvtk[11000:11249]" 184.42637634 176.60592651 184.42637634 169.61309814
+		 184.42637634 162.62020874 184.42637634 155.62745667 184.42637634 148.63470459 184.42637634
+		 141.64183044 184.42637634 134.64901733 184.42637634 127.65621948 184.42637634 120.66334534
+		 184.42637634 113.6705246 184.42637634 106.67772675 184.42637634 99.68494415 184.42637634
+		 92.69210052 184.42637634 85.69927979 184.42637634 78.70646667 184.42637634 71.71365356
+		 184.42637634 64.72079468 184.42637634 57.72802353 184.42637634 50.73520279 184.42637634
+		 43.74238586 184.42637634 36.74956894 184.42637634 29.75675964 184.42637634 22.76394081
+		 184.42637634 15.77112293 184.42637634 8.77830601 184.42637634 1.78548908 191.41917419
+		 316.46224976 191.41917419 309.46942139 191.41917419 302.47662354 191.41917419 295.48379517
+		 191.41917419 288.49099731 191.41917419 281.49816895 191.41917419 274.50537109 191.41917419
+		 267.51254272 191.41917419 260.51971436 191.41917419 253.52690125 191.41917419 246.53408813
+		 191.41917419 239.54127502 191.41917419 232.54838562 191.41917419 225.55563354 191.41917419
+		 218.56282043 191.41917419 211.57000732 191.41917419 204.57719421 191.41917419 197.5843811
+		 191.41917419 190.59156799 191.41917419 183.59872437 191.41917419 176.60592651 191.41917419
+		 169.61309814 191.41917419 162.62020874 191.41917419 155.62745667 191.41917419 148.63470459
+		 191.41917419 141.64183044 191.41917419 134.64901733 191.41917419 127.65621948 191.41917419
+		 120.66334534 191.41917419 113.6705246 191.41917419 106.67772675 191.41917419 99.68494415
+		 191.41917419 92.69210052 191.41917419 85.69927979 191.41917419 78.70646667 191.41917419
+		 71.71365356 191.41917419 64.72079468 191.41917419 57.72802353 191.41917419 50.73520279
+		 191.41917419 43.74238586 191.41917419 36.74956894 191.41917419 29.75675964 191.41917419
+		 22.76394081 191.41917419 15.77112293 191.41917419 8.77830601 191.41917419 1.78548908
+		 198.41200256 316.46224976 198.41200256 309.46942139 198.41200256 302.47662354 198.41200256
+		 295.48379517 198.41200256 288.49099731 198.41200256 281.49816895 198.41200256 274.50537109
+		 198.41200256 267.51254272 198.41200256 260.51971436 198.41200256 253.52690125 198.41200256
+		 246.53408813 198.41200256 239.54127502 198.41200256 232.54838562 198.41200256 225.55563354
+		 198.41200256 218.56282043 198.41200256 211.57000732 198.41200256 204.57719421 198.41200256
+		 197.5843811 198.41200256 190.59156799 198.41200256 183.59872437 198.41200256 176.60592651
+		 198.41200256 169.61309814 198.41200256 162.62020874 198.41200256 155.62745667 198.41200256
+		 148.63470459 198.41200256 141.64183044 198.41200256 134.64901733 198.41200256 127.65621948
+		 198.41200256 120.66334534 198.41200256 113.6705246 198.41200256 106.67772675 198.41200256
+		 99.68494415 198.41200256 92.69210052 198.41200256 85.69927979 198.41200256 78.70646667
+		 198.41200256 71.71365356 198.41200256 64.72079468 198.41200256 57.72802353 198.41200256
+		 50.73520279 198.41200256 43.74238586 198.41200256 36.74956894 198.41200256 29.75675964
+		 198.41200256 22.76394081 198.41200256 15.77112293 198.41200256 8.77830601 198.41200256
+		 1.78548908 205.40481567 316.46224976 205.40481567 309.46942139 205.40481567 302.47662354
+		 205.40481567 295.48379517 205.40481567 288.49099731 205.40481567 281.49816895 205.40481567
+		 274.50537109 205.40481567 267.51254272 205.40481567 260.51971436 205.40481567 253.52690125
+		 205.40481567 246.53408813 205.40481567 239.54127502 205.40481567 232.54838562 205.40481567
+		 225.55563354 205.40481567 218.56282043 205.40481567 211.57000732 205.40481567 204.57719421
+		 205.40481567 197.5843811 205.40481567 190.59156799 205.40481567 183.59872437 205.40481567
+		 176.60592651 205.40481567 169.61309814 205.40481567 162.62020874 205.40481567 155.62745667
+		 205.40481567 148.63470459 205.40481567 141.64183044 205.40481567 134.64901733 205.40481567
+		 127.65621948 205.40481567 120.66334534 205.40481567 113.6705246 205.40481567 106.67772675
+		 205.40481567 99.68494415 205.40481567 92.69210052 205.40481567 85.69927979 205.40481567
+		 78.70646667 205.40481567 71.71365356 205.40481567 64.72079468 205.40481567 57.72802353
+		 205.40481567 50.73520279 205.40481567 43.74238586 205.40481567 36.74956894 205.40481567
+		 29.75675964 205.40481567 22.76394081 205.40481567 15.77112293 205.40481567 8.77830601
+		 205.40481567 1.78548908 212.39764404 316.46224976 212.39764404 309.46942139 212.39764404
+		 302.47662354 212.39764404 295.48379517 212.39764404 288.49099731 212.39764404 281.49816895
+		 212.39764404 274.50537109 212.39764404 267.51254272 212.39764404 260.51971436 212.39764404
+		 253.52690125 212.39764404 246.53408813 212.39764404 239.54127502 212.39764404 232.54838562
+		 212.39764404 225.55563354 212.39764404 218.56282043 212.39764404 211.57000732 212.39764404
+		 204.57719421 212.39764404 197.5843811 212.39764404 190.59156799 212.39764404 183.59872437
+		 212.39764404 176.60592651 212.39764404 169.61309814 212.39764404 162.62020874 212.39764404
+		 155.62745667 212.39764404 148.63470459 212.39764404 141.64183044 212.39764404 134.64901733
+		 212.39764404 127.65621948 212.39764404 120.66334534 212.39764404 113.6705246 212.39764404
+		 106.67772675 212.39764404 99.68494415 212.39764404 92.69210052 212.39764404 85.69927979
+		 212.39764404 78.70646667 212.39764404 71.71365356 212.39764404 64.72079468 212.39764404
+		 57.72802353 212.39764404 50.73520279 212.39764404 43.74238586 212.39764404 36.74956894
+		 212.39764404 29.75675964 212.39764404 22.76394081 212.39764404 15.77112293 212.39764404
+		 8.77830601 212.39764404 1.78548908 219.39045715 316.46224976 219.39045715 309.46942139
+		 219.39045715 302.47662354 219.39045715 295.48379517 219.39045715 288.49099731 219.39045715
+		 281.49816895 219.39045715 274.50537109 219.39045715 267.51254272 219.39045715 260.51971436
+		 219.39045715 253.52690125 219.39045715 246.53408813 219.39045715 239.54127502 219.39045715
+		 232.54838562 219.39045715 225.55563354 219.39045715 218.56282043 219.39045715 211.57000732
+		 219.39045715 204.57719421 219.39045715 197.5843811 219.39045715 190.59156799 219.39045715
+		 183.59872437 219.39045715 176.60592651 219.39045715 169.61309814 219.39045715 162.62020874
+		 219.39045715 155.62745667 219.39045715 148.63470459 219.39045715 141.64183044 219.39045715
+		 134.64901733 219.39045715 127.65621948 219.39045715 120.66334534 219.39045715 113.6705246
+		 219.39045715 106.67772675 219.39045715 99.68494415 219.39045715 92.69210052 219.39045715
+		 85.69927979 219.39045715 78.70646667 219.39045715 71.71365356 219.39045715 64.72079468
+		 219.39045715 57.72802353 219.39045715 50.73520279 219.39045715 43.74238586;
+	setAttr ".uvtk[11250:11420]" 219.39045715 36.74956894 219.39045715 29.75675964
+		 219.39045715 22.76394081 219.39045715 15.77112293 219.39045715 8.77830601 219.39045715
+		 1.78548908 226.38327026 295.48379517 226.38327026 288.49099731 226.38327026 281.49816895
+		 226.38327026 274.50537109 226.38327026 267.51254272 226.38327026 260.51971436 226.38327026
+		 253.52690125 226.38327026 246.53408813 226.38327026 239.54127502 226.38327026 232.54838562
+		 226.38327026 225.55563354 226.38327026 218.56282043 226.38327026 211.57000732 226.38327026
+		 204.57719421 226.38327026 197.5843811 226.38327026 190.59156799 226.38327026 183.59872437
+		 226.38327026 176.60592651 226.38327026 169.61309814 226.38327026 162.62020874 226.38327026
+		 155.62745667 226.38327026 148.63470459 226.38327026 141.64183044 226.38327026 134.64901733
+		 226.38327026 127.65621948 226.38327026 120.66334534 226.38327026 113.6705246 226.38327026
+		 106.67772675 226.38327026 99.68494415 226.38327026 92.69210052 226.38327026 85.69927979
+		 226.38327026 78.70646667 226.38327026 71.71365356 226.38327026 64.72079468 226.38327026
+		 57.72802353 226.38327026 50.73520279 226.38327026 43.74238586 226.38327026 36.74956894
+		 226.38327026 29.75675964 226.38327026 22.76394081 226.38327026 15.77112293 226.38327026
+		 8.77830601 226.38327026 1.78548908 233.37608337 267.51254272 233.37608337 260.51971436
+		 233.37608337 253.52690125 233.37608337 246.53408813 233.37608337 239.54127502 233.37608337
+		 232.54838562 233.37608337 225.55563354 233.37608337 218.56282043 233.37608337 211.57000732
+		 233.37608337 204.57719421 233.37608337 197.5843811 233.37608337 190.59156799 233.37608337
+		 183.59872437 233.37608337 176.60592651 233.37608337 169.61309814 233.37608337 162.62020874
+		 233.37608337 155.62745667 233.37608337 148.63470459 233.37608337 141.64183044 233.37608337
+		 134.64901733 233.37608337 127.65621948 233.37608337 120.66334534 233.37608337 113.6705246
+		 233.37608337 106.67772675 233.37608337 99.68494415 233.37608337 92.69210052 233.37608337
+		 85.69927979 233.37608337 78.70646667 233.37608337 71.71365356 233.37608337 64.72079468
+		 233.37608337 57.72802353 233.37608337 50.73520279 233.37608337 43.74238586 233.37608337
+		 36.74956894 233.37608337 29.75675964 233.37608337 22.76394081 233.37608337 15.77112293
+		 233.37608337 8.77830601 233.37608337 1.78548908 240.36889648 246.53408813 240.36889648
+		 239.54127502 240.36889648 232.54838562 240.36889648 225.55563354 240.36889648 218.56282043
+		 240.36889648 211.57000732 240.36889648 204.57719421 240.36889648 197.5843811 240.36889648
+		 190.59156799 240.36889648 183.59872437 240.36889648 176.60592651 240.36889648 169.61309814
+		 240.36889648 162.62020874 240.36889648 155.62745667 240.36889648 148.63470459 240.36889648
+		 141.64183044 240.36889648 134.64901733 240.36889648 127.65621948 240.36889648 120.66334534
+		 240.36889648 113.6705246 240.36889648 106.67772675 240.36889648 99.68494415 240.36889648
+		 92.69210052 240.36889648 85.69927979 240.36889648 78.70646667 240.36889648 71.71365356
+		 240.36889648 64.72079468 240.36889648 57.72802353 240.36889648 50.73520279 240.36889648
+		 43.74238586 240.36889648 36.74956894 240.36889648 29.75675964 240.36889648 22.76394081
+		 240.36889648 15.77112293 240.36889648 8.77830601 240.36889648 1.78548908 247.36170959
+		 204.57719421 247.36170959 197.5843811 247.36170959 190.59156799 247.36170959 183.59872437
+		 247.36170959 176.60592651 247.36170959 169.61309814 247.36170959 162.62020874 247.36170959
+		 155.62745667 247.36170959 148.63470459 247.36170959 141.64183044 247.36170959 134.64901733
+		 247.36170959 127.65621948 247.36170959 120.66334534 247.36170959 113.6705246 247.36170959
+		 106.67772675 247.36170959 99.68494415 247.36170959 92.69210052 247.36170959 85.69927979
+		 247.36170959 78.70646667 247.36170959 71.71365356 247.36170959 64.72079468 247.36170959
+		 57.72802353 247.36170959 50.73520279 247.36170959 43.74238586 247.36170959 36.74956894
+		 247.36170959 29.75675964 247.36170959 22.76394081 247.36170959 15.77112293 254.35452271
+		 141.64183044 254.35452271 134.64901733 254.35452271 127.65621948 254.35452271 120.66334534
+		 254.35452271 113.6705246 254.35452271 106.67772675 254.35452271 99.68494415 254.35452271
+		 92.69210052 254.35452271 85.69927979 254.35452271 78.70646667 254.35452271 71.71365356
+		 254.35452271 64.72079468 254.35452271 57.72802353 254.35452271 50.73520279 254.35452271
+		 43.74238586 254.35452271 36.74956894 233.37608337 274.50543213 210.8258667 0.23288482
+		 227.77415466 295.97045898;
+createNode shadingEngine -n "ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:set1";
+	rename -uid "B50E1183-49E0-9CB0-68BE-23A60CBA20DA";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[0].aov_name" -type "string" "Z";
+	setAttr ".aovs[1].aov_name" -type "string" "albedo";
+	setAttr ".aovs[2].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[3].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[0]","ai_aov_albedo"
+		,"aiCustomAOVs[1]","ai_aov_diffuse","aiCustomAOVs[2]","ai_aov_specular","aiCustomAOVs[3]"
+		} ;
+createNode materialInfo -n "ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:materialInfo1";
+	rename -uid "3AF5AD21-4144-CD43-9BE0-DF94E9773A8C";
+createNode nodeGraphEditorInfo -n "ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:hyperShadePrimaryNodeEditorSavedTabsInfo";
+	rename -uid "33244CCF-4C19-83FE-678A-11A341ACB4B3";
+	setAttr ".tgi[0].tn" -type "string" "Untitled_1";
+	setAttr ".tgi[0].vl" -type "double2" -44.04761729732396 -753.33330339855729 ;
+	setAttr ".tgi[0].vh" -type "double2" 605.9523568739977 178.33332624700361 ;
+createNode nodeGraphEditorInfo -n "MayaNodeEditorSavedTabsInfo";
+	rename -uid "5D024042-483D-B292-42FF-A7AD23FD0180";
+	setAttr ".tgi[0].tn" -type "string" "Untitled_1";
+	setAttr ".tgi[0].vl" -type "double2" -622.02378480680511 -301.78570229382797 ;
+	setAttr ".tgi[0].vh" -type "double2" 601.78569037289947 313.69046372553709 ;
+createNode place2dTexture -n "place2dTexture29";
+	rename -uid "0BAAF459-4D23-4EA6-A480-2E9998948C73";
+createNode file -n "file119";
+	rename -uid "1DF6DDAF-4945-19A4-76DB-ADBB027127B6";
+	setAttr ".ail" yes;
+	setAttr ".ftn" -type "string" "C:/Users/GuyBF/Personal Projects/SchoolProjects/ScientistWoman/Textures/Clothing/Clothing1/FinalClothing2_initialShadingGroup_Normal.1001.png";
+	setAttr ".cs" -type "string" "Raw";
+createNode file -n "file120";
+	rename -uid "E4F54B75-4801-233C-5E94-7D8C0E67E9E9";
+	setAttr ".ftn" -type "string" "C:/Users/GuyBF/Personal Projects/SchoolProjects/ScientistWoman/Textures/Clothing/Clothing1/FinalClothing2_initialShadingGroup_BaseColor.1001.png";
+	setAttr ".cs" -type "string" "sRGB";
+createNode file -n "file121";
+	rename -uid "6CCE8BC9-44F7-CB7B-C8BF-AE9AE4B4198C";
+	setAttr ".ail" yes;
+	setAttr ".ftn" -type "string" "C:/Users/GuyBF/Personal Projects/SchoolProjects/ScientistWoman/Textures/Clothing/Clothing1/FinalClothing2_initialShadingGroup_Roughness.1001.png";
+	setAttr ".cs" -type "string" "Raw";
+createNode file -n "file122";
+	rename -uid "B0BA613C-4F83-3EB2-1169-11AB953108F1";
+	setAttr ".ail" yes;
+	setAttr ".ao" -0.5;
+	setAttr ".ftn" -type "string" "C:/Users/GuyBF/Personal Projects/SchoolProjects/ScientistWoman/Textures/Clothing/Clothing1/FinalClothing2_initialShadingGroup_Height.1001.png";
+	setAttr ".cs" -type "string" "Raw";
+createNode file -n "file123";
+	rename -uid "E4BFB2D7-48E1-8548-640B-D4AF362E32C4";
+	setAttr ".ail" yes;
+	setAttr ".ftn" -type "string" "C:/Users/GuyBF/Personal Projects/SchoolProjects/ScientistWoman/Textures/Clothing/Clothing1/FinalClothing2_initialShadingGroup_Metallic.1001.png";
+	setAttr ".cs" -type "string" "Raw";
+createNode bump2d -n "bump2d24";
+	rename -uid "22A30BC0-48C5-4553-9A75-2AA18950203E";
+	setAttr ".bi" 1;
+	setAttr ".vc1" -type "float3" 0 9.9999997e-06 0 ;
+	setAttr ".vc2" -type "float3" 9.9999997e-06 9.9999997e-06 0 ;
+createNode aiStandardSurface -n "CLothingTextures";
+	rename -uid "319FDFFF-4A31-046C-94AD-0FB7B45F7C3E";
+	setAttr ".emission" 1;
+	setAttr ".emission_color" -type "float3" 0 0 0 ;
+createNode shadingEngine -n "set24";
+	rename -uid "6A2ACB39-488B-B863-8254-A3B6DB3E915C";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[0].aov_name" -type "string" "Z";
+	setAttr ".aovs[1].aov_name" -type "string" "albedo";
+	setAttr ".aovs[2].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[3].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[0]","ai_aov_albedo"
+		,"aiCustomAOVs[1]","ai_aov_diffuse","aiCustomAOVs[2]","ai_aov_specular","aiCustomAOVs[3]"
+		} ;
+createNode materialInfo -n "materialInfo30";
+	rename -uid "37D18309-4B96-12F8-32F0-A49F95E2EF1D";
+createNode multiplyDivide -n "multiplyDivide24";
+	rename -uid "F0A180AB-4936-6A1F-F201-D7A2676CEBBB";
+createNode displacementShader -n "displacementShader1";
+	rename -uid "9C391623-4828-C1AE-B257-CFA630CE4280";
+createNode animCurveTA -n "pCylinder30_rotateZ";
+	rename -uid "1527CA12-441D-C06A-0FE7-A4B12A3D1C3D";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr -s 23 ".ktv[0:22]"  36 0 43 15.732437269884159 52 56.063074886376143
+		 60 93.152092359274377 67 101.87830093375651 72 102.60648084790567 75 102.98740421869651
+		 78 96.231969616120026 80 93.282533782263286 84 89.857458384334393 88 89.857458384334393
+		 92 89.857458384334393 96 89.857458384334393 99 89.846507118400098 102 89.857458384334393
+		 108 89.862646049585038 120 89.862646049585038 124 89.696647602676137 127 89.323151097131117
+		 132 85.380687983044837 135 69.74522343881587 137 18.13540394082214 144 -2.584998320361986;
+	setAttr -s 23 ".kit[16:22]"  1 18 18 18 18 18 18;
+	setAttr -s 23 ".kot[16:22]"  1 18 18 18 18 18 18;
+	setAttr -s 23 ".kix[16:22]"  1 0.99947930116451045 0.98798189886727605 
+		0.71034949695550609 0.17477647785004888 0.28475519188156928 1;
+	setAttr -s 23 ".kiy[16:22]"  0 -0.032266492584440226 -0.15456962027064547 
+		-0.70384912600290939 -0.98460813666673064 -0.95860027159212235 0;
+	setAttr -s 23 ".kox[16:22]"  1 0.99947930116451067 0.98798189886727605 
+		0.71034949695550609 0.17477647785004888 0.28475519188156934 1;
+	setAttr -s 23 ".koy[16:22]"  0 -0.032266492584440226 -0.15456962027064544 
+		-0.70384912600290939 -0.98460813666673064 -0.95860027159212235 0;
+createNode animCurveTA -n "pCylinder30_rotateY";
+	rename -uid "50C718BD-4C74-E34F-A670-168BAE15B36B";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr -s 23 ".ktv[0:22]"  36 0 43 0.014350236316705263 52 0.050316488171571798
+		 60 0.069802134708702834 67 0.06980213470870282 72 0.06980213470870282 75 0.069802134708702626
+		 78 0.069802134708702723 80 0.069802134708702696 84 0.069802134708702626 88 0.069802134708702626
+		 92 0.069802134708702626 96 0.069802134708702626 99 0.04037795627389297 102 0.069802134708702626
+		 108 0.079525747874774122 120 0.079525747874774122 124 0.079525747874774025 127 0.079525747874773928
+		 132 0.079525747874773733 135 0.07952574787477415 137 0.079525747874774191 144 0.079525747874776426;
+	setAttr -s 23 ".kit[16:22]"  1 18 18 18 18 18 18;
+	setAttr -s 23 ".kot[16:22]"  1 18 18 18 18 18 18;
+	setAttr -s 23 ".kix[16:22]"  1 1 1 1 1 1 1;
+	setAttr -s 23 ".kiy[16:22]"  0 0 0 0 0 0 0;
+	setAttr -s 23 ".kox[16:22]"  1 1 1 1 1 1 1;
+	setAttr -s 23 ".koy[16:22]"  0 0 0 0 0 0 0;
+createNode animCurveTA -n "pCylinder30_rotateX";
+	rename -uid "955A92C4-4600-E34A-336B-67A930ADFE21";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr -s 23 ".ktv[0:22]"  36 0 43 -0.26053936998921734 52 -0.91353381498187902
+		 60 -1.267310433050999 67 -1.2673104330509994 72 -1.2673104330509999 75 -1.2673104330510006
+		 78 -1.2673104330510006 80 -1.2673104330510008 84 -1.2673104330510012 88 -1.2673104330510012
+		 92 -1.2673104330510012 96 -1.2673104330510012 99 -12.619765802495568 102 -1.2673104330510012
+		 108 2.7120123202390403 120 2.7120123202390403 124 2.7120123202390398 127 2.7120123202390398
+		 132 2.7120123202390394 135 2.712012320239042 137 2.7120123202390483 144 2.7120123202390554;
+	setAttr -s 23 ".kit[16:22]"  1 18 18 18 18 18 18;
+	setAttr -s 23 ".kot[16:22]"  1 18 18 18 18 18 18;
+	setAttr -s 23 ".kix[16:22]"  1 1 1 1 1 1 1;
+	setAttr -s 23 ".kiy[16:22]"  0 0 0 0 0 0 0;
+	setAttr -s 23 ".kox[16:22]"  1 1 1 1 1 1 1;
+	setAttr -s 23 ".koy[16:22]"  0 0 0 0 0 0 0;
+createNode animCurveTL -n "pCylinder30_translateZ";
+	rename -uid "90F66E1D-495C-09C3-F549-C4A4767BF03E";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr -s 23 ".ktv[0:22]"  36 -87.069833223899778 43 -87.043933605709142
+		 52 -86.936713155845993 60 -86.902335356734412 67 -86.906244002926016 72 -86.902335356734412
+		 75 -86.898367221746824 78 -86.895820476699242 80 -86.899370064625415 84 -86.928667832752254
+		 88 -86.96505112347721 92 -86.9379259296756 96 -86.890732077945856 99 -86.860452894751802
+		 102 -86.896005602045008 108 -86.947658850066915 120 -86.947658850066915 124 -86.957291036890922
+		 127 -86.947202883196155 132 -86.907003201943056 135 -86.917770358958919 137 -86.92491890536796
+		 144 -86.838962250186256;
+	setAttr -s 23 ".kit[16:22]"  1 18 18 18 18 18 18;
+	setAttr -s 23 ".kot[16:22]"  1 18 18 18 18 18 18;
+	setAttr -s 23 ".kix[16:22]"  1 1 0.98881074218789344 1 0.99632278043653288 
+		1 1;
+	setAttr -s 23 ".kiy[16:22]"  0 0 0.14917545419346626 0 -0.085679152558930285 
+		0 0;
+	setAttr -s 23 ".kox[16:22]"  1 1 0.98881074218789378 1 0.99632278043653277 
+		1 1;
+	setAttr -s 23 ".koy[16:22]"  0 0 0.14917545419346628 0 -0.085679152558930272 
+		0 0;
+createNode animCurveTL -n "pCylinder30_translateY";
+	rename -uid "714FDE9A-45A2-8A5D-82D3-1FA4671F8C13";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr -s 23 ".ktv[0:22]"  36 -0.12439655523344373 43 -0.13201052760269122
+		 52 -0.16392062933540122 60 -0.18334132872418396 67 -0.19948608628091924 72 -0.24504951422845489
+		 75 -0.24493766746076576 78 -0.24415474008694171 80 -0.22361085533598857 84 -0.16379434366848822
+		 88 -0.14085372377094049 92 -0.12510393699157127 96 -0.12291271456456843 99 -0.12291271456456843
+		 102 -0.12291271456456843 108 -0.10066885663220904 120 -0.10066885663220904 124 -0.11647387018292768
+		 127 -0.14752905360133414 132 -0.19905149000527234 135 -0.16062048256645206 137 -0.10209743997909167
+		 144 0.21041957948134671;
+	setAttr -s 23 ".kit[16:22]"  1 18 18 18 18 18 18;
+	setAttr -s 23 ".kot[16:22]"  1 18 18 18 18 18 18;
+	setAttr -s 23 ".kix[16:22]"  1 0.98733822078436162 0.97065808179512425 
+		1 0.90662985584825062 0.71085004974689459 1;
+	setAttr -s 23 ".kiy[16:22]"  0 -0.15862924628948802 -0.24046390216789248 
+		0 0.42192689471587386 0.70334359083938303 0;
+	setAttr -s 23 ".kox[16:22]"  1 0.98733822078436173 0.97065808179512436 
+		1 0.90662985584825073 0.71085004974689459 1;
+	setAttr -s 23 ".koy[16:22]"  0 -0.15862924628948805 -0.24046390216789251 
+		0 0.42192689471587397 0.70334359083938303 0;
+createNode animCurveTL -n "pCylinder30_translateX";
+	rename -uid "B3075BFC-4DD7-5B60-B7CE-749FCE5A4464";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr -s 23 ".ktv[0:22]"  36 28.656093016831782 43 28.690449611634712
+		 52 28.823393181450257 60 28.897893385676962 67 28.821052138541294 72 28.731624005503665
+		 75 28.730486654539639 78 28.729741726167418 80 28.720793618452291 84 28.723469710220609
+		 88 28.82095850311401 92 28.973081297811657 96 29.06781346646806 99 29.058480024993923
+		 102 29.060829573402085 108 28.61374470022913 120 28.61374470022913 124 28.692442647155005
+		 127 28.793230475388757 132 28.917293924086074 135 28.888672699906213 137 28.76942750912518
+		 144 28.645822445438032;
+	setAttr -s 23 ".kit[16:22]"  1 18 18 18 18 18 18;
+	setAttr -s 23 ".kot[16:22]"  1 18 18 18 18 18 18;
+	setAttr -s 23 ".kix[16:22]"  1 0.85166014701233994 0.82902015677585639 
+		1 0.82426913111296107 0.83936265689161904 1;
+	setAttr -s 23 ".kiy[16:22]"  0 0.52409445140253064 0.55921872255794025 
+		0 -0.56619819806697047 -0.54357182617924749 0;
+	setAttr -s 23 ".kox[16:22]"  1 0.85166014701233994 0.82902015677585628 
+		1 0.82426913111296096 0.83936265689161904 1;
+	setAttr -s 23 ".koy[16:22]"  0 0.52409445140253064 0.55921872255794014 
+		0 -0.56619819806697047 -0.54357182617924749 0;
+createNode nodeGraphEditorInfo -n "hyperShadePrimaryNodeEditorSavedTabsInfo";
+	rename -uid "C712F1ED-450A-6CF2-EBA6-63928723B8CA";
+	setAttr ".tgi[0].tn" -type "string" "Untitled_1";
+	setAttr ".tgi[0].vl" -type "double2" -44.047617297323995 -416.6666501098216 ;
+	setAttr ".tgi[0].vh" -type "double2" 277.38094135882409 44.047617297323995 ;
+	setAttr -s 11 ".tgi[0].ni";
+	setAttr ".tgi[0].ni[0].y" -94.285713195800781;
+	setAttr ".tgi[0].ni[0].nvs" 1923;
+	setAttr ".tgi[0].ni[1].y" -270;
+	setAttr ".tgi[0].ni[1].nvs" 1923;
+	setAttr ".tgi[0].ni[2].x" 497.14285278320312;
+	setAttr ".tgi[0].ni[2].y" 225.71427917480469;
+	setAttr ".tgi[0].ni[2].nvs" 2387;
+	setAttr ".tgi[0].ni[3].x" 497.14285278320312;
+	setAttr ".tgi[0].ni[3].y" -468.57144165039062;
+	setAttr ".tgi[0].ni[3].nvs" 1923;
+	setAttr ".tgi[0].ni[4].y" 81.428573608398438;
+	setAttr ".tgi[0].ni[4].nvs" 1923;
+	setAttr ".tgi[0].ni[5].x" -491.42855834960938;
+	setAttr ".tgi[0].ni[5].y" 210;
+	setAttr ".tgi[0].ni[5].nvs" 1923;
+	setAttr ".tgi[0].ni[6].x" -798.5714111328125;
+	setAttr ".tgi[0].ni[6].y" -142.85714721679688;
+	setAttr ".tgi[0].ni[6].nvs" 1923;
+	setAttr ".tgi[0].ni[7].y" -445.71429443359375;
+	setAttr ".tgi[0].ni[7].nvs" 1923;
+	setAttr ".tgi[0].ni[8].x" -491.42855834960938;
+	setAttr ".tgi[0].ni[8].y" 34.285713195800781;
+	setAttr ".tgi[0].ni[8].nvs" 1923;
+	setAttr ".tgi[0].ni[9].y" 234.28572082519531;
+	setAttr ".tgi[0].ni[9].nvs" 1923;
+	setAttr ".tgi[0].ni[10].x" 845.71429443359375;
+	setAttr ".tgi[0].ni[10].y" -100;
+	setAttr ".tgi[0].ni[10].nvs" 1923;
 select -ne :time1;
-	setAttr ".o" 168;
-	setAttr ".unw" 168;
+	setAttr ".o" 164;
+	setAttr ".unw" 164;
 select -ne :hardwareRenderingGlobals;
 	setAttr ".otfna" -type "stringArray" 22 "NURBS Curves" "NURBS Surfaces" "Polygons" "Subdiv Surface" "Particles" "Particle Instance" "Fluids" "Strokes" "Image Planes" "UI" "Lights" "Cameras" "Locators" "Joints" "IK Handles" "Deformers" "Motion Trails" "Components" "Hair Systems" "Follicles" "Misc. UI" "Ornaments"  ;
 	setAttr ".otfva" -type "Int32Array" 22 0 1 1 1 1 1
@@ -18207,31 +22932,52 @@ select -ne :hardwareRenderingGlobals;
 		 0 0 0 0 ;
 	setAttr ".fprt" yes;
 select -ne :renderPartition;
-	setAttr -s 83 ".st";
+	setAttr -s 85 ".st";
 select -ne :renderGlobalsList1;
 select -ne :defaultShaderList1;
-	setAttr -s 28 ".s";
+	setAttr -s 30 ".s";
 select -ne :postProcessList1;
 	setAttr -s 2 ".p";
 select -ne :defaultRenderUtilityList1;
-	setAttr -s 153 ".u";
+	setAttr -s 156 ".u";
 select -ne :defaultRenderingList1;
-	setAttr -s 3 ".r";
+	setAttr -s 7 ".r";
 select -ne :lightList1;
 	setAttr -s 4 ".l";
 select -ne :defaultTextureList1;
-	setAttr -s 328 ".tx";
+	setAttr -s 333 ".tx";
 select -ne :initialShadingGroup;
-	setAttr -s 18 ".dsm";
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
+	setAttr -s 17 ".dsm";
 	setAttr ".ro" yes;
 	setAttr -s 2 ".gn";
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4].aovName","ai_aov_diffuse","aiCustomAOVs[5].aovName","ai_aov_specular"
+		,"aiCustomAOVs[6].aovName"} ;
 select -ne :initialParticleSE;
+	addAttr -ci true -h true -sn "aal" -ln "attributeAliasList" -dt "attributeAlias";
 	setAttr ".ro" yes;
+	setAttr -s 4 ".aovs";
+	setAttr ".aovs[3].aov_name" -type "string" "Z";
+	setAttr ".aovs[4].aov_name" -type "string" "albedo";
+	setAttr ".aovs[5].aov_name" -type "string" "diffuse";
+	setAttr ".aovs[6].aov_name" -type "string" "specular";
+	setAttr ".aal" -type "attributeAlias" {"ai_aov_Z","aiCustomAOVs[3]","ai_aov_albedo"
+		,"aiCustomAOVs[4].aovName","ai_aov_diffuse","aiCustomAOVs[5].aovName","ai_aov_specular"
+		,"aiCustomAOVs[6].aovName"} ;
 select -ne :defaultRenderGlobals;
 	addAttr -ci true -h true -sn "dss" -ln "defaultSurfaceShader" -dt "string";
 	setAttr ".ren" -type "string" "arnold";
 	setAttr ".outf" 51;
 	setAttr ".imfkey" -type "string" "exr";
+	setAttr ".an" yes;
+	setAttr ".ef" 168;
+	setAttr ".pff" yes;
 	setAttr ".dss" -type "string" "lambert1";
 select -ne :defaultResolution;
 	setAttr ".w" 1080;
@@ -18921,10 +23667,33 @@ connectAttr "TestRoomNoSubstanceRN.phl[5]" ":initialShadingGroup.dsm" -na;
 connectAttr "TestRoomNoSubstanceRN.phl[6]" ":initialShadingGroup.dsm" -na;
 connectAttr "TestRoomNoSubstanceRN.phl[7]" ":initialShadingGroup.dsm" -na;
 connectAttr "SceneLayer.di" "Scene.do";
+connectAttr "rs_Experiment_Box_rl.ri" "pCylinder27.rlio[0]";
+connectAttr "rs_Z_rl.ri" "pCylinder27.rlio[1]";
 connectAttr "polyAutoProj13.out" "pCylinderShape27.i";
+connectAttr "rs_Experiment_Box_rl.ri" "TestBoxMain.rlio[0]";
+connectAttr "rs_Z_rl.ri" "TestBoxMain.rlio[1]";
 connectAttr "polyClean2.out" "TestBoxMainShape.i";
-connectAttr "FirstTry:FirstTry_AlembicNode.opoly[0]" "FirstTry:cloth_shape_0.i";
-connectAttr "SecondTry:SecondTry_AlembicNode.opoly[0]" "SecondTry:cloth_shape_0.i"
+connectAttr "rs_Character_rl.ri" "aiAreaLightShape1.rlio[0]";
+connectAttr "rs_Background_rl.ri" "aiAreaLightShape1.rlio[1]";
+connectAttr "rs_Experiment_Box_rl.ri" "aiAreaLightShape1.rlio[2]";
+connectAttr "rs_Z_rl.ri" "aiAreaLightShape1.rlio[3]";
+connectAttr "rs_Character_rl.ri" "aiAreaLightShape2.rlio[0]";
+connectAttr "rs_Background_rl.ri" "aiAreaLightShape2.rlio[1]";
+connectAttr "rs_Experiment_Box_rl.ri" "aiAreaLightShape2.rlio[2]";
+connectAttr "rs_Z_rl.ri" "aiAreaLightShape2.rlio[3]";
+connectAttr "rs_Z_rl.ri" "pCylinder30.rlio[0]";
+connectAttr "pCylinder30_translateX.o" "pCylinder30.tx";
+connectAttr "pCylinder30_translateY.o" "pCylinder30.ty";
+connectAttr "pCylinder30_translateZ.o" "pCylinder30.tz";
+connectAttr "pCylinder30_rotateX.o" "pCylinder30.rx";
+connectAttr "pCylinder30_rotateY.o" "pCylinder30.ry";
+connectAttr "pCylinder30_rotateZ.o" "pCylinder30.rz";
+connectAttr "rs_Character_rl.ri" "aiAreaLightShape3.rlio[0]";
+connectAttr "rs_Background_rl.ri" "aiAreaLightShape3.rlio[1]";
+connectAttr "rs_Experiment_Box_rl.ri" "aiAreaLightShape3.rlio[2]";
+connectAttr "rs_Z_rl.ri" "aiAreaLightShape3.rlio[3]";
+connectAttr "ThirdTry:polyTweakUV1.out" "FourthTry:cloth_shape_0.i";
+connectAttr "ThirdTry:polyTweakUV1.uvtk[0]" "FourthTry:cloth_shape_0.uvst[0].uvtw"
 		;
 relationship "link" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
@@ -18963,6 +23732,8 @@ relationship "link" ":lightLinker1" "set20.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" "set21.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" "set22.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" "set23.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:set1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "set24.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" "phong1SG.message" ":defaultLightSet.message";
@@ -19000,12 +23771,18 @@ relationship "shadowLink" ":lightLinker1" "set20.message" ":defaultLightSet.mess
 relationship "shadowLink" ":lightLinker1" "set21.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" "set22.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" "set23.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:set1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "set24.message" ":defaultLightSet.message";
 connectAttr "layerManager.dli[0]" "defaultLayer.id";
 connectAttr "renderLayerManager.rlmi[0]" "defaultRenderLayer.rlid";
 connectAttr ":defaultArnoldDisplayDriver.msg" ":defaultArnoldRenderOptions.drivers"
 		 -na;
 connectAttr ":defaultArnoldFilter.msg" ":defaultArnoldRenderOptions.filt";
 connectAttr ":defaultArnoldDriver.msg" ":defaultArnoldRenderOptions.drvr";
+connectAttr "aiAOV_Z.msg" ":defaultArnoldRenderOptions.aovs" -na;
+connectAttr "aiAOV_albedo.msg" ":defaultArnoldRenderOptions.aovs" -na;
+connectAttr "aiAOV_diffuse.msg" ":defaultArnoldRenderOptions.aovs" -na;
+connectAttr "aiAOV_specular.msg" ":defaultArnoldRenderOptions.aovs" -na;
 connectAttr "phong1SG.msg" "materialInfo1.sg";
 connectAttr "blinn1SG.msg" "materialInfo2.sg";
 connectAttr "lambert2SG.msg" "materialInfo3.sg";
@@ -22154,11 +26931,357 @@ connectAttr "deleteComponent1.og" "deleteComponent2.ig";
 connectAttr "deleteComponent2.og" "polyMapDel6.ip";
 connectAttr "polyMapDel6.out" "polyAutoProj13.ip";
 connectAttr "pCylinderShape27.wm" "polyAutoProj13.mp";
+connectAttr "sharedReferenceNode.sr" "TestRoomNoSubstanceRN.sr";
 connectAttr "layerManager.dli[2]" "layer1.id";
 connectAttr "polyAutoProj6.out" "polyClean1.ip";
 connectAttr "polyClean1.out" "polyClean2.ip";
-connectAttr ":time1.o" "FirstTry:FirstTry_AlembicNode.tm";
-connectAttr ":time1.o" "SecondTry:SecondTry_AlembicNode.tm";
+connectAttr "Character_rl.msg" "renderSetup.frl";
+connectAttr "Z_rl.msg" "renderSetup.lrl";
+connectAttr "rs_Character_rl.msg" "Character_rl.lrl";
+connectAttr "renderSetup.lit" "Character_rl.pls";
+connectAttr "AOVCollection.msg" "Character_rl.cl";
+connectAttr "collection1.msg" "Character_rl.ch";
+connectAttr "renderLayerManager.rlmi[1]" "rs_Character_rl.rlid";
+connectAttr "collection1Selector.c" "collection1.sel";
+connectAttr "Character_rl.lit" "collection1.pls";
+connectAttr "Character_rl.nic" "collection1.pic";
+connectAttr "AOVCollection.nxt" "collection1.prv";
+connectAttr "rs_Experiment_Box_rl.msg" "Experiment_Box_rl.lrl";
+connectAttr "Character_rl.nxt" "Experiment_Box_rl.prv";
+connectAttr "renderSetup.lit" "Experiment_Box_rl.pls";
+connectAttr "RenderSettingsCollection.msg" "Experiment_Box_rl.cl";
+connectAttr "collection2.msg" "Experiment_Box_rl.ch";
+connectAttr "renderLayerManager.rlmi[2]" "rs_Experiment_Box_rl.rlid";
+connectAttr "collection2Selector.c" "collection2.sel";
+connectAttr "Experiment_Box_rl.lit" "collection2.pls";
+connectAttr "Experiment_Box_rl.nic" "collection2.pic";
+connectAttr "AOVCollection2.nxt" "collection2.prv";
+connectAttr "rs_Background_rl.msg" "Background_rl.lrl";
+connectAttr "Experiment_Box_rl.nxt" "Background_rl.prv";
+connectAttr "renderSetup.lit" "Background_rl.pls";
+connectAttr "RenderSettingsCollection1.msg" "Background_rl.cl";
+connectAttr "collection3.msg" "Background_rl.ch";
+connectAttr "renderLayerManager.rlmi[3]" "rs_Background_rl.rlid";
+connectAttr "collection3Selector.c" "collection3.sel";
+connectAttr "Background_rl.lit" "collection3.pls";
+connectAttr "Background_rl.nic" "collection3.pic";
+connectAttr "AOVCollection1.nxt" "collection3.prv";
+connectAttr "AOVCollectionSelector.c" "AOVCollection.sel";
+connectAttr "Character_rl.lit" "AOVCollection.pls";
+connectAttr "Character_rl.nic" "AOVCollection.pic";
+connectAttr "albedo.msg" "AOVCollection.cl";
+connectAttr "Z2.msg" "AOVCollection.ch";
+connectAttr "albedoSelector.c" "albedo.sel";
+connectAttr "AOVCollection.lit" "albedo.pls";
+connectAttr "AOVCollection.en" "albedo.pen";
+connectAttr "Character_rl.nic" "albedo.pic";
+connectAttr "enabled.msg" "albedo.cl";
+connectAttr "enabled.msg" "albedo.ch";
+connectAttr "AOVCollectionSelector.out" "albedoSelector.in";
+connectAttr "albedo.lit" "enabled.pls";
+connectAttr "albedo.en" "enabled.pen";
+connectAttr "diffuseSelector.c" "diffuse.sel";
+connectAttr "albedo.nxt" "diffuse.prv";
+connectAttr "AOVCollection.lit" "diffuse.pls";
+connectAttr "AOVCollection.en" "diffuse.pen";
+connectAttr "Character_rl.nic" "diffuse.pic";
+connectAttr "enabled1.msg" "diffuse.cl";
+connectAttr "enabled1.msg" "diffuse.ch";
+connectAttr "AOVCollectionSelector.out" "diffuseSelector.in";
+connectAttr "diffuse.lit" "enabled1.pls";
+connectAttr "diffuse.en" "enabled1.pen";
+connectAttr "RenderSettingsCollectionSelector.c" "RenderSettingsCollection.sel";
+connectAttr "Experiment_Box_rl.lit" "RenderSettingsCollection.pls";
+connectAttr "Experiment_Box_rl.nic" "RenderSettingsCollection.pic";
+connectAttr "endFrame.msg" "RenderSettingsCollection.cl";
+connectAttr "endFrame.msg" "RenderSettingsCollection.ch";
+connectAttr "RenderSettingsCollection.lit" "endFrame.pls";
+connectAttr "RenderSettingsCollection.en" "endFrame.pen";
+connectAttr "RenderSettingsCollection1Selector.c" "RenderSettingsCollection1.sel"
+		;
+connectAttr "Background_rl.lit" "RenderSettingsCollection1.pls";
+connectAttr "Background_rl.nic" "RenderSettingsCollection1.pic";
+connectAttr "endFrame1.msg" "RenderSettingsCollection1.cl";
+connectAttr "endFrame1.msg" "RenderSettingsCollection1.ch";
+connectAttr "RenderSettingsCollection1.lit" "endFrame1.pls";
+connectAttr "RenderSettingsCollection1.en" "endFrame1.pen";
+connectAttr "AOVCollection1Selector.c" "AOVCollection1.sel";
+connectAttr "RenderSettingsCollection1.nxt" "AOVCollection1.prv";
+connectAttr "Background_rl.lit" "AOVCollection1.pls";
+connectAttr "Background_rl.nic" "AOVCollection1.pic";
+connectAttr "Z.msg" "AOVCollection1.cl";
+connectAttr "specular2.msg" "AOVCollection1.ch";
+connectAttr "ZSelector.c" "Z.sel";
+connectAttr "AOVCollection1.lit" "Z.pls";
+connectAttr "AOVCollection1.en" "Z.pen";
+connectAttr "Background_rl.nic" "Z.pic";
+connectAttr "enabled2.msg" "Z.cl";
+connectAttr "enabled2.msg" "Z.ch";
+connectAttr "AOVCollection1Selector.out" "ZSelector.in";
+connectAttr "Z.lit" "enabled2.pls";
+connectAttr "Z.en" "enabled2.pen";
+connectAttr "specularSelector.c" "specular.sel";
+connectAttr "diffuse.nxt" "specular.prv";
+connectAttr "AOVCollection.lit" "specular.pls";
+connectAttr "AOVCollection.en" "specular.pen";
+connectAttr "Character_rl.nic" "specular.pic";
+connectAttr "enabled3.msg" "specular.cl";
+connectAttr "enabled3.msg" "specular.ch";
+connectAttr "AOVCollectionSelector.out" "specularSelector.in";
+connectAttr "specular.lit" "enabled3.pls";
+connectAttr "specular.en" "enabled3.pen";
+connectAttr "AOVCollection2Selector.c" "AOVCollection2.sel";
+connectAttr "RenderSettingsCollection.nxt" "AOVCollection2.prv";
+connectAttr "Experiment_Box_rl.lit" "AOVCollection2.pls";
+connectAttr "Experiment_Box_rl.nic" "AOVCollection2.pic";
+connectAttr "specular1.msg" "AOVCollection2.cl";
+connectAttr "Z1.msg" "AOVCollection2.ch";
+connectAttr "specular1Selector.c" "specular1.sel";
+connectAttr "AOVCollection2.lit" "specular1.pls";
+connectAttr "AOVCollection2.en" "specular1.pen";
+connectAttr "Experiment_Box_rl.nic" "specular1.pic";
+connectAttr "enabled4.msg" "specular1.cl";
+connectAttr "enabled4.msg" "specular1.ch";
+connectAttr "AOVCollection2Selector.out" "specular1Selector.in";
+connectAttr "specular1.lit" "enabled4.pls";
+connectAttr "specular1.en" "enabled4.pen";
+connectAttr "diffuse1Selector.c" "diffuse1.sel";
+connectAttr "specular1.nxt" "diffuse1.prv";
+connectAttr "AOVCollection2.lit" "diffuse1.pls";
+connectAttr "AOVCollection2.en" "diffuse1.pen";
+connectAttr "Experiment_Box_rl.nic" "diffuse1.pic";
+connectAttr "enabled5.msg" "diffuse1.cl";
+connectAttr "enabled5.msg" "diffuse1.ch";
+connectAttr "AOVCollection2Selector.out" "diffuse1Selector.in";
+connectAttr "diffuse1.lit" "enabled5.pls";
+connectAttr "diffuse1.en" "enabled5.pen";
+connectAttr "albedo1Selector.c" "albedo1.sel";
+connectAttr "diffuse1.nxt" "albedo1.prv";
+connectAttr "AOVCollection2.lit" "albedo1.pls";
+connectAttr "AOVCollection2.en" "albedo1.pen";
+connectAttr "Experiment_Box_rl.nic" "albedo1.pic";
+connectAttr "enabled6.msg" "albedo1.cl";
+connectAttr "enabled6.msg" "albedo1.ch";
+connectAttr "AOVCollection2Selector.out" "albedo1Selector.in";
+connectAttr "albedo1.lit" "enabled6.pls";
+connectAttr "albedo1.en" "enabled6.pen";
+connectAttr "Z1Selector.c" "Z1.sel";
+connectAttr "albedo1.nxt" "Z1.prv";
+connectAttr "AOVCollection2.lit" "Z1.pls";
+connectAttr "AOVCollection2.en" "Z1.pen";
+connectAttr "Experiment_Box_rl.nic" "Z1.pic";
+connectAttr "enabled7.msg" "Z1.cl";
+connectAttr "enabled7.msg" "Z1.ch";
+connectAttr "AOVCollection2Selector.out" "Z1Selector.in";
+connectAttr "Z1.lit" "enabled7.pls";
+connectAttr "Z1.en" "enabled7.pen";
+connectAttr "rs_Z_rl.msg" "Z_rl.lrl";
+connectAttr "Background_rl.nxt" "Z_rl.prv";
+connectAttr "renderSetup.lit" "Z_rl.pls";
+connectAttr "collection4.msg" "Z_rl.cl";
+connectAttr "collection4.msg" "Z_rl.ch";
+connectAttr "renderLayerManager.rlmi[4]" "rs_Z_rl.rlid";
+connectAttr ":defaultArnoldDriver.msg" "aiAOV_Z.out[0].drvr";
+connectAttr "aiAOVFilter1.msg" "aiAOV_Z.out[0].ftr";
+connectAttr "collection4Selector.c" "collection4.sel";
+connectAttr "Z_rl.lit" "collection4.pls";
+connectAttr "Z_rl.nic" "collection4.pic";
+connectAttr ":defaultArnoldDriver.msg" "aiAOV_albedo.out[0].drvr";
+connectAttr ":defaultArnoldFilter.msg" "aiAOV_albedo.out[0].ftr";
+connectAttr ":defaultArnoldDriver.msg" "aiAOV_diffuse.out[0].drvr";
+connectAttr ":defaultArnoldFilter.msg" "aiAOV_diffuse.out[0].ftr";
+connectAttr ":defaultArnoldDriver.msg" "aiAOV_specular.out[0].drvr";
+connectAttr ":defaultArnoldFilter.msg" "aiAOV_specular.out[0].ftr";
+connectAttr "Z2Selector.c" "Z2.sel";
+connectAttr "specular.nxt" "Z2.prv";
+connectAttr "AOVCollection.lit" "Z2.pls";
+connectAttr "AOVCollection.en" "Z2.pen";
+connectAttr "Character_rl.nic" "Z2.pic";
+connectAttr "enabled8.msg" "Z2.cl";
+connectAttr "enabled8.msg" "Z2.ch";
+connectAttr "AOVCollectionSelector.out" "Z2Selector.in";
+connectAttr "Z2.lit" "enabled8.pls";
+connectAttr "Z2.en" "enabled8.pen";
+connectAttr "albedo2Selector.c" "albedo2.sel";
+connectAttr "Z.nxt" "albedo2.prv";
+connectAttr "AOVCollection1.lit" "albedo2.pls";
+connectAttr "AOVCollection1.en" "albedo2.pen";
+connectAttr "Background_rl.nic" "albedo2.pic";
+connectAttr "enabled9.msg" "albedo2.cl";
+connectAttr "enabled9.msg" "albedo2.ch";
+connectAttr "AOVCollection1Selector.out" "albedo2Selector.in";
+connectAttr "albedo2.lit" "enabled9.pls";
+connectAttr "albedo2.en" "enabled9.pen";
+connectAttr "diffuse2Selector.c" "diffuse2.sel";
+connectAttr "albedo2.nxt" "diffuse2.prv";
+connectAttr "AOVCollection1.lit" "diffuse2.pls";
+connectAttr "AOVCollection1.en" "diffuse2.pen";
+connectAttr "Background_rl.nic" "diffuse2.pic";
+connectAttr "enabled10.msg" "diffuse2.cl";
+connectAttr "enabled10.msg" "diffuse2.ch";
+connectAttr "AOVCollection1Selector.out" "diffuse2Selector.in";
+connectAttr "diffuse2.lit" "enabled10.pls";
+connectAttr "diffuse2.en" "enabled10.pen";
+connectAttr "specular2Selector.c" "specular2.sel";
+connectAttr "diffuse2.nxt" "specular2.prv";
+connectAttr "AOVCollection1.lit" "specular2.pls";
+connectAttr "AOVCollection1.en" "specular2.pen";
+connectAttr "Background_rl.nic" "specular2.pic";
+connectAttr "enabled11.msg" "specular2.cl";
+connectAttr "enabled11.msg" "specular2.ch";
+connectAttr "AOVCollection1Selector.out" "specular2Selector.in";
+connectAttr "specular2.lit" "enabled11.pls";
+connectAttr "specular2.en" "enabled11.pen";
+connectAttr ":time1.o" "FourthTry:FourthTry_AlembicNode.tm";
+connectAttr "FourthTry:FourthTry_AlembicNode.opoly[0]" "ThirdTry:polyTweakUV1.ip"
+		;
+connectAttr "ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:set1.msg" "ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:materialInfo1.sg"
+		;
+connectAttr ":defaultColorMgtGlobals.cme" "file119.cme";
+connectAttr ":defaultColorMgtGlobals.cfe" "file119.cmcf";
+connectAttr ":defaultColorMgtGlobals.cfp" "file119.cmcp";
+connectAttr ":defaultColorMgtGlobals.wsn" "file119.ws";
+connectAttr "place2dTexture29.o" "file119.uv";
+connectAttr "place2dTexture29.ofs" "file119.fs";
+connectAttr "place2dTexture29.c" "file119.c";
+connectAttr "place2dTexture29.tf" "file119.tf";
+connectAttr "place2dTexture29.rf" "file119.rf";
+connectAttr "place2dTexture29.mu" "file119.mu";
+connectAttr "place2dTexture29.mv" "file119.mv";
+connectAttr "place2dTexture29.s" "file119.s";
+connectAttr "place2dTexture29.wu" "file119.wu";
+connectAttr "place2dTexture29.wv" "file119.wv";
+connectAttr "place2dTexture29.re" "file119.re";
+connectAttr "place2dTexture29.of" "file119.of";
+connectAttr "place2dTexture29.r" "file119.ro";
+connectAttr "place2dTexture29.n" "file119.n";
+connectAttr "place2dTexture29.vt1" "file119.vt1";
+connectAttr "place2dTexture29.vt2" "file119.vt2";
+connectAttr "place2dTexture29.vt3" "file119.vt3";
+connectAttr "place2dTexture29.vc1" "file119.vc1";
+connectAttr ":defaultColorMgtGlobals.cme" "file120.cme";
+connectAttr ":defaultColorMgtGlobals.cfe" "file120.cmcf";
+connectAttr ":defaultColorMgtGlobals.cfp" "file120.cmcp";
+connectAttr ":defaultColorMgtGlobals.wsn" "file120.ws";
+connectAttr "place2dTexture29.o" "file120.uv";
+connectAttr "place2dTexture29.ofs" "file120.fs";
+connectAttr "place2dTexture29.c" "file120.c";
+connectAttr "place2dTexture29.tf" "file120.tf";
+connectAttr "place2dTexture29.rf" "file120.rf";
+connectAttr "place2dTexture29.mu" "file120.mu";
+connectAttr "place2dTexture29.mv" "file120.mv";
+connectAttr "place2dTexture29.s" "file120.s";
+connectAttr "place2dTexture29.wu" "file120.wu";
+connectAttr "place2dTexture29.wv" "file120.wv";
+connectAttr "place2dTexture29.re" "file120.re";
+connectAttr "place2dTexture29.of" "file120.of";
+connectAttr "place2dTexture29.r" "file120.ro";
+connectAttr "place2dTexture29.n" "file120.n";
+connectAttr "place2dTexture29.vt1" "file120.vt1";
+connectAttr "place2dTexture29.vt2" "file120.vt2";
+connectAttr "place2dTexture29.vt3" "file120.vt3";
+connectAttr "place2dTexture29.vc1" "file120.vc1";
+connectAttr ":defaultColorMgtGlobals.cme" "file121.cme";
+connectAttr ":defaultColorMgtGlobals.cfe" "file121.cmcf";
+connectAttr ":defaultColorMgtGlobals.cfp" "file121.cmcp";
+connectAttr ":defaultColorMgtGlobals.wsn" "file121.ws";
+connectAttr "place2dTexture29.o" "file121.uv";
+connectAttr "place2dTexture29.ofs" "file121.fs";
+connectAttr "place2dTexture29.c" "file121.c";
+connectAttr "place2dTexture29.tf" "file121.tf";
+connectAttr "place2dTexture29.rf" "file121.rf";
+connectAttr "place2dTexture29.mu" "file121.mu";
+connectAttr "place2dTexture29.mv" "file121.mv";
+connectAttr "place2dTexture29.s" "file121.s";
+connectAttr "place2dTexture29.wu" "file121.wu";
+connectAttr "place2dTexture29.wv" "file121.wv";
+connectAttr "place2dTexture29.re" "file121.re";
+connectAttr "place2dTexture29.of" "file121.of";
+connectAttr "place2dTexture29.r" "file121.ro";
+connectAttr "place2dTexture29.n" "file121.n";
+connectAttr "place2dTexture29.vt1" "file121.vt1";
+connectAttr "place2dTexture29.vt2" "file121.vt2";
+connectAttr "place2dTexture29.vt3" "file121.vt3";
+connectAttr "place2dTexture29.vc1" "file121.vc1";
+connectAttr ":defaultColorMgtGlobals.cme" "file122.cme";
+connectAttr ":defaultColorMgtGlobals.cfe" "file122.cmcf";
+connectAttr ":defaultColorMgtGlobals.cfp" "file122.cmcp";
+connectAttr ":defaultColorMgtGlobals.wsn" "file122.ws";
+connectAttr "place2dTexture29.o" "file122.uv";
+connectAttr "place2dTexture29.ofs" "file122.fs";
+connectAttr "place2dTexture29.c" "file122.c";
+connectAttr "place2dTexture29.tf" "file122.tf";
+connectAttr "place2dTexture29.rf" "file122.rf";
+connectAttr "place2dTexture29.mu" "file122.mu";
+connectAttr "place2dTexture29.mv" "file122.mv";
+connectAttr "place2dTexture29.s" "file122.s";
+connectAttr "place2dTexture29.wu" "file122.wu";
+connectAttr "place2dTexture29.wv" "file122.wv";
+connectAttr "place2dTexture29.re" "file122.re";
+connectAttr "place2dTexture29.of" "file122.of";
+connectAttr "place2dTexture29.r" "file122.ro";
+connectAttr "place2dTexture29.n" "file122.n";
+connectAttr "place2dTexture29.vt1" "file122.vt1";
+connectAttr "place2dTexture29.vt2" "file122.vt2";
+connectAttr "place2dTexture29.vt3" "file122.vt3";
+connectAttr "place2dTexture29.vc1" "file122.vc1";
+connectAttr ":defaultColorMgtGlobals.cme" "file123.cme";
+connectAttr ":defaultColorMgtGlobals.cfe" "file123.cmcf";
+connectAttr ":defaultColorMgtGlobals.cfp" "file123.cmcp";
+connectAttr ":defaultColorMgtGlobals.wsn" "file123.ws";
+connectAttr "place2dTexture29.o" "file123.uv";
+connectAttr "place2dTexture29.ofs" "file123.fs";
+connectAttr "place2dTexture29.c" "file123.c";
+connectAttr "place2dTexture29.tf" "file123.tf";
+connectAttr "place2dTexture29.rf" "file123.rf";
+connectAttr "place2dTexture29.mu" "file123.mu";
+connectAttr "place2dTexture29.mv" "file123.mv";
+connectAttr "place2dTexture29.s" "file123.s";
+connectAttr "place2dTexture29.wu" "file123.wu";
+connectAttr "place2dTexture29.wv" "file123.wv";
+connectAttr "place2dTexture29.re" "file123.re";
+connectAttr "place2dTexture29.of" "file123.of";
+connectAttr "place2dTexture29.r" "file123.ro";
+connectAttr "place2dTexture29.n" "file123.n";
+connectAttr "place2dTexture29.vt1" "file123.vt1";
+connectAttr "place2dTexture29.vt2" "file123.vt2";
+connectAttr "place2dTexture29.vt3" "file123.vt3";
+connectAttr "place2dTexture29.vc1" "file123.vc1";
+connectAttr "file119.oa" "bump2d24.bv";
+connectAttr "bump2d24.o" "CLothingTextures.n";
+connectAttr "multiplyDivide24.o" "CLothingTextures.base_color";
+connectAttr "file121.oa" "CLothingTextures.specular_roughness";
+connectAttr "file123.oa" "CLothingTextures.metalness";
+connectAttr "CLothingTextures.out" "set24.ss";
+connectAttr "displacementShader1.d" "set24.ds";
+connectAttr "FourthTry:cloth_shape_0.iog" "set24.dsm" -na;
+connectAttr "set24.msg" "materialInfo30.sg";
+connectAttr "CLothingTextures.msg" "materialInfo30.m";
+connectAttr "CLothingTextures.msg" "materialInfo30.t" -na;
+connectAttr "file120.oc" "multiplyDivide24.i1";
+connectAttr "file122.oa" "displacementShader1.d";
+connectAttr "file121.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[0].dn"
+		;
+connectAttr "file123.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[1].dn"
+		;
+connectAttr "CLothingTextures.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[2].dn"
+		;
+connectAttr "displacementShader1.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[3].dn"
+		;
+connectAttr "multiplyDivide24.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[4].dn"
+		;
+connectAttr "file119.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[5].dn"
+		;
+connectAttr "place2dTexture29.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[6].dn"
+		;
+connectAttr "file122.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[7].dn"
+		;
+connectAttr "file120.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[8].dn"
+		;
+connectAttr "bump2d24.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[9].dn"
+		;
+connectAttr "set24.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[10].dn"
+		;
 connectAttr "phong1SG.pa" ":renderPartition.st" -na;
 connectAttr "blinn1SG.pa" ":renderPartition.st" -na;
 connectAttr "lambert2SG.pa" ":renderPartition.st" -na;
@@ -22194,6 +27317,11 @@ connectAttr "set20.pa" ":renderPartition.st" -na;
 connectAttr "set21.pa" ":renderPartition.st" -na;
 connectAttr "set22.pa" ":renderPartition.st" -na;
 connectAttr "set23.pa" ":renderPartition.st" -na;
+connectAttr "ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:ThirdTry:set1.pa" ":renderPartition.st"
+		 -na;
+connectAttr "set24.pa" ":renderPartition.st" -na;
+connectAttr "CLothingTextures.msg" ":defaultShaderList1.s" -na;
+connectAttr "displacementShader1.msg" ":defaultShaderList1.s" -na;
 connectAttr "TempExport1:defaultMat1P2D.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "place2dTexture1.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "place2dTexture2.msg" ":defaultRenderUtilityList1.u" -na;
@@ -22269,7 +27397,14 @@ connectAttr "bump2d22.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "place2dTexture28.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "multiplyDivide23.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "bump2d23.msg" ":defaultRenderUtilityList1.u" -na;
+connectAttr "place2dTexture29.msg" ":defaultRenderUtilityList1.u" -na;
+connectAttr "bump2d24.msg" ":defaultRenderUtilityList1.u" -na;
+connectAttr "multiplyDivide24.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "defaultRenderLayer.msg" ":defaultRenderingList1.r" -na;
+connectAttr "rs_Character_rl.msg" ":defaultRenderingList1.r" -na;
+connectAttr "rs_Experiment_Box_rl.msg" ":defaultRenderingList1.r" -na;
+connectAttr "rs_Background_rl.msg" ":defaultRenderingList1.r" -na;
+connectAttr "rs_Z_rl.msg" ":defaultRenderingList1.r" -na;
 connectAttr "aiAreaLightShape1.ltd" ":lightList1.l" -na;
 connectAttr "aiAreaLightShape2.ltd" ":lightList1.l" -na;
 connectAttr "aiAreaLightShape3.ltd" ":lightList1.l" -na;
@@ -22462,11 +27597,14 @@ connectAttr "WoodPlain_height.msg" ":defaultTextureList1.tx" -na;
 connectAttr "file117.msg" ":defaultTextureList1.tx" -na;
 connectAttr "WoodPlain_roughness.msg" ":defaultTextureList1.tx" -na;
 connectAttr "file118.msg" ":defaultTextureList1.tx" -na;
+connectAttr "file119.msg" ":defaultTextureList1.tx" -na;
+connectAttr "file120.msg" ":defaultTextureList1.tx" -na;
+connectAttr "file121.msg" ":defaultTextureList1.tx" -na;
+connectAttr "file122.msg" ":defaultTextureList1.tx" -na;
+connectAttr "file123.msg" ":defaultTextureList1.tx" -na;
 connectAttr "pCylinder30Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "TestBoxMainShape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "pCylinderShape27.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "FirstTry:cloth_shape_0.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "SecondTry:cloth_shape_0.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "aiAreaLight1.iog" ":defaultLightSet.dsm" -na;
 connectAttr "aiAreaLight2.iog" ":defaultLightSet.dsm" -na;
 connectAttr "aiAreaLight3.iog" ":defaultLightSet.dsm" -na;
