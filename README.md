@@ -10,3 +10,9 @@ Joint Hierarchy
 
 Rig Optimization
     Added extra features to rig for usefulness, like Ik system and master scale, and other custom attributes.
+
+Rigging Scripts
+    Scripts I made to streamline aspects of character rigging.
+        1. A script that adds constraints to a parent group and custom attributes to the control for those constraints.
+        2. A script for changing all of the control colors in the selection to a specified colors.
+        3. A script for focuing on all of the constraints in the selection, useful for when constraint are applied incorrectly.
